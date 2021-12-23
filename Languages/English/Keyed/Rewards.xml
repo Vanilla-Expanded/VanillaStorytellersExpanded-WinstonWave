@@ -13,8 +13,9 @@
   <VESWW.ItemWQuality>{0} {1} of {2} quality</VESWW.ItemWQuality>
   <VESWW.Pawn>{0} {1}</VESWW.Pawn>
   <VESWW.Research>Unlock {0} researches</VESWW.Research>
-  <VESWW.SkillBoost>Add {0} points to every colonist, slaves and prisonners</VESWW.SkillBoost>
+  <VESWW.SkillBoost>Add {0} points to every colonists, slaves and prisonners</VESWW.SkillBoost>
   <VESWW.Delay>Next wave is delayed by {0} days</VESWW.Delay>
   <VESWW.Weaken>Next wave is wekeaned by {0}</VESWW.Weaken>
   <VESWW.Allies>Next wave will also spawn friendlies to help you out</VESWW.Allies>
+  <VESWW.MassHeal>Instantly heal all damages on all colonists, slaves and prisonners</VESWW.MassHeal>
 </LanguageData>
