@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.ItemRewardDef MayRequire="OskarPotocki.VFE.Mechanoid">
+    <defName>VSEWW_FactoryStarterDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Steel</thing>
+        <count>150</count>
+      </li>
+      <li>
+        <thing>VFE_ComponentMechanoid</thing>
+        <count>5</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef MayRequire="OskarPotocki.VFE.Mechanoid">
+    <defName>VSEWW_FactoryExpansionDrop</defName>
+    <category>Excellent</category>
+    <items>
+      <li>
+        <thing>Steel</thing>
+        <count>400</count>
+      </li>
+      <li>
+        <thing>VFE_ComponentMechanoid</thing>
+        <count>10</count>
+      </li>
+      <li>
+        <thing>ComponentIndustrial</thing>
+        <count>20</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+</Defs>

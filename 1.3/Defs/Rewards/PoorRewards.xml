@@ -71,16 +71,19 @@
     </items>
   </VSEWW.ItemRewardDef>
 
-  <VSEWW.WeaponRewardDef>
+  <VSEWW.RItemRewardDef>
     <defName>VSEWW_PoorWeaponsDrop</defName>
     <category>Poor</category>
-    <weapons>
+    <randomItems>
       <li>
+        <thingCategories>
+          <li>Weapons</li>
+        </thingCategories>
         <quality>Poor</quality>
         <count>3</count>
       </li>
-    </weapons>
-  </VSEWW.WeaponRewardDef>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_PoorCashDrop</defName>

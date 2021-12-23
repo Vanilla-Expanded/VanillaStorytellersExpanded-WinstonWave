@@ -93,16 +93,19 @@
     </items>
   </VSEWW.ItemRewardDef>
 
-  <VSEWW.WeaponRewardDef>
+  <VSEWW.RItemRewardDef>
     <defName>VSEWW_NormalWeaponsDrop</defName>
     <category>Normal</category>
-    <weapons>
+    <randomItems>
       <li>
+        <thingCategories>
+          <li>Weapons</li>
+        </thingCategories>
         <quality>Normal</quality>
         <count>3</count>
       </li>
-    </weapons>
-  </VSEWW.WeaponRewardDef>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_NormalCashDrop</defName>
@@ -211,21 +214,6 @@
     <category>Normal</category>
     <rewardOf>Good</rewardOf>
   </VSEWW.RCategoryRewardDef>
-
-  <VSEWW.ItemRewardDef MayRequire="OskarPotocki.VFE.Mechanoid">
-    <defName>VSEWW_FactoryStarterDrop</defName>
-    <category>Normal</category>
-    <items>
-      <li>
-        <thing>Steel</thing>
-        <count>150</count>
-      </li>
-      <li>
-        <thing>VFE_ComponentMechanoid</thing>
-        <count>5</count>
-      </li>
-    </items>
-  </VSEWW.ItemRewardDef>
 
   <VSEWW.IncidentRewardDef>
     <defName>VSEWW_MeteoriteImpact</defName>

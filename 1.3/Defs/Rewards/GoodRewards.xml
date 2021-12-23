@@ -83,28 +83,33 @@
     </items>
   </VSEWW.ItemRewardDef>
 
-  <VSEWW.WeaponRewardDef>
+  <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodWeaponsDrop</defName>
     <category>Good</category>
-    <weapons>
+    <randomItems>
       <li>
+        <thingCategories>
+          <li>Weapons</li>
+        </thingCategories>
         <quality>Good</quality>
         <count>3</count>
       </li>
-    </weapons>
-  </VSEWW.WeaponRewardDef>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
 
-  <VSEWW.ApparelRewardDef>
+  <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodArmorDrop</defName>
     <category>Good</category>
-    <apparels>
+    <randomItems>
       <li>
-        <apparelTag>ApparelArmor</apparelTag>
+        <thingCategories>
+          <li>ApparelArmor</li>
+        </thingCategories>
         <quality>Good</quality>
         <count>3</count>
       </li>
-    </apparels>
-  </VSEWW.ApparelRewardDef>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodCashDrop</defName>
@@ -154,7 +159,7 @@
   </VSEWW.RItemRewardDef>
 
   <VSEWW.SkillBoosterRewardDef>
-    <defName>VSEWW_SkillBoost</defName>
+    <defName>VSEWW_GoodSkillBoost</defName>
     <category>Good</category>
     <count>2</count>
   </VSEWW.SkillBoosterRewardDef>
@@ -178,7 +183,7 @@
   </VSEWW.WaveModifierRewardDef>
 
   <VSEWW.RItemRewardDef>
-    <defName>VSEWW_ArchotechArtifactsDrop</defName>
+    <defName>VSEWW_GoodArchotechArtifactsDrop</defName>
     <category>Good</category>
     <randomItems>
       <li>
@@ -270,61 +275,13 @@
         <thingCategories>
           <li>BodyPartsProsthetic</li>
         </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsProsthetic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsProsthetic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsProsthetic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsProsthetic</li>
-        </thingCategories>
-        <count>1</count>
+        <count>5</count>
       </li>
       <li>
         <thingCategories>
           <li>BodyPartsBionic</li>
         </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsBionic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsBionic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsBionic</li>
-        </thingCategories>
-        <count>1</count>
-      </li>
-      <li>
-        <thingCategories>
-          <li>BodyPartsBionic</li>
-        </thingCategories>
-        <count>1</count>
+        <count>5</count>
       </li>
     </randomItems>
   </VSEWW.RItemRewardDef>

@@ -20,6 +20,7 @@ namespace VSEWW
     public abstract class RewardDef : Def
     {
         // defName
+        public GraphicData graphicData;
         public RewardCategory category;
 
         public abstract string ToStringHuman();
