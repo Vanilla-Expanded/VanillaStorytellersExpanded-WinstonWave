@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <VESWW.RandomRewardOf>Random reward of the {0} category</VESWW.RandomRewardOf>
+  <VESWW.RewardContain>Reward ({0}) consist of:</VESWW.RewardContain>
+  <VESWW.RandomApparel>{0} random apparel(s) of {1} quality with the {3} tag</VESWW.RandomApparel>
+  <VESWW.RandomWeapons>{0} random weapon(s) of {1} quality with the {3} tag</VESWW.RandomWeapons>
+  <VESWW.RandomThing>{0} random thing(s) of {1} quality within the {3} category</VESWW.RandomThing>
+  <VESWW.RandomThingMC>{0} random thing(s) of {1} quality within the {3} categories</VESWW.RandomThingMC>
+  <VESWW.RandomBlocks>{0} random stone blocks</VESWW.RandomBlocks>
+  <VESWW.RandomPawns>{0} random pawn(s) of {1} intelligence</VESWW.RandomPawns>
+  <VESWW.FiringEvent>The {0} event</VESWW.FiringEvent>
+  <VESWW.Item>{0} {1}</VESWW.Item>
+  <VESWW.ItemWQuality>{0} {1} of {2} quality</VESWW.ItemWQuality>
+  <VESWW.Pawn>{0} {1}</VESWW.Pawn>
+  <VESWW.Research>Unlock {0} researches</VESWW.Research>
+  <VESWW.SkillBoost>Add {0} points to every colonist, slaves and prisonners</VESWW.SkillBoost>
+  <VESWW.Delay>Next wave is delayed by {0} days</VESWW.Delay>
+  <VESWW.Weaken>Next wave is wekeaned by {0}</VESWW.Weaken>
+  <VESWW.Allies>Next wave will also spawn friendlies to help you out</VESWW.Allies>
+</LanguageData>

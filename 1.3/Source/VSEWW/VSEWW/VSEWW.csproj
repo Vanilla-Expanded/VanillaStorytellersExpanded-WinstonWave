@@ -57,9 +57,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Defs\ApparelRewardDef.cs" />
+    <Compile Include="Defs\BlockRewardDef.cs" />
+    <Compile Include="Defs\WaveModifierRewardDef.cs" />
+    <Compile Include="Defs\IncidentRewardDef.cs" />
+    <Compile Include="Defs\RCategoryRewardDef.cs" />
+    <Compile Include="Defs\ReseachRewardDef.cs" />
+    <Compile Include="Defs\RItemRewardDef.cs" />
+    <Compile Include="Defs\ItemRewardDef.cs" />
+    <Compile Include="Defs\PawnRewardDef.cs" />
+    <Compile Include="Defs\RewardDef.cs" />
+    <Compile Include="Defs\RPawnRewardDef.cs" />
+    <Compile Include="Defs\SkillBoosterRewardDef.cs" />
+    <Compile Include="Defs\WeaponRewardDef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorytellerCompProperties_ThreatCycle.cs" />
-    <Compile Include="StorytellerComp_ClassicIntroNoRaid.cs" />
+    <Compile Include="StorytellerComp\StorytellerComp_ClassicIntroNoRaid.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
