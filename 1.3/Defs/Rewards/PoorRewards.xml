@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.RPawnRewardDef>
+    <defName>VSEWW_PoorPawnJoins</defName>
+    <category>Poor</category>
+    <randomPawns>
+      <li>
+        <maxCombatPower>100</maxCombatPower>
+        <count>1</count>
+      </li>
+    </randomPawns>
+  </VSEWW.RPawnRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_WoodDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>WoodLog</thing>
+        <count>250</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_SteelDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>Steel</thing>
+        <count>250</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.BlockRewardDef>
+    <defName>VSEWW_StoneDrop</defName>
+    <count>250</count>
+  </VSEWW.BlockRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_FoodDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>MealSurvivalPack</thing>
+        <count>30</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_MedicineDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>MedicineIndustrial</thing>
+        <count>30</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_PoorFuelDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>Chemfuel</thing>
+        <count>200</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.WeaponRewardDef>
+    <defName>VSEWW_PoorWeaponsDrop</defName>
+    <category>Poor</category>
+    <weapons>
+      <li>
+        <quality>Poor</quality>
+        <count>3</count>
+      </li>
+    </weapons>
+  </VSEWW.WeaponRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_PoorCashDrop</defName>
+    <category>Poor</category>
+    <items>
+      <li>
+        <thing>Silver</thing>
+        <count>1000</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.RPawnRewardDef>
+    <defName>VSEWW_PoorAnimalDrop</defName>
+    <category>Poor</category>
+    <randomPawns>
+      <li>
+        <intelligence>Animal</intelligence>
+        <count>1</count>
+      </li>
+    </randomPawns>
+  </VSEWW.RPawnRewardDef>
+
+  <VSEWW.RItemRewardDef>
+    <defName>VSEWW_LeatherDrop</defName>
+    <category>Poor</category>
+    <randomItems>
+      <li>
+        <thingCategories>
+          <li>Leathers</li>
+        </thingCategories>
+        <count>300</count>
+      </li>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
+
+  <VSEWW.RCategoryRewardDef>
+    <defName>VSEWW_RandomNormalDrop</defName>
+    <category>Poor</category>
+    <rewardOf>Normal</rewardOf>
+  </VSEWW.RCategoryRewardDef>
+</Defs>

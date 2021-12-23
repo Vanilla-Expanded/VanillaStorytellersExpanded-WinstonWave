@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.RPawnRewardDef>
+    <defName>VSEWW_NormalPawnJoins</defName>
+    <category>Normal</category>
+    <randomPawns>
+      <li>
+        <minCombatPower>100</minCombatPower>
+        <count>1</count>
+      </li>
+    </randomPawns>
+  </VSEWW.RPawnRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_NormalResourceDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>WoodLog</thing>
+        <count>250</count>
+      </li>
+      <li>
+        <thing>Steel</thing>
+        <count>250</count>
+      </li>
+      <li>
+        <thing>ComponentIndustrial</thing>
+        <count>10</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_NormalComponentDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>ComponentIndustrial</thing>
+        <count>20</count>
+      </li>
+      <li>
+        <thing>ComponentSpacer</thing>
+        <count>5</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_NormalFoodAndMedicineDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>MealSurvivalPack</thing>
+        <count>30</count>
+      </li>
+      <li>
+        <thing>MedicineIndustrial</thing>
+        <count>30</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_UraniumDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Uranium</thing>
+        <count>100</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_NormalFuelDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Chemfuel</thing>
+        <count>500</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_PlasteelDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Plasteel</thing>
+        <count>100</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.WeaponRewardDef>
+    <defName>VSEWW_NormalWeaponsDrop</defName>
+    <category>Normal</category>
+    <weapons>
+      <li>
+        <quality>Normal</quality>
+        <count>3</count>
+      </li>
+    </weapons>
+  </VSEWW.WeaponRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_NormalCashDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Silver</thing>
+        <count>3000</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.IncidentRewardDef>
+    <defName>VSEWW_CaravanArrival</defName>
+    <category>Normal</category>
+    <incidentDef>TraderCaravanArrival</incidentDef>
+  </VSEWW.IncidentRewardDef>
+
+  <VSEWW.WaveModifierRewardDef>
+    <defName>VSEWW_DelayBy3</defName>
+    <category>Normal</category>
+    <delayBy>3</delayBy>
+  </VSEWW.WaveModifierRewardDef>
+
+  <VSEWW.RPawnRewardDef>
+    <defName>VSEWW_NormalAnimalDrop</defName>
+    <category>Normal</category>
+    <randomPawns>
+      <li>
+        <intelligence>Animal</intelligence>
+        <count>2</count>
+      </li>
+    </randomPawns>
+  </VSEWW.RPawnRewardDef>
+
+  <VSEWW.RItemRewardDef>
+    <defName>VSEWW_NormalTextileDrop</defName>
+    <category>Normal</category>
+    <randomItems>
+      <li>
+        <thingCategories>
+          <li>Leathers</li>
+          <li>Textiles</li>
+        </thingCategories>
+        <count>400</count>
+      </li>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
+
+  <VSEWW.ItemRewardDef>
+    <defName>VSEWW_MiniturretDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Turret_MiniTurret</thing>
+        <count>3</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.ReseachRewardDef>
+    <defName>VSEWW_NormalReseachBoost</defName>
+    <category>Normal</category>
+    <count>3</count>
+  </VSEWW.ReseachRewardDef>
+
+  <VSEWW.RItemRewardDef>
+    <defName>VSEWW_NormalProstheticsDrop</defName>
+    <category>Normal</category>
+    <randomItems>
+      <li>
+        <thingCategories>
+          <li>BodyPartsProsthetic</li>
+        </thingCategories>
+        <count>1</count>
+      </li>
+      <li>
+        <thingCategories>
+          <li>BodyPartsProsthetic</li>
+        </thingCategories>
+        <count>1</count>
+      </li>
+      <li>
+        <thingCategories>
+          <li>BodyPartsProsthetic</li>
+        </thingCategories>
+        <count>1</count>
+      </li>
+      <li>
+        <thingCategories>
+          <li>BodyPartsProsthetic</li>
+        </thingCategories>
+        <count>1</count>
+      </li>
+      <li>
+        <thingCategories>
+          <li>BodyPartsProsthetic</li>
+        </thingCategories>
+        <count>1</count>
+      </li>
+    </randomItems>
+  </VSEWW.RItemRewardDef>
+
+  <VSEWW.RCategoryRewardDef>
+    <defName>VSEWW_RandomGoodDrop</defName>
+    <category>Normal</category>
+    <rewardOf>Good</rewardOf>
+  </VSEWW.RCategoryRewardDef>
+
+  <VSEWW.ItemRewardDef MayRequire="OskarPotocki.VFE.Mechanoid">
+    <defName>VSEWW_FactoryStarterDrop</defName>
+    <category>Normal</category>
+    <items>
+      <li>
+        <thing>Steel</thing>
+        <count>150</count>
+      </li>
+      <li>
+        <thing>VFE_ComponentMechanoid</thing>
+        <count>5</count>
+      </li>
+    </items>
+  </VSEWW.ItemRewardDef>
+
+  <VSEWW.IncidentRewardDef>
+    <defName>VSEWW_MeteoriteImpact</defName>
+    <category>Normal</category>
+    <incidentDef>MeteoriteImpact</incidentDef>
+  </VSEWW.IncidentRewardDef>
+
+  <VSEWW.IncidentRewardDef>
+    <defName>VSEWW_PsychicSoothe</defName>
+    <category>Normal</category>
+    <incidentDef>PsychicSoothe</incidentDef>
+  </VSEWW.IncidentRewardDef>
+</Defs>
