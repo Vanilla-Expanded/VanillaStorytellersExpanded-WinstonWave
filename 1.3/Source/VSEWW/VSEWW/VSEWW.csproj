@@ -57,8 +57,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugOptions.cs" />
     <Compile Include="Defs\ApparelRewardDef.cs" />
     <Compile Include="Defs\BlockRewardDef.cs" />
+    <Compile Include="Defs\MassHealRewardDef.cs" />
     <Compile Include="Defs\WaveModifierRewardDef.cs" />
     <Compile Include="Defs\IncidentRewardDef.cs" />
     <Compile Include="Defs\RCategoryRewardDef.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Defs\SkillBoosterRewardDef.cs" />
     <Compile Include="Defs\WeaponRewardDef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RewardCreator.cs" />
     <Compile Include="StorytellerComp\StorytellerComp_ClassicIntroNoRaid.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
