@@ -10,7 +10,7 @@ namespace VSEWW
 {
     public class RPawnReward
     {
-        public string tradeTag;
+        public string tradeTag = "";
         public Intelligence intelligence = Intelligence.Humanlike;
         public int maxCombatPower;
         public int minCombatPower;
