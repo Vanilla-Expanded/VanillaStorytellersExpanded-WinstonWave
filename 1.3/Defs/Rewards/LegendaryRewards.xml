@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
   <VSEWW.PawnRewardDef>
-    <defName>VSEWW_LegendaryPawnJoins</defName>
+    <defName>VSEWW_MercenaryJoins</defName>
     <category>Legendary</category>
     <pawns>
       <li>
