@@ -2,6 +2,8 @@
 <Defs>
   <VSEWW.RPawnRewardDef>
     <defName>VSEWW_PoorPawnJoins</defName>
+    <label>Pawn joins</label>
+    <description>A single pawn worth up to 100 Combat points joins the colony</description>
     <category>Poor</category>
     <randomPawns>
       <li>
@@ -13,6 +15,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_WoodDrop</defName>
+    <label>Wood drop</label>
+    <description>Cargo pods drop 250 wood</description>
     <category>Poor</category>
     <items>
       <li>
@@ -24,6 +28,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_SteelDrop</defName>
+    <label>Steel drop</label>
+    <description>Cargo pods drop 250 steel</description>
     <category>Poor</category>
     <items>
       <li>
@@ -35,11 +41,15 @@
 
   <VSEWW.BlockRewardDef>
     <defName>VSEWW_StoneDrop</defName>
+    <label>Stone drop</label>
+    <description>Cargo pods drop 250 stone blocks</description>
     <count>250</count>
   </VSEWW.BlockRewardDef>
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_FoodDrop</defName>
+    <label>Food drop</label>
+    <description>Cargo pods drop 30 survival meals</description>
     <category>Poor</category>
     <items>
       <li>
@@ -51,6 +61,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_MedicineDrop</defName>
+    <label>Medicine drop</label>
+    <description>Cargo pods drop 30 medicine</description>
     <category>Poor</category>
     <items>
       <li>
@@ -62,6 +74,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_PoorFuelDrop</defName>
+    <label>Fuel drop</label>
+    <description>Cargo pods drop 200 chemfue</description>
     <category>Poor</category>
     <items>
       <li>
@@ -73,6 +87,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_PoorWeaponsDrop</defName>
+    <label>Poor weapons drop</label>
+    <description>Cargo pods 3 random weapons, maximum quality is poor</description>
     <category>Poor</category>
     <randomItems>
       <li>
@@ -87,6 +103,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_PoorCashDrop</defName>
+    <label>Cash</label>
+    <description>Cargo pods drop 1000 silver</description>
     <category>Poor</category>
     <items>
       <li>
@@ -98,6 +116,8 @@
 
   <VSEWW.RPawnRewardDef>
     <defName>VSEWW_PoorAnimalDrop</defName>
+    <label>Animal drop</label>
+    <description>Cargo pod drops a random, tamed animal</description>
     <category>Poor</category>
     <randomPawns>
       <li>
@@ -109,6 +129,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_LeatherDrop</defName>
+    <label>Leather drop</label>
+    <description>Cargo pod drops 300 random pieces of leather</description>
     <category>Poor</category>
     <randomItems>
       <li>
@@ -122,6 +144,8 @@
 
   <VSEWW.RCategoryRewardDef>
     <defName>VSEWW_RandomNormalDrop</defName>
+    <label>Random normal reward</label>
+    <description>Instead of picking up a specific Poor-level reward, obtain a completely random Normal-level reward</description>
     <category>Poor</category>
     <rewardOf>Normal</rewardOf>
   </VSEWW.RCategoryRewardDef>

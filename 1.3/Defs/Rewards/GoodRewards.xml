@@ -2,6 +2,8 @@
 <Defs>
   <VSEWW.RPawnRewardDef>
     <defName>VSEWW_GoodPawnJoins</defName>
+    <label>Pawns join</label>
+    <description>A group of 3 pawns worth a minimum 100 Combat points joins the colony</description>
     <category>Good</category>
     <randomPawns>
       <li>
@@ -13,6 +15,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodResourceDrop</defName>
+    <label>Resource drop</label>
+    <description>Cargo pods drop 500 wood, 500 steel, 30 components and 200 plasteel</description>
     <category>Good</category>
     <items>
       <li>
@@ -36,6 +40,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodComponentDrop</defName>
+    <label>Components drop</label>
+    <description>Cargo pods drop 60 components, 15 advanced components</description>
     <category>Good</category>
     <items>
       <li>
@@ -51,6 +57,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodFoodAndMedicineDrop</defName>
+    <label>Food and medicine drop</label>
+    <description>Cargo pods drop 100 survival meals and 100 medicine</description>
     <category>Good</category>
     <items>
       <li>
@@ -66,6 +74,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodFuelDrop</defName>
+    <label>Fuel drop</label>
+    <description>Cargo pods drop 800 chemfuel, 800 wood and 250 uranium</description>
     <category>Good</category>
     <items>
       <li>
@@ -85,6 +95,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodWeaponsDrop</defName>
+    <label>Good weapons drop</label>
+    <description>Cargo pods 3 random weapons, quality is Good</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -99,6 +111,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodArmorDrop</defName>
+    <label>Good armor drop</label>
+    <description>Cargo pods 3 random pieces of armor, quality is Good</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -113,6 +127,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodCashDrop</defName>
+    <label>Cash</label>
+    <description>Cargo pods drop 5000 silver, 250 gold</description>
     <category>Good</category>
     <items>
       <li>
@@ -128,12 +144,16 @@
 
   <VSEWW.WaveModifierRewardDef>
     <defName>VSEWW_DelayBy7</defName>
+    <label>Delay next wave</label>
+    <description>Next wave is delayed by 7 days</description>
     <category>Good</category>
     <delayBy>7</delayBy>
   </VSEWW.WaveModifierRewardDef>
 
   <VSEWW.RPawnRewardDef>
     <defName>VSEWW_CombatAnimalDrop</defName>
+    <label>Combat Animal drop</label>
+    <description>Cargo pod drops 5 random, tamed combat animals</description>
     <category>Good</category>
     <randomPawns>
       <li>
@@ -146,6 +166,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodTextileDrop</defName>
+    <label>Textile drop</label>
+    <description>Cargo pod drops 1000 random pieces of leather or textile</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -160,30 +182,40 @@
 
   <VSEWW.SkillBoosterRewardDef>
     <defName>VSEWW_GoodSkillBoost</defName>
+    <label>Skill boost</label>
+    <description>Improve every skill of every pawn under your control by 2</description>
     <category>Good</category>
     <count>2</count>
   </VSEWW.SkillBoosterRewardDef>
 
   <VSEWW.ReseachRewardDef>
     <defName>VSEWW_GoodReseachBoost</defName>
+    <label>Research boost</label>
+    <description>Instantly research 5 random research projects you meet prerequisites for</description>
     <category>Good</category>
     <count>5</count>
   </VSEWW.ReseachRewardDef>
 
   <VSEWW.WaveModifierRewardDef>
     <defName>VSEWW_Weaken50</defName>
+    <label>Weaken next wave</label>
+    <description>Next wave only has 50% Combat points it would normally have</description>
     <category>Good</category>
     <weakenBy>0.5</weakenBy>
   </VSEWW.WaveModifierRewardDef>
 
   <VSEWW.WaveModifierRewardDef>
     <defName>VSEWW_Allies</defName>
+    <label>Allies!</label>
+    <description>Next wave also brings allies that are 2x the regular size, to help you</description>
     <category>Good</category>
     <allies>true</allies>
   </VSEWW.WaveModifierRewardDef>
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodArchotechArtifactsDrop</defName>
+    <label>Archotech artifacts drop</label>
+    <description>Receive 5 random archotech items (can be minified structures)</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -197,6 +229,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_OrbitalTargeterPowerBeamDrop</defName>
+    <label>Orbital beam targeter</label>
+    <description>Receive an orbital beam targeter</description>
     <category>Good</category>
     <items>
       <li>
@@ -208,6 +242,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_OrbitalTargeterBombardmentDrop</defName>
+    <label>Orbital bombardment targeter</label>
+    <description>Receive an orbital bombardment targeter</description>
     <category>Good</category>
     <items>
       <li>
@@ -219,6 +255,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_TornadoGeneratorDrop</defName>
+    <label>Tornado generator</label>
+    <description>Receive a tornado generator</description>
     <category>Good</category>
     <items>
       <li>
@@ -230,6 +268,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_GoodDrugsDrop</defName>
+    <label>Drugs drop</label>
+    <description>Receive 10 Ambrosia, 10 psychite tea, 20 beer, 20 smokeleaf joints, 20 flake, 20 yayo, 20 wake-up, 20 go juice</description>
     <category>Good</category>
     <items>
       <li>
@@ -269,6 +309,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_GoodProstheticsDrop</defName>
+    <label>Prosthetics drop</label>
+    <description>Cargo pod drops 5 random low-level prosthetics and 5 bionic prosthetics</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -288,12 +330,16 @@
 
   <VSEWW.RCategoryRewardDef>
     <defName>VSEWW_RandomExcellentDrop</defName>
+    <label>Random Excellent reward</label>
+    <description>Instead of picking up a specific Good-level reward, obtain a completely random Excellent-level reward</description>
     <category>Good</category>
     <rewardOf>Excellent</rewardOf>
   </VSEWW.RCategoryRewardDef>
 
   <VSEWW.IncidentRewardDef>
     <defName>VSEWW_OrbitalTraderArrival</defName>
+    <label>Orbital Trader Arrival</label>
+    <description>Send a random orbital trader</description>
     <category>Good</category>
     <incidentDef>OrbitalTraderArrival</incidentDef>
   </VSEWW.IncidentRewardDef>

@@ -2,6 +2,8 @@
 <Defs>
   <VSEWW.PawnRewardDef>
     <defName>VSEWW_MercenaryJoins</defName>
+    <label>Pawns join</label>
+    <description>A group of 5 mercenary PawnKindDef pawns join</description>
     <category>Legendary</category>
     <pawns>
       <li>
@@ -13,6 +15,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_LegendaryResourceDrop</defName>
+    <label>Resource drop</label>
+    <description>Cargo pods drop 3000 wood, 3000 steel, 100 components, 50 advanced components, 500 plasteel</description>
     <category>Legendary</category>
     <items>
       <li>
@@ -40,6 +44,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_SurvivalMeansDrop</defName>
+    <label>Survival means drop</label>
+    <description>Cargo pods drop 250 survival meals, 50 glitterworld medicine, 5 Mechanite healer mech serums and 200 medicine</description>
     <category>Legendary</category>
     <items>
       <li>
@@ -63,6 +69,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_LegendaryFuelDrop</defName>
+    <label>Fuel drop</label>
+    <description>Cargo pods drop 2000 chemfuel, 2000 wood and 800 uranium</description>
     <category>Legendary</category>
     <items>
       <li>
@@ -82,6 +90,8 @@
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_LegendaryGearDrop</defName>
+    <label>Legendary gear drop</label>
+    <description>Cargo pods 5 random weapons and 5 random armors drop, quality is Legendary</description>
     <category>Legendary</category>
     <randomItems>
       <li>
@@ -103,6 +113,8 @@
 
   <VSEWW.ItemRewardDef>
     <defName>VSEWW_CashAndRiches</defName>
+    <label>Cash and Riches</label>
+    <description>Cargo pods drop 25000 silver, 1000 gold, 1000 Jade</description>
     <category>Legendary</category>
     <items>
       <li>
@@ -122,6 +134,8 @@
 
   <VSEWW.PawnRewardDef>
     <defName>VSEWW_ThrumboDrop</defName>
+    <label>Thrumbo drop</label>
+    <description>Cargo pod drops 3 tamed thrumbos</description>
     <category>Legendary</category>
     <pawns>
       <li>
@@ -133,12 +147,16 @@
 
   <VSEWW.SkillBoosterRewardDef>
     <defName>VSEWW_LegendarySkillBoost</defName>
+    <label>Skill boost</label>
+    <description>Improve every skill of every pawn under your control by 5</description>
     <category>Legendary</category>
     <count>5</count>
   </VSEWW.SkillBoosterRewardDef>
 
   <VSEWW.RItemRewardDef>
     <defName>VSEWW_ArchotechProstheticsDrop</defName>
+    <label>Archotech prosthetics drop</label>
+    <description>Cargo pod drops random 10 archotech body parts</description>
     <category>Legendary</category>
     <randomItems>
       <li>
@@ -152,6 +170,8 @@
 
   <VSEWW.MassHealRewardDef>
     <defName>VSEWW_MassHeal</defName>
+    <label>Mass Heal</label>
+    <description>Instantly heals all the wounds on all pawns under player control</description>
     <category>Legendary</category>
   </VSEWW.MassHealRewardDef>
 </Defs>
