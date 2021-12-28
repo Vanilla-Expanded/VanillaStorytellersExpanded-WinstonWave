@@ -21,9 +21,9 @@ namespace VSEWW
     {
         public List<RPawnReward> randomPawns;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
+            string desc = "";
 
             foreach (RPawnReward rp in randomPawns.Distinct())
             {
@@ -31,6 +31,6 @@ namespace VSEWW
             }
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }

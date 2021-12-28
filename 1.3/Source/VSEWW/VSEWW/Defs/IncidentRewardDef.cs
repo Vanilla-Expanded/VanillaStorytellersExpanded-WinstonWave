@@ -12,12 +12,11 @@ namespace VSEWW
     {
         public IncidentDef incidentDef;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
-            desc += $"- {"VESWW.FiringEvent".Translate(incidentDef.label)}\n";
+            string desc = $"- {"VESWW.FiringEvent".Translate(incidentDef.label)}\n";
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }

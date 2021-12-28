@@ -11,12 +11,6 @@ namespace VSEWW
     {
         public int count;
 
-        public override string ToStringHuman()
-        {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
-            desc += "VESWW.SkillBoost".Translate(this.count);
-
-            return desc;
-        }
+        /*public override string ToStringHuman() => "VESWW.SkillBoost".Translate(this.count);*/
     }
 }

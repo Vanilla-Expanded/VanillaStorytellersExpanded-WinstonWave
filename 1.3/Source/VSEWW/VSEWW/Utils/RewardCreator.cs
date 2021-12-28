@@ -116,6 +116,12 @@ namespace VSEWW
                     int stack = Math.Min(countLeft, thing.def.stackLimit);
                     thing.stackCount = stack;
                     countLeft -= stack;
+
+                    if (thing.def.mineable)
+                    {
+                        thing.MakeMinified();
+                    }
+
                     things.Add(thing);
                 }
             }
@@ -177,6 +183,12 @@ namespace VSEWW
                     int stack = Math.Min(countLeft, thing.def.stackLimit);
                     thing.stackCount = stack;
                     countLeft -= stack;
+
+                    if (thing.def.mineable)
+                    {
+                        thing.MakeMinified();
+                    }
+
                     things.Add(thing);
                 }
             }

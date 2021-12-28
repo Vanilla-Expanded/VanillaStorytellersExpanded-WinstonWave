@@ -9,12 +9,11 @@ namespace VSEWW
 {
     public class MassHealRewardDef : RewardDef
     {
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate() + "\n";
-            desc += "VESWW.MassHeal".Translate();
+            string desc = "VESWW.MassHeal".Translate();
 
             return desc;
-        }
+        }*/
     }
 }

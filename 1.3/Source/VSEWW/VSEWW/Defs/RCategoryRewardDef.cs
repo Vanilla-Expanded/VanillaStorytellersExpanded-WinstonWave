@@ -11,12 +11,11 @@ namespace VSEWW
     {
         public RewardCategory rewardOf;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
-            desc += "VESWW.RandomRewardOf".Translate(this.rewardOf.ToString());
+            string desc = "VESWW.RandomRewardOf".Translate(this.rewardOf.ToString());
 
             return desc;
-        }
+        }*/
     }
 }

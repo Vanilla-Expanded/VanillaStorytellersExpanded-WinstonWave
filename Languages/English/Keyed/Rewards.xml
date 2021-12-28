@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <VESWW.RandomRewardOf>Random reward of the {0} category</VESWW.RandomRewardOf>
-  <VESWW.RewardContain>Reward ({0}) consist of:</VESWW.RewardContain>
   <VESWW.RandomApparel>{0} random apparel(s) of {1} quality with the {3} tag</VESWW.RandomApparel>
   <VESWW.RandomWeapons>{0} random weapon(s) of {1} quality with the {3} tag</VESWW.RandomWeapons>
   <VESWW.RandomThing>{0} random thing(s) of {1} quality within the {3} category</VESWW.RandomThing>
@@ -19,6 +18,8 @@
   <VESWW.Allies>Next wave will also spawn friendlies to help you out</VESWW.Allies>
   <VESWW.MassHeal>Instantly heal all damages on all colonists, slaves and prisonners</VESWW.MassHeal>
   <VESWW.ResearchUnlocked>{0} has been researched</VESWW.ResearchUnlocked>
+  <VESWW.Reward>{0} reward</VESWW.Reward>
+  <VESWW.SelectReward>Select reward</VESWW.SelectReward>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave :</VESWW.TimeBeforeFirstWave>

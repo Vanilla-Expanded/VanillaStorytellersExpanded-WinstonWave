@@ -19,9 +19,9 @@ namespace VSEWW
     {
         public List<ItemReward> items;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
+            string desc = "";
 
             foreach (ItemReward ir in items.Distinct())
             {
@@ -36,6 +36,6 @@ namespace VSEWW
             }
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }

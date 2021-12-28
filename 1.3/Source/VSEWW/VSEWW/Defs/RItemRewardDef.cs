@@ -19,9 +19,9 @@ namespace VSEWW
     {
         public List<RItemReward> randomItems;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
+            string desc = "";
 
             foreach (RItemReward ri in randomItems.Distinct())
             {
@@ -30,18 +30,18 @@ namespace VSEWW
                     string cats = "";
                     foreach (var item in ri.thingCategories)
                     {
-                        cats += item.LabelCap + ",";
+                        cats += item.defName + ",";
                     }
 
                     desc += $"- {"VESWW.RandomThingMC".Translate(ri.count, ri.quality.ToString(), cats.TrimEnd(new char[] { ','}))}\n";
                 }
                 else
                 {
-                    desc += $"- {"VESWW.RandomThing".Translate(ri.count, ri.quality.ToString(), ri.thingCategories[0].LabelCap)}\n";
+                    desc += $"- {"VESWW.RandomThing".Translate(ri.count, ri.quality.ToString(), ri.thingCategories[0].defName)}\n";
                 }
             }
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }

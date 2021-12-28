@@ -17,9 +17,9 @@ namespace VSEWW
     {
         public List<PawnReward> pawns;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
+            string desc = "";
 
             foreach (PawnReward pr in pawns.Distinct())
             {
@@ -27,6 +27,6 @@ namespace VSEWW
             }
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }

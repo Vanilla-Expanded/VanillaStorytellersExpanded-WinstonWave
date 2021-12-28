@@ -11,12 +11,11 @@ namespace VSEWW
     {
         public int count;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
-            desc += "VESWW.Research".Translate(count);
+            string desc = "VESWW.Research".Translate(count);
 
             return desc;
-        }
+        }*/
     }
 }

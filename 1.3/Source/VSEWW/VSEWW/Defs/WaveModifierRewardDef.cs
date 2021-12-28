@@ -13,15 +13,15 @@ namespace VSEWW
         public float weakenBy;
         public bool allies;
 
-        public override string ToStringHuman()
+        /*public override string ToStringHuman()
         {
-            string desc = "VESWW.RewardContain".Translate(this.category.ToString()) + "\n";
+            string desc = "";
 
             if (delayBy > 0) desc += "VESWW.Delay".Translate(this.delayBy);
             if (weakenBy > 0) desc += "VESWW.Weaken".Translate(this.weakenBy.ToStringPercent());
             if (allies) desc += "VESWW.Allies".Translate();
 
             return desc.TrimEndNewlines();
-        }
+        }*/
     }
 }
