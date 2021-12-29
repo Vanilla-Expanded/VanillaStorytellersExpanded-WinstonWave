@@ -60,7 +60,8 @@ namespace VSEWW
             else
             {
                 List<Thing> thingList = CreateThingListFromRewardDef(reward);
-                IntVec3 intVec3 = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                IntVec3 near = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                RCellFinder.TryFindRandomCellNearWith(near, i => i.Walkable(map) && !i.Roofed(map), map, out IntVec3 intVec3);
 
                 Log.Message($"Sending {thingList.Count} things to {intVec3}");
                 DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true);
