@@ -55,7 +55,7 @@ namespace VSEWW
         private void DoWavePredictionUI(Listing_Standard lst)
         {
             lst.Label($"Wave {mcw.nextRaidInfo.waveNum}:");
-            lst.Label($"Faction: {mcw.nextRaidInfo.incidentParms.faction.NameColored}:");
+            lst.Label($"Faction: {mcw.nextRaidInfo.incidentParms.faction.Name ?? mcw.nextRaidInfo.incidentParms.faction.def.defName}:");
             lst.Label($"In: {mcw.nextRaidInfo.TimeBeforeWave()}");
             lst.Label($"Enemies comming:");
             foreach (var pair in mcw.nextRaidInfo.pawnKinds)
@@ -67,7 +67,7 @@ namespace VSEWW
         private void DoWaveProgressUI(Listing_Standard lst)
         {
             lst.Label($"Wave {mcw.nextRaidInfo.waveNum}");
-            lst.Label($"Faction: {mcw.nextRaidInfo.incidentParms.faction.NameColored}:");
+            lst.Label($"Faction: {mcw.nextRaidInfo.incidentParms.faction.Name ?? mcw.nextRaidInfo.incidentParms.faction.def.defName}:");
             lst.Label($"{mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft()} / {mcw.nextRaidInfo.totalPawn}");
             lst.Label($"Defeat remaining enemies:");
 

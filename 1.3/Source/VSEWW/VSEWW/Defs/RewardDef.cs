@@ -35,24 +35,23 @@ namespace VSEWW
 		public virtual void DrawCard(Rect rect, Window window, Map map)
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
-			Rect innerIconRect = iconRect.ContractedBy(10);
-			GUI.DrawTexture(innerIconRect, RewardIcon); // yMax = 200
+			GUI.DrawTexture(iconRect.ContractedBy(10), RewardIcon);
 
 			var anchor = Text.Anchor;
 			Text.Anchor = TextAnchor.UpperCenter;
 
 			Text.Font = GameFont.Small;
-			Rect labelRect = new Rect(rect.x, iconRect.yMax + 5, rect.width, 20); // yMax = 225
+			Rect labelRect = new Rect(rect.x, iconRect.yMax + 5, rect.width, 20);
 			Widgets.Label(labelRect, label);
 
 			Text.Font = GameFont.Tiny;
-			Rect catRect = new Rect(rect.x, labelRect.yMax + 10, rect.width, 20); // yMax = 255
+			Rect catRect = new Rect(rect.x, labelRect.yMax + 10, rect.width, 20);
 			Widgets.Label(catRect, "VESWW.Reward".Translate(category.ToString()));
 
-			Rect descRect = new Rect(rect.x, catRect.yMax + 5, rect.width, 70); // yMax = 330
-			Widgets.Label(descRect, description);
+			Rect descRect = new Rect(rect.x, catRect.yMax + 5, rect.width, 70);
+			Widgets.Label(descRect.ContractedBy(5), description);
 
-			Rect buttonRect = new Rect(rect.x, descRect.yMax + 5, rect.width, 30); // yMax = 365
+			Rect buttonRect = new Rect(rect.x, rect.yMax - 35, rect.width, 30);
 			Rect buttonRectB = buttonRect.ContractedBy(5);
 			if (Widgets.ButtonText(buttonRectB, "VESWW.SelectReward".Translate()))
             {

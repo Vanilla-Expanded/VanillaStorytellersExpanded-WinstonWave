@@ -33,7 +33,7 @@ namespace VSEWW
             }
         }
 
-        public override Vector2 InitialSize => new Vector2(850f, 450f);
+        public override Vector2 InitialSize => new Vector2(850f, 500f);
 
         public override void DoWindowContents(Rect inRect)
         {
