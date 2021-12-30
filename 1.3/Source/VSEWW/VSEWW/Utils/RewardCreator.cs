@@ -59,7 +59,16 @@ namespace VSEWW
             }
             else if (reward is WaveModifierRewardDef waveModifierRewardDef)
             {
-                // TODO Wave modifier rewards
+                var winston = map.GetComponent<MapComponent_Winston>();
+                if (winston != null && winston.nextRaidInfo != null)
+                {
+                    if (waveModifierRewardDef.delayBy > 0)
+                        winston.nextRaidInfo.atTick += waveModifierRewardDef.delayBy * 60000;
+                    if (waveModifierRewardDef.weakenBy > 0)
+                        winston.nextRaidMultiplyPoints = waveModifierRewardDef.weakenBy;
+                    if (waveModifierRewardDef.allies)
+                        winston.nextRaidSendAllies = true;
+                }
             }
             else
             {

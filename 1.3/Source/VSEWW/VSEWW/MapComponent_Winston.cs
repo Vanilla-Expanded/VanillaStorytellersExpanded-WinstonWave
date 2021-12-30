@@ -13,11 +13,13 @@ namespace VSEWW
     {
         internal int currentWave = 1;
         internal float currentPoints = 0;
-        float modifierChance = 0;
-        
-        public NextRaidInfo nextRaidInfo;
+        internal float modifierChance = 0;
 
-        public Window_WaveCounter waveCounter = null;
+        internal bool nextRaidSendAllies = false;
+        internal float nextRaidMultiplyPoints = 1f;
+        internal NextRaidInfo nextRaidInfo;
+
+        internal Window_WaveCounter waveCounter = null;
 
 
         public MapComponent_Winston(Map map) : base(map) { }
@@ -28,6 +30,8 @@ namespace VSEWW
             Scribe_Values.Look(ref currentWave, "currentWave");
             Scribe_Values.Look(ref currentPoints, "currentPoints");
             Scribe_Values.Look(ref modifierChance, "modifierChance");
+            Scribe_Values.Look(ref nextRaidSendAllies, "nextRaidSendAllies");
+            Scribe_Values.Look(ref nextRaidMultiplyPoints, "nextRaidMultiplyPoints");
             Scribe_Deep.Look(ref nextRaidInfo, "nextRaidInfo");
         }
 
@@ -79,6 +83,17 @@ namespace VSEWW
             ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
             map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
             Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
+
+            if (nextRaidSendAllies)
+            {
+                IncidentParms incidentParms = new IncidentParms()
+                {
+                    target = map,
+                    faction = Find.FactionManager.RandomAlliedFaction(),
+                };
+                Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidFriendly, tick, incidentParms);
+                nextRaidSendAllies = false;
+            }
         }
 
         internal NextRaidInfo SetNextNormalRaidInfo(int inDays)
@@ -178,7 +193,10 @@ namespace VSEWW
                 else currentPoints *= 1.2f;
             }
 
-            return currentPoints;
+            float point = currentPoints * nextRaidMultiplyPoints;
+            nextRaidMultiplyPoints = 1f;
+
+            return point;
         }
     
         private void ChooseAndApplyModifier(NextRaidInfo nri)
