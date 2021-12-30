@@ -33,13 +33,7 @@ namespace VSEWW
 
         public string TimeBeforeWave() => TimeSpanExtension.Verbose(TimeSpan.FromSeconds((atTick - Find.TickManager.TicksGame).TicksToSeconds()));
 
-        public List<Pawn> WavePawns()
-        {
-            if (lord != null)
-                return lord.ownedPawns.FindAll(p => p.mindState.Active && p.jobs.AllJobs().Any(j => j.def == JobDefOf.Flee || j.def == JobDefOf.FleeAndCower));
-            
-            return null;
-        }
+        public List<Pawn> WavePawns() => lord.ownedPawns.FindAll(p => p.mindState.Active && !p.jobs.AllJobs().Any(j => j.def == JobDefOf.Flee || j.def == JobDefOf.FleeAndCower));
 
         public int WavePawnsLeft() => WavePawns().Count;
 

@@ -29,26 +29,6 @@ namespace VSEWW
             Scribe_Deep.Look(ref nextRaidInfo, "nextRaidInfo");
         }
 
-        public override void FinalizeInit()
-        {
-            base.FinalizeInit();
-            if (Find.Storyteller.def.defName == "VSE_WinstonWave")
-            {
-                if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
-                {
-                    Log.Message("Invalid nextRaidInfo"); // TODO Remove log
-                    int inD = currentWave > 0 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
-                    nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
-                }
-
-                if (waveCounter == null)
-                {
-                    waveCounter = new Window_WaveCounter(this);
-                    Find.WindowStack.Add(waveCounter);
-                }
-            }
-        }
-
         public override void MapComponentTick()
         {
             base.MapComponentTick();
@@ -56,8 +36,7 @@ namespace VSEWW
             {
                 if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
                 {
-                    Log.Message("Invalid nextRaidInfo"); // TODO Remove log
-                    int inD = currentWave > 0 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+                    int inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
                     nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
                 }
                 else
@@ -67,33 +46,29 @@ namespace VSEWW
                     {
                         ExecuteRaid(Find.TickManager.TicksGame);
                     }
-                    else if (nextRaidInfo.sent && !nextRaidInfo.lord.AnyActivePawn)
+                    else if (nextRaidInfo.sent && nextRaidInfo.lord != null && nextRaidInfo.WavePawnsLeft() == 0)
                     {
                         Find.WindowStack.Add(new Window_ChooseReward(currentWave));
                         if (++currentWave % 5 == 0)
                         {
                             nextRaidInfo = SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves);
-                            Log.Message($"Wave {currentWave} : Boss wave"); // TODO Remove log
                         }
                         else
                         {
                             nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
-                            Log.Message($"Wave {currentWave} : Normal wave"); // TODO Remove log
                         }
                     }
                 }
+
+                if (waveCounter == null)
+                {
+                    waveCounter = new Window_WaveCounter(this);
+                    Find.WindowStack.Add(waveCounter);
+                }
             }
-            else
+            else if (nextRaidInfo != null)
             {
-                if (waveCounter != null)
-                {
-                    waveCounter.Close();
-                    waveCounter = null;
-                }
-                if (nextRaidInfo != null)
-                {
-                    nextRaidInfo.atTick++;
-                }
+                nextRaidInfo.atTick++;
             }
         }
 
@@ -189,7 +164,5 @@ namespace VSEWW
         {
             // TODO Modifers
         }
-
-        
     }
 }
