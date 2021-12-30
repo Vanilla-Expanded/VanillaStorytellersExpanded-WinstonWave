@@ -21,5 +21,29 @@ namespace VSEWW
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
+
+        [DebugAction("VES Winston Wave", "Skip to wave...", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SkipToWave()
+        {
+            List<DebugMenuOption> debugMenuOptionList = new List<DebugMenuOption>();
+            List<RewardDef> rewards = DefDatabase<RewardDef>.AllDefsListForReading;
+
+            for (int i = 1; i <= 15; i++)
+            {
+                int waveNum = i * 10;
+                debugMenuOptionList.Add(new DebugMenuOption(waveNum.ToString(), DebugMenuOptionMode.Action, () =>
+                {
+                    var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+                    for (int w = 0; w < waveNum; w++)
+                    {
+                        c.currentWave++;
+                        c.GetNextWavePoint();
+                        Log.Message($"{c.currentWave}:{c.currentPoints}");
+                    }
+                    c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(1) : c.SetNextNormalRaidInfo(1);
+                }));
+            }
+            Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
+        }
     }
 }

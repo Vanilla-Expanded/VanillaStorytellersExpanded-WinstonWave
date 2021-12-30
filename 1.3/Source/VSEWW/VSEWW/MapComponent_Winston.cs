@@ -11,8 +11,8 @@ namespace VSEWW
 {
     internal class MapComponent_Winston : MapComponent
     {
-        int currentWave = 1;
-        float currentPoints = 0;
+        internal int currentWave = 1;
+        internal float currentPoints = 0;
         float modifierChance = 0;
         
         public NextRaidInfo nextRaidInfo;
@@ -79,7 +79,7 @@ namespace VSEWW
             Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
         }
 
-        private NextRaidInfo SetNextNormalRaidInfo(int inDays)
+        internal NextRaidInfo SetNextNormalRaidInfo(int inDays)
         {
             List<RaidStrategyDef> from = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, DefDatabase<RaidStrategyDef>.GetNamed("ImmediateAttackSmart"), DefDatabase<RaidStrategyDef>.GetNamed("StageThenAttack")};
             NextRaidInfo nri = new NextRaidInfo()
@@ -115,7 +115,7 @@ namespace VSEWW
             return nri;
         }
 
-        private NextRaidInfo SetNextBossRaidInfo(int inDays)
+        internal NextRaidInfo SetNextBossRaidInfo(int inDays)
         {
             NextRaidInfo nri = new NextRaidInfo()
             {
@@ -152,7 +152,7 @@ namespace VSEWW
             return nri;
         }
 
-        private float GetNextWavePoint()
+        internal float GetNextWavePoint()
         {
             if (currentPoints <= 0) currentPoints = 100f;
             else currentPoints *= 1.2f;
