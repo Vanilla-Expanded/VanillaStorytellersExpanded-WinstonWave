@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
+using Verse.AI;
 using Verse.AI.Group;
 
 namespace VSEWW
@@ -16,10 +17,14 @@ namespace VSEWW
         public List<string> modifiers = new List<string>();
         public IncidentParms incidentParms;
         public Dictionary<PawnKindDef, int> pawnKinds = new Dictionary<PawnKindDef, int>();
+        public string kindList;
         public int waveNum;
         public int totalPawn;
 
         public Lord lord;
+        private List<Pawn> lordPawnsCache = new List<Pawn>();
+        private int cacheTick = 0;
+        internal string cacheKindList;
 
         public void ExposeData()
         {
@@ -33,7 +38,30 @@ namespace VSEWW
 
         public string TimeBeforeWave() => TimeSpanExtension.Verbose(TimeSpan.FromSeconds((atTick - Find.TickManager.TicksGame).TicksToSeconds()));
 
-        public List<Pawn> WavePawns() => lord.ownedPawns.FindAll(p => p.mindState.Active && !p.jobs.AllJobs().Any(j => j.def == JobDefOf.Flee || j.def == JobDefOf.FleeAndCower));
+        public List<Pawn> WavePawns()
+        {
+            if (cacheTick % 800 == 0 || lordPawnsCache.NullOrEmpty())
+            {
+                string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
+                Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
+                lordPawnsCache = lord.ownedPawns.FindAll(p => !p.Downed && !p.mindState.mentalStateHandler.InMentalState);
+                lordPawnsCache.ForEach(p =>
+                {
+                    if (toDefeat.ContainsKey(p.kindDef))
+                        toDefeat[p.kindDef]++;
+                    else
+                        toDefeat.Add(p.kindDef, 1);
+                });
+                foreach (var pair in toDefeat)
+                {
+                    kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+                }
+                cacheKindList = kindLabel.TrimEndNewlines();
+            }
+
+            cacheTick++;
+            return lordPawnsCache;
+        }
 
         public int WavePawnsLeft() => WavePawns().Count;
 

@@ -10,14 +10,16 @@ namespace VSEWW
 {
     public class VESWWModSettings : ModSettings
     {
-        public int timeBeforeFirstWave = 3;
-        public int timeBetweenWaves = 1;
+        public int timeBeforeFirstWave = 5;
+        public int timeBetweenWaves = 2;
+        public int maxPoints = 25000;
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref this.timeBeforeFirstWave, "timeBeforeFirstWave");
-            Scribe_Values.Look(ref this.timeBetweenWaves, "timeBetweenWaves");
+            Scribe_Values.Look(ref this.timeBeforeFirstWave, "timeBeforeFirstWave", 5);
+            Scribe_Values.Look(ref this.timeBetweenWaves, "timeBetweenWaves", 2);
+            Scribe_Values.Look(ref this.maxPoints, "maxPoints", 25000);
         }
     }
 
@@ -25,6 +27,7 @@ namespace VSEWW
     {
         private string _timeBeforeFirstWave;
         private string _timeBetweenWaves;
+        private string _maxPoints;
 
         public static VESWWModSettings settings;
 
@@ -45,6 +48,9 @@ namespace VSEWW
 
             lst.Label("VESWW.TimeBetweenWaves".Translate());
             lst.IntEntry(ref settings.timeBetweenWaves, ref _timeBetweenWaves);
+
+            lst.Label("VESWW.MaxPoints".Translate());
+            lst.IntEntry(ref settings.maxPoints, ref _maxPoints, 100);
         }
     }
 }

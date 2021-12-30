@@ -9,9 +9,9 @@ namespace VSEWW
 {
     public class WaveModifierRewardDef : RewardDef
     {
-        public int delayBy;
-        public float weakenBy;
-        public bool allies;
+        public int delayBy = 0;
+        public float weakenBy = 0;
+        public bool allies = false;
 
         /*public override string ToStringHuman()
         {

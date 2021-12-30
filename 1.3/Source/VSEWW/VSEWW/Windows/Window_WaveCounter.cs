@@ -48,8 +48,8 @@ namespace VSEWW
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
-            this.windowRect.x = (float)(UI.screenWidth - this.InitialSize.x - 50.0);
-            this.windowRect.y = 50f;
+            this.windowRect.x = (float)(UI.screenWidth - this.InitialSize.x - 2f);
+            this.windowRect.y = 2f;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -122,12 +122,7 @@ namespace VSEWW
                 y = timeRect.yMax + 10,
                 height = rect.height - numRect.height - timeRect.height - 20,
             };
-            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
-            foreach (var pair in mcw.nextRaidInfo.pawnKinds)
-            {
-                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
-            }
-            Widgets.Label(kindRect, kindLabel.TrimEndNewlines());
+            Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
             Text.Anchor = prevAnch;
         }
 
@@ -156,22 +151,8 @@ namespace VSEWW
                 y = barRect.yMax + 10,
                 height = rect.height - numRect.height - barRect.height - 20,
             };
-            // - Building label
-            string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
-            Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
-            mcw.nextRaidInfo.WavePawns().ForEach(p =>
-            {
-                if (toDefeat.ContainsKey(p.kindDef))
-                    toDefeat[p.kindDef]++;
-                else
-                    toDefeat.Add(p.kindDef, 1);
-            });
-            foreach (var pair in toDefeat)
-            {
-                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
-            }
             // - Showing label
-            Widgets.Label(kindRect, kindLabel.TrimEndNewlines());
+            Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
             Text.Anchor = prevAnch;
         }
     

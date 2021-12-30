@@ -16,7 +16,9 @@ namespace VSEWW
         float modifierChance = 0;
         
         public NextRaidInfo nextRaidInfo;
+
         public Window_WaveCounter waveCounter = null;
+
 
         public MapComponent_Winston(Map map) : base(map) { }
 
@@ -111,6 +113,14 @@ namespace VSEWW
                 }
             }
             nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
+
+            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
+            foreach (var pair in nri.pawnKinds)
+            {
+                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+            }
+            nri.kindList = kindLabel.TrimEndNewlines();
+
             ChooseAndApplyModifier(nri);
             return nri;
         }
@@ -148,14 +158,25 @@ namespace VSEWW
                 }
             }
             nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
+
+            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
+            foreach (var pair in nri.pawnKinds)
+            {
+                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+            }
+            nri.kindList = kindLabel.TrimEndNewlines();
+
             ChooseAndApplyModifier(nri);
             return nri;
         }
 
         internal float GetNextWavePoint()
         {
-            if (currentPoints <= 0) currentPoints = 100f;
-            else currentPoints *= 1.2f;
+            if (currentPoints < VESWWMod.settings.maxPoints)
+            {
+                if (currentPoints <= 0) currentPoints = 100f;
+                else currentPoints *= 1.2f;
+            }
 
             return currentPoints;
         }
