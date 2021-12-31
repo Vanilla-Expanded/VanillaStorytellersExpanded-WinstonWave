@@ -22,6 +22,15 @@ namespace VSEWW
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
 
+        [DebugAction("VES Winston Wave", "Send all rewards", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SendAllReward()
+        {
+            foreach (var r in DefDatabase<RewardDef>.AllDefsListForReading)
+            {
+                RewardCreator.SendReward(r, Find.CurrentMap);
+            }
+        }
+
         [DebugAction("VES Winston Wave", "Skip to wave...", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SkipToWave()
         {
