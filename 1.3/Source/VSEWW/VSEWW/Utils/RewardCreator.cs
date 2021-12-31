@@ -12,106 +12,86 @@ namespace VSEWW
     {
         public static void SendReward(RewardDef reward, Map map)
         {
-            if (reward is IncidentRewardDef incidentRewardDef)
+            if (reward.sendRewardOf > RewardCategory.Poor)
             {
-                Find.Storyteller.incidentQueue.Add(incidentRewardDef.incidentDef, Find.TickManager.TicksGame, new IncidentParms
-                {
-                    target = map
-                });
-            }
-            else if (reward is MassHealRewardDef)
-            {
-                map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer).ForEach(p =>
-                {
-                    var tmpHediffs = p.health.hediffSet.hediffs.ToList();
-                    for (int i = 0; i < tmpHediffs.Count; i++)
-                    {
-                        if (tmpHediffs[i] is Hediff_Injury injury)
-                            p.health.RemoveHediff(injury);
-                        else if (tmpHediffs[i] is Hediff_MissingPart missingPart && missingPart.Part.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore) && (missingPart.Part.parent == null || p.health.hediffSet.GetNotMissingParts().Contains(missingPart.Part.parent)))
-                            p.health.RestorePart(missingPart.Part);
-                    }
-                });
-            }
-            else if (reward is RCategoryRewardDef rCategoryRewardDef)
-            {
-                SendReward(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == rCategoryRewardDef.rewardOf).RandomElement(), map);
-            }
-            else if (reward is ReseachRewardDef reseachRewardDef)
-            {
-                for (int i = 0; i < reseachRewardDef.count; i++)
-                {
-                    var r = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Find(x => x.CanStartNow);
-                    Find.ResearchManager.FinishProject(r);
-                    Messages.Message("VESWW.ResearchUnlocked".Translate(r.LabelCap), MessageTypeDefOf.NeutralEvent);
-                }
-            }
-            else if (reward is SkillBoosterRewardDef skillBoosterRewardDef)
-            {
-                map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.intelligence == Intelligence.Humanlike).ForEach(p =>
-                {
-                    var pSkills = DefDatabase<SkillDef>.AllDefs.Where(x => !p.skills.GetSkill(x).TotallyDisabled);
-                    foreach (var s in pSkills)
-                    {
-                        p.skills.GetSkill(s).levelInt += Math.Min(skillBoosterRewardDef.count, 20 - p.skills.GetSkill(s).levelInt);
-                    }
-                });
-            }
-            else if (reward is WaveModifierRewardDef waveModifierRewardDef)
-            {
-                var winston = map.GetComponent<MapComponent_Winston>();
-                if (winston != null && winston.nextRaidInfo != null)
-                {
-                    if (waveModifierRewardDef.delayBy > 0)
-                        winston.nextRaidInfo.atTick += waveModifierRewardDef.delayBy * 60000;
-                    if (waveModifierRewardDef.weakenBy > 0)
-                        winston.nextRaidMultiplyPoints = waveModifierRewardDef.weakenBy;
-                    if (waveModifierRewardDef.allies)
-                        winston.nextRaidSendAllies = true;
-                }
+                SendReward(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == reward.sendRewardOf).RandomElement(), map);
             }
             else
             {
-                List<Thing> thingList = CreateThingListFromRewardDef(reward);
-                IntVec3 near = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
-                RCellFinder.TryFindRandomCellNearWith(near, i => i.Walkable(map) && !i.Roofed(map), map, out IntVec3 intVec3);
+                if (reward.incidentDef != null)
+                {
+                    Find.Storyteller.incidentQueue.Add(reward.incidentDef, Find.TickManager.TicksGame, new IncidentParms
+                    {
+                        target = map
+                    });
+                }
+                if (reward.massHeal)
+                {
+                    map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer).ForEach(p =>
+                    {
+                        var tmpHediffs = p.health.hediffSet.hediffs.ToList();
+                        for (int i = 0; i < tmpHediffs.Count; i++)
+                        {
+                            if (tmpHediffs[i] is Hediff_Injury injury)
+                                p.health.RemoveHediff(injury);
+                            else if (tmpHediffs[i] is Hediff_MissingPart missingPart && missingPart.Part.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore) && (missingPart.Part.parent == null || p.health.hediffSet.GetNotMissingParts().Contains(missingPart.Part.parent)))
+                                p.health.RestorePart(missingPart.Part);
+                        }
+                    });
+                }
+                if (reward.unlockXResearch > 0)
+                {
+                    for (int i = 0; i < reward.unlockXResearch; i++)
+                    {
+                        var r = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Find(x => x.CanStartNow);
+                        if (r != null)
+                        {
+                            Find.ResearchManager.FinishProject(r);
+                            Messages.Message("VESWW.ResearchUnlocked".Translate(r.LabelCap), MessageTypeDefOf.NeutralEvent);
+                        }
+                    }
+                }
+                if (reward.boostSkillBy > 0)
+                {
+                    map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.intelligence == Intelligence.Humanlike).ForEach(p =>
+                    {
+                        var pSkills = DefDatabase<SkillDef>.AllDefs.Where(x => !p.skills.GetSkill(x).TotallyDisabled);
+                        foreach (var s in pSkills)
+                        {
+                            p.skills.GetSkill(s).levelInt += Math.Min(reward.boostSkillBy, 20 - p.skills.GetSkill(s).levelInt);
+                        }
+                    });
+                }
 
-                DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true);
+                var winston = map.GetComponent<MapComponent_Winston>();
+                if (winston != null && winston.nextRaidInfo != null)
+                {
+                    if (reward.waveModifier.delayBy > 0)
+                        winston.nextRaidInfo.atTick += reward.waveModifier.delayBy * 60000;
+                    if (reward.waveModifier.weakenBy > 0)
+                        winston.nextRaidMultiplyPoints = reward.waveModifier.weakenBy;
+                    if (reward.waveModifier.allies)
+                        winston.nextRaidSendAllies = true;
+                }
+
+                List<Thing> thingList = new List<Thing>();
+
+                if (!reward.randomItems.NullOrEmpty()) thingList.AddRange(GenerateRandomItems(reward));
+                if (!reward.randomPawns.NullOrEmpty()) thingList.AddRange(GenerateRandomPawns(reward));
+                if (!reward.items.NullOrEmpty()) thingList.AddRange(GenerateItems(reward));
+                if (!reward.pawns.NullOrEmpty()) thingList.AddRange(GeneratePawns(reward));
+
+                if (thingList.Count > 0)
+                {
+                    IntVec3 near = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                    RCellFinder.TryFindRandomCellNearWith(near, i => i.Walkable(map) && !i.Roofed(map), map, out IntVec3 intVec3);
+
+                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true);
+                }
             }
         }
 
-        private static List<Thing> CreateThingListFromRewardDef(RewardDef reward)
-        {
-            List<Thing> things = new List<Thing>();
-
-            if (reward is BlockRewardDef blockRewardDef) things.AddRange(FromBlockRewardDef(blockRewardDef));
-            if (reward is RItemRewardDef rItemRewardDef) things.AddRange(FromRItemRewardDef(rItemRewardDef));
-            if (reward is RPawnRewardDef rPawnRewardDef) things.AddRange(FromRPawnRewardDef(rPawnRewardDef));
-            if (reward is ItemRewardDef itemRewardDef) things.AddRange(FromItemRewardDef(itemRewardDef));
-            if (reward is PawnRewardDef pawnRewardDef) things.AddRange(FromPawnRewardDef(pawnRewardDef));
-
-            return things;
-        }
-
-        private static List<Thing> FromBlockRewardDef(BlockRewardDef reward)
-        {
-            List<Thing> things = new List<Thing>();
-
-            ThingDef blockDef = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => t.thingCategories != null && t.thingCategories.Contains(ThingCategoryDefOf.StoneBlocks)).RandomElement();
-            int countLeft = reward.count;
-            while (countLeft > 0)
-            {
-                Thing block = ThingMaker.MakeThing(blockDef);
-                int stack = Math.Min(countLeft, blockDef.stackLimit);
-                block.stackCount = stack;
-                countLeft -= stack;
-                things.Add(block);
-            }
-
-            return things;
-        }
-
-        private static List<Thing> FromItemRewardDef(ItemRewardDef reward)
+        private static List<Thing> GenerateItems(RewardDef reward)
         {
             List<Thing> things = new List<Thing>();
 
@@ -120,7 +100,11 @@ namespace VSEWW
                 int countLeft = i.count;
                 while (countLeft > 0)
                 {
-                    Thing thing = ThingMaker.MakeThing(i.thing);
+                    Thing thing;
+                    if (i.thing.CostStuffCount > 0)
+                        thing = ThingMaker.MakeThing(i.thing, GenStuff.RandomStuffFor(i.thing));
+                    else
+                        thing = ThingMaker.MakeThing(i.thing);
                     if (thing.TryGetComp<CompQuality>() is CompQuality cq)
                     {
                         cq.SetQuality(i.quality, ArtGenerationContext.Outsider);
@@ -142,7 +126,7 @@ namespace VSEWW
             return things;
         }
 
-        private static List<Thing> FromPawnRewardDef(PawnRewardDef reward)
+        private static List<Thing> GeneratePawns(RewardDef reward)
         {
             List<Thing> things = new List<Thing>();
 
@@ -166,7 +150,7 @@ namespace VSEWW
             return things;
         }
 
-        private static List<Thing> FromRItemRewardDef(RItemRewardDef reward)
+        private static List<Thing> GenerateRandomItems(RewardDef reward)
         {
             List<Thing> things = new List<Thing>();
 
@@ -209,7 +193,7 @@ namespace VSEWW
             return things;
         }
 
-        private static List<Thing> FromRPawnRewardDef(RPawnRewardDef reward)
+        private static List<Thing> GenerateRandomPawns(RewardDef reward)
         {
             List<Thing> things = new List<Thing>();
 

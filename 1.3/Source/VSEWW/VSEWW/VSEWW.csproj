@@ -57,20 +57,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Defs\Options.cs" />
     <Compile Include="RewardCategory.cs" />
     <Compile Include="Utils\DebugOptions.cs" />
-    <Compile Include="Defs\BlockRewardDef.cs" />
-    <Compile Include="Defs\MassHealRewardDef.cs" />
-    <Compile Include="Defs\WaveModifierRewardDef.cs" />
-    <Compile Include="Defs\IncidentRewardDef.cs" />
-    <Compile Include="Defs\RCategoryRewardDef.cs" />
-    <Compile Include="Defs\ReseachRewardDef.cs" />
-    <Compile Include="Defs\RItemRewardDef.cs" />
-    <Compile Include="Defs\ItemRewardDef.cs" />
-    <Compile Include="Defs\PawnRewardDef.cs" />
     <Compile Include="Defs\RewardDef.cs" />
-    <Compile Include="Defs\RPawnRewardDef.cs" />
-    <Compile Include="Defs\SkillBoosterRewardDef.cs" />
     <Compile Include="MapComponent_Winston.cs" />
     <Compile Include="Utils\NextRaidInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
