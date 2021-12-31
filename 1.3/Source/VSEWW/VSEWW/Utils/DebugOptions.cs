@@ -54,5 +54,11 @@ namespace VSEWW
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
+
+        [DebugAction("VES Winston Wave", "Send wave now", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SendWaveNow()
+        {
+            Find.CurrentMap.GetComponent<MapComponent_Winston>().nextRaidInfo.atTick = Find.TickManager.TicksGame + 20;
+        }
     }
 }

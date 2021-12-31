@@ -63,6 +63,7 @@ namespace VSEWW
                         {
                             nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
                         }
+                        waveCounter.UpdateHeightAndWidth();
                     }
                 }
 
@@ -70,6 +71,7 @@ namespace VSEWW
                 {
                     waveCounter = new Window_WaveCounter(this);
                     Find.WindowStack.Add(waveCounter);
+                    waveCounter.UpdateHeightAndWidth();
                 }
             }
             else if (nextRaidInfo != null)
@@ -130,9 +132,11 @@ namespace VSEWW
             nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
 
             string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
+            nri.kindListLines++;
             foreach (var pair in nri.pawnKinds)
             {
                 kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+                nri.kindListLines++;
             }
             nri.kindList = kindLabel.TrimEndNewlines();
 
@@ -175,9 +179,11 @@ namespace VSEWW
             nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
 
             string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
+            nri.kindListLines++;
             foreach (var pair in nri.pawnKinds)
             {
                 kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+                nri.kindListLines++;
             }
             nri.kindList = kindLabel.TrimEndNewlines();
 

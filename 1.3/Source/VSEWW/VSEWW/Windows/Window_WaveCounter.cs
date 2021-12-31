@@ -48,12 +48,37 @@ namespace VSEWW
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
-            this.windowRect.x = (float)(UI.screenWidth - this.InitialSize.x - 2f);
-            this.windowRect.y = 2f;
+            windowRect.x = (float)(UI.screenWidth - this.InitialSize.x - 2f);
+            windowRect.y = 2f;
+        }
+
+        public void UpdateHeightAndWidth()
+        {
+            Log.Message($"{mcw.nextRaidInfo.kindListLines}");
+            windowRect.height = 132f + mcw.nextRaidInfo.kindListLines * 18f;
+
+            if (VESWWMod.settings.compactCounter)
+                windowRect.width = 300f;
+            else
+                windowRect.width = InitialSize.x;
+
+            if (VESWWMod.settings.drawCounterBackground)
+                windowRect.height += 20f;
+
+            windowRect.x = (float)(UI.screenWidth - windowRect.width - 2f);
+            windowRect.y = 2f;
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            if (VESWWMod.settings.drawCounterBackground)
+            {
+                Color c = Widgets.WindowBGFillColor;
+                c.a = 0.25f;
+                Widgets.DrawBoxSolid(inRect, c);
+                inRect = inRect.ContractedBy(10);
+            }
+
             if (mcw.nextRaidInfo.sent)
                 DoWaveProgressUI(inRect);
             else

@@ -18,6 +18,7 @@ namespace VSEWW
         public IncidentParms incidentParms;
         public Dictionary<PawnKindDef, int> pawnKinds = new Dictionary<PawnKindDef, int>();
         public string kindList;
+        public int kindListLines;
         public int waveNum;
         public int totalPawn;
 
