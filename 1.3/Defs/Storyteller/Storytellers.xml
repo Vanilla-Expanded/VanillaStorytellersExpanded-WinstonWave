@@ -18,7 +18,7 @@
         <offDays>6.0</offDays>
         <minSpacingDays>1.9</minSpacingDays>
         <numIncidentsRange>1~2</numIncidentsRange>
-        <forceRaidEnemyBeforeDaysPassed>20</forceRaidEnemyBeforeDaysPassed>
+        <!-- <forceRaidEnemyBeforeDaysPassed>20</forceRaidEnemyBeforeDaysPassed> -->
         <disallowedTargetTags>
           <li>Map_RaidBeacon</li>
         </disallowedTargetTags>
@@ -68,13 +68,13 @@
         <minDaysPassed>9</minDaysPassed>
       </li>
       <!-- Ally/neutral interaction -->
-      <li Class="StorytellerCompProperties_FactionInteraction">
+      <!-- <li Class="StorytellerCompProperties_FactionInteraction">
         <incident>RaidFriendly</incident>
         <baseIncidentsPerYear>15</baseIncidentsPerYear>
         <minSpacingDays>0.4</minSpacingDays>
         <fullAlliesOnly>true</fullAlliesOnly>
         <minDanger>High</minDanger>
-      </li>
+      </li> -->
       <li Class="StorytellerCompProperties_FactionInteraction">
         <incident>TraderCaravanArrival</incident>
         <minDaysPassed>5</minDaysPassed>
