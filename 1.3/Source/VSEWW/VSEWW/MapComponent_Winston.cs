@@ -116,31 +116,8 @@ namespace VSEWW
             };
             nri.incidentParms.raidStrategy = from.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
 
-            var pList = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, nri.incidentParms)).ToList();
-            // Get all kinds and the number of them
-            foreach (Pawn pawn in pList)
-            {
-                if (nri.pawnKinds.ContainsKey(pawn.kindDef))
-                {
-                    nri.pawnKinds[pawn.kindDef]++;
-                }
-                else
-                {
-                    nri.pawnKinds[pawn.kindDef] = 1;
-                }
-            }
-            nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
-
-            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
-            nri.kindListLines++;
-            foreach (var pair in nri.pawnKinds)
-            {
-                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
-                nri.kindListLines++;
-            }
-            nri.kindList = kindLabel.TrimEndNewlines();
-
-            ChooseAndApplyModifier(nri);
+            nri.ChooseAndApplyModifier(0f);
+            nri.SetPawnsInfo();
             return nri;
         }
 
@@ -163,31 +140,8 @@ namespace VSEWW
                                                     s != DefDatabase<RaidStrategyDef>.GetNamed("StageThenAttack"))
                 .RandomElement();
 
-            var pList = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, nri.incidentParms)).ToList();
-            // Get all kinds and the number of them
-            foreach (Pawn pawn in pList)
-            {
-                if (nri.pawnKinds.ContainsKey(pawn.kindDef))
-                {
-                    nri.pawnKinds[pawn.kindDef]++;
-                }
-                else
-                {
-                    nri.pawnKinds[pawn.kindDef] = 1;
-                }
-            }
-            nri.totalPawn = nri.pawnKinds.Sum(k => k.Value);
-
-            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
-            nri.kindListLines++;
-            foreach (var pair in nri.pawnKinds)
-            {
-                kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
-                nri.kindListLines++;
-            }
-            nri.kindList = kindLabel.TrimEndNewlines();
-
-            ChooseAndApplyModifier(nri);
+            nri.ChooseAndApplyModifier(0f);
+            nri.SetPawnsInfo();
             return nri;
         }
 
@@ -203,11 +157,6 @@ namespace VSEWW
             nextRaidMultiplyPoints = 1f;
 
             return point;
-        }
-    
-        private void ChooseAndApplyModifier(NextRaidInfo nri)
-        {
-            // TODO Modifers
         }
     }
 }

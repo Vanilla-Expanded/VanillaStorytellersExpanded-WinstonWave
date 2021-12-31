@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Defs\Options.cs" />
+    <Compile Include="Defs\ModifierDef.cs" />
     <Compile Include="RewardCategory.cs" />
     <Compile Include="Utils\DebugOptions.cs" />
     <Compile Include="Defs\RewardDef.cs" />
