@@ -19,7 +19,7 @@ namespace VSEWW
         // - When
         public int atTick;
         // - All modifiers applied to the raid
-        public List<ModifierDef> modifiers = new List<ModifierDef>();
+        public List<ModifierDef> modifiers = new List<ModifierDef>() { DefDatabase<ModifierDef>.AllDefsListForReading.First()};
         // - Raid parms
         public IncidentParms incidentParms;
         // - Wave number

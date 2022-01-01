@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_DoubleTrouble</defName>
+    <label>Double trouble</label>
+    <description>Raid size in points is doubled</description>
+    <pointMultiplier>2.0</pointMultiplier>
+  </VSEWW.ModifierDef>
+</Defs>

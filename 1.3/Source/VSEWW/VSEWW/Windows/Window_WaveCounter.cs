@@ -109,6 +109,10 @@ namespace VSEWW
                     width = mWidth
                 };
                 Widgets.DrawWindowBackground(mRect);
+                if (mcw.nextRaidInfo.modifiers.Count >= i)
+                {
+                    mcw.nextRaidInfo.modifiers[i-1].DrawCard(mRect);
+                }
             }
 
             Text.Font = prevFont;
