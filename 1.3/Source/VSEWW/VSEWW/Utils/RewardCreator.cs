@@ -83,10 +83,8 @@ namespace VSEWW
 
                 if (thingList.Count > 0)
                 {
-                    IntVec3 near = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
-                    RCellFinder.TryFindRandomCellNearWith(near, i => i.Walkable(map) && !i.Roofed(map), map, out IntVec3 intVec3);
-
-                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true);
+                    IntVec3 intVec3 = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch:false);
                 }
             }
         }
