@@ -52,7 +52,17 @@ namespace VSEWW
 			}
 		}
 
-		public virtual void DrawCard(Rect rect, Window window, Map map)
+		public override IEnumerable<string> ConfigErrors()
+		{
+			foreach (string str in base.ConfigErrors())
+				yield return str;
+			if (label == null)
+				yield return $"RewardDef {defName} has null label";
+			if (description == null)
+				yield return $"RewardDef {defName} has null description";
+		}
+
+		public void DrawCard(Rect rect, Window window, Map map)
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
 			GUI.DrawTexture(iconRect.ContractedBy(10), RewardIcon);

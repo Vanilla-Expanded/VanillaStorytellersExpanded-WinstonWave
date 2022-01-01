@@ -12,7 +12,8 @@ namespace VSEWW
 	public class ModifierDef : Def
     {
         public string texPath;
-        
+		// Multiply points by
+		public float pointMultiplier = 1f;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon
@@ -31,13 +32,23 @@ namespace VSEWW
 			}
 		}
 
-		public virtual void DrawCard(Rect rect, Window window, Map map)
+        public override IEnumerable<string> ConfigErrors()
+        {
+            foreach (string str in base.ConfigErrors())
+				yield return str;
+			if (description == null)
+				yield return $"ModifierDef {defName} has null description";
+			if (label == null)
+				yield return $"ModifierDef {defName} has null label";
+		}
+
+        public void DrawCard(Rect rect)
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
-			GUI.DrawTexture(iconRect.ContractedBy(10), ModifierIcon);
+			GUI.DrawTexture(iconRect.ContractedBy(5), ModifierIcon);
 
 			Widgets.DrawHighlightIfMouseover(rect);
-			TooltipHandler.TipRegion(rect, (TipSignal)description);
+			TooltipHandler.TipRegion(rect, (TipSignal)$"{label}:\n{description}");
 		}
 	}
 }
