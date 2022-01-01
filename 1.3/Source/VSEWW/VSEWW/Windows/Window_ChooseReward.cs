@@ -25,6 +25,7 @@ namespace VSEWW
             this.absorbInputAroundWindow = false;
             this.doWindowBackground = false;
             this.drawShadow = false;
+            this.preventSave = true;
 
             rewards = new List<RewardDef>();
             for (int i = 0; i < 3; i++)
