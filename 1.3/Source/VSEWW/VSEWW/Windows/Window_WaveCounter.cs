@@ -48,21 +48,21 @@ namespace VSEWW
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
-            windowRect.x = (float)(UI.screenWidth - this.InitialSize.x - 2f);
-            windowRect.y = 2f;
+            windowRect.x = (float)(UI.screenWidth - windowRect.width - 5f);
+            windowRect.y = 5f;
         }
 
         public void UpdateHeightAndWidth()
         {
-            windowRect.height = 150f + mcw.nextRaidInfo.kindListLines * 19f;
+            windowRect.height = 132f + mcw.nextRaidInfo.kindListLines * 15f;
 
             if (VESWWMod.settings.compactCounter)
                 windowRect.width = 300f;
             else
                 windowRect.width = InitialSize.x;
 
-            windowRect.x = (float)(UI.screenWidth - windowRect.width - 2f);
-            windowRect.y = 2f;
+            windowRect.x = (float)(UI.screenWidth - windowRect.width - 5f);
+            windowRect.y = 5f;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -135,14 +135,15 @@ namespace VSEWW
                 height = 25
             };
             Widgets.Label(timeRect, mcw.nextRaidInfo.TimeBeforeWave());
-            Text.Font = prevFont;
             // Kinds
+            Text.Font = GameFont.Tiny;
             Rect kindRect = new Rect(rect)
             {
                 y = timeRect.yMax + 10,
-                height = rect.height - numRect.height - timeRect.height - 20,
+                height = mcw.nextRaidInfo.kindListLines * 15f//rect.height - numRect.height - timeRect.height - 20,
             };
             Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
+            Text.Font = prevFont;
             Text.Anchor = prevAnch;
         }
 
@@ -167,7 +168,9 @@ namespace VSEWW
                 DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);
                 // Pawn left
                 var prevAnch = Text.Anchor;
+                var prevFont = Text.Font;
                 Text.Anchor = TextAnchor.UpperRight;
+                Text.Font = GameFont.Tiny;
                 Rect kindRect = new Rect(rect)
                 {
                     y = barRect.yMax + 10,
@@ -175,6 +178,7 @@ namespace VSEWW
                 };
                 // - Showing label
                 Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
+                Text.Font = prevFont;
                 Text.Anchor = prevAnch;
             }
         }
