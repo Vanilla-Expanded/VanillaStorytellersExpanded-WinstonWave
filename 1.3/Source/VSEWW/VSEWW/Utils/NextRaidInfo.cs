@@ -15,7 +15,7 @@ namespace VSEWW
         // Raid infos
         // - Is always false at start - Set to true when lord isn't null
         public bool sent = false;
-        public Lord lord;
+        private Lord lord;
         // - When
         public int atTick;
         // - All modifiers applied to the raid
@@ -36,8 +36,26 @@ namespace VSEWW
         // - Number of pawns at the start
         public int totalPawn;
 
+        public Lord Lord
+        {
+            get
+            {
+                if (lord != null)
+                    return lord;
+
+                Map map = (Map)incidentParms.target;
+                if (map.lordManager != null && !map.lordManager.lords.NullOrEmpty())
+                {
+                    lord = map.lordManager.lords.Find(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty());
+                }
+
+                return lord ?? null;
+            }
+        }
+
         public void ExposeData()
         {
+            Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
             Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
@@ -76,23 +94,6 @@ namespace VSEWW
 
         /** Get pawns count left **/
         public int WavePawnsLeft() => WavePawns().Count;
-
-        /** Get raid lord **/
-        public void SetLord()
-        {
-            Map map = (Map)incidentParms.target;
-            if (!sent)
-            {
-                if (map.lordManager != null && !map.lordManager.lords.NullOrEmpty())
-                {
-                    lord = map.lordManager.lords.Find(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty());
-                    if (lord != null)
-                    {
-                        sent = true;
-                    }
-                }
-            }
-        }
 
         /** Choose and add modifier(s) **/
         public void ChooseAndApplyModifier(float modifierChance)

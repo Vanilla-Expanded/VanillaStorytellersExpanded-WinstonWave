@@ -47,12 +47,12 @@ namespace VSEWW
                 }
                 else
                 {
-                    nextRaidInfo.SetLord();
                     if (!nextRaidInfo.sent && nextRaidInfo.atTick <= Find.TickManager.TicksGame)
                     {
                         ExecuteRaid(Find.TickManager.TicksGame);
+                        nextRaidInfo.sent = true;
                     }
-                    else if (nextRaidInfo.sent && nextRaidInfo.lord != null && nextRaidInfo.WavePawnsLeft() == 0)
+                    else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
                     {
                         Find.WindowStack.Add(new Window_ChooseReward(currentWave));
                         if (++currentWave % 5 == 0)
@@ -150,7 +150,8 @@ namespace VSEWW
             if (currentPoints < VESWWMod.settings.maxPoints)
             {
                 if (currentPoints <= 0) currentPoints = 100f;
-                else currentPoints *= 1.2f;
+                else if (currentWave <= 20) currentPoints *= 1.2f;
+                else currentPoints *= 1.1f;
             }
 
             float point = currentPoints * nextRaidMultiplyPoints;

@@ -54,16 +54,12 @@ namespace VSEWW
 
         public void UpdateHeightAndWidth()
         {
-            Log.Message($"{mcw.nextRaidInfo.kindListLines}");
-            windowRect.height = 132f + mcw.nextRaidInfo.kindListLines * 18f;
+            windowRect.height = 150f + mcw.nextRaidInfo.kindListLines * 19f;
 
             if (VESWWMod.settings.compactCounter)
                 windowRect.width = 300f;
             else
                 windowRect.width = InitialSize.x;
-
-            if (VESWWMod.settings.drawCounterBackground)
-                windowRect.height += 20f;
 
             windowRect.x = (float)(UI.screenWidth - windowRect.width - 2f);
             windowRect.y = 2f;
@@ -74,9 +70,8 @@ namespace VSEWW
             if (VESWWMod.settings.drawCounterBackground)
             {
                 Color c = Widgets.WindowBGFillColor;
-                c.a = 0.25f;
+                c.a = 0.35f;
                 Widgets.DrawBoxSolid(inRect, c);
-                inRect = inRect.ContractedBy(10);
             }
 
             if (mcw.nextRaidInfo.sent)
@@ -166,19 +161,22 @@ namespace VSEWW
                 height = 25
             };
 
-            int pKill = mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft();
-            DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);
-            // Pawn left
-            var prevAnch = Text.Anchor;
-            Text.Anchor = TextAnchor.UpperRight;
-            Rect kindRect = new Rect(rect)
+            if (mcw.nextRaidInfo.Lord != null)
             {
-                y = barRect.yMax + 10,
-                height = rect.height - numRect.height - barRect.height - 20,
-            };
-            // - Showing label
-            Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
-            Text.Anchor = prevAnch;
+                int pKill = mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft();
+                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);
+                // Pawn left
+                var prevAnch = Text.Anchor;
+                Text.Anchor = TextAnchor.UpperRight;
+                Rect kindRect = new Rect(rect)
+                {
+                    y = barRect.yMax + 10,
+                    height = rect.height - numRect.height - barRect.height - 20,
+                };
+                // - Showing label
+                Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
+                Text.Anchor = prevAnch;
+            }
         }
     
         private void DrawFillableBar(Rect rect, string label, float percent, bool doBorder = true)

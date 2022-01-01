@@ -64,7 +64,7 @@ namespace VSEWW
                 }
 
                 var winston = map.GetComponent<MapComponent_Winston>();
-                if (winston != null && winston.nextRaidInfo != null)
+                if (winston != null && winston.nextRaidInfo != null && reward.waveModifier != null)
                 {
                     if (reward.waveModifier.delayBy > 0)
                         winston.nextRaidInfo.atTick += reward.waveModifier.delayBy * 60000;
