@@ -63,7 +63,7 @@ namespace VSEWW
                         {
                             nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
                         }
-                        waveCounter.UpdateHeightAndWidth();
+                        waveCounter.UpdateHeight();
                     }
                 }
 
@@ -71,7 +71,7 @@ namespace VSEWW
                 {
                     waveCounter = new Window_WaveCounter(this);
                     Find.WindowStack.Add(waveCounter);
-                    waveCounter.UpdateHeightAndWidth();
+                    waveCounter.UpdateHeight();
                 }
             }
             else if (nextRaidInfo != null)

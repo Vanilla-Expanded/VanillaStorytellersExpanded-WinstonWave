@@ -11,7 +11,7 @@ namespace VSEWW
 {
     internal class Window_WaveCounter : Window
     {
-        public override Vector2 InitialSize => new Vector2(500f, 300f);
+        public override Vector2 InitialSize => new Vector2(400f, 300f);
 
         private readonly MapComponent_Winston mcw;
 
@@ -52,28 +52,13 @@ namespace VSEWW
             windowRect.y = 5f;
         }
 
-        public void UpdateHeightAndWidth()
+        public void UpdateHeight()
         {
             windowRect.height = 142f + mcw.nextRaidInfo.kindListLines * 15f;
-
-            if (VESWWMod.settings.compactCounter)
-                windowRect.width = 300f;
-            else
-                windowRect.width = InitialSize.x;
-
-            windowRect.x = (float)(UI.screenWidth - windowRect.width - 5f);
-            windowRect.y = 5f;
         }
 
         public override void DoWindowContents(Rect inRect)
         {
-            if (VESWWMod.settings.drawCounterBackground)
-            {
-                Color c = Widgets.WindowBGFillColor;
-                c.a = 0.35f;
-                Widgets.DrawBoxSolid(inRect, c);
-            }
-
             if (mcw.nextRaidInfo.sent)
                 DoWaveProgressUI(inRect);
             else
@@ -85,51 +70,40 @@ namespace VSEWW
             var prevFont = Text.Font;
             var prevAnch = Text.Anchor;
             Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+
+            // Modifiers and wave rect
+            float mWidth = rect.height - 10;
+            int i;
+            for (i = 1; i < mcw.nextRaidInfo.modifierCount; i++)
+            {
+                Rect mRect = new Rect(rect)
+                {
+                    x = rect.xMax - (i * mWidth) - ((i - 1) * 5),
+                    width = mWidth,
+                    height = mWidth,
+                };
+                mRect.y += 5;
+                GUI.DrawTexture(mRect, Textures.ModifierBGTex);
+                mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
+            }
+
+            Rect wRect = new Rect(rect)
+            {
+                x = rect.xMax - (i * mWidth) - ((i - 1) * 5) - 10,
+                width = mWidth + 10,
+            };
+            GUI.DrawTexture(wRect, Textures.WaveBGTex);
+            Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Textures.NormalTex : Textures.BossTex, 0.8f);
 
             // Wave number
-            Text.Anchor = TextAnchor.MiddleLeft;
             Rect waveNumRect = new Rect(rect)
             {
-                width = rect.width / 3,
+                width = 150f,
             };
+            waveNumRect.x = wRect.x - 10 - waveNumRect.width;
+            Text.Anchor = TextAnchor.MiddleRight;
             Widgets.Label(waveNumRect.Rounded(), "VESWW.WaveNum".Translate(mcw.nextRaidInfo.waveNum));
-
-            // Modifiers rect
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Rect modifierRect = new Rect(rect)
-            {
-                width = (rect.width / 3) * 2,
-                x = waveNumRect.xMax
-            };
-            float mWidth = Math.Min(modifierRect.width / 3, modifierRect.height) - 10;
-            for (int i = 1; i <= 3; i++)
-            {
-                if (i == 3)
-                {
-                    Rect wRect = new Rect(modifierRect)
-                    {
-                        x = modifierRect.xMax - (i * mWidth) - ((i - 1) * 5) - 10,
-                        width = mWidth + 10,
-                    };
-                    GUI.DrawTexture(wRect, Textures.WaveBGTex);
-                    Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Textures.NormalTex : Textures.BossTex, 0.8f);
-                }
-                else
-                {
-                    Rect mRect = new Rect(modifierRect)
-                    {
-                        x = modifierRect.xMax - (i * mWidth) - ((i - 1) * 5),
-                        width = mWidth,
-                        height = mWidth,
-                    };
-                    mRect.y += 5;
-                    GUI.DrawTexture(mRect, Textures.ModifierBGTex);
-                    if (mcw.nextRaidInfo.modifiers.Count >= i)
-                    {
-                        mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
-                    }
-                }
-            }
 
             Text.Font = prevFont;
             Text.Anchor = prevAnch;

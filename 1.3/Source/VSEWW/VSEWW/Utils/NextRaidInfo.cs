@@ -17,6 +17,7 @@ namespace VSEWW
         public int atTick;
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
+        public int? modifierCount;
         // - Raid parms
         public IncidentParms incidentParms;
         // - Wave number
@@ -61,6 +62,19 @@ namespace VSEWW
                 waveType = waveNum % 5 == 0 ? 1 : 0;
 
                 return waveType.Value;
+            }
+        }
+
+        public int ModifierCount
+        {
+            get
+            {
+                if (modifierCount != null)
+                    return modifierCount.Value;
+
+                modifierCount = modifiers.Count;
+
+                return modifierCount.Value;
             }
         }
 
