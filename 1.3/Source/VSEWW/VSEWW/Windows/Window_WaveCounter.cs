@@ -65,7 +65,7 @@ namespace VSEWW
                 DoWavePredictionUI(inRect);
         }
 
-        private void DoWaveNumberAndModifierUI(Rect rect)
+        private float DoWaveNumberAndModifierUI(Rect rect)
         {
             var prevFont = Text.Font;
             var prevAnch = Text.Anchor;
@@ -107,6 +107,8 @@ namespace VSEWW
 
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
+
+            return waveNumRect.x;
         }
 
         private void DoWavePredictionUI(Rect rect)
@@ -148,11 +150,13 @@ namespace VSEWW
             {
                 height = 60
             };
-            DoWaveNumberAndModifierUI(numRect);
+            float startAt = DoWaveNumberAndModifierUI(numRect);
             // Progress bar
             Rect barRect = new Rect(rect)
             {
+                x = startAt,
                 y = numRect.yMax + 10,
+                width = rect.width - startAt,
                 height = 25
             };
 
