@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using Verse.AI;
 using Verse.AI.Group;
 
 namespace VSEWW
@@ -19,11 +16,12 @@ namespace VSEWW
         // - When
         public int atTick;
         // - All modifiers applied to the raid
-        public List<ModifierDef> modifiers = new List<ModifierDef>() { DefDatabase<ModifierDef>.AllDefsListForReading.First()};
+        public List<ModifierDef> modifiers = new List<ModifierDef>();
         // - Raid parms
         public IncidentParms incidentParms;
         // - Wave number
         public int waveNum;
+        private int? waveType;
 
         // Utils for wave counter
         // - Wave prediction string && size
@@ -50,6 +48,19 @@ namespace VSEWW
                 }
 
                 return lord ?? null;
+            }
+        }
+
+        public int WaveType
+        {
+            get
+            {
+                if (waveType != null)
+                    return waveType.Value;
+
+                waveType = waveNum % 5 == 0 ? 1 : 0;
+
+                return waveType.Value;
             }
         }
 

@@ -45,10 +45,10 @@ namespace VSEWW
         public void DrawCard(Rect rect)
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
-			GUI.DrawTexture(iconRect.ContractedBy(5), ModifierIcon);
+			GUI.DrawTexture(iconRect.ContractedBy(10), ModifierIcon);
 
 			Widgets.DrawHighlightIfMouseover(rect);
-			TooltipHandler.TipRegion(rect, (TipSignal)$"{label}:\n{description}");
+			TooltipHandler.TipRegion(rect, $"{label}:\n{description}");
 		}
 	}
 }

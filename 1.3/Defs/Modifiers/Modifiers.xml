@@ -2,6 +2,7 @@
 <Defs>
   <VSEWW.ModifierDef>
     <defName>VSEWW_DoubleTrouble</defName>
+    <texPath>UI/Modifiers/Modifier_DoubleTrouble</texPath>
     <label>Double trouble</label>
     <description>Raid size in points is doubled</description>
     <pointMultiplier>2.0</pointMultiplier>

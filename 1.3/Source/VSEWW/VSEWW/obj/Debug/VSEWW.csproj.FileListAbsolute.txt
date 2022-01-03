@@ -2,7 +2,7 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Vanilla-Storytellers
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Vanilla-Storytellers-Expanded-Winston-Wave\1.2\Source\VSEWW\VSEWW\obj\Debug\VSEWW.csprojAssemblyReference.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Vanilla-Storytellers-Expanded-Winston-Wave\1.2\Source\VSEWW\VSEWW\obj\Debug\VSEWW.csproj.CoreCompileInputs.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Vanilla-Storytellers-Expanded-Winston-Wave\1.2\Source\VSEWW\VSEWW\obj\Debug\VSEWW.dll
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\VanillaStorytellersExpandedWinstonWave\1.3\Assemblies\VSEWW.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\VanillaStorytellersExpandedWinstonWave\1.3\Source\VSEWW\VSEWW\obj\Debug\VSEWW.csproj.AssemblyReference.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\VanillaStorytellersExpandedWinstonWave\1.3\Source\VSEWW\VSEWW\obj\Debug\VSEWW.csproj.CoreCompileInputs.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\VanillaStorytellersExpandedWinstonWave\1.3\Source\VSEWW\VSEWW\obj\Debug\VSEWW.dll
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\VanillaStorytellersExpandedWinstonWave\1.3\Assemblies\VSEWW.dll

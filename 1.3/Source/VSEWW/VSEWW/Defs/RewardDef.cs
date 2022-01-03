@@ -60,12 +60,35 @@ namespace VSEWW
 				yield return $"RewardDef {defName} has null label";
 			if (description == null)
 				yield return $"RewardDef {defName} has null description";
+			if (texPath == null)
+            {
+                switch (category)
+                {
+                    case RewardCategory.Poor:
+						texPath = "UI/Rewards/RewardDefault_Poor";
+						break;
+                    case RewardCategory.Normal:
+						texPath = "UI/Rewards/RewardDefault_Normal";
+						break;
+                    case RewardCategory.Good:
+						texPath = "UI/Rewards/RewardDefault_Good";
+						break;
+                    case RewardCategory.Excellent:
+						texPath = "UI/Rewards/RewardDefault_Excellent";
+						break;
+                    case RewardCategory.Legendary:
+						texPath = "UI/Rewards/RewardDefault_Legendary";
+						break;
+                    default:
+                        break;
+                }
+            }
 		}
 
 		public void DrawCard(Rect rect, Window window, Map map)
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
-			GUI.DrawTexture(iconRect.ContractedBy(10), RewardIcon);
+			GUI.DrawTexture(iconRect.ContractedBy(20), RewardIcon);
 
 			var anchor = Text.Anchor;
 			Text.Anchor = TextAnchor.UpperCenter;

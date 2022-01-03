@@ -54,7 +54,7 @@ namespace VSEWW
 
         public void UpdateHeightAndWidth()
         {
-            windowRect.height = 132f + mcw.nextRaidInfo.kindListLines * 15f;
+            windowRect.height = 142f + mcw.nextRaidInfo.kindListLines * 15f;
 
             if (VESWWMod.settings.compactCounter)
                 windowRect.width = 300f;
@@ -85,9 +85,9 @@ namespace VSEWW
             var prevFont = Text.Font;
             var prevAnch = Text.Anchor;
             Text.Font = GameFont.Medium;
-            Text.Anchor = TextAnchor.MiddleCenter;
 
             // Wave number
+            Text.Anchor = TextAnchor.MiddleLeft;
             Rect waveNumRect = new Rect(rect)
             {
                 width = rect.width / 3,
@@ -95,23 +95,39 @@ namespace VSEWW
             Widgets.Label(waveNumRect.Rounded(), "VESWW.WaveNum".Translate(mcw.nextRaidInfo.waveNum));
 
             // Modifiers rect
+            Text.Anchor = TextAnchor.MiddleCenter;
             Rect modifierRect = new Rect(rect)
             {
                 width = (rect.width / 3) * 2,
                 x = waveNumRect.xMax
             };
-            float mWidth = Math.Min(modifierRect.width / 3, modifierRect.height);
+            float mWidth = Math.Min(modifierRect.width / 3, modifierRect.height) - 10;
             for (int i = 1; i <= 3; i++)
             {
-                Rect mRect = new Rect(modifierRect)
+                if (i == 3)
                 {
-                    x = modifierRect.xMax - (i * mWidth) - ((i - 1) * 5),
-                    width = mWidth
-                };
-                Widgets.DrawWindowBackground(mRect);
-                if (mcw.nextRaidInfo.modifiers.Count >= i)
+                    Rect wRect = new Rect(modifierRect)
+                    {
+                        x = modifierRect.xMax - (i * mWidth) - ((i - 1) * 5) - 10,
+                        width = mWidth + 10,
+                    };
+                    GUI.DrawTexture(wRect, Textures.WaveBGTex);
+                    Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Textures.NormalTex : Textures.BossTex, 0.8f);
+                }
+                else
                 {
-                    mcw.nextRaidInfo.modifiers[i-1].DrawCard(mRect);
+                    Rect mRect = new Rect(modifierRect)
+                    {
+                        x = modifierRect.xMax - (i * mWidth) - ((i - 1) * 5),
+                        width = mWidth,
+                        height = mWidth,
+                    };
+                    mRect.y += 5;
+                    GUI.DrawTexture(mRect, Textures.ModifierBGTex);
+                    if (mcw.nextRaidInfo.modifiers.Count >= i)
+                    {
+                        mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
+                    }
                 }
             }
 
@@ -124,7 +140,7 @@ namespace VSEWW
             // Wave and modifier
             Rect numRect = new Rect(rect)
             {
-                height = 50
+                height = 60
             };
             DoWaveNumberAndModifierUI(numRect);
             // Progress bar
@@ -156,7 +172,7 @@ namespace VSEWW
             // Wave and modifier
             Rect numRect = new Rect(rect)
             {
-                height = 50
+                height = 60
             };
             DoWaveNumberAndModifierUI(numRect);
             // Progress bar
