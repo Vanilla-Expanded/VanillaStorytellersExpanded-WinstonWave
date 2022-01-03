@@ -7,4 +7,88 @@
     <description>Raid size in points is doubled</description>
     <pointMultiplier>2.0</pointMultiplier>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_BulletSponges</defName>
+    <texPath>UI/Modifiers/Modifier_BulletSponges</texPath>
+    <label>Bullet sponges</label>
+    <description>Health of the enemies is doubled</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Sprinters</defName>
+    <texPath>UI/Modifiers/Modifier_Sprinters</texPath>
+    <label>Sprinters</label>
+    <description>Movement speed of all the enemies is doubled</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Veterans</defName>
+    <texPath>UI/Modifiers/Modifier_Veterans</texPath>
+    <label>Veterans</label>
+    <description>All stats of the enemies (Manipulation, sight etc) is multiplied by x1.5</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Boom</defName>
+    <texPath>UI/Modifiers/Modifier_Boom</texPath>
+    <label>Boom!</label>
+    <description>All enemies explode when killed</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Reinforcements</defName>
+    <texPath>UI/Modifiers/Modifier_Reinforcements</texPath>
+    <label>Reinforcements</label>
+    <description>Enemies receive reinforcements from the same faction, worth 50% of the initial wave size, after about 20% of the raid size is defeated</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_OrbitalBombardment</defName>
+    <texPath>UI/Modifiers/Modifier_OrbitalBombardment</texPath>
+    <label>Orbital bombardment</label>
+    <description>During the wave, orbital bombardment falls on the entire map</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Flashstorm</defName>
+    <texPath>UI/Modifiers/Modifier_Flashstorm</texPath>
+    <label>Flashstorm</label>
+    <description>During the wave, flashstorm is present on the map and rain won’t trigger to extinguish the flames</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Ninjas</defName>
+    <texPath>UI/Modifiers/Modifier_Ninjas</texPath>
+    <label>Ninjas</label>
+    <description>All enemies are invisible for the first 30 seconds</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Bulletproof</defName>
+    <texPath>UI/Modifiers/Modifier_Bulletproof</texPath>
+    <label>Bulletproof</label>
+    <description>All enemies have their natural armor increased by 50%</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_NoPainNoGain</defName>
+    <texPath>UI/Modifiers/Modifier_NoPainNoGain</texPath>
+    <label>No Pain No Gain</label>
+    <description>All enemies don’t feel pain</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_NoRetreat</defName>
+    <texPath>UI/Modifiers/Modifier_NoRetreat</texPath>
+    <label>No retreat!</label>
+    <description>Enemies will not retreat</description>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_AcidifiersForEveryone</defName>
+    <texPath>UI/Modifiers/Modifier_AcidifiersForEveryone</texPath>
+    <label>Acidifiers for everyone!</label>
+    <description>All enemies have death acidifiers</description>
+  </VSEWW.ModifierDef>
 </Defs>
