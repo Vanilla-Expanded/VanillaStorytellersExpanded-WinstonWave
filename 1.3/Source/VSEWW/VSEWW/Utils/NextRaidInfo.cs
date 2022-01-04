@@ -210,8 +210,7 @@ namespace VSEWW
             }
         }
 
-        private static List<Thing> emptyIngredientsList = new List<Thing>();
-
+        /** Install part on pawn - copy of vanilla private method **/
         private void InstallPart(Pawn pawn, ThingDef partDef)
         {
             IEnumerable<RecipeDef> source = DefDatabase<RecipeDef>.AllDefs.Where(x => x.IsIngredient(partDef) && pawn.def.AllRecipes.Contains(x));
@@ -220,7 +219,7 @@ namespace VSEWW
             RecipeDef recipe = source.RandomElement();
             if (!recipe.Worker.GetPartsToApplyOn(pawn, recipe).Any())
                 return;
-            recipe.Worker.ApplyOnPawn(pawn, recipe.Worker.GetPartsToApplyOn(pawn, recipe).RandomElement(), null, emptyIngredientsList, null);
+            recipe.Worker.ApplyOnPawn(pawn, recipe.Worker.GetPartsToApplyOn(pawn, recipe).RandomElement(), null, new List<Thing>(), null);
         }
 
         /** Set pawns prediction string and count **/
