@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,31 @@ namespace VSEWW
         public static void SendWaveNow()
         {
             Find.CurrentMap.GetComponent<MapComponent_Winston>().nextRaidInfo.atTick = Find.TickManager.TicksGame + 20;
+        }
+
+        [DebugAction("VES Winston Wave", "Add modifier to wave", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void AddModifier()
+        {
+            List<DebugMenuOption> debugMenuOptionList = new List<DebugMenuOption>();
+
+            var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+            foreach (var m in DefDatabase<ModifierDef>.AllDefsListForReading)
+            {
+                debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
+                {
+                    if (c.nextRaidInfo.modifiers.Count < 2)
+                    {
+                        c.nextRaidInfo.modifiers.Add(m);
+                        c.nextRaidInfo.ApplyModifier();
+                        c.nextRaidInfo.modifierCount = null;
+                    }
+                    else
+                    {
+                        Messages.Message("Cannot add more modifiersto this wave", MessageTypeDefOf.CautionInput);
+                    }
+                }));
+            }
+            Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
     }
 }

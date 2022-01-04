@@ -76,6 +76,9 @@
     <texPath>UI/Modifiers/Modifier_NoPainNoGain</texPath>
     <label>No Pain No Gain</label>
     <description>All enemies don’t feel pain</description>
+    <globalHediffs>
+      <li>VESWW_NoPain</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -83,6 +86,7 @@
     <texPath>UI/Modifiers/Modifier_NoRetreat</texPath>
     <label>No retreat!</label>
     <description>Enemies will not retreat</description>
+    <everRetreat>False</everRetreat>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -90,5 +94,8 @@
     <texPath>UI/Modifiers/Modifier_AcidifiersForEveryone</texPath>
     <label>Acidifiers for everyone!</label>
     <description>All enemies have death acidifiers</description>
+    <techHediffs>
+      <li>DeathAcidifier</li>
+    </techHediffs>
   </VSEWW.ModifierDef>
 </Defs>

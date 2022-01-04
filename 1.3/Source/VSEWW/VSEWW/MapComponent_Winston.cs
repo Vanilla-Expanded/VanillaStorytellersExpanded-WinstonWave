@@ -65,6 +65,9 @@ namespace VSEWW
                         }
                         waveCounter.UpdateHeight();
                     }
+
+                    if (nextRaidInfo.sent && nextRaidInfo.Lord != null && !nextRaidInfo.modifierApplied)
+                        nextRaidInfo.ApplyModifier();
                 }
 
                 if (waveCounter == null)
@@ -116,7 +119,7 @@ namespace VSEWW
             };
             nri.incidentParms.raidStrategy = from.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
 
-            nri.ChooseAndApplyModifier(0f);
+            nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
             return nri;
         }
@@ -140,7 +143,7 @@ namespace VSEWW
                                                     s != DefDatabase<RaidStrategyDef>.GetNamed("StageThenAttack"))
                 .RandomElement();
 
-            nri.ChooseAndApplyModifier(0f);
+            nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
             return nri;
         }

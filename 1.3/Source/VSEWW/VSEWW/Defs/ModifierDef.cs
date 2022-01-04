@@ -13,7 +13,13 @@ namespace VSEWW
     {
         public string texPath;
 		// Multiply points by
-		public float pointMultiplier = 1f;
+		public float pointMultiplier = 0f;
+		// Hediff not applied to a part
+		public List<HediffDef> globalHediffs;
+		// Hediff applied to specific part
+		public List<ThingDef> techHediffs;
+		// Retreat ?
+		public bool everRetreat = true;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon

@@ -75,7 +75,7 @@ namespace VSEWW
             // Modifiers and wave rect
             float mWidth = rect.height - 10;
             int i;
-            for (i = 1; i < mcw.nextRaidInfo.modifierCount; i++)
+            for (i = 1; i <= mcw.nextRaidInfo.ModifierCount; i++)
             {
                 Rect mRect = new Rect(rect)
                 {

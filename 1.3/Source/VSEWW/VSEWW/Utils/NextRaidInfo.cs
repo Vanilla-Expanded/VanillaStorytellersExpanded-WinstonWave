@@ -18,6 +18,7 @@ namespace VSEWW
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
         public int? modifierCount;
+        public bool modifierApplied;
         // - Raid parms
         public IncidentParms incidentParms;
         // - Wave number
@@ -86,6 +87,7 @@ namespace VSEWW
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
+            Scribe_Values.Look(ref modifierApplied, "modifierApplied");
         }
 
         /** Get IRL time before this raid **/
@@ -120,10 +122,105 @@ namespace VSEWW
         /** Get pawns count left **/
         public int WavePawnsLeft() => WavePawns().Count;
 
-        /** Choose and add modifier(s) **/
-        public void ChooseAndApplyModifier(float modifierChance)
+        /** Get modifiers chance **/
+        private int[] GetModifiersChance()
         {
+            int modifierChance = 0;
 
+            if (WaveType == 1) modifierChance += 10;
+
+            if (waveNum > 10)
+            {
+                if (waveNum <= 15) return new int[] { modifierChance + 3, 0 };
+                if (waveNum <= 20) return new int[] { modifierChance + 10, 0 };
+                if (waveNum <= 25) return new int[] { modifierChance + 20, 0 };
+                if (waveNum <= 30) return new int[] { modifierChance + 25, 0 };
+                if (waveNum <= 35) return new int[] { modifierChance + 28, 0 };
+                if (waveNum <= 40) return new int[] { modifierChance + 30, 0 };
+                if (waveNum <= 45) return new int[] { modifierChance + 35, 0 };
+                if (waveNum <= 50) return new int[] { modifierChance + 35, 5 };
+                if (waveNum <= 60) return new int[] { modifierChance + 50, 10 };
+                return new int[] { modifierChance + 20, 20 };
+            }
+            return new int[] { modifierChance, 0 };
+        }
+
+        /** Choose and add modifier(s) **/
+        public void ChooseAndApplyModifier()
+        {
+            int[] modifiersChance = GetModifiersChance();
+
+            var rand = new Random();
+            if (modifiersChance[0] > 0)
+            {
+                int r = rand.Next(0, 100);
+                if (modifiersChance[0] < r)
+                    modifiers.Add(DefDatabase<ModifierDef>.AllDefsListForReading.RandomElement());
+            }
+
+            if (modifiersChance[1] > 0)
+            {
+                int r = rand.Next(0, 100);
+                if (modifiersChance[1] < r)
+                {
+                    var chooseFrom = DefDatabase<ModifierDef>.AllDefsListForReading;
+                    if (modifiers[0] != null)
+                        chooseFrom.Remove(modifiers[0]);
+                    modifiers.Add(chooseFrom.RandomElement());
+                }
+            }
+
+            ApplyModifier();
+        }
+
+        /** Apply modifier(s) **/
+        public void ApplyModifier()
+        {
+            foreach (var modifier in modifiers)
+            {
+                if (!sent && modifier.pointMultiplier > 0) // Can only be applied before raid is sent
+                    incidentParms.points *= modifier.pointMultiplier;
+
+                if (sent && Lord != null) // Pawn modifier, only applied if raid is sent and Lord isn't null
+                {
+                    foreach (var pawn in Lord.ownedPawns)
+                    {
+                        if (!modifier.globalHediffs.NullOrEmpty())
+                        {
+                            foreach (var hediff in modifier.globalHediffs)
+                            {
+                                pawn.health.AddHediff(hediff);
+                            }
+                        }
+
+                        if (!modifier.techHediffs.NullOrEmpty())
+                        {
+                            foreach (var hediff in modifier.techHediffs)
+                            {
+                                InstallPart(pawn, hediff);
+                            }
+                        }
+
+                        if (!modifier.everRetreat)
+                        {
+                            pawn.mindState.canFleeIndividual = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        private static List<Thing> emptyIngredientsList = new List<Thing>();
+
+        private void InstallPart(Pawn pawn, ThingDef partDef)
+        {
+            IEnumerable<RecipeDef> source = DefDatabase<RecipeDef>.AllDefs.Where(x => x.IsIngredient(partDef) && pawn.def.AllRecipes.Contains(x));
+            if (!source.Any())
+                return;
+            RecipeDef recipe = source.RandomElement();
+            if (!recipe.Worker.GetPartsToApplyOn(pawn, recipe).Any())
+                return;
+            recipe.Worker.ApplyOnPawn(pawn, recipe.Worker.GetPartsToApplyOn(pawn, recipe).RandomElement(), null, emptyIngredientsList, null);
         }
 
         /** Set pawns prediction string and count **/
