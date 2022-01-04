@@ -18,9 +18,10 @@ namespace VSEWW
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
         public int? modifierCount;
-        public bool modifierApplied;
         // - Raid parms
         public IncidentParms incidentParms;
+        // - Raid pawns
+        public List<Pawn> raidPawns = new List<Pawn>();
         // - Wave number
         public int waveNum;
         private int? waveType;
@@ -84,10 +85,10 @@ namespace VSEWW
             Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
             Scribe_Collections.Look(ref modifiers, "modifiers");
+            Scribe_Collections.Look(ref raidPawns, "raidPawns");
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
-            Scribe_Values.Look(ref modifierApplied, "modifierApplied");
         }
 
         /** Get IRL time before this raid **/
@@ -169,8 +170,6 @@ namespace VSEWW
                     modifiers.Add(chooseFrom.RandomElement());
                 }
             }
-
-            ApplyModifier();
         }
 
         /** Apply modifier(s) **/
@@ -178,12 +177,12 @@ namespace VSEWW
         {
             foreach (var modifier in modifiers)
             {
-                if (!sent && modifier.pointMultiplier > 0) // Can only be applied before raid is sent
+                if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
                     incidentParms.points *= modifier.pointMultiplier;
 
-                if (sent && Lord != null) // Pawn modifier, only applied if raid is sent and Lord isn't null
+                if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
                 {
-                    foreach (var pawn in Lord.ownedPawns)
+                    foreach (var pawn in raidPawns)
                     {
                         if (!modifier.globalHediffs.NullOrEmpty())
                         {
@@ -225,10 +224,10 @@ namespace VSEWW
         /** Set pawns prediction string and count **/
         public void SetPawnsInfo()
         {
-            var pList = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
+            raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
             // Get all kinds and the number of them
             var tempDic = new Dictionary<PawnKindDef, int>();
-            foreach (Pawn pawn in pList)
+            foreach (Pawn pawn in raidPawns)
             {
                 if (tempDic.ContainsKey(pawn.kindDef))
                 {
@@ -249,6 +248,8 @@ namespace VSEWW
                 kindListLines++;
             }
             kindList = kindLabel.TrimEndNewlines();
+
+            ApplyModifier();
         }
     }
 }

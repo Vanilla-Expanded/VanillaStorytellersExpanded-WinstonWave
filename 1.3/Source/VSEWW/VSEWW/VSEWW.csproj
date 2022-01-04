@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="Defs\Options.cs" />
     <Compile Include="Defs\ModifierDef.cs" />
+    <Compile Include="Harmony\HarmonyInit.cs" />
+    <Compile Include="Harmony\IncidentWorker_Raid_TryGenerateRaidInfo_Patch.cs" />
     <Compile Include="RewardCategory.cs" />
     <Compile Include="Textures.cs" />
     <Compile Include="Utils\DebugOptions.cs" />
@@ -73,5 +75,12 @@
     <Compile Include="Windows\Window_ChooseReward.cs" />
     <Compile Include="Windows\Window_WaveCounter.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime">
+      <Version>2.2.0</Version>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

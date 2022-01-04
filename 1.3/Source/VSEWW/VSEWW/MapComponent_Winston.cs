@@ -65,9 +65,6 @@ namespace VSEWW
                         }
                         waveCounter.UpdateHeight();
                     }
-
-                    if (nextRaidInfo.sent && nextRaidInfo.Lord != null && !nextRaidInfo.modifierApplied)
-                        nextRaidInfo.ApplyModifier();
                 }
 
                 if (waveCounter == null)
