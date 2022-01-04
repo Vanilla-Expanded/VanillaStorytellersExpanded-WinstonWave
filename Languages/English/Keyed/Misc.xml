@@ -28,6 +28,7 @@
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>
   <VESWW.TimeBetweenWaves>Time between waves:</VESWW.TimeBetweenWaves>
   <VESWW.MaxPoints>Max threat points used:</VESWW.MaxPoints>
-  <VESWW.DrawBackground>Draw wave counter background</VESWW.DrawBackground>
-  <VESWW.CompactCounter>Smaller wave counter</VESWW.CompactCounter>
+  <VESWW.DrawBackground>Draw wave counter background:</VESWW.DrawBackground>
+  <VESWW.PointMultiplierBefore20>Wave points multiplier before wave 20:</VESWW.PointMultiplierBefore20>
+  <VESWW.PointMultiplierAfter20>Wave points multiplier after wave 20:</VESWW.PointMultiplierAfter20>
 </LanguageData>

@@ -153,8 +153,8 @@ namespace VSEWW
             if (currentPoints < VESWWMod.settings.maxPoints)
             {
                 if (currentPoints <= 0) currentPoints = 100f;
-                else if (currentWave <= 20) currentPoints *= 1.2f;
-                else currentPoints *= 1.1f;
+                else if (currentWave <= 20) currentPoints *= VESWWMod.settings.pointMultiplierBefore;
+                else currentPoints *= VESWWMod.settings.pointMultiplierAfter;
             }
 
             float point = currentPoints * nextRaidMultiplyPoints;
