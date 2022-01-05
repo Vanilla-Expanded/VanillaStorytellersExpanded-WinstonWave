@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <!-- Orbital bombardement -->
+  <GameConditionDef>
+    <defName>VESWW_OrbitalBombardement</defName>
+    <conditionClass>VSEWW.OrbitalBombardement</conditionClass>
+    <label>Orbital bombardement</label>
+    <description>Orbital bombardement target your colony map.</description>
+    <endMessage>The orbital bombardement is ending.</endMessage>
+    <letterText>Orbital bombardement</letterText>
+    <letterDef>NegativeEvent</letterDef>
+    <canBePermanent>false</canBePermanent>
+  </GameConditionDef>
+
+  <IncidentDef>
+    <defName>VESWW_OrbitalBombardement</defName>
+    <label>orbital bombardement</label>
+    <workerClass>VSEWW.IncidentWorker_MakeGameConditionNoLetter</workerClass>
+    <category>Misc</category>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <gameCondition>VESWW_OrbitalBombardement</gameCondition>
+    <baseChance>0</baseChance>
+    <durationDays>
+      <min>10</min>
+      <max>10</max>
+    </durationDays>
+  </IncidentDef>
+  <!-- Flashstorm -->
+  <GameConditionDef>
+    <defName>VESWW_FullMapFlashstorm</defName>
+    <conditionClass>VSEWW.FullMapFlashstorm</conditionClass>
+    <label>Flashstorm</label>
+    <description>Flashstorm on your whole colony map.</description>
+    <endMessage>The flashstorm is ending.</endMessage>
+    <letterText>Flashstorm</letterText>
+    <letterDef>NegativeEvent</letterDef>
+    <canBePermanent>false</canBePermanent>
+  </GameConditionDef>
+
+  <IncidentDef>
+    <defName>VESWW_FullMapFlashstorm</defName>
+    <label>full map flashstorm</label>
+    <workerClass>VSEWW.IncidentWorker_MakeGameConditionNoLetter</workerClass>
+    <category>Misc</category>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <gameCondition>VESWW_FullMapFlashstorm</gameCondition>
+    <baseChance>0</baseChance>
+    <durationDays>
+      <min>10</min>
+      <max>10</max>
+    </durationDays>
+  </IncidentDef>
+</Defs>

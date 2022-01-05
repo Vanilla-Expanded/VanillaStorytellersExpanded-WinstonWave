@@ -1,16 +1,14 @@
-﻿using System;
+﻿using HarmonyLib;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using HarmonyLib;
 
 namespace VSEWW
 {
     [StaticConstructorOnStartup]
     public static class HarmonyInit
     {
+        public static Dictionary<Pawn, bool> hediffCache = new Dictionary<Pawn, bool>();
+
         static HarmonyInit()
         {
             Harmony harmonyInstance = new Harmony("Kikohi.VESWinstonWave");

@@ -20,7 +20,7 @@ namespace VSEWW
             if (Find.Storyteller.def.defName == "VSE_WinstonWave")
             {
                 Map map = (Map)parms.target;
-                if (map.GetComponent<MapComponent_Winston>() is MapComponent_Winston mapComp && mapComp != null)
+                if (map.GetComponent<MapComponent_Winston>() is MapComponent_Winston mapComp && mapComp != null && mapComp.nextRaidInfo.incidentParms.pawnGroupMakerSeed == parms.pawnGroupMakerSeed)
                 {
                     __instance.ResolveRaidStrategy(parms, PawnGroupKindDefOf.Combat);
                     __instance.ResolveRaidArriveMode(parms);

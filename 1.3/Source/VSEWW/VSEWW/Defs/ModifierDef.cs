@@ -20,6 +20,8 @@ namespace VSEWW
 		public List<ThingDef> techHediffs;
 		// Retreat ?
 		public bool everRetreat = true;
+		// Incidents to fire
+		public List<IncidentDef> incidents;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon
@@ -52,7 +54,7 @@ namespace VSEWW
 		{
 			Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
 			GUI.DrawTexture(iconRect.ContractedBy(10), ModifierIcon);
-			TooltipHandler.TipRegion(rect, $"<b>{label}</b>:\n{description}");
+			TooltipHandler.TipRegion(rect, $"<b>{label}</b>\n{description}");
 		}
 	}
 }

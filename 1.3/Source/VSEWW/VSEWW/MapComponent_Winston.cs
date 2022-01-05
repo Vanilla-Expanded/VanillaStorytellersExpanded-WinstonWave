@@ -55,6 +55,7 @@ namespace VSEWW
                     else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
                     {
                         Find.WindowStack.Add(new Window_ChooseReward(currentWave));
+                        nextRaidInfo.StopEvents();
                         if (++currentWave % 5 == 0)
                         {
                             nextRaidInfo = SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves);
@@ -85,7 +86,7 @@ namespace VSEWW
             ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
             map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
             Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
-
+            nextRaidInfo.SendAddditionalModifier();
             if (nextRaidSendAllies)
             {
                 IncidentParms incidentParms = new IncidentParms()
@@ -118,6 +119,7 @@ namespace VSEWW
 
             nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
+            waveCounter?.UpdateHeight();
             return nri;
         }
 
@@ -142,6 +144,7 @@ namespace VSEWW
 
             nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
+            waveCounter?.UpdateHeight();
             return nri;
         }
 

@@ -13,6 +13,9 @@
     <texPath>UI/Modifiers/Modifier_BulletSponges</texPath>
     <label>Bullet sponges</label>
     <description>Health of the enemies is doubled</description>
+    <globalHediffs>
+      <li>VSEWW_BulletSponge</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -20,6 +23,9 @@
     <texPath>UI/Modifiers/Modifier_Sprinters</texPath>
     <label>Sprinters</label>
     <description>Movement speed of all the enemies is doubled</description>
+    <globalHediffs>
+      <li>VSEWW_Sprinter</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -27,6 +33,9 @@
     <texPath>UI/Modifiers/Modifier_Veterans</texPath>
     <label>Veterans</label>
     <description>All stats of the enemies (Manipulation, sight etc) is multiplied by x1.5</description>
+    <globalHediffs>
+      <li>VESWW_Veterans</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -34,6 +43,9 @@
     <texPath>UI/Modifiers/Modifier_Boom</texPath>
     <label>Boom!</label>
     <description>All enemies explode when killed</description>
+    <globalHediffs>
+      <li>VSEWW_Boom</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -48,6 +60,9 @@
     <texPath>UI/Modifiers/Modifier_OrbitalBombardment</texPath>
     <label>Orbital bombardment</label>
     <description>During the wave, orbital bombardment falls on the entire map</description>
+    <incidents>
+      <li>VESWW_OrbitalBombardement</li>
+    </incidents>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -55,13 +70,19 @@
     <texPath>UI/Modifiers/Modifier_Flashstorm</texPath>
     <label>Flashstorm</label>
     <description>During the wave, flashstorm is present on the map and rain won’t trigger to extinguish the flames</description>
+    <incidents>
+      <li>VESWW_FullMapFlashstorm</li>
+    </incidents>
   </VSEWW.ModifierDef>
 
-  <VSEWW.ModifierDef>
+  <VSEWW.ModifierDef MayRequire="Ludeon.RimWorld.Royalty">
     <defName>VSEWW_Ninjas</defName>
     <texPath>UI/Modifiers/Modifier_Ninjas</texPath>
     <label>Ninjas</label>
     <description>All enemies are invisible for the first 30 seconds</description>
+    <globalHediffs>
+      <li>VESWW_Ninja</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -69,6 +90,9 @@
     <texPath>UI/Modifiers/Modifier_Bulletproof</texPath>
     <label>Bulletproof</label>
     <description>All enemies have their natural armor increased by 50%</description>
+    <globalHediffs>
+      <li>VESWW_BulletProof</li>
+    </globalHediffs>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>

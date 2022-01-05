@@ -44,7 +44,7 @@ namespace VSEWW
                 debugMenuOptionList.Add(new DebugMenuOption(waveNum.ToString(), DebugMenuOptionMode.Action, () =>
                 {
                     var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-                    for (int w = 0; w < waveNum; w++)
+                    for (int w = c.currentWave; w < waveNum; w++)
                     {
                         c.currentWave++;
                         c.GetNextWavePoint();
@@ -70,6 +70,9 @@ namespace VSEWW
             var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             foreach (var m in DefDatabase<ModifierDef>.AllDefsListForReading)
             {
+                if (m.defName == "VSEWW_NoRetreat" || m.defName == "VSEWW_DoubleTrouble")
+                    continue;
+
                 debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
                 {
                     if (c.nextRaidInfo.modifiers.Count < 2)

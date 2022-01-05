@@ -18,6 +18,7 @@ namespace VSEWW
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
         public int? modifierCount;
+        public bool reinforcementSent = false;
         // - Raid parms
         public IncidentParms incidentParms;
         // - Raid pawns
@@ -36,6 +37,11 @@ namespace VSEWW
         internal string cacheKindList;
         // - Number of pawns at the start
         public int totalPawn;
+
+        internal NextRaidInfo()
+        {
+            HarmonyInit.hediffCache.RemoveAll(k => k.Key == null || k.Key.Dead || !k.Key.Spawned);
+        }
 
         public Lord Lord
         {
@@ -80,12 +86,15 @@ namespace VSEWW
             }
         }
 
+        public bool Reinforcements => !reinforcementSent ? modifiers.Any(m => m.defName == "VSEWW_Reinforcements") : false;
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
+            Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Collections.Look(ref modifiers, "modifiers");
-            Scribe_Collections.Look(ref raidPawns, "raidPawns");
+            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep);
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
@@ -97,7 +106,7 @@ namespace VSEWW
         /** Get all pawns part of the raid - with caching **/
         public List<Pawn> WavePawns()
         {
-            if (cacheTick % 800 == 0 || lordPawnsCache.NullOrEmpty())
+            if (cacheTick % 600 == 0 || lordPawnsCache.NullOrEmpty())
             {
                 string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
                 Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
@@ -114,6 +123,16 @@ namespace VSEWW
                     kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
                 }
                 cacheKindList = kindLabel.TrimEndNewlines();
+
+                if (Reinforcements && lordPawnsCache.Count <= (int)(totalPawn * 0.8f))
+                {
+                    reinforcementSent = true;
+                    ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
+                    var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, incidentParms.target);
+                    parms.faction = incidentParms.faction;
+                    parms.points = Math.Max(100f, incidentParms.points * 0.5f);
+                    IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
+                }
             }
 
             cacheTick++;
@@ -165,11 +184,12 @@ namespace VSEWW
                 if (modifiersChance[1] < r)
                 {
                     var chooseFrom = DefDatabase<ModifierDef>.AllDefsListForReading;
-                    if (modifiers[0] != null)
-                        chooseFrom.Remove(modifiers[0]);
+                    chooseFrom.ToList().RemoveAll(m => modifiers.Contains(m));
                     modifiers.Add(chooseFrom.RandomElement());
                 }
             }
+
+            ApplyModifier();
         }
 
         /** Apply modifier(s) **/
@@ -179,6 +199,12 @@ namespace VSEWW
             {
                 if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
                     incidentParms.points *= modifier.pointMultiplier;
+
+                if (!modifier.everRetreat)
+                {
+                    incidentParms.canTimeoutOrFlee = false;
+                    incidentParms.raidNeverFleeIndividual = true;
+                }
 
                 if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
                 {
@@ -199,12 +225,38 @@ namespace VSEWW
                                 InstallPart(pawn, hediff);
                             }
                         }
-
-                        if (!modifier.everRetreat)
-                        {
-                            pawn.mindState.canFleeIndividual = false;
-                        }
                     }
+                }
+            }
+        }
+
+        /** Send non-pawn modifier **/
+        public void SendAddditionalModifier()
+        {
+            foreach (var modifier in modifiers)
+            {
+                if (!modifier.incidents.NullOrEmpty())
+                {
+                    modifier.incidents.ForEach(i =>
+                    {
+                        Find.Storyteller.incidentQueue.Add(i, Find.TickManager.TicksGame, new IncidentParms()
+                        {
+                            target = incidentParms.target
+                        });
+                    });
+                }
+            }
+        }
+
+        /** Stop non-pawn modifier **/
+        public void StopEvents()
+        {
+            foreach (var modifier in modifiers)
+            {
+                if (!modifier.incidents.NullOrEmpty())
+                {
+                    Map map = (Map)incidentParms.target;
+                    map.GameConditionManager.ActiveConditions.FindAll(g => modifier.incidents.Any(i => i.gameCondition != null && i.gameCondition == g.def)).ForEach(c => c.End());
                 }
             }
         }
@@ -240,7 +292,7 @@ namespace VSEWW
             }
             totalPawn = tempDic.Sum(k => k.Value);
 
-            string kindLabel = "VESWW.EnemiesC".Translate() + "\n";
+            string kindLabel = "VESWW.EnemiesC".Translate(totalPawn) + "\n";
             kindListLines++;
             foreach (var pair in tempDic)
             {

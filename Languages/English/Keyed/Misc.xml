@@ -21,7 +21,7 @@
   <VESWW.Reward>{0} reward</VESWW.Reward>
   <VESWW.SelectReward>Select reward</VESWW.SelectReward>
   <VESWW.WaveNum>Wave {0}</VESWW.WaveNum>
-  <VESWW.EnemiesC>Enemies coming:</VESWW.EnemiesC>
+  <VESWW.EnemiesC>Enemies coming ({0}):</VESWW.EnemiesC>
   <VESWW.EnemiesR>Defeat remaining enemies:</VESWW.EnemiesR>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
