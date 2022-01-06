@@ -12,7 +12,7 @@ namespace VSEWW
     public class VESWWModSettings : ModSettings
     {
         public int timeBeforeFirstWave = 5;
-        public int timeBetweenWaves = 2;
+        public int timeBetweenWaves = 1;
         public int maxPoints = 25000;
         public float pointMultiplierBefore = 1.2f;
         public float pointMultiplierAfter = 1.1f;
@@ -21,7 +21,7 @@ namespace VSEWW
         {
             base.ExposeData();
             Scribe_Values.Look(ref timeBeforeFirstWave, "timeBeforeFirstWave", 5);
-            Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 2);
+            Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 1);
             Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
             Scribe_Values.Look(ref pointMultiplierBefore, "pointMultiplierBefore", 1.2f);
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
