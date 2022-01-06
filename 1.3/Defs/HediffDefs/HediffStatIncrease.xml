@@ -13,7 +13,7 @@
         <statFactors>
           <InjuryHealingFactor>3</InjuryHealingFactor>
           <WorkSpeedGlobal>3</WorkSpeedGlobal>
-          <ResearchSpeed>3</ResearchSpeed>
+          <ResearchSpeed>4</ResearchSpeed>
         </statFactors>
       </li>
     </stages>
