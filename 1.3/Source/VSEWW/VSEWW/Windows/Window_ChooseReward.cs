@@ -22,7 +22,8 @@ namespace VSEWW
             this.doCloseX = false;
             this.doCloseButton = false;
             this.closeOnClickedOutside = false;
-            this.absorbInputAroundWindow = false;
+            this.closeOnCancel = false;
+            this.absorbInputAroundWindow = true;
             this.doWindowBackground = false;
             this.drawShadow = false;
             this.preventSave = true;
