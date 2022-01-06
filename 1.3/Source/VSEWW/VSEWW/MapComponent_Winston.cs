@@ -113,6 +113,7 @@ namespace VSEWW
                             p.health.RemoveHediff(hediff);
                     });
                     once = true;
+                    tickUntilStatCheck = 0; // Instant stat back if switch storyteller
                 }
 
                 if (waveCounter != null)
