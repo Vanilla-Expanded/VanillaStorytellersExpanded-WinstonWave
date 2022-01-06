@@ -62,7 +62,8 @@
     <Compile Include="Harmony\HarmonyInit.cs" />
     <Compile Include="Harmony\IncidentWorker_Raid_TryGenerateRaidInfo_Patch.cs" />
     <Compile Include="Harmony\Pawn_HealthScale_Patch.cs" />
-    <Compile Include="VHediffDefOf.cs" />
+    <Compile Include="Harmony\Plant_GrowthRate_Patch.cs" />
+    <Compile Include="VDefOf.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />
     <Compile Include="Hediff\Hediff_RemoveIfColonist.cs" />
     <Compile Include="Incidents\FullMapFlashstorm.cs" />

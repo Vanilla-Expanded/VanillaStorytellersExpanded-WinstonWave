@@ -38,11 +38,6 @@ namespace VSEWW
         // - Number of pawns at the start
         public int totalPawn;
 
-        internal NextRaidInfo()
-        {
-            HarmonyInit.hediffCache.RemoveAll(k => k.Key == null || k.Key.Dead || !k.Key.Spawned);
-        }
-
         public Lord Lord
         {
             get
@@ -92,11 +87,15 @@ namespace VSEWW
         {
             Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
-            Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Collections.Look(ref modifiers, "modifiers");
-            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep);
+            Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
+            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep);
             Scribe_Values.Look(ref waveNum, "waveNum");
+            Scribe_Values.Look(ref kindList, "kindList");
+            Scribe_Values.Look(ref kindListLines, "kindListLines");
+            Scribe_Values.Look(ref cacheTick, "cacheTick");
+            Scribe_Values.Look(ref cacheKindList, "cacheKindList");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
         }
 

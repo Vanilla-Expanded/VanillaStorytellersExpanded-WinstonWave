@@ -24,7 +24,7 @@ namespace VSEWW
                 }
                 else if (__instance.Spawned)
                 {
-                    HarmonyInit.hediffCache[__instance] = __instance.health.hediffSet.HasHediff(VHediffDefOf.VSEWW_BulletSponge);
+                    HarmonyInit.hediffCache[__instance] = __instance.health.hediffSet.HasHediff(VDefOf.VSEWW_BulletSponge);
                 }
             }
         }

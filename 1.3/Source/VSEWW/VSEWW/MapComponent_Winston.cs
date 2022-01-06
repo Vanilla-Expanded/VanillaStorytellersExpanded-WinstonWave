@@ -21,7 +21,13 @@ namespace VSEWW
 
         internal Window_WaveCounter waveCounter = null;
 
-
+        private static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
+        // Stat hediff
+        private int tickUntilStatCheck = 0;
+        private List<Pawn> statPawns = new List<Pawn>();
+        private static readonly int checkEachXTicks = 2000;
+        private bool once = false;
+          
         public MapComponent_Winston(Map map) : base(map) { }
 
         public override void ExposeData()
@@ -33,6 +39,9 @@ namespace VSEWW
             Scribe_Values.Look(ref nextRaidSendAllies, "nextRaidSendAllies");
             Scribe_Values.Look(ref nextRaidMultiplyPoints, "nextRaidMultiplyPoints");
             Scribe_Deep.Look(ref nextRaidInfo, "nextRaidInfo");
+            Scribe_Values.Look(ref tickUntilStatCheck, "tickUntilStatCheck");
+            Scribe_Collections.Look(ref statPawns, "statPawns", LookMode.Reference);
+            Scribe_Values.Look(ref once, "once");
         }
 
         public override void MapComponentTick()
@@ -40,6 +49,21 @@ namespace VSEWW
             base.MapComponentTick();
             if (Find.Storyteller.def.defName == "VSE_WinstonWave")
             {
+                if (tickUntilStatCheck <= 0)
+                {
+                    map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
+                    {
+                        if (!statPawns.Contains(p) && p.health != null )
+                        {
+                            p.health.AddHediff(VDefOf.VESWW_IncreasedStats);
+                            statPawns.Add(p);
+                        }
+                    });
+                    tickUntilStatCheck = checkEachXTicks;
+                    once = false;
+                }
+                tickUntilStatCheck--;
+
                 if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
                 {
                     int inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
@@ -75,9 +99,27 @@ namespace VSEWW
                     waveCounter.UpdateHeight();
                 }
             }
-            else if (nextRaidInfo != null)
+            else
             {
-                nextRaidInfo.atTick++;
+                if (nextRaidInfo != null)
+                    nextRaidInfo.atTick++;
+
+                if (!once)
+                {
+                    statPawns.ForEach(p =>
+                    {
+                        var hediff = p.health.hediffSet.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
+                        if (hediff != null)
+                            p.health.RemoveHediff(hediff);
+                    });
+                    once = true;
+                }
+
+                if (waveCounter != null)
+                {
+                    waveCounter.Close();
+                    waveCounter = null;
+                }
             }
         }
 
@@ -101,7 +143,6 @@ namespace VSEWW
 
         internal NextRaidInfo SetNextNormalRaidInfo(int inDays)
         {
-            List<RaidStrategyDef> from = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, DefDatabase<RaidStrategyDef>.GetNamed("ImmediateAttackSmart"), DefDatabase<RaidStrategyDef>.GetNamed("StageThenAttack")};
             NextRaidInfo nri = new NextRaidInfo()
             {
                 incidentParms = new IncidentParms()
@@ -115,7 +156,7 @@ namespace VSEWW
                 atTick = Find.TickManager.TicksGame + (inDays * 60000),
                 waveNum = currentWave
             };
-            nri.incidentParms.raidStrategy = from.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
+            nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
 
             nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
@@ -138,8 +179,7 @@ namespace VSEWW
                 waveNum = currentWave
             };
             nri.incidentParms.raidStrategy = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat) &&
-                                                    s != RaidStrategyDefOf.ImmediateAttack && s != DefDatabase<RaidStrategyDef>.GetNamed("ImmediateAttackSmart") && 
-                                                    s != DefDatabase<RaidStrategyDef>.GetNamed("StageThenAttack"))
+                                                    !normalStrategies.Contains(s))
                 .RandomElement();
 
             nri.ChooseAndApplyModifier();
