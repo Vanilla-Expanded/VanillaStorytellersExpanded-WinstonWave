@@ -11,9 +11,9 @@
       <li>
         <becomeVisible>false</becomeVisible>
         <statFactors>
-          <InjuryHealingFactor>3</InjuryHealingFactor>
-          <WorkSpeedGlobal>3</WorkSpeedGlobal>
-          <ResearchSpeed>4</ResearchSpeed>
+          <InjuryHealingFactor>2</InjuryHealingFactor>
+          <WorkSpeedGlobal>1.5</WorkSpeedGlobal>
+          <ResearchSpeed>1.5</ResearchSpeed>
         </statFactors>
       </li>
     </stages>

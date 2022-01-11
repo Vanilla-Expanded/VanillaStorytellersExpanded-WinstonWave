@@ -27,6 +27,7 @@ namespace VSEWW
 	public class RItemReward
 	{
 		public List<ThingCategoryDef> thingCategories;
+		public List<ThingCategoryDef> excludeThingCategories;
 		public QualityCategory quality;
 		public int count;
 	}

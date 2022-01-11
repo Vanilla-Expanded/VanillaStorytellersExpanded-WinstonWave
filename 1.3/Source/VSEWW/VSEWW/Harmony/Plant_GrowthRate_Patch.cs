@@ -17,7 +17,7 @@ namespace VSEWW
         public static void Postfix(ref float __result)
         {
             if (Find.Storyteller.def.defName == "VSE_WinstonWave")
-                __result *= 3;
+                __result *= 1.75f;
         }
     }
 }
