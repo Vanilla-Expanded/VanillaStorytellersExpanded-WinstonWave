@@ -156,10 +156,12 @@ namespace VSEWW
             {
                 var chooseFrom = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => 
                     i.thingCategories.Any(c => t.IsWithinCategory(c)) &&
-                    !i.excludeThingCategories.Any(c => t.IsWithinCategory(c)) &&
                     t.tradeability != Tradeability.None &&
                     !t.destroyOnDrop && 
                     t.BaseMarketValue > 0);
+
+                if (!i.excludeThingCategories.NullOrEmpty())
+                    chooseFrom.RemoveAll(t => i.excludeThingCategories.Any(c => t.IsWithinCategory(c)));
 
                 int countLeft = i.count;
                 while (countLeft > 0)

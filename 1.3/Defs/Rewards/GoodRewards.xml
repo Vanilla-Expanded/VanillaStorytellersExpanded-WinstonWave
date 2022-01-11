@@ -103,6 +103,9 @@
         <thingCategories>
           <li>Weapons</li>
         </thingCategories>
+        <excludeThingCategories>
+          <li MayRequire="CETeam.CombatExtended">Ammo</li>
+        </excludeThingCategories>
         <quality>Good</quality>
         <count>3</count>
       </li>

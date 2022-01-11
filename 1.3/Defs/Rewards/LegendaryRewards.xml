@@ -98,6 +98,9 @@
         <thingCategories>
           <li>Weapons</li>
         </thingCategories>
+        <excludeThingCategories>
+          <li MayRequire="CETeam.CombatExtended">Ammo</li>
+        </excludeThingCategories>
         <quality>Legendary</quality>
         <count>5</count>
       </li>
