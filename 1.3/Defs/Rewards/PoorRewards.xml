@@ -103,6 +103,9 @@
         <thingCategories>
           <li>Weapons</li>
         </thingCategories>
+        <excludeThingCategories MayRequire="">
+          <li>Ammo</li>
+        </excludeThingCategories>
         <quality>Poor</quality>
         <count>3</count>
       </li>
