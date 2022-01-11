@@ -204,7 +204,12 @@ namespace VSEWW
             {
                 var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence);
                 if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags != null && !p.race.tradeTags.Contains(pr.tradeTag));
-                if (pr.minCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower >= pr.minCombatPower);
+
+                bool skipMin = false;
+                if (pr.minCombatPower > 0 && pr.maxCombatPower > 0)
+                    skipMin = pawnChoices.Any(p => p.combatPower >= pr.minCombatPower && p.combatPower <= pr.maxCombatPower);
+
+                if (!skipMin && pr.minCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower >= pr.minCombatPower);
                 if (pr.maxCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower <= pr.maxCombatPower);
 
                 for (int i = 0; i < pr.count; i++)
