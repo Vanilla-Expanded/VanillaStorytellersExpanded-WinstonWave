@@ -14,7 +14,9 @@ namespace VSEWW
         {
             if (reward.sendRewardOf > RewardCategory.Poor)
             {
-                SendReward(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == reward.sendRewardOf).RandomElement(), map);
+                var rReward = DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == reward.sendRewardOf).RandomElement();
+                Messages.Message("VESWW.RandRewardOutcome".Translate(rReward.LabelCap), MessageTypeDefOf.NeutralEvent);
+                SendReward(rReward, map);
             }
             else
             {
