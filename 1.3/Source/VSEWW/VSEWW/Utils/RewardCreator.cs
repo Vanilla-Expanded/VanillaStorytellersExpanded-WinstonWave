@@ -84,7 +84,7 @@ namespace VSEWW
                 if (thingList.Count > 0)
                 {
                     IntVec3 intVec3 = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
-                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch:false);
+                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch:false, forbid: false);
                 }
             }
         }
