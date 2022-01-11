@@ -7,7 +7,8 @@
     <category>Normal</category>
     <randomPawns>
       <li>
-        <minCombatPower>100</minCombatPower>
+        <minCombatPower>75</minCombatPower>
+        <maxCombatPower>100</maxCombatPower>
         <count>1</count>
       </li>
     </randomPawns>

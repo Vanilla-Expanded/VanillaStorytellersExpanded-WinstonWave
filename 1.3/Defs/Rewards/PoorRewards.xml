@@ -7,7 +7,7 @@
     <category>Poor</category>
     <randomPawns>
       <li>
-        <maxCombatPower>100</maxCombatPower>
+        <maxCombatPower>50</maxCombatPower>
         <count>1</count>
       </li>
     </randomPawns>

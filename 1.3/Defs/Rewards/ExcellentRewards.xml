@@ -7,7 +7,7 @@
     <category>Excellent</category>
     <randomPawns>
       <li>
-        <minCombatPower>200</minCombatPower>
+        <minCombatPower>175</minCombatPower>
         <count>5</count>
       </li>
     </randomPawns>
