@@ -3,11 +3,12 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_GoodPawnJoins</defName>
     <label>Pawns join</label>
-    <description>A group of 3 pawns worth a minimum 100 Combat points joins the colony</description>
+    <description>A group of 3 pawns worth a minimum 100 and up to 175 Combat points joins the colony</description>
     <category>Good</category>
     <randomPawns>
       <li>
         <minCombatPower>100</minCombatPower>
+        <minCombatPower>175</minCombatPower>
         <count>3</count>
       </li>
     </randomPawns>

@@ -3,7 +3,7 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_PoorPawnJoins</defName>
     <label>Pawn joins</label>
-    <description>A single pawn worth up to 100 Combat points joins the colony</description>
+    <description>A single pawn worth up to 50 Combat points joins the colony</description>
     <category>Poor</category>
     <randomPawns>
       <li>
