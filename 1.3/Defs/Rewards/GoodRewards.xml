@@ -8,7 +8,7 @@
     <randomPawns>
       <li>
         <minCombatPower>100</minCombatPower>
-        <minCombatPower>175</minCombatPower>
+        <maxCombatPower>175</maxCombatPower>
         <count>3</count>
       </li>
     </randomPawns>
