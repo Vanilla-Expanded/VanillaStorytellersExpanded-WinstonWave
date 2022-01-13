@@ -155,8 +155,8 @@ namespace VSEWW
             Rect skipRect = new Rect(rect)
             {
                 y = kindRect.yMax + 10,
-                x = rect.x + rect.width / 2,
-                width = rect.width / 2,
+                x = rect.x + ((rect.width / 3) * 2),
+                width = rect.width / 3,
                 height = 20f
             };
             if (Widgets.ButtonText(skipRect, "VESWW.SkipWave".Translate()))
