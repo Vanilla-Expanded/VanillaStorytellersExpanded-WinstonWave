@@ -32,6 +32,8 @@ namespace VSEWW
                         return false;
                     }
 
+                    Log.Message(parms.ToString());
+
                     pawns = mapComp.nextRaidInfo.raidPawns;
 
                     if (pawns.Count == 0)

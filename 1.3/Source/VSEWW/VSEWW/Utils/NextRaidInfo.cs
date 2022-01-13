@@ -15,6 +15,7 @@ namespace VSEWW
         private Lord lord;
         // - When
         public int atTick;
+        public int sentAt = 0;
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
         public int? modifierCount;
@@ -83,10 +84,24 @@ namespace VSEWW
 
         public bool Reinforcements => !reinforcementSent ? modifiers.Any(m => m.defName == "VSEWW_Reinforcements") : false;
 
+        public float FourthRewardChance
+        {
+            get
+            {
+                float i = atTick - sentAt;
+                if (i > 0) // Sent early
+                {
+                    return VESWWMod.settings.timeBetweenWaves * 60000 / i;
+                }
+                return 0f;
+            }
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
+            Scribe_Values.Look(ref sentAt, "sentAt");
             Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Deep.Look(ref incidentParms, "incidentParms");

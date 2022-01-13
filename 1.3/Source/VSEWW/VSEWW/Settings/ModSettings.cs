@@ -17,6 +17,7 @@ namespace VSEWW
         public float pointMultiplierBefore = 1.2f;
         public float pointMultiplierAfter = 1.1f;
         public bool enableStatIncrease = true;
+        public bool drawBackground = false;
 
         public override void ExposeData()
         {
@@ -27,6 +28,7 @@ namespace VSEWW
             Scribe_Values.Look(ref pointMultiplierBefore, "pointMultiplierBefore", 1.2f);
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
             Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);
+            Scribe_Values.Look(ref drawBackground, "drawBackground", false);
         }
     }
 
@@ -73,6 +75,8 @@ namespace VSEWW
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
+
+            lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
 
             lst.End();
         }

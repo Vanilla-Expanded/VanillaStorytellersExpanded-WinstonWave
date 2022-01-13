@@ -54,11 +54,23 @@ namespace VSEWW
 
         public void UpdateHeight()
         {
-            windowRect.height = 142f + mcw.nextRaidInfo.kindListLines * 15f;
+            windowRect.height = 35f + 142f + mcw.nextRaidInfo.kindListLines * 15f;
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            if (VESWWMod.settings.drawBackground)
+            {
+                Color c = new Color
+                {
+                    r = Widgets.WindowBGFillColor.r,
+                    g = Widgets.WindowBGFillColor.g,
+                    b = Widgets.WindowBGFillColor.b,
+                    a = 0.25f
+                };
+                Widgets.DrawBoxSolid(inRect.ExpandedBy(5), c);
+            }
+
             if (mcw.nextRaidInfo.sent)
                 DoWaveProgressUI(inRect);
             else
@@ -139,6 +151,19 @@ namespace VSEWW
                 height = mcw.nextRaidInfo.kindListLines * 15f//rect.height - numRect.height - timeRect.height - 20,
             };
             Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
+            // Skip wave button
+            Rect skipRect = new Rect(rect)
+            {
+                y = kindRect.yMax + 10,
+                x = rect.x + rect.width / 2,
+                width = rect.width / 2,
+                height = 20f
+            };
+            if (Widgets.ButtonText(skipRect, "VESWW.SkipWave".Translate()))
+            {
+                mcw.ExecuteRaid(Find.TickManager.TicksGame);
+            }
+            // Restore anchor and font size
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
         }

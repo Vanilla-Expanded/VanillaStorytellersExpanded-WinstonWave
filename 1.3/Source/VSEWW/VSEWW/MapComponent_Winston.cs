@@ -74,11 +74,10 @@ namespace VSEWW
                         if (!nextRaidInfo.sent && nextRaidInfo.atTick <= Find.TickManager.TicksGame)
                         {
                             ExecuteRaid(Find.TickManager.TicksGame);
-                            nextRaidInfo.sent = true;
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
                         {
-                            Find.WindowStack.Add(new Window_ChooseReward(currentWave));
+                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
                             nextRaidInfo.StopEvents();
                             if (++currentWave % 5 == 0)
                             {
@@ -120,12 +119,13 @@ namespace VSEWW
             }
         }
 
-        private void ExecuteRaid(int tick)
+        internal void ExecuteRaid(int tick)
         {
             ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
             map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
             Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
             nextRaidInfo.SendAddditionalModifier();
+            nextRaidInfo.sentAt = Find.TickManager.TicksGame;
             if (nextRaidSendAllies)
             {
                 IncidentParms incidentParms = new IncidentParms()
@@ -136,6 +136,7 @@ namespace VSEWW
                 Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidFriendly, tick, incidentParms);
                 nextRaidSendAllies = false;
             }
+            nextRaidInfo.sent = true;
         }
 
         internal NextRaidInfo SetNextNormalRaidInfo(int inDays)

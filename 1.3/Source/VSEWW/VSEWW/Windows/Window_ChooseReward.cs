@@ -10,12 +10,13 @@ namespace VSEWW
 {
     internal class Window_ChooseReward : Window
     {
-        private Dictionary<RewardCategory, int> commonality;
-        private List<RewardDef> rewards;
-        private int margin = 10;
-        private int width = 250;
+        private readonly Dictionary<RewardCategory, int> commonality;
+        private readonly List<RewardDef> rewards;
+        private readonly int margin = 10;
+        private readonly int width = 750;
+        private readonly int rewardNumber = 3;
 
-        public Window_ChooseReward(int waveNumber)
+        public Window_ChooseReward(int waveNumber, float fourthRewardChance)
         {
             this.commonality = RewardCategoryExtension.GetCommonality(waveNumber);
             this.forcePause = true;
@@ -28,8 +29,13 @@ namespace VSEWW
             this.drawShadow = false;
             this.preventSave = true;
 
+
+            if (new System.Random().NextDouble() < fourthRewardChance) { rewardNumber++; }
+
+            width /= rewardNumber;
+
             rewards = new List<RewardDef>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < rewardNumber; i++)
             {
                 rewards.Add(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key && !rewards.Contains(r)).RandomElement());
             }
@@ -39,17 +45,14 @@ namespace VSEWW
 
         public override void DoWindowContents(Rect inRect)
         {
-            Rect rOne = new Rect(0, 0, width, inRect.height);
-            Widgets.DrawWindowBackground(rOne);
-            rewards.ElementAt(0).DrawCard(rOne, this, Find.CurrentMap);
-
-            Rect rTwo = new Rect(rOne.xMax + margin, 0, width, inRect.height);
-            Widgets.DrawWindowBackground(rTwo);
-            rewards.ElementAt(1).DrawCard(rTwo, this, Find.CurrentMap);
-
-            Rect rThree = new Rect(rTwo.xMax + margin, 0, width, inRect.height);
-            Widgets.DrawWindowBackground(rThree);
-            rewards.ElementAt(2).DrawCard(rThree, this, Find.CurrentMap);
+            float lastMaxX = 0f;
+            for (int i = 0; i < rewards.Count; i++)
+            {
+                Rect r = new Rect(lastMaxX + (i > 0 ? margin : 0), 0, width, inRect.height).Rounded();
+                Widgets.DrawWindowBackground(r);
+                rewards.ElementAt(i).DrawCard(r, this, Find.CurrentMap);
+                lastMaxX = r.xMax;
+            }
         }
     }
 }
