@@ -85,7 +85,7 @@ namespace VSEWW
 
                 if (thingList.Count > 0)
                 {
-                    IntVec3 intVec3 = DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                    IntVec3 intVec3 = winston.dropSpot != IntVec3.Invalid ? winston.dropSpot: DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
                     DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch:false, forbid: false);
                 }
             }
@@ -207,10 +207,10 @@ namespace VSEWW
 
                 bool skipMin = false;
                 if (pr.minCombatPower > 0 && pr.maxCombatPower > 0)
-                    skipMin = pawnChoices.Any(p => p.combatPower >= pr.minCombatPower && p.combatPower <= pr.maxCombatPower);
+                    skipMin = !pawnChoices.Any(p => p.combatPower >= pr.minCombatPower && p.combatPower <= pr.maxCombatPower);
 
-                if (!skipMin && pr.minCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower >= pr.minCombatPower);
-                if (pr.maxCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower <= pr.maxCombatPower);
+                if (skipMin && pr.minCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower < pr.minCombatPower);
+                if (pr.maxCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower > pr.maxCombatPower);
 
                 for (int i = 0; i < pr.count; i++)
                 {

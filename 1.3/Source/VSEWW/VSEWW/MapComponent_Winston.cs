@@ -27,6 +27,8 @@ namespace VSEWW
         private List<Pawn> statPawns = new List<Pawn>();
         private static readonly int checkEachXTicks = 2000;
         private bool once = false;
+
+        public IntVec3 dropSpot = IntVec3.Invalid;
           
         public MapComponent_Winston(Map map) : base(map) { }
 
@@ -203,5 +205,9 @@ namespace VSEWW
 
             return point;
         }
+
+        internal void RegisterDropSpot(CompRegisterAsRewardDrop comp) => dropSpot = comp.parent.Position;
+        
+        internal void UnRegisterDropSpot() => dropSpot = IntVec3.Invalid;
     }
 }
