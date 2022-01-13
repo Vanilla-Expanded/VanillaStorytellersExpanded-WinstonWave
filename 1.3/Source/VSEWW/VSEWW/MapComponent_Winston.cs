@@ -199,7 +199,7 @@ namespace VSEWW
             float point = currentPoints * nextRaidMultiplyPoints;
             nextRaidMultiplyPoints = 1f;
 
-            return point;
+            return Math.Min(point, VESWWMod.settings.maxPoints);
         }
 
         internal void RegisterDropSpot(CompRegisterAsRewardDrop comp) => dropSpot = comp.parent.Position;
