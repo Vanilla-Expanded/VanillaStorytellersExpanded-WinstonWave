@@ -33,6 +33,7 @@ namespace VSEWW
                     }
 
                     Log.Message(parms.ToString());
+                    Log.Message(parms.raidArrivalMode.defName);
 
                     pawns = mapComp.nextRaidInfo.raidPawns;
 

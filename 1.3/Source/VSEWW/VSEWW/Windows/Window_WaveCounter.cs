@@ -54,7 +54,7 @@ namespace VSEWW
 
         public void UpdateHeight()
         {
-            windowRect.height = 35f + 142f + mcw.nextRaidInfo.kindListLines * 15f;
+            windowRect.height = 35f + 180f + mcw.nextRaidInfo.kindListLines * 15f;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -143,12 +143,32 @@ namespace VSEWW
                 height = 25
             };
             Widgets.Label(timeRect, mcw.nextRaidInfo.TimeBeforeWave());
-            // Kinds
             Text.Font = GameFont.Tiny;
-            Rect kindRect = new Rect(rect)
+            // Faction
+            Rect factionIconRect = new Rect(rect)
+            {
+                x = numRect.xMax - 20f,
+                y = timeRect.yMax + 10,
+                height = 20f,
+                width = 20f
+            };
+            GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
+            GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
+            GUI.color = Color.white;
+            Rect factionRect = new Rect(rect)
             {
                 y = timeRect.yMax + 10,
-                height = mcw.nextRaidInfo.kindListLines * 15f//rect.height - numRect.height - timeRect.height - 20,
+                height = 20f,
+                width = rect.width - factionIconRect.width
+            };
+            Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
+            Text.Anchor = TextAnchor.UpperRight;
+            // Kinds
+            Rect kindRect = new Rect(rect)
+            {
+                y = factionRect.yMax + 5f,
+                height = mcw.nextRaidInfo.kindListLines * 15f
             };
             Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
             // Skip wave button
@@ -189,21 +209,39 @@ namespace VSEWW
             {
                 int pKill = mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft();
                 DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);
+                // Faction
+                Rect factionIconRect = new Rect(rect)
+                {
+                    x = numRect.xMax - 20f,
+                    y = barRect.yMax + 10,
+                    height = 20f,
+                    width = 20f
+                };
+                GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
+                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
+                GUI.color = Color.white;
+                Rect factionRect = new Rect(rect)
+                {
+                    y = barRect.yMax + 10,
+                    height = 20f,
+                    width = rect.width - factionIconRect.width
+                };
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
+                Text.Anchor = TextAnchor.UpperRight;
                 // Pawn left
-                var prevAnch = Text.Anchor;
-                var prevFont = Text.Font;
                 Text.Anchor = TextAnchor.UpperRight;
                 Text.Font = GameFont.Tiny;
                 Rect kindRect = new Rect(rect)
                 {
-                    y = barRect.yMax + 10,
+                    y = factionRect.yMax + 10,
                     height = rect.height - numRect.height - barRect.height - 20,
                 };
                 // - Showing label
                 Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
-                Text.Font = prevFont;
-                Text.Anchor = prevAnch;
             }
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
         }
     
         private void DrawFillableBar(Rect rect, string label, float percent, bool doBorder = true)
