@@ -14,6 +14,7 @@ namespace VSEWW
         public override Vector2 InitialSize => new Vector2(400f, 300f);
 
         private readonly MapComponent_Winston mcw;
+        private string waveTip;
 
         public Window_WaveCounter(MapComponent_Winston mapComponent_Winston)
         {
@@ -30,6 +31,8 @@ namespace VSEWW
             this.resizeable = false;
             this.doWindowBackground = false;
             this.layer = WindowLayer.GameUI;
+
+            WaveTip();
         }
 
         public override void WindowOnGUI()
@@ -107,7 +110,7 @@ namespace VSEWW
             };
             GUI.DrawTexture(wRect, Textures.WaveBGTex);
             Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Textures.NormalTex : Textures.BossTex, 0.8f);
-
+            TooltipHandler.TipRegion(wRect, waveTip);
             // Wave number
             Rect waveNumRect = new Rect(rect)
             {
@@ -121,6 +124,20 @@ namespace VSEWW
             Text.Anchor = prevAnch;
 
             return waveNumRect.x;
+        }
+
+        public void WaveTip()
+        {
+            string title = mcw.nextRaidInfo.WaveType == 0 ? "VESWW.NormalWave".Translate() : "VESWW.BossWave".Translate();
+            string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.incidentParms.points);
+            string rewardChance = "";
+
+            foreach (var item in RewardCategoryExtension.GetCommonality(mcw.nextRaidInfo.waveNum))
+            {
+                rewardChance += $"{item.Key} - {item.Value}\n";
+            }
+
+            waveTip = $"<b>{title}</b>\n\n{pointUsed}\n\n{"VESWW.RewardChance".Translate()}\n{rewardChance}".TrimEndNewlines();
         }
 
         private void DoWavePredictionUI(Rect rect)

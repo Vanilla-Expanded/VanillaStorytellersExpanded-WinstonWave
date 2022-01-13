@@ -88,6 +88,7 @@ namespace VSEWW
                                 nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
                             }
                             waveCounter.UpdateHeight();
+                            waveCounter.WaveTip();
                         }
                     }
 

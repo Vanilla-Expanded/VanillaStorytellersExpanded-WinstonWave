@@ -26,6 +26,10 @@
   <VESWW.RandRewardOutcome>You are getting: {0}</VESWW.RandRewardOutcome>
   <VESWW.RemoveOldDropSpot>Removing other reward drop spot</VESWW.RemoveOldDropSpot>
   <VESWW.SkipWave>Summon early</VESWW.SkipWave>
+  <VESWW.BossWave>Boss wave</VESWW.BossWave>
+  <VESWW.NormalWave>Normal wave</VESWW.NormalWave>
+  <VESWW.PointUsed>{0} points used</VESWW.PointUsed>
+  <VESWW.RewardChance>Reward commonality at this wave:</VESWW.RewardChance>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>

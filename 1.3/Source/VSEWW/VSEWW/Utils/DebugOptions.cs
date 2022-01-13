@@ -51,6 +51,8 @@ namespace VSEWW
                         Log.Message($"{c.currentWave}:{c.currentPoints}");
                     }
                     c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(1) : c.SetNextNormalRaidInfo(1);
+                    c.waveCounter.UpdateHeight();
+                    c.waveCounter.WaveTip();
                 }));
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
