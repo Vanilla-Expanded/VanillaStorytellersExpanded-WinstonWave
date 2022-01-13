@@ -41,7 +41,7 @@ namespace VSEWW
             Scribe_Values.Look(ref nextRaidSendAllies, "nextRaidSendAllies");
             Scribe_Values.Look(ref nextRaidMultiplyPoints, "nextRaidMultiplyPoints");
             Scribe_Deep.Look(ref nextRaidInfo, "nextRaidInfo");
-            Scribe_Values.Look(ref tickUntilStatCheck, "tickUntilStatCheck");
+            Scribe_Values.Look(ref tickUntilStatCheck, "tickUntilStatCheck", 0);
             Scribe_Collections.Look(ref statPawns, "statPawns", LookMode.Reference);
             Scribe_Values.Look(ref once, "once");
         }
@@ -49,79 +49,73 @@ namespace VSEWW
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            if (Find.Storyteller.def.defName == "VSE_WinstonWave")
+            if (map.ParentFaction == Faction.OfPlayer)
             {
-                if (tickUntilStatCheck <= 0)
+                if (Find.Storyteller.def.defName == "VSE_WinstonWave")
                 {
-                    map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
+                    if (VESWWMod.settings.enableStatIncrease)
                     {
-                        if (!statPawns.Contains(p) && p.health != null )
+                        if (tickUntilStatCheck <= 0)
                         {
-                            p.health.AddHediff(VDefOf.VESWW_IncreasedStats);
-                            statPawns.Add(p);
+                            AddStatHediff();
+                            tickUntilStatCheck = checkEachXTicks;
+                            once = false;
                         }
-                    });
-                    tickUntilStatCheck = checkEachXTicks;
-                    once = false;
-                }
-                tickUntilStatCheck--;
-
-                if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
-                {
-                    int inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
-                    nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
-                }
-                else
-                {
-                    if (!nextRaidInfo.sent && nextRaidInfo.atTick <= Find.TickManager.TicksGame)
-                    {
-                        ExecuteRaid(Find.TickManager.TicksGame);
-                        nextRaidInfo.sent = true;
+                        tickUntilStatCheck--;
                     }
-                    else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
+
+                    if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
                     {
-                        Find.WindowStack.Add(new Window_ChooseReward(currentWave));
-                        nextRaidInfo.StopEvents();
-                        if (++currentWave % 5 == 0)
+                        int inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+                        nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
+                    }
+                    else
+                    {
+                        if (!nextRaidInfo.sent && nextRaidInfo.atTick <= Find.TickManager.TicksGame)
                         {
-                            nextRaidInfo = SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves);
+                            ExecuteRaid(Find.TickManager.TicksGame);
+                            nextRaidInfo.sent = true;
                         }
-                        else
+                        else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
                         {
-                            nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
+                            Find.WindowStack.Add(new Window_ChooseReward(currentWave));
+                            nextRaidInfo.StopEvents();
+                            if (++currentWave % 5 == 0)
+                            {
+                                nextRaidInfo = SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves);
+                            }
+                            else
+                            {
+                                nextRaidInfo = SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves);
+                            }
+                            waveCounter.UpdateHeight();
                         }
+                    }
+
+                    if (waveCounter == null)
+                    {
+                        waveCounter = new Window_WaveCounter(this);
+                        Find.WindowStack.Add(waveCounter);
                         waveCounter.UpdateHeight();
                     }
                 }
-
-                if (waveCounter == null)
+                else
                 {
-                    waveCounter = new Window_WaveCounter(this);
-                    Find.WindowStack.Add(waveCounter);
-                    waveCounter.UpdateHeight();
-                }
-            }
-            else
-            {
-                if (nextRaidInfo != null)
-                    nextRaidInfo.atTick++;
+                    if (nextRaidInfo != null)
+                        nextRaidInfo.atTick++;
 
-                if (!once)
-                {
-                    statPawns.ForEach(p =>
+                    if (!once && VESWWMod.settings.enableStatIncrease)
                     {
-                        var hediff = p.health.hediffSet.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
-                        if (hediff != null)
-                            p.health.RemoveHediff(hediff);
-                    });
-                    once = true;
-                    tickUntilStatCheck = 0; // Instant stat back if switch storyteller
-                }
+                        RemoveStatHediff();
+                        once = true;
+                        tickUntilStatCheck = 0; // Instant stat back if switch storyteller
+                    }
 
-                if (waveCounter != null)
-                {
-                    waveCounter.Close();
-                    waveCounter = null;
+                    if (waveCounter != null)
+                    {
+                        waveCounter.Close();
+                        waveCounter = null;
+                    }
                 }
             }
         }
@@ -209,5 +203,28 @@ namespace VSEWW
         internal void RegisterDropSpot(CompRegisterAsRewardDrop comp) => dropSpot = comp.parent.Position;
         
         internal void UnRegisterDropSpot() => dropSpot = IntVec3.Invalid;
+    
+        internal void AddStatHediff()
+        {
+            map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
+            {
+                if (!statPawns.Contains(p) && p.health != null)
+                {
+                    p.health.AddHediff(VDefOf.VESWW_IncreasedStats);
+                    statPawns.Add(p);
+                }
+            });
+        }
+        
+        internal void RemoveStatHediff()
+        {
+            statPawns.ForEach(p =>
+            {
+                var hediff = p.health.hediffSet.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
+                if (hediff != null)
+                    p.health.RemoveHediff(hediff);
+            });
+            statPawns = new List<Pawn>();
+        }
     }
 }

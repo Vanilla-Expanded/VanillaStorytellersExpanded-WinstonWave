@@ -16,6 +16,7 @@ namespace VSEWW
         public int maxPoints = 25000;
         public float pointMultiplierBefore = 1.2f;
         public float pointMultiplierAfter = 1.1f;
+        public bool enableStatIncrease = true;
 
         public override void ExposeData()
         {
@@ -25,6 +26,7 @@ namespace VSEWW
             Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
             Scribe_Values.Look(ref pointMultiplierBefore, "pointMultiplierBefore", 1.2f);
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
+            Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);
         }
     }
 
@@ -70,7 +72,18 @@ namespace VSEWW
             lst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
             lst.Gap();
 
+            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
+
             lst.End();
+        }
+
+        public override void WriteSettings()
+        {
+            base.WriteSettings();
+            if (settings.enableStatIncrease)
+                Find.CurrentMap.GetComponent<MapComponent_Winston>().AddStatHediff();
+            else
+                Find.CurrentMap.GetComponent<MapComponent_Winston>().RemoveStatHediff();
         }
     }
 }

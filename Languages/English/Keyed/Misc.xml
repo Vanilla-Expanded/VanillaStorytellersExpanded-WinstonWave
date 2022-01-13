@@ -25,6 +25,7 @@
   <VESWW.EnemiesR>Defeat remaining enemies:</VESWW.EnemiesR>
   <VESWW.RandRewardOutcome>You are getting: {0}</VESWW.RandRewardOutcome>
   <VESWW.RemoveOldDropSpot>Removing other reward drop spot</VESWW.RemoveOldDropSpot>
+  <VESWW.EnableStats>Enable stats increase</VESWW.EnableStats>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>
