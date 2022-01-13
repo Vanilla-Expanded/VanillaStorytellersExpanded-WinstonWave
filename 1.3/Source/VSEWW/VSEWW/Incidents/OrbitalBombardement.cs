@@ -33,7 +33,7 @@ namespace VSEWW
             }
         }
 
-        private readonly int bombIntervalTicks = 500;
+        private readonly int bombIntervalTicks = 200;
         private int ticksToNextEffect;
         private IntVec3 nextExplosionCell = new IntVec3();
         private List<Bombardment.BombardmentProjectile> projectiles = new List<Bombardment.BombardmentProjectile>();
