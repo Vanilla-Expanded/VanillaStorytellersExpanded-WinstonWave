@@ -57,7 +57,7 @@ namespace VSEWW
 
         public void UpdateHeight()
         {
-            windowRect.height = 35f + 180f + mcw.nextRaidInfo.kindListLines * 15f;
+            windowRect.height = 35f + 180f + mcw.nextRaidInfo.kindListLines * 16f;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -185,7 +185,7 @@ namespace VSEWW
             Rect kindRect = new Rect(rect)
             {
                 y = factionRect.yMax + 5f,
-                height = mcw.nextRaidInfo.kindListLines * 15f
+                height = mcw.nextRaidInfo.kindListLines * 16f
             };
             Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
             // Skip wave button
@@ -222,7 +222,7 @@ namespace VSEWW
                 height = 25
             };
 
-            if (mcw.nextRaidInfo.Lord != null)
+            if (mcw.nextRaidInfo.Lords != null)
             {
                 int pKill = mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft();
                 DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);

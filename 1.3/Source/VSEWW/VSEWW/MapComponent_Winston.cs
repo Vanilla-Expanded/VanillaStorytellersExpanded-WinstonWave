@@ -75,7 +75,7 @@ namespace VSEWW
                         {
                             ExecuteRaid(Find.TickManager.TicksGame);
                         }
-                        else if (nextRaidInfo.sent && nextRaidInfo.Lord != null && nextRaidInfo.WavePawnsLeft() == 0)
+                        else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0)
                         {
                             Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
                             nextRaidInfo.StopEvents();

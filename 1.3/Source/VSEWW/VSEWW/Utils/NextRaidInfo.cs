@@ -12,7 +12,7 @@ namespace VSEWW
         // Raid infos
         // - Is always false at start - Set to true when lord isn't null
         public bool sent = false;
-        private Lord lord;
+        private List<Lord> lords;
         // - When
         public int atTick;
         public int sentAt = 0;
@@ -39,20 +39,20 @@ namespace VSEWW
         // - Number of pawns at the start
         public int totalPawn;
 
-        public Lord Lord
+        public List<Lord> Lords
         {
             get
             {
-                if (lord != null)
-                    return lord;
+                if (!lords.NullOrEmpty())
+                    return lords;
 
                 Map map = (Map)incidentParms.target;
                 if (map.lordManager != null && !map.lordManager.lords.NullOrEmpty())
                 {
-                    lord = map.lordManager.lords.Find(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty());
+                    lords = map.lordManager.lords.FindAll(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty());
                 }
 
-                return lord ?? null;
+                return lords ?? null;
             }
         }
 
@@ -123,8 +123,12 @@ namespace VSEWW
             if (cacheTick % 600 == 0 || lordPawnsCache.NullOrEmpty())
             {
                 string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
+                lordPawnsCache = new List<Pawn>();
                 Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
-                lordPawnsCache = lord.ownedPawns.FindAll(p => !p.Downed && !p.mindState.mentalStateHandler.InMentalState);
+                lords.ForEach(l =>
+                {
+                    lordPawnsCache.AddRange(l.ownedPawns.FindAll(p => !p.Downed && !p.mindState.mentalStateHandler.InMentalState));
+                });
                 lordPawnsCache.ForEach(p =>
                 {
                     if (toDefeat.ContainsKey(p.kindDef))
