@@ -31,7 +31,7 @@ namespace VSEWW
             rewards = new List<RewardDef>();
             for (int i = 0; i < 3; i++)
             {
-                rewards.Add(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement());
+                rewards.Add(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key && !rewards.Contains(r)).RandomElement());
             }
         }
 
