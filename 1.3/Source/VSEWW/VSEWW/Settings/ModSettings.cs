@@ -85,9 +85,9 @@ namespace VSEWW
         {
             base.WriteSettings();
             if (settings.enableStatIncrease)
-                Find.CurrentMap.GetComponent<MapComponent_Winston>().AddStatHediff();
+                Find.CurrentMap.GetComponent<MapComponent_Winston>()?.AddStatHediff();
             else
-                Find.CurrentMap.GetComponent<MapComponent_Winston>().RemoveStatHediff();
+                Find.CurrentMap.GetComponent<MapComponent_Winston>()?.RemoveStatHediff();
         }
     }
 }
