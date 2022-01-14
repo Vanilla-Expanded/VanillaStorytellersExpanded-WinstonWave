@@ -132,9 +132,11 @@ namespace VSEWW
             string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.incidentParms.points);
             string rewardChance = "";
 
-            foreach (var item in RewardCategoryExtension.GetCommonality(mcw.nextRaidInfo.waveNum))
+            var c = RewardCategoryExtension.GetCommonality(mcw.nextRaidInfo.waveNum);
+            int total = c.Sum(v => v.Value);
+            foreach (var item in c)
             {
-                rewardChance += $"{item.Key} - {item.Value}\n";
+                rewardChance += $"{item.Key} - {((float)(item.Value > 0 ? item.Value / (float)total : 0)).ToStringPercent()}\n";
             }
 
             waveTip = $"<b>{title}</b>\n\n{pointUsed}\n\n{"VESWW.RewardChance".Translate()}\n{rewardChance}".TrimEndNewlines();
