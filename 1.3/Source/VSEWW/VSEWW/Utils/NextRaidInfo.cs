@@ -142,6 +142,8 @@ namespace VSEWW
                 }
                 cacheKindList = kindLabel.TrimEndNewlines();
 
+                totalPawn = lordPawnsCache.Count;
+
                 if (Reinforcements && lordPawnsCache.Count <= (int)(totalPawn * 0.8f))
                 {
                     reinforcementSent = true;
