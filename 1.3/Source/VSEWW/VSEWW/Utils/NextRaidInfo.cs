@@ -105,7 +105,7 @@ namespace VSEWW
             Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
-            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep);
+            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Reference);
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref kindList, "kindList");
             Scribe_Values.Look(ref kindListLines, "kindListLines");
