@@ -120,7 +120,7 @@ namespace VSEWW
         /** Get all pawns part of the raid - with caching **/
         public List<Pawn> WavePawns()
         {
-            if (cacheTick % 600 == 0 || lordPawnsCache.NullOrEmpty())
+            if ((lordPawnsCache.NullOrEmpty() is bool wasEmpty && wasEmpty) || cacheTick % 600 == 0)
             {
                 string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
                 lordPawnsCache = new List<Pawn>();
@@ -142,7 +142,8 @@ namespace VSEWW
                 }
                 cacheKindList = kindLabel.TrimEndNewlines();
 
-                totalPawn = lordPawnsCache.Count;
+                if (wasEmpty)
+                    totalPawn = lordPawnsCache.Count;
 
                 if (Reinforcements && lordPawnsCache.Count <= (int)(totalPawn * 0.8f))
                 {
