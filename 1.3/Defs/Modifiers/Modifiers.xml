@@ -122,4 +122,24 @@
       <li>DeathAcidifier</li>
     </techHediffs>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_BodyModder</defName>
+    <label>Body modders</label>
+    <description>All enemies use bionics part. Lower raid size in points.</description>
+    <pointMultiplier>0.75</pointMultiplier>
+    <techHediffs>
+      <li>VESWW_DeathSuperAcidifier</li>
+      <li>BionicEye</li>
+      <li>BionicEye</li>
+      <li>BionicArm</li>
+      <li>BionicArm</li>
+      <li>BionicLeg</li>
+      <li>BionicLeg</li>
+      <li>BionicSpine</li>
+      <li>BionicHeart</li>
+      <li MayRequire="Ludeon.RimWorld.Royalty">Coagulator</li>
+      <li MayRequire="Ludeon.RimWorld.Royalty">StoneskinGland</li>
+    </techHediffs>
+  </VSEWW.ModifierDef>
 </Defs>
