@@ -38,9 +38,9 @@ namespace VSEWW
             List<DebugMenuOption> debugMenuOptionList = new List<DebugMenuOption>();
             List<RewardDef> rewards = DefDatabase<RewardDef>.AllDefsListForReading;
 
-            for (int i = 1; i <= 15; i++)
+            for (int i = 1; i <= 20; i++)
             {
-                int waveNum = i * 10;
+                int waveNum = i * 5;
                 debugMenuOptionList.Add(new DebugMenuOption(waveNum.ToString(), DebugMenuOptionMode.Action, () =>
                 {
                     var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
