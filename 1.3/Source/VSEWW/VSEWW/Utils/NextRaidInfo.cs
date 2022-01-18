@@ -105,13 +105,15 @@ namespace VSEWW
             Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
-            Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Reference);
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref kindList, "kindList");
             Scribe_Values.Look(ref kindListLines, "kindListLines");
             Scribe_Values.Look(ref cacheTick, "cacheTick");
             Scribe_Values.Look(ref cacheKindList, "cacheKindList");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
+
+            if (lords.NullOrEmpty()) // Pawns are not part of a lord yet, else we don't save them, they are saved in the lord(s)
+                Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep); // Deep save them
         }
 
         /** Get IRL time before this raid **/
