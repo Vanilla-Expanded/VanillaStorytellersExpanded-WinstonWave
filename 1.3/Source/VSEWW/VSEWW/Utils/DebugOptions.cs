@@ -48,7 +48,6 @@ namespace VSEWW
                     {
                         c.currentWave++;
                         c.GetNextWavePoint();
-                        Log.Message($"{c.currentWave}:{c.currentPoints}");
                     }
                     c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(1) : c.SetNextNormalRaidInfo(1);
                     c.waveCounter.UpdateHeight();
