@@ -27,6 +27,8 @@ namespace VSEWW
 		public List<ThingDef> allowedWeaponDef;
 		// Apparels choice
 		public List<ThingDef> neededApparelDef;
+		// Don't use with those other modifiers
+		public List<ModifierDef> incompatibleWith;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon

@@ -121,6 +121,9 @@
     <techHediffs>
       <li>DeathAcidifier</li>
     </techHediffs>
+    <incompatibleWith>
+      <li>VSEWW_BodyModder</li>
+    </incompatibleWith>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -141,6 +144,9 @@
       <li MayRequire="Ludeon.RimWorld.Royalty">Coagulator</li>
       <li MayRequire="Ludeon.RimWorld.Royalty">StoneskinGland</li>
     </techHediffs>
+    <incompatibleWith>
+      <li>VSEWW_AcidifiersForEveryone</li>
+    </incompatibleWith>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -150,6 +156,9 @@
     <allowedWeaponDef>
       <li>Gun_SniperRifle</li>
     </allowedWeaponDef>
+    <incompatibleWith>
+      <li>VSEWW_OnlyMelee</li>
+    </incompatibleWith>
   </VSEWW.ModifierDef>
 
   <VSEWW.ModifierDef>
@@ -162,5 +171,8 @@
     <neededApparelDef>
       <li>Apparel_ShieldBelt</li>
     </neededApparelDef>
+    <incompatibleWith>
+      <li>VSEWW_SniperForEveryone</li>
+    </incompatibleWith>
   </VSEWW.ModifierDef>
 </Defs>

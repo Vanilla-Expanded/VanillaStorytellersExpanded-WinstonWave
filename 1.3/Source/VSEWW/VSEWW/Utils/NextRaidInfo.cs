@@ -244,7 +244,7 @@ namespace VSEWW
                 if (modifiersChance[1] < r)
                 {
                     var chooseFrom = DefDatabase<ModifierDef>.AllDefsListForReading;
-                    chooseFrom.ToList().RemoveAll(m => modifiers.Contains(m));
+                    chooseFrom.ToList().RemoveAll(m => modifiers.Contains(m) || modifiers.Any(mo => mo.incompatibleWith.Contains(m)));
                     modifiers.Add(chooseFrom.RandomElement());
                 }
             }
