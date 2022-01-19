@@ -152,7 +152,7 @@
   <VSEWW.ModifierDef>
     <defName>VSEWW_SniperForEveryone</defName>
     <label>Snipers for everyone!</label>
-    <description>All enemies get a sniper</description>
+    <description>All enemies get a sniper.</description>
     <allowedWeaponDef>
       <li>Gun_SniperRifle</li>
     </allowedWeaponDef>
@@ -165,7 +165,7 @@
   <VSEWW.ModifierDef>
     <defName>VSEWW_OnlyMelee</defName>
     <label>Melee only!</label>
-    <description>All pawns get a melee weapon and a shield belt</description>
+    <description>All pawns get a melee weapon and a shield belt.</description>
     <allowedWeaponCategory>
       <li>WeaponsMelee</li>
     </allowedWeaponCategory>
@@ -181,7 +181,7 @@
   <VSEWW.ModifierDef>
     <defName>VSEWW_ChargeForEveryone</defName>
     <label>Charge weapons for everyone!</label>
-    <description>All enemies have a charge weapon</description>
+    <description>All enemies have a charge weapon.</description>
     <allowedWeaponDef>
       <li>Gun_ChargeRifle</li>
       <li>Gun_ChargeLance</li>
