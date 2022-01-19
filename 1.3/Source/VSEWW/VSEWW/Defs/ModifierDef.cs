@@ -22,6 +22,9 @@ namespace VSEWW
 		public bool everRetreat = true;
 		// Incidents to fire
 		public List<IncidentDef> incidents;
+		// Weapons choice
+		public List<ThingCategoryDef> allowedWeaponCategory;
+		public List<ThingDef> allowedWeaponDef;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon
@@ -48,6 +51,8 @@ namespace VSEWW
 				yield return $"ModifierDef {defName} has null description";
 			if (label == null)
 				yield return $"ModifierDef {defName} has null label";
+			if (!allowedWeaponCategory.NullOrEmpty() && !allowedWeaponDef.NullOrEmpty())
+				yield return $"{defName} can't have allowedWeaponCategory && allowedWeaponDef";
 		}
 
         public void DrawCard(Rect rect)

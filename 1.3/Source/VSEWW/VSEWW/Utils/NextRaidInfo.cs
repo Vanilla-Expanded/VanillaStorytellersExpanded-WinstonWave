@@ -270,6 +270,18 @@ namespace VSEWW
                                 InstallPart(pawn, hediff);
                             }
                         }
+
+                        if (!modifier.allowedWeaponDef.NullOrEmpty())
+                        {
+                            pawn.equipment.DestroyAllEquipment();
+                            var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
+                            var newWeapon = newWeaponDef.costStuffCount > 0 ? ThingMaker.MakeThing(newWeaponDef, newWeaponDef.defaultStuff) : ThingMaker.MakeThing(newWeaponDef);
+                            pawn.equipment.AddEquipment((ThingWithComps)newWeapon);
+                        }
+                        else if (!modifier.allowedWeaponCategory.NullOrEmpty())
+                        {
+
+                        }
                     }
                 }
             }

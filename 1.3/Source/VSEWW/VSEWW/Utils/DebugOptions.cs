@@ -84,7 +84,7 @@ namespace VSEWW
                     }
                     else
                     {
-                        Messages.Message("Cannot add more modifiersto this wave", MessageTypeDefOf.CautionInput);
+                        Messages.Message("Cannot add more modifiers to this wave", MessageTypeDefOf.CautionInput);
                     }
                 }));
             }

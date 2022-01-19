@@ -142,4 +142,13 @@
       <li MayRequire="Ludeon.RimWorld.Royalty">StoneskinGland</li>
     </techHediffs>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_SniperForEveryone</defName>
+    <label>Snipers for everyone!</label>
+    <description>All enemies have a sniper</description>
+    <allowedWeaponDef>
+      <li>Gun_SniperRifle</li>
+    </allowedWeaponDef>
+  </VSEWW.ModifierDef>
 </Defs>
