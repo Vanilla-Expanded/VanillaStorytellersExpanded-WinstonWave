@@ -23,6 +23,7 @@ namespace VSEWW
         public bool reinforcementSent = false;
         // - Raid parms
         public IncidentParms incidentParms;
+        public int reinforcementSeed = -1;
         // - Raid pawns
         public List<Pawn> raidPawns = new List<Pawn>();
         // - Wave number
@@ -127,6 +128,8 @@ namespace VSEWW
             Scribe_Values.Look(ref cacheTick, "cacheTick");
             Scribe_Values.Look(ref cacheKindList, "cacheKindList");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
+            Scribe_Values.Look(ref totalPawn, "totalPawn");
+            Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
             Scribe_Collections.Look(ref lords, "lords", LookMode.Reference);
 
             if (lords.NullOrEmpty()) // Pawns are not part of a lord yet, else we don't save them, they are saved in the lord(s)
@@ -171,6 +174,8 @@ namespace VSEWW
                     var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, incidentParms.target);
                     parms.faction = incidentParms.faction;
                     parms.points = Math.Max(100f, incidentParms.points * 0.5f);
+                    parms.pawnGroupMakerSeed = new Random().Next(1, 10000);
+                    reinforcementSeed = parms.pawnGroupMakerSeed.Value;
                     IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
                 }
             }

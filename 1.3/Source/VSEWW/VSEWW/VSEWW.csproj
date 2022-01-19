@@ -62,6 +62,7 @@
     <Compile Include="Defs\Options.cs" />
     <Compile Include="Defs\ModifierDef.cs" />
     <Compile Include="Harmony\HarmonyInit.cs" />
+    <Compile Include="Harmony\IncidentWorker_Raid_TryExecuteWorker_Patch.cs" />
     <Compile Include="Harmony\IncidentWorker_Raid_TryGenerateRaidInfo_Patch.cs" />
     <Compile Include="Harmony\Pawn_HealthScale_Patch.cs" />
     <Compile Include="Harmony\Plant_GrowthRate_Patch.cs" />
