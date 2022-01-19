@@ -41,6 +41,21 @@ namespace VSEWW
         // - Number of pawns at the start
         public int totalPawn;
 
+        // CE Loaded?
+        public bool? ceActive = null;
+
+        public bool CEActive
+        {
+            get
+            {
+                if (ceActive.HasValue)
+                    return ceActive.Value;
+
+                ceActive = ModsConfig.IsActive("CETeam.CombatExtended");
+                return ceActive.Value;
+            }
+        }
+
         public List<Lord> Lords
         {
             get
@@ -273,10 +288,27 @@ namespace VSEWW
 
                         if (!modifier.allowedWeaponDef.NullOrEmpty())
                         {
+                            // Remove equipements
                             pawn.equipment.DestroyAllEquipment();
+                            // Generate new weapon matching defs
                             var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
                             var newWeapon = newWeaponDef.costStuffCount > 0 ? ThingMaker.MakeThing(newWeaponDef, newWeaponDef.defaultStuff) : ThingMaker.MakeThing(newWeaponDef);
+                            // Add it to the pawn equipement
                             pawn.equipment.AddEquipment((ThingWithComps)newWeapon);
+                            // If CE is loaded we regenerate inventory
+                            if (CEActive)
+                            {
+                                pawn.inventory.DestroyAll();
+                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                                if (newWeaponDef.IsRangedWeapon)
+                                {
+                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                                    for (int i = 0; i < appToRemove.Count; i++)
+                                    {
+                                        pawn.apparel.Remove(appToRemove[i]);
+                                    }
+                                }
+                            }
                         }
                         else if (!modifier.allowedWeaponCategory.NullOrEmpty())
                         {
