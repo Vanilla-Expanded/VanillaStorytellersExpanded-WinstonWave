@@ -152,12 +152,13 @@
   <VSEWW.ModifierDef>
     <defName>VSEWW_SniperForEveryone</defName>
     <label>Snipers for everyone!</label>
-    <description>All enemies have a sniper</description>
+    <description>All enemies get a sniper</description>
     <allowedWeaponDef>
       <li>Gun_SniperRifle</li>
     </allowedWeaponDef>
     <incompatibleWith>
       <li>VSEWW_OnlyMelee</li>
+      <li>VSEWW_ChargeForEveryone</li>
     </incompatibleWith>
   </VSEWW.ModifierDef>
 
@@ -173,6 +174,27 @@
     </neededApparelDef>
     <incompatibleWith>
       <li>VSEWW_SniperForEveryone</li>
+      <li>VSEWW_ChargeForEveryone</li>
+    </incompatibleWith>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_ChargeForEveryone</defName>
+    <label>Charge weapons for everyone!</label>
+    <description>All enemies have a charge weapon</description>
+    <allowedWeaponDef>
+      <li>Gun_ChargeRifle</li>
+      <li>Gun_ChargeLance</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargePistol</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargeShotgun</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargeSMG</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargeLMG</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargeSniperRifle</li>
+      <li MayRequire="VanillaExpanded.VWE">VWE_Gun_ChargeMinigun</li>
+    </allowedWeaponDef>
+    <incompatibleWith>
+      <li>VSEWW_SniperForEveryone</li>
+      <li>VSEWW_OnlyMelee</li>
     </incompatibleWith>
   </VSEWW.ModifierDef>
 </Defs>
