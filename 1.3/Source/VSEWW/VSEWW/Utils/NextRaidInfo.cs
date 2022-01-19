@@ -15,6 +15,7 @@ namespace VSEWW
         private List<Lord> lords;
         // - When
         public int atTick;
+        public int generatedAt;
         public int sentAt = 0;
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
@@ -88,10 +89,25 @@ namespace VSEWW
         {
             get
             {
-                float i = atTick - sentAt;
-                if (i > 0) // Sent early
+                float ticksInAdvance = atTick - sentAt;
+                float ticksInBetween = atTick - generatedAt;
+                if (ticksInAdvance > 0) // Sent early
                 {
-                    return VESWWMod.settings.timeBetweenWaves * 60000 / i;
+                    return ticksInAdvance / ticksInBetween;
+                }
+                return 0f;
+            }
+        }
+
+        public float FourthRewardChanceNow
+        {
+            get
+            {
+                float ticksInAdvance = atTick - Find.TickManager.TicksGame;
+                float ticksInBetween = atTick - generatedAt;
+                if (ticksInAdvance > 0) // Sent early
+                {
+                    return ticksInAdvance / ticksInBetween;
                 }
                 return 0f;
             }
@@ -111,6 +127,7 @@ namespace VSEWW
             Scribe_Values.Look(ref cacheTick, "cacheTick");
             Scribe_Values.Look(ref cacheKindList, "cacheKindList");
             Scribe_Values.Look(ref totalPawn, "totalPawn");
+            Scribe_Collections.Look(ref lords, "lords", LookMode.Reference);
 
             if (lords.NullOrEmpty()) // Pawns are not part of a lord yet, else we don't save them, they are saved in the lord(s)
                 Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep); // Deep save them

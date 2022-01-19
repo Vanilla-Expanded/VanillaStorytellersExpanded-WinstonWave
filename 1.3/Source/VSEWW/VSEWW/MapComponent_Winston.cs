@@ -153,6 +153,7 @@ namespace VSEWW
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (inDays * 60000),
+                generatedAt = Find.TickManager.TicksGame,
                 waveNum = currentWave
             };
             nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
@@ -175,6 +176,7 @@ namespace VSEWW
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (inDays * 60000),
+                generatedAt = Find.TickManager.TicksGame,
                 waveNum = currentWave
             };
             nri.incidentParms.raidStrategy = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat) &&

@@ -202,6 +202,7 @@ namespace VSEWW
             {
                 mcw.ExecuteRaid(Find.TickManager.TicksGame);
             }
+            TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
             // Restore anchor and font size
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
