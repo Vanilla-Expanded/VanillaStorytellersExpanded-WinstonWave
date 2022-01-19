@@ -151,4 +151,16 @@
       <li>Gun_SniperRifle</li>
     </allowedWeaponDef>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_OnlyMelee</defName>
+    <label>Melee only!</label>
+    <description>All pawns get a melee weapon and a shield belt</description>
+    <allowedWeaponCategory>
+      <li>WeaponsMelee</li>
+    </allowedWeaponCategory>
+    <neededApparelDef>
+      <li>Apparel_ShieldBelt</li>
+    </neededApparelDef>
+  </VSEWW.ModifierDef>
 </Defs>

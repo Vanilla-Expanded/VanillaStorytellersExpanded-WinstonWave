@@ -25,6 +25,8 @@ namespace VSEWW
 		// Weapons choice
 		public List<ThingCategoryDef> allowedWeaponCategory;
 		public List<ThingDef> allowedWeaponDef;
+		// Apparels choice
+		public List<ThingDef> neededApparelDef;
 
 		private Texture2D modifierIcon;
 		public Texture2D ModifierIcon
