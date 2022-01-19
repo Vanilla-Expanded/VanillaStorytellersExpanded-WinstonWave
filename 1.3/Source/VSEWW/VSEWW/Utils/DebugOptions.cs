@@ -76,7 +76,7 @@ namespace VSEWW
 
                 debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
                 {
-                    if (c.nextRaidInfo.modifiers.Count < 2)
+                    if (c.nextRaidInfo.modifiers.Count < 2 && !c.nextRaidInfo.modifiers.Any(mo => mo.incompatibleWith.Contains(m)))
                     {
                         c.nextRaidInfo.modifiers.Add(m);
                         c.nextRaidInfo.ApplyModifier();
@@ -84,7 +84,7 @@ namespace VSEWW
                     }
                     else
                     {
-                        Messages.Message("Cannot add more modifiers to this wave", MessageTypeDefOf.CautionInput);
+                        Messages.Message("Cannot add this modifier to this wave", MessageTypeDefOf.CautionInput);
                     }
                 }));
             }
