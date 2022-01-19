@@ -11,7 +11,7 @@ namespace VSEWW
 {
     internal class Window_WaveCounter : Window
     {
-        public override Vector2 InitialSize => new Vector2(400f, 300f);
+        public override Vector2 InitialSize => new Vector2(350f, 300f);
 
         private readonly MapComponent_Winston mcw;
         private string waveTip;
