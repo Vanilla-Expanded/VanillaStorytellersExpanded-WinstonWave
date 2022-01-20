@@ -130,7 +130,7 @@
     <defName>VSEWW_BodyModder</defName>
     <label>Body modders</label>
     <description>All enemies use bionics part. Lower raid size in points.</description>
-    <pointMultiplier>0.75</pointMultiplier>
+    <pointMultiplier>0.5</pointMultiplier>
     <techHediffs>
       <li>VESWW_DeathSuperAcidifier</li>
       <li>BionicEye</li>
