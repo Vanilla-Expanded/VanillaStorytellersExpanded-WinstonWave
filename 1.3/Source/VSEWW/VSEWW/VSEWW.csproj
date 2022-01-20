@@ -61,6 +61,7 @@
     <Compile Include="Comp\CompRegisterAsRewardDrop.cs" />
     <Compile Include="Defs\Options.cs" />
     <Compile Include="Defs\ModifierDef.cs" />
+    <Compile Include="Harmony\GenGameEnd_EndGameDialogMessage_Patch.cs" />
     <Compile Include="Harmony\HarmonyInit.cs" />
     <Compile Include="Harmony\IncidentWorker_Raid_TryExecuteWorker_Patch.cs" />
     <Compile Include="Harmony\IncidentWorker_Raid_TryGenerateRaidInfo_Patch.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="StorytellerComp\StorytellerComp_ClassicIntroNoRaid.cs" />
     <Compile Include="Utils\TimeSpawnExtension.cs" />
     <Compile Include="Windows\Window_ChooseReward.cs" />
+    <Compile Include="Windows\Window_GameOver.cs" />
     <Compile Include="Windows\Window_WaveCounter.cs" />
   </ItemGroup>
   <ItemGroup>
