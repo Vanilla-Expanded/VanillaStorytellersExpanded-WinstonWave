@@ -235,7 +235,7 @@ namespace VSEWW
             {
                 int r = rand.Next(0, 100);
                 if (modifiersChance[0] < r)
-                    modifiers.Add(DefDatabase<ModifierDef>.AllDefsListForReading.RandomElement());
+                    modifiers.Add(DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName)).RandomElement());
             }
 
             if (modifiersChance[1] > 0)
@@ -244,7 +244,7 @@ namespace VSEWW
                 if (modifiersChance[1] < r)
                 {
                     var chooseFrom = DefDatabase<ModifierDef>.AllDefsListForReading;
-                    chooseFrom.ToList().RemoveAll(m => modifiers.Contains(m) || modifiers.Any(mo => mo.incompatibleWith.Contains(m)));
+                    chooseFrom.ToList().RemoveAll(m => VESWWMod.settings.modifierDefs.Contains(m.defName) || modifiers.Contains(m) || modifiers.Any(mo => mo.incompatibleWith.Contains(m)));
                     modifiers.Add(chooseFrom.RandomElement());
                 }
             }

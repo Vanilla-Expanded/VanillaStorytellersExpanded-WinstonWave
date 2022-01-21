@@ -19,6 +19,8 @@ namespace VSEWW
         public bool enableStatIncrease = true;
         public bool drawBackground = false;
 
+        public List<string> modifierDefs = new List<string>();
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -29,6 +31,7 @@ namespace VSEWW
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
             Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);
             Scribe_Values.Look(ref drawBackground, "drawBackground", false);
+            Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
         }
     }
 
@@ -39,6 +42,21 @@ namespace VSEWW
         private string _maxPoints;
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
+
+        private Vector2 scrollPosition = Vector2.zero;
+        private float settingsHeight = 0f;
+
+        public float SettingsHeight
+        {
+            get
+            {
+                if (settingsHeight == 0f)
+                {
+                    settingsHeight = (8 * 12f) + ((13 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                }
+                return settingsHeight;
+            }
+        }
 
         public static VESWWModSettings settings;
 
@@ -51,8 +69,15 @@ namespace VSEWW
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
+            Rect rect = new Rect(inRect)
+            {
+                height = SettingsHeight,
+                width = inRect.width - 20
+            };
+
+            Widgets.BeginScrollView(inRect, ref scrollPosition, rect);
             Listing_Standard lst = new Listing_Standard();
-            lst.Begin(inRect);
+            lst.Begin(rect);
 
             lst.Label("VESWW.TimeBeforeFirstWave".Translate());
             lst.IntEntry(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave);
@@ -75,10 +100,33 @@ namespace VSEWW
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
+            lst.Gap();
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
+            lst.Gap();
+
+            if (settings.modifierDefs != null)
+            {
+                foreach (var modifier in DefDatabase<ModifierDef>.AllDefsListForReading)
+                {
+                    bool enabled = !settings.modifierDefs.Contains(modifier.defName);
+                    if (lst.ButtonText($"{modifier.LabelCap} (Enabled: {enabled})", modifier.description))
+                    {
+                        if (enabled)
+                            settings.modifierDefs.Add(modifier.defName);
+                        else
+                            settings.modifierDefs.Remove(modifier.defName);
+                    }
+                }
+            }
+            else
+                settings.modifierDefs = new List<string>();
 
             lst.End();
+            Widgets.EndScrollView();
         }
 
         public override void WriteSettings()
