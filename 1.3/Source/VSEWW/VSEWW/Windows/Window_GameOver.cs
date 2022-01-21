@@ -7,8 +7,6 @@ namespace VSEWW
 {
     internal class Window_GameOver : Window
     {
-        readonly bool canKeepPlaying;
-        readonly string message;
         readonly string stats;
 
         private Texture2D winston;
@@ -35,41 +33,64 @@ namespace VSEWW
         {
             StringBuilder sB = new StringBuilder();
             TimeSpan timeSpan = new TimeSpan(0, 0, (int)Find.GameInfo.RealPlayTimeInteracting);
+            sB.AppendLine(msg);
+            sB.AppendLine();
+            sB.AppendLine();
+
+            sB.AppendLine("VESWW.SurvivedX".Translate(Find.CurrentMap.GetComponent<MapComponent_Winston>().currentWave - 1));
+            sB.AppendLine();
+            
             sB.AppendLine("Playtime".Translate() + ": " + timeSpan.Days + "LetterDay".Translate() + " " + timeSpan.Hours + "LetterHour".Translate() + " " + timeSpan.Minutes + "LetterMinute".Translate() + " " + timeSpan.Seconds + "LetterSecond".Translate());
-            sB.AppendLine("Storyteller".Translate() + ": " + Find.Storyteller.def.LabelCap);
             sB.AppendLine("Difficulty".Translate() + ": " + Find.Storyteller.difficultyDef.LabelCap);
 
             sB.AppendLine();
             sB.AppendLine("NumThreatBigs".Translate() + ": " + Find.StoryWatcher.statsRecord.numThreatBigs);
             sB.AppendLine("NumEnemyRaids".Translate() + ": " + Find.StoryWatcher.statsRecord.numRaidsEnemy);
             sB.AppendLine();
-            if (Find.CurrentMap != null)
-                sB.AppendLine("ThisMapDamageTaken".Translate() + ": " + Find.CurrentMap.damageWatcher.DamageTakenEver);
+            sB.AppendLine("ThisMapDamageTaken".Translate() + ": " + Find.CurrentMap.damageWatcher.DamageTakenEver);
             sB.AppendLine("ColonistsKilled".Translate() + ": " + Find.StoryWatcher.statsRecord.colonistsKilled);
+            sB.AppendLine("VESWW.MaxPopEver".Translate(Find.StoryWatcher.statsRecord.greatestPopulation));
             sB.AppendLine();
             sB.AppendLine("ColonistsLaunched".Translate() + ": " + Find.StoryWatcher.statsRecord.colonistsLaunched);
 
             stats = sB.ToString().TrimEndNewlines();
-            message = msg;
-            canKeepPlaying = allowKeepPlaying;
 
             forcePause = true;
-            doCloseX = true;
-            doCloseButton = false;
+            doCloseX = false;
+            doCloseButton = true;
             closeOnClickedOutside = false;
             closeOnCancel = false;
             absorbInputAroundWindow = true;
             doWindowBackground = true;
             drawShadow = true;
+
+            Find.WindowStack.TryRemove(typeof(Window_WaveCounter));
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            // Storyteller art
             Rect texRect = inRect.LeftHalf();
             Widgets.DrawTextureFitted(texRect, WinstonIcon, 1f);
-
+            // Text
             Rect textRect = inRect.RightHalf();
-            Widgets.Label(textRect, stats);
+            // Title
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Rect gameOverRect = new Rect(textRect)
+            {
+                height = 60
+            };
+            Widgets.Label(gameOverRect, "VESWW.GameOver".Translate());
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
+            // Stats
+            Rect statsRect = new Rect(textRect)
+            {
+                height = textRect.height - gameOverRect.height - 10,
+                y = gameOverRect.yMax + 10
+            };
+            Widgets.Label(statsRect, stats);
         }
     }
 }
