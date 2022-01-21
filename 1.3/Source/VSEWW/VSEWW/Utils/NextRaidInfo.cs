@@ -295,7 +295,13 @@ namespace VSEWW
                             ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
                             // Add it to the pawn equipement
                             if (newWeapon != null)
-                                pawn.equipment.AddEquipment((ThingWithComps)ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff));
+                            {
+                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                    wBioco.CodeFor(pawn);
+
+                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                            }
                             // If CE is loaded we regenerate inventory
                             if (CEActive)
                             {
@@ -321,7 +327,13 @@ namespace VSEWW
                             ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
                             // Add it to the pawn equipement
                             if (newWeapon != null)
-                                pawn.equipment.AddEquipment((ThingWithComps)ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff));
+                            {
+                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                    wBioco.CodeFor(pawn);
+
+                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                            }
                             // If CE is loaded we regenerate inventory
                             if (CEActive)
                             {
