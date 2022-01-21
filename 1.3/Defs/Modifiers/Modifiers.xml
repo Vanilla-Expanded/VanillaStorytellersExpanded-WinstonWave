@@ -128,6 +128,7 @@
 
   <VSEWW.ModifierDef>
     <defName>VSEWW_BodyModder</defName>
+    <texPath>UI/Modifiers/Modifier_BodyModders</texPath>
     <label>Body modders</label>
     <description>All enemies use bionics part. Lower raid size in points.</description>
     <pointMultiplier>0.5</pointMultiplier>
@@ -151,6 +152,7 @@
 
   <VSEWW.ModifierDef>
     <defName>VSEWW_SniperForEveryone</defName>
+    <texPath>UI/Modifiers/Modifier_Snipers</texPath>
     <label>Snipers for everyone!</label>
     <description>All enemies get a sniper.</description>
     <allowedWeaponDef>
@@ -164,6 +166,7 @@
 
   <VSEWW.ModifierDef>
     <defName>VSEWW_OnlyMelee</defName>
+    <texPath>UI/Modifiers/Modifier_MeleeOnly</texPath>
     <label>Melee only!</label>
     <description>All pawns get a melee weapon and a shield belt.</description>
     <allowedWeaponCategory>
@@ -180,6 +183,7 @@
 
   <VSEWW.ModifierDef>
     <defName>VSEWW_ChargeForEveryone</defName>
+    <texPath>UI/Modifiers/Modifier_ChargeWeaponsForEveryone</texPath>
     <label>Charge weapons for everyone!</label>
     <description>All enemies have a charge weapon.</description>
     <allowedWeaponDef>
