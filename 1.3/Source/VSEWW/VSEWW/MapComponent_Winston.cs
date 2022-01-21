@@ -1,11 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using Verse.AI.Group;
 
 namespace VSEWW
 {
@@ -29,7 +25,7 @@ namespace VSEWW
         private bool once = false;
 
         public IntVec3 dropSpot = IntVec3.Invalid;
-          
+
         public MapComponent_Winston(Map map) : base(map) { }
 
         public override void ExposeData()
@@ -205,9 +201,9 @@ namespace VSEWW
         }
 
         internal void RegisterDropSpot(CompRegisterAsRewardDrop comp) => dropSpot = comp.parent.Position;
-        
+
         internal void UnRegisterDropSpot() => dropSpot = IntVec3.Invalid;
-    
+
         internal void AddStatHediff()
         {
             map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
@@ -219,7 +215,7 @@ namespace VSEWW
                 }
             });
         }
-        
+
         internal void RemoveStatHediff()
         {
             statPawns.ForEach(p =>

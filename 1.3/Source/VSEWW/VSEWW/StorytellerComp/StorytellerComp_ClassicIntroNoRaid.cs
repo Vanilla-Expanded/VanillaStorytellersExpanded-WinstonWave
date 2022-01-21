@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -8,7 +7,7 @@ namespace VSEWW
 {
     public class StorytellerCompProperties_ClassicIntroNoRaid : StorytellerCompProperties
     {
-        public StorytellerCompProperties_ClassicIntroNoRaid() => this.compClass = typeof(StorytellerComp_ClassicIntroNoRaid);
+        public StorytellerCompProperties_ClassicIntroNoRaid() => compClass = typeof(StorytellerComp_ClassicIntroNoRaid);
     }
 
     public class StorytellerComp_ClassicIntroNoRaid : StorytellerComp

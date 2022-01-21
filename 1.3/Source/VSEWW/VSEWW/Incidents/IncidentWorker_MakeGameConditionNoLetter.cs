@@ -1,9 +1,4 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace VSEWW
@@ -13,7 +8,7 @@ namespace VSEWW
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
             GameConditionManager conditionManager = parms.target.GameConditionManager;
-            GameCondition gameCondition = GameConditionMaker.MakeCondition(this.def.gameCondition, Mathf.RoundToInt(this.def.durationDays.RandomInRange * 60000f));
+            GameCondition gameCondition = GameConditionMaker.MakeCondition(def.gameCondition, Mathf.RoundToInt(def.durationDays.RandomInRange * 60000f));
 
             conditionManager.RegisterCondition(gameCondition);
             return true;

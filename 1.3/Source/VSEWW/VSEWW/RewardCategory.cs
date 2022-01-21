@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace VSEWW
 {
@@ -17,7 +13,7 @@ namespace VSEWW
 
     public static class RewardCategoryExtension
     {
-        public static Dictionary<RewardCategory,int> GetCommonality(int waveN)
+        public static Dictionary<RewardCategory, int> GetCommonality(int waveN)
         {
             var com = new Dictionary<RewardCategory, int>()
             {

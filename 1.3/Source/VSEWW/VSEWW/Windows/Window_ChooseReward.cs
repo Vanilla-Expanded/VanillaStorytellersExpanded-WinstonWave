@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -18,16 +15,16 @@ namespace VSEWW
 
         public Window_ChooseReward(int waveNumber, float fourthRewardChance)
         {
-            this.commonality = RewardCategoryExtension.GetCommonality(waveNumber);
-            this.forcePause = true;
-            this.doCloseX = false;
-            this.doCloseButton = false;
-            this.closeOnClickedOutside = false;
-            this.closeOnCancel = false;
-            this.absorbInputAroundWindow = true;
-            this.doWindowBackground = false;
-            this.drawShadow = false;
-            this.preventSave = true;
+            commonality = RewardCategoryExtension.GetCommonality(waveNumber);
+            forcePause = true;
+            doCloseX = false;
+            doCloseButton = false;
+            closeOnClickedOutside = false;
+            closeOnCancel = false;
+            absorbInputAroundWindow = true;
+            doWindowBackground = false;
+            drawShadow = false;
+            preventSave = true;
 
 
             if (new System.Random().NextDouble() < fourthRewardChance) { rewardNumber++; }

@@ -1,9 +1,5 @@
 ﻿using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -18,19 +14,19 @@ namespace VSEWW
 
         public Window_WaveCounter(MapComponent_Winston mapComponent_Winston)
         {
-            this.mcw = mapComponent_Winston;
-            this.forcePause = false;
-            this.absorbInputAroundWindow = false;
-            this.closeOnCancel = false;
-            this.closeOnClickedOutside = false;
-            this.doCloseButton = false;
-            this.doCloseX = false;
-            this.draggable = true;
-            this.drawShadow = false;
-            this.preventCameraMotion = false;
-            this.resizeable = false;
-            this.doWindowBackground = false;
-            this.layer = WindowLayer.GameUI;
+            mcw = mapComponent_Winston;
+            forcePause = false;
+            absorbInputAroundWindow = false;
+            closeOnCancel = false;
+            closeOnClickedOutside = false;
+            doCloseButton = false;
+            doCloseX = false;
+            draggable = true;
+            drawShadow = false;
+            preventCameraMotion = false;
+            resizeable = false;
+            doWindowBackground = false;
+            layer = WindowLayer.GameUI;
 
             WaveTip();
         }
@@ -263,7 +259,7 @@ namespace VSEWW
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
         }
-    
+
         private void DrawFillableBar(Rect rect, string label, float percent, bool doBorder = true)
         {
             if (doBorder)

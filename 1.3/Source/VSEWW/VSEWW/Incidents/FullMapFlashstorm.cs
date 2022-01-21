@@ -1,11 +1,5 @@
-﻿using HarmonyLib;
-using RimWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using RimWorld;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace VSEWW
@@ -16,7 +10,7 @@ namespace VSEWW
         public override void Init()
         {
             base.Init();
-            this.SingleMap.weatherDecider.DisableRainFor(this.Duration);
+            SingleMap.weatherDecider.DisableRainFor(Duration);
         }
 
         public override void End()

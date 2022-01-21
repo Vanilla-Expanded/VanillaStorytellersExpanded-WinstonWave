@@ -1,10 +1,8 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using RimWorld;
 
 namespace VSEWW
 {
@@ -85,8 +83,8 @@ namespace VSEWW
 
                 if (thingList.Count > 0)
                 {
-                    IntVec3 intVec3 = winston.dropSpot != IntVec3.Invalid ? winston.dropSpot: DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
-                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch:false, forbid: false);
+                    IntVec3 intVec3 = winston.dropSpot != IntVec3.Invalid ? winston.dropSpot : DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
+                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch: false, forbid: false);
                 }
             }
         }
@@ -139,12 +137,12 @@ namespace VSEWW
                     {
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pr.pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo));
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
-                    }                        
+                    }
                     else
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pr.pawnkind, Faction.OfPlayer));
 
                     things.Add(p);
-                }   
+                }
             }
 
             return things;
@@ -156,10 +154,10 @@ namespace VSEWW
 
             foreach (var i in reward.randomItems)
             {
-                var chooseFrom = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => 
+                var chooseFrom = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
                     i.thingCategories.Any(c => t.IsWithinCategory(c)) &&
                     t.tradeability != Tradeability.None &&
-                    !t.destroyOnDrop && 
+                    !t.destroyOnDrop &&
                     t.BaseMarketValue > 0);
 
                 if (!i.excludeThingCategories.NullOrEmpty())

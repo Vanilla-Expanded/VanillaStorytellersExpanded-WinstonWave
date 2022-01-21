@@ -39,7 +39,7 @@ namespace VSEWW
 
             sB.AppendLine("VESWW.SurvivedX".Translate(Find.CurrentMap.GetComponent<MapComponent_Winston>().currentWave - 1));
             sB.AppendLine();
-            
+
             sB.AppendLine("Playtime".Translate() + ": " + timeSpan.Days + "LetterDay".Translate() + " " + timeSpan.Hours + "LetterHour".Translate() + " " + timeSpan.Minutes + "LetterMinute".Translate() + " " + timeSpan.Seconds + "LetterSecond".Translate());
             sB.AppendLine("Difficulty".Translate() + ": " + Find.Storyteller.difficultyDef.LabelCap);
 
