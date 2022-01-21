@@ -33,6 +33,8 @@
   <VESWW.MoreRewardChance>{0} chance of getting a fourth reward if summoning the wave now</VESWW.MoreRewardChance>
   <VESWW.GameOver>Game Over!</VESWW.GameOver>
   <VESWW.SurvivedX>Waves survived: {0}</VESWW.SurvivedX>
+  <VESWW.SurvivedDaysX>Days survived: {0}</VESWW.SurvivedDaysX>
+  <VESWW.TotalKill>Total kills: {0}</VESWW.TotalKill>
   <VESWW.MaxPopEver>Greatest population: {0}</VESWW.MaxPopEver>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>

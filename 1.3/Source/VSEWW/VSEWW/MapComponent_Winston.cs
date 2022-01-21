@@ -71,7 +71,7 @@ namespace VSEWW
                         {
                             ExecuteRaid(Find.TickManager.TicksGame);
                         }
-                        else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0)
+                        else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned)
                         {
                             Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
                             nextRaidInfo.StopEvents();
