@@ -231,25 +231,31 @@ namespace VSEWW
             int[] modifiersChance = GetModifiersChance();
 
             var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading;
-            if (!VESWWMod.settings.modifierDefs.NullOrEmpty())
-                modifiersPool.RemoveAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
-            modifiersPool.RemoveAll(m => m.pointMultiplier * incidentParms.points > VESWWMod.settings.maxPoints);
-
-            var rand = new Random();
-            if (modifiersChance[0] > 0)
-                if (modifiersChance[0] < rand.Next(0, 100))
-                    modifiers.Add(modifiersPool.RandomElement());
-
-            if (modifiersChance[1] > 0)
+            modifiersPool.RemoveAll(m => VESWWMod.settings.modifierDefs.Contains(m.defName));
+            
+            if (modifiersPool.Count > 0)
             {
-                modifiersPool.Remove(modifiers[0]);
-                modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(m));
+                modifiersPool.RemoveAll(m => m.pointMultiplier * incidentParms.points > VESWWMod.settings.maxPoints);
 
-                if (modifiersChance[1] < rand.Next(0, 100))
-                    modifiers.Add(modifiersPool.RandomElement());
+                var rand = new Random();
+                if (modifiersChance[0] > 0)
+                    if (modifiersChance[0] < rand.Next(0, 100))
+                        modifiers.Add(modifiersPool.RandomElement());
+
+                if (modifiersChance[1] > 0)
+                {
+                    if (modifiers[0] != null)
+                    {
+                        modifiersPool.Remove(modifiers[0]);
+                        modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modifiers[0]));
+                    }
+
+                    if (modifiersChance[1] < rand.Next(0, 100))
+                        modifiers.Add(modifiersPool.RandomElement());
+                }
+
+                ApplyModifier(true);
             }
-
-            ApplyModifier(true);
         }
 
         /** Apply modifier(s) **/
