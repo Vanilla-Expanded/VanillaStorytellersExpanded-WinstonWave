@@ -201,4 +201,23 @@
       <li>VSEWW_OnlyMelee</li>
     </incompatibleWith>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_StrategicApproach</defName>
+    <texPath>UI/Modifiers/Modifier_StrategicApproach</texPath>
+    <label>Strategic approach</label>
+    <description>Enemies use a combination of : grenades, rocket launcher and sniper. Wave raid point is multiplied by 0.7.</description>
+    <allowedWeaponDef>
+      <li>Gun_SniperRifle</li>
+      <li>Gun_TripleRocket</li>
+      <li>Gun_DoomsdayRocket</li>
+      <li>Weapon_GrenadeFrag</li>
+      <li>Weapon_GrenadeMolotov</li>
+    </allowedWeaponDef>
+    <incompatibleWith>
+      <li>VSEWW_SniperForEveryone</li>
+      <li>VSEWW_ChargeForEveryone</li>
+      <li>VSEWW_OnlyMelee</li>
+    </incompatibleWith>
+  </VSEWW.ModifierDef>
 </Defs>
