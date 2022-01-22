@@ -2,6 +2,7 @@
 <Defs>
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentPawnJoins</defName>
+    <texPath>UI/Rewards/RewardPawnJoins_Excellent</texPath>
     <label>Pawns join</label>
     <description>A group of 5 pawns worth a minimum of 175 Combat points joins the colony</description>
     <category>Excellent</category>
@@ -15,6 +16,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentResourceDrop</defName>
+    <texPath>UI/Rewards/RewardResourceDrop_Excellent</texPath>
     <label>Resource drop</label>
     <description>Cargo pods drop 1000 wood, 1000 steel, 60 components, 20 advanced components and 300 plasteel</description>
     <category>Excellent</category>
@@ -44,6 +46,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentFoodAndMedicineDrop</defName>
+    <texPath>UI/Rewards/RewardFoodAndMedicineDrop_Excellent</texPath>
     <label>Food and medicine drop</label>
     <description>Cargo pods drop 120 survival meals, 20 glitterworld medicine and 100 medicine</description>
     <category>Excellent</category>
@@ -65,6 +68,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentFuelDrop</defName>
+    <texPath>UI/Rewards/RewardFuelDrop_Excellent</texPath>
     <label>Fuel drop</label>
     <description>Cargo pods drop 1000 chemfuel, 1000 wood and 400 uranium</description>
     <category>Excellent</category>
@@ -86,6 +90,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentWeaponDrop</defName>
+    <texPath>UI/Rewards/RewardWeaponsDrop_Excellent</texPath>
     <label>Excellent weapons drop</label>
     <description>Cargo pods 5 random weapons, quality is Excellent</description>
     <category>Excellent</category>
@@ -105,6 +110,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentArmorDrop</defName>
+    <texPath>UI/Rewards/RewardArmorDrop_Excellent</texPath>
     <label>Excellent armor drop</label>
     <description>Cargo pods 5 random pieces of armor, quality is Excellent</description>
     <category>Excellent</category>
@@ -121,6 +127,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentCashDrop</defName>
+    <texPath>UI/Rewards/RewardCashDrop_Excellent</texPath>
     <label>Cash</label>
     <description>Cargo pods drop 10000 silver, 500 gold</description>
     <category>Excellent</category>
@@ -138,6 +145,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_DelayBy15</defName>
+    <texPath>UI/Rewards/RewardDelayWave_Excellent</texPath>
     <label>Delay next wave</label>
     <description>The next wave is delayed by 15 days</description>
     <category>Excellent</category>
@@ -148,6 +156,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_WargDrop</defName>
+    <texPath>UI/Rewards/RewardWargsDrop_Excellent</texPath>
     <label>Wargs drop</label>
     <description>Cargo pod drops 10 tamed wargs</description>
     <category>Excellent</category>
@@ -161,6 +170,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentSkillBoost</defName>
+    <texPath>UI/Rewards/RewardSkillBoost_Excellent</texPath>
     <label>Skill boost</label>
     <description>Improve every skill of every pawn under your control by 3</description>
     <category>Excellent</category>
@@ -169,6 +179,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentReseachBoost</defName>
+    <texPath>UI/Rewards/RewardResearchBoost_Excellent</texPath>
     <label>Research boost</label>
     <description>Instantly research 8 random research projects you meet prerequisites for</description>
     <category>Excellent</category>
@@ -177,6 +188,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentArchotechArtifactsDrop</defName>
+    <texPath>UI/Rewards/RewardArchotechArtifactDrop_Excellent</texPath>
     <label>Archotech artifacts drop</label>
     <description>Receive 8 random archotech items (can be minified structures)</description>
     <category>Excellent</category>
@@ -192,6 +204,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_TargetersDrop</defName>
+    <texPath>UI/Rewards/RewardTargetersDrop_Excellent</texPath>
     <label>Targeters drop</label>
     <description>Receive an orbital beam targeter, orbital bombardment targeter and tornado generator</description>
     <category>Excellent</category>
@@ -213,6 +226,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentDrugsDrop</defName>
+    <texPath>UI/Rewards/RewardDrugsDrop_Excellent</texPath>
     <label>Drugs drop</label>
     <description>Receive 100 Ambrosia, 100 psychite tea, 200 beer, 200 smokeleaf joints, 200 flake, 200 yayo, 200 wake-up, 200 go juice</description>
     <category>Excellent</category>
@@ -254,6 +268,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentProstheticsDrop</defName>
+    <texPath>UI/Rewards/RewardProsthethicsDrop_Excellent</texPath>
     <label>Prosthetics drop</label>
     <description>Cargo pod drops random 10 bionic prosthetics</description>
     <category>Excellent</category>
@@ -269,6 +284,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_MechSerumHealerDrop</defName>
+    <texPath>UI/Rewards/RewardHealerSerumDrop_Excellent</texPath>
     <label>Healer serum drop</label>
     <description>Cargo pod drops 5 Mechanoid healer serum</description>
     <category>Excellent</category>
@@ -282,6 +298,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_RandomLegendaryDrop</defName>
+    <texPath>UI/Rewards/RewardRandom_Legendary</texPath>
     <label>Random Legendary reward</label>
     <description>Instead of picking up a specific Excellent-level reward, obtain a completely random Legendary-level reward</description>
     <category>Legendary</category>

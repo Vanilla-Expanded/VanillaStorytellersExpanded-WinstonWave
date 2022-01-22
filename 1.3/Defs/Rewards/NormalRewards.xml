@@ -2,6 +2,7 @@
 <Defs>
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalPawnJoins</defName>
+    <texPath>UI/Rewards/RewardPawnJoins_Normal</texPath>
     <label>Pawn joins</label>
     <description>A single pawn worth minimum 50 and up to 125 Combat points joins the colony</description>
     <category>Normal</category>
@@ -16,6 +17,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalResourceDrop</defName>
+    <texPath>UI/Rewards/RewardResourceDrop_Normal</texPath>
     <category>Normal</category>
     <label>Resource drop</label>
     <description>Cargo pods drop 250 wood, 250 steel, 10 components</description>
@@ -37,6 +39,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalComponentDrop</defName>
+    <texPath>UI/Rewards/RewardComponentsDrop_Normal</texPath>
     <label>Component drop</label>
     <description>Cargo pods drop 20 components, 5 advanced components</description>
     <category>Normal</category>
@@ -54,6 +57,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalFoodAndMedicineDrop</defName>
+    <texPath>UI/Rewards/RewardFoodAndMedicineDrop_Normal</texPath>
     <label>Food and medicine drop</label>
     <description>Cargo pods drop 30 survival meals and 30 medicine</description>
     <category>Normal</category>
@@ -71,6 +75,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_UraniumDrop</defName>
+    <texPath>UI/Rewards/RewardUraniumDrop_Normal</texPath>
     <label>Uranium drop</label>
     <description>Cargo pods drop 100 uranium</description>
     <category>Normal</category>
@@ -84,6 +89,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalFuelDrop</defName>
+    <texPath>UI/Rewards/RewardFuelDrop_Normal</texPath>
     <label>Fuel drop</label>
     <description>Cargo pods drop 500 chemfuel</description>
     <category>Normal</category>
@@ -97,6 +103,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_PlasteelDrop</defName>
+    <texPath>UI/Rewards/RewardFuelDrop_Normal</texPath>
     <label>Plasteel drop</label>
     <description>Cargo pods drop 100 plasteel</description>
     <category>Normal</category>
@@ -110,6 +117,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalWeaponsDrop</defName>
+    <texPath>UI/Rewards/RewardWeaponsDrop_Normal</texPath>
     <label>Normal weapons drop</label>
     <description>Cargo pods 3 random weapons, quality is normal</description>
     <category>Normal</category>
@@ -129,6 +137,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalCashDrop</defName>
+    <texPath>UI/Rewards/RewardCashDrop_Normal</texPath>
     <label>Cash</label>
     <description>Cargo pods drop 3000 silver</description>
     <category>Normal</category>
@@ -142,6 +151,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_CaravanArrival</defName>
+    <texPath>UI/Rewards/RewardCaravanArrival_Normal</texPath>
     <label>Caravan arrival</label>
     <description>A random caravan arrives</description>
     <category>Normal</category>
@@ -150,6 +160,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_DelayBy3</defName>
+    <texPath>UI/Rewards/RewardDelayWave_Normal</texPath>
     <label>Delay next wave</label>
     <description>Next wave is delayed by 3 days</description>
     <category>Normal</category>
@@ -160,6 +171,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalAnimalDrop</defName>
+    <texPath>UI/Rewards/RewardAnimalDrop_Normal</texPath>
     <label>Animal drop</label>
     <description>Cargo pod drops 2 random, tamed animals</description>
     <category>Normal</category>
@@ -173,6 +185,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalTextileDrop</defName>
+    <texPath>UI/Rewards/RewardTextileDrop_Normal</texPath>
     <label>Textile drop</label>
     <description>Cargo pod drops 400 random pieces of leather or textile</description>
     <category>Normal</category>
@@ -189,6 +202,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_MiniturretDrop</defName>
+    <texPath>UI/Rewards/RewardMiniTurretDrop_Normal</texPath>
     <label>Miniturret drop</label>
     <description>Cargo pod drops 3 minified mini-turrets</description>
     <category>Normal</category>
@@ -202,6 +216,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalReseachBoost</defName>
+    <texPath>UI/Rewards/RewardResearchBoost_Normal</texPath>
     <label>Research boost</label>
     <description>Instantly research 3 random research projects you meet prerequisites for</description>
     <category>Normal</category>
@@ -210,6 +225,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalProstheticsDrop</defName>
+    <texPath>UI/Rewards/RewardProsthethicsDrop_Normal</texPath>
     <label>Prosthetics drop</label>
     <description>Cargo pod drops 5 random low-level prosthetics</description>
     <category>Normal</category>
@@ -225,6 +241,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_RandomGoodDrop</defName>
+    <texPath>UI/Rewards/RewardRandom_Good</texPath>
     <label>Random Good reward</label>
     <description>Instead of picking up a specific Normal-level reward, obtain a completely random Good-level reward</description>
     <category>Normal</category>
@@ -233,6 +250,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_MeteoriteImpact</defName>
+    <texPath>UI/Rewards/RewardMeteoriteImpact_Normal</texPath>
     <label>Meteorite impact</label>
     <description>Meteorite impact</description>
     <category>Normal</category>
@@ -241,6 +259,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_PsychicSoothe</defName>
+    <texPath>UI/Rewards/RewardPsychicSoothe_Normal</texPath>
     <label>Psychic Soothe</label>
     <description>Psychic soothe</description>
     <category>Normal</category>
