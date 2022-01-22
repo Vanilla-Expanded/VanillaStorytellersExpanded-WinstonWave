@@ -230,40 +230,42 @@ namespace VSEWW
         {
             int[] modifiersChance = GetModifiersChance();
 
+            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading;
+            if (!VESWWMod.settings.modifierDefs.NullOrEmpty())
+                modifiersPool.RemoveAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
+
             var rand = new Random();
             if (modifiersChance[0] > 0)
-            {
-                int r = rand.Next(0, 100);
-                if (modifiersChance[0] < r)
-                    modifiers.Add(DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName)).RandomElement());
-            }
+                if (modifiersChance[0] < rand.Next(0, 100))
+                    modifiers.Add(modifiersPool.RandomElement());
 
             if (modifiersChance[1] > 0)
             {
-                int r = rand.Next(0, 100);
-                if (modifiersChance[1] < r)
-                {
-                    var chooseFrom = DefDatabase<ModifierDef>.AllDefsListForReading;
-                    chooseFrom.ToList().RemoveAll(m => VESWWMod.settings.modifierDefs.Contains(m.defName) || modifiers.Contains(m) || modifiers.Any(mo => mo.incompatibleWith.Contains(m)));
-                    modifiers.Add(chooseFrom.RandomElement());
-                }
+                modifiersPool.Remove(modifiers[0]);
+                modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(m));
+
+                if (modifiersChance[1] < rand.Next(0, 100))
+                    modifiers.Add(modifiersPool.RandomElement());
             }
 
-            ApplyModifier();
+            ApplyModifier(true);
         }
 
         /** Apply modifier(s) **/
-        public void ApplyModifier()
+        public void ApplyModifier(bool first = false)
         {
             foreach (var modifier in modifiers)
             {
-                if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
-                    incidentParms.points *= modifier.pointMultiplier;
-
-                if (!modifier.everRetreat)
+                if (first)
                 {
-                    incidentParms.canTimeoutOrFlee = false;
-                    incidentParms.raidNeverFleeIndividual = true;
+                    if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
+                        incidentParms.points *= modifier.pointMultiplier;
+
+                    if (!modifier.everRetreat)
+                    {
+                        incidentParms.canTimeoutOrFlee = false;
+                        incidentParms.raidNeverFleeIndividual = true;
+                    }
                 }
 
                 if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
