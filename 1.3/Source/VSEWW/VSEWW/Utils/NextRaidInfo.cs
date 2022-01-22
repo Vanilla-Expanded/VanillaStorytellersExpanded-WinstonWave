@@ -233,6 +233,7 @@ namespace VSEWW
             var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading;
             if (!VESWWMod.settings.modifierDefs.NullOrEmpty())
                 modifiersPool.RemoveAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
+            modifiersPool.RemoveAll(m => m.pointMultiplier * incidentParms.points > VESWWMod.settings.maxPoints);
 
             var rand = new Random();
             if (modifiersChance[0] > 0)
