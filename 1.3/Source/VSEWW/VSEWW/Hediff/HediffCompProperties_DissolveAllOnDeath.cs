@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Linq;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -49,7 +50,12 @@ namespace VSEWW
             Props.sound.PlayOneShot(SoundInfo.InMap(Pawn));
             Pawn.equipment.DestroyAllEquipment();
             Pawn.apparel.DestroyAll();
-            Pawn.health.RemoveAllHediffs();
+            // Pawn.health.RemoveAllHediffs();
+            var toRemove = Pawn.health.hediffSet.hediffs.FindAll(h => !h.def.tendable).ToList();
+            for (int i = 0; i < toRemove.Count; i++)
+            {
+                Pawn.health.RemoveHediff(toRemove[i]);
+            }
         }
     }
 }
