@@ -154,7 +154,7 @@ namespace VSEWW
 
             foreach (var i in reward.randomItems)
             {
-                var chooseFrom = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
+                var chooseFrom = i.randomFrom ?? DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
                     i.thingCategories.Any(c => t.IsWithinCategory(c)) &&
                     t.tradeability != Tradeability.None &&
                     !t.destroyOnDrop &&
@@ -182,7 +182,7 @@ namespace VSEWW
                     thing.stackCount = stack;
                     countLeft -= stack;
 
-                    if (thing.def.mineable)
+                    if (thing.def.minifiedDef != null)
                     {
                         thing.MakeMinified();
                     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
+    <defName>VSEWW_SuperNanitesDrop</defName>
+    <label>Super-nanites drop</label>
+    <description>Cargo pod drops 5 super-nanites.</description>
+    <category>Excellent</category>
+    <items>
+      <li>
+        <thing>VFEA_SuperNanites</thing>
+        <count>5</count>
+      </li>
+    </items>
+  </VSEWW.RewardDef>
+
+  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
+    <defName>VSEWW_RandomLabDrop</defName>
+    <label>Lab part drop</label>
+    <description>Cargo pod drop one gene-tailoring lab part.</description>
+    <category>Excellent</category>
+    <randomItems>
+      <li>
+        <randomFrom>
+          <li>VFEA_GeneTailoringPod</li>
+          <li>VFEA_SuperNaniteInjectorPump</li>
+          <li>VFEA_SuperNaniteDialyzer</li>
+          <li>VFEA_SuperNaniteCentrifuge</li>
+          <li>VFEA_SimulationDrive</li>
+          <li>VFEA_GenomeStabilizer</li>
+          <li>VFEA_SuperNaniteContainment</li>
+          <li>VFEA_GenomeMacrothermometer</li>
+          <li>VFEA_StabilisedMucusInducer</li>
+          <li>VFEA_NanotechRetractor</li>
+          <li>VFEA_NaniteSampler</li>
+        </randomFrom>
+        <count>1</count>
+      </li>
+    </randomItems>
+  </VSEWW.RewardDef>
+
+  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
+    <defName>VSEWW_LegendaryRandomLabDrop</defName>
+    <label>Lab parts drop</label>
+    <description>Cargo pod drops 3 random gene-tailoring lab parts.</description>
+    <category>Legendary</category>
+    <randomItems>
+      <li>
+        <randomFrom>
+          <li>VFEA_GeneTailoringPod</li>
+          <li>VFEA_SuperNaniteInjectorPump</li>
+          <li>VFEA_SuperNaniteDialyzer</li>
+          <li>VFEA_SuperNaniteCentrifuge</li>
+          <li>VFEA_SimulationDrive</li>
+          <li>VFEA_GenomeStabilizer</li>
+          <li>VFEA_SuperNaniteContainment</li>
+          <li>VFEA_GenomeMacrothermometer</li>
+          <li>VFEA_StabilisedMucusInducer</li>
+          <li>VFEA_NanotechRetractor</li>
+          <li>VFEA_NaniteSampler</li>
+        </randomFrom>
+        <count>3</count>
+      </li>
+    </randomItems>
+  </VSEWW.RewardDef>
+</Defs>

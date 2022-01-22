@@ -26,6 +26,8 @@ namespace VSEWW
         public List<ThingCategoryDef> excludeThingCategories;
         public QualityCategory quality;
         public int count;
+
+        public List<ThingDef> randomFrom;
     }
 
     public class PawnReward
