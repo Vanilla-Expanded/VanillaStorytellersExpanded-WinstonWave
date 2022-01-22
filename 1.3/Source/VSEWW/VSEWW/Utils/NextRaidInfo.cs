@@ -228,31 +228,25 @@ namespace VSEWW
         /** Choose and add modifier(s) **/
         public void ChooseAndApplyModifier()
         {
-            int[] modifiersChance = GetModifiersChance();
+            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
+            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > VESWWMod.settings.maxPoints);
 
-            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading;
-            modifiersPool.RemoveAll(m => VESWWMod.settings.modifierDefs.Contains(m.defName));
-            
             if (modifiersPool.Count > 0)
             {
-                modifiersPool.RemoveAll(m => m.pointMultiplier * incidentParms.points > VESWWMod.settings.maxPoints);
+                int[] modifiersChance = GetModifiersChance();
 
                 var rand = new Random();
-                if (modifiersChance[0] > 0)
-                    if (modifiersChance[0] < rand.Next(0, 100))
-                        modifiers.Add(modifiersPool.RandomElement());
-
-                if (modifiersChance[1] > 0)
+                if (modifiersChance[0] > 0 && modifiersChance[0] < rand.Next(0, 100))
                 {
-                    if (modifiers[0] != null)
-                    {
-                        modifiersPool.Remove(modifiers[0]);
-                        modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modifiers[0]));
-                    }
-
-                    if (modifiersChance[1] < rand.Next(0, 100))
-                        modifiers.Add(modifiersPool.RandomElement());
+                    var modi = modifiersPool.RandomElement();
+                    modifiers.Add(modi);
+                    modifiersPool.Remove(modi);
+                    modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modi));
                 }
+                    
+
+                if (modifiersChance[1] > 0 && modifiersChance[1] < rand.Next(0, 100) && modifiersPool.Count > 0)
+                    modifiers.Add(modifiersPool.RandomElement());
 
                 ApplyModifier(true);
             }
