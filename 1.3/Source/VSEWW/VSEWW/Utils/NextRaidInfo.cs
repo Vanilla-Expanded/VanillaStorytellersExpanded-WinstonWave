@@ -220,7 +220,7 @@ namespace VSEWW
                 if (waveNum <= 45) return new int[] { modifierChance + 35, 0 };
                 if (waveNum <= 50) return new int[] { modifierChance + 35, 5 };
                 if (waveNum <= 60) return new int[] { modifierChance + 50, 10 };
-                return new int[] { modifierChance + 20, 20 };
+                return new int[] { modifierChance + 80, 20 };
             }
             return new int[] { modifierChance, 0 };
         }
