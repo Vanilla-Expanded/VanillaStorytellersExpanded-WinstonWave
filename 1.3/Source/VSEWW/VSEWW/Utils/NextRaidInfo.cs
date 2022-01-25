@@ -231,6 +231,14 @@ namespace VSEWW
             var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
             modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > VESWWMod.settings.maxPoints);
 
+            if (!incidentParms.faction.def.humanlikeFaction)
+            {
+                modifiersPool.RemoveAll(m => !m.allowedWeaponDef.NullOrEmpty() ||
+                                             !m.allowedWeaponCategory.NullOrEmpty() ||
+                                             !m.neededApparelDef.NullOrEmpty() ||
+                                             !m.techHediffs.NullOrEmpty());
+            }
+
             if (modifiersPool.Count > 0)
             {
                 int[] modifiersChance = GetModifiersChance();
