@@ -96,7 +96,10 @@ namespace VSEWW
                 };
                 mRect.y += 5;
                 GUI.DrawTexture(mRect, Textures.ModifierBGTex);
-                mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
+                if (VESWWMod.settings.mysteryMod)
+                    VDefOf.VSEWW_Mystery.DrawCard(mRect);
+                else
+                    mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
             }
 
             Rect wRect = new Rect(rect)

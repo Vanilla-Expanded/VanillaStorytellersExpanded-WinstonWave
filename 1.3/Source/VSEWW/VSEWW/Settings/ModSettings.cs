@@ -13,6 +13,7 @@ namespace VSEWW
         public float pointMultiplierAfter = 1.1f;
         public bool enableStatIncrease = true;
         public bool drawBackground = false;
+        public bool mysteryMod = false;
 
         public List<string> modifierDefs = new List<string>();
 
@@ -26,6 +27,7 @@ namespace VSEWW
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
             Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);
             Scribe_Values.Look(ref drawBackground, "drawBackground", false);
+            Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
         }
     }
@@ -74,6 +76,9 @@ namespace VSEWW
             Listing_Standard lst = new Listing_Standard();
             lst.Begin(rect);
 
+            lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod);
+            lst.Gap();
+
             lst.Label("VESWW.TimeBeforeFirstWave".Translate());
             lst.IntEntry(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave);
             lst.Gap();
@@ -98,9 +103,6 @@ namespace VSEWW
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
-            lst.Gap();
-
-            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
             lst.Gap();
 
             if (settings.modifierDefs != null)

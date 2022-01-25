@@ -11,5 +11,7 @@ namespace VSEWW
 
         public static RaidStrategyDef ImmediateAttackSmart;
         public static RaidStrategyDef StageThenAttack;
+
+        public static ModifierDef VSEWW_Mystery;
     }
 }
