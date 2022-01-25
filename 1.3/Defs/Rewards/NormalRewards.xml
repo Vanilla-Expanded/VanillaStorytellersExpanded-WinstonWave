@@ -103,7 +103,7 @@
 
   <VSEWW.RewardDef>
     <defName>VSEWW_PlasteelDrop</defName>
-    <texPath>UI/Rewards/RewardFuelDrop_Normal</texPath>
+    <texPath>UI/Rewards/RewardPlasteelDrop_Normal</texPath>
     <label>Plasteel drop</label>
     <description>Cargo pods drop 100 plasteel</description>
     <category>Normal</category>
