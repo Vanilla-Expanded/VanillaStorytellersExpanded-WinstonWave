@@ -220,4 +220,14 @@
       <li>VSEWW_OnlyMelee</li>
     </incompatibleWith>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_MeteorStorm</defName>
+    <texPath>UI/Modifiers/Modifier_MeteorStorm</texPath>
+    <label>Meteor storm</label>
+    <description>During the wave, meteors fall on the map.</description>
+    <incidents>
+      <li>VESWW_MeteorStorm</li>
+    </incidents>
+  </VSEWW.ModifierDef>
 </Defs>

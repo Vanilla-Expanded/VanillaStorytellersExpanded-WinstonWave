@@ -69,6 +69,7 @@
     <Compile Include="Harmony\Plant_GrowthRate_Patch.cs" />
     <Compile Include="Harmony\TaleUtility_Notify_PawnDied_Postfix.cs" />
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
+    <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="VDefOf.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />
     <Compile Include="Hediff\Hediff_RemoveIfColonist.cs" />
