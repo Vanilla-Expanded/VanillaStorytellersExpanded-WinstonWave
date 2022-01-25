@@ -192,6 +192,8 @@ namespace VSEWW
                 if (currentPoints <= 0) currentPoints = 100f;
                 else if (currentWave <= 20) currentPoints *= VESWWMod.settings.pointMultiplierBefore;
                 else currentPoints *= VESWWMod.settings.pointMultiplierAfter;
+
+                currentPoints *= Find.Storyteller.difficulty.threatScale;
             }
 
             float point = currentPoints * nextRaidMultiplyPoints;
