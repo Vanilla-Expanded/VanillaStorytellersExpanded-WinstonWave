@@ -112,10 +112,8 @@ namespace VSEWW
                     thing.stackCount = stack;
                     countLeft -= stack;
 
-                    if (thing.def.mineable)
-                    {
-                        thing.MakeMinified();
-                    }
+                    if (thing.def.minifiedDef != null)
+                        thing = thing.MakeMinified();
 
                     things.Add(thing);
                 }
@@ -154,11 +152,8 @@ namespace VSEWW
 
             foreach (var i in reward.randomItems)
             {
-                var chooseFrom = i.randomFrom ?? DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
-                    i.thingCategories.Any(c => t.IsWithinCategory(c)) &&
-                    t.tradeability != Tradeability.None &&
-                    !t.destroyOnDrop &&
-                    t.BaseMarketValue > 0);
+                var chooseFrom = i.randomFrom.NullOrEmpty() ? DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
+                    i.thingCategories.Any(c => t.IsWithinCategory(c)) && t.tradeability != Tradeability.None && !t.destroyOnDrop && t.BaseMarketValue > 0) : i.randomFrom;
 
                 if (!i.excludeThingCategories.NullOrEmpty())
                     chooseFrom.RemoveAll(t => i.excludeThingCategories.Any(c => t.IsWithinCategory(c)));
@@ -183,9 +178,7 @@ namespace VSEWW
                     countLeft -= stack;
 
                     if (thing.def.minifiedDef != null)
-                    {
-                        thing.MakeMinified();
-                    }
+                        thing = thing.MakeMinified();
 
                     things.Add(thing);
                 }
