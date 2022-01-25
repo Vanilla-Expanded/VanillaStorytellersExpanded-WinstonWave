@@ -47,7 +47,7 @@ namespace VSEWW
             base.MapComponentTick();
             if (map.ParentFaction == Faction.OfPlayer)
             {
-                if (Find.Storyteller.def.defName == "VSE_WinstonWave")
+                if (Find.Storyteller.def.defName == "VSE_WinstonWave" && Find.Storyteller.difficultyDef != DifficultyDefOf.Peaceful)
                 {
                     if (VESWWMod.settings.enableStatIncrease)
                     {
@@ -195,6 +195,9 @@ namespace VSEWW
 
                 currentPoints *= Find.Storyteller.difficulty.threatScale;
             }
+
+            if (currentPoints < 100)
+                currentPoints = 100;
 
             float point = currentPoints * nextRaidMultiplyPoints;
             nextRaidMultiplyPoints = 1f;
