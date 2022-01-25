@@ -47,4 +47,5 @@
   <VESWW.EnableStats>Enable stats increase:</VESWW.EnableStats>
   <VESWW.DrawBack>Draw wave counter background:</VESWW.DrawBack>
   <VESWW.MysteryMod>Enable mystery mod (modifiers types are hidden):</VESWW.MysteryMod>
+  <VESWW.RandomRewardMod>Send random reward (instead of choosing one of three/four):</VESWW.RandomRewardMod>
 </LanguageData>

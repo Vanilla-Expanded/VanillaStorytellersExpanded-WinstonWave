@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace VSEWW
@@ -73,7 +74,19 @@ namespace VSEWW
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned)
                         {
-                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
+                            if (VESWWMod.settings.randomRewardMod)
+                            {
+                                var rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
+                                if (Find.FactionManager.RandomAlliedFaction() == null)
+                                    rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
+
+                                var rReward = rewardPool.FindAll(r => r.category == RewardCategoryExtension.GetCommonality(currentWave).RandomElementByWeight(k => k.Value).Key).RandomElement();
+                                Messages.Message("VESWW.RandRewardOutcome".Translate(rReward.LabelCap), MessageTypeDefOf.NeutralEvent);
+                                RewardCreator.SendReward(rReward, map);
+                            }
+                            else
+                                Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
+
                             nextRaidInfo.StopEvents();
                             if (++currentWave % 5 == 0)
                             {

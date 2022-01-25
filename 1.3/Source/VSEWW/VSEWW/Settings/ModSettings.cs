@@ -14,6 +14,7 @@ namespace VSEWW
         public bool enableStatIncrease = true;
         public bool drawBackground = false;
         public bool mysteryMod = false;
+        public bool randomRewardMod = false;
 
         public List<string> modifierDefs = new List<string>();
 
@@ -28,6 +29,7 @@ namespace VSEWW
             Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);
             Scribe_Values.Look(ref drawBackground, "drawBackground", false);
             Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
+            Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
         }
     }
@@ -77,6 +79,9 @@ namespace VSEWW
             lst.Begin(rect);
 
             lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod);
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod);
             lst.Gap();
 
             lst.Label("VESWW.TimeBeforeFirstWave".Translate());
