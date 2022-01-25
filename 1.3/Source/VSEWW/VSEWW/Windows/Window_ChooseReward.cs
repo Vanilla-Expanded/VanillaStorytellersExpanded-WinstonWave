@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -26,15 +27,18 @@ namespace VSEWW
             drawShadow = false;
             preventSave = true;
 
+            var rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
+            if (Find.FactionManager.RandomAlliedFaction() == null)
+                rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
 
-            if (new System.Random().NextDouble() < fourthRewardChance) { rewardNumber++; }
+            if (new System.Random().NextDouble() < fourthRewardChance)
+                rewardNumber++;
 
             width /= rewardNumber;
-
             rewards = new List<RewardDef>();
             for (int i = 0; i < rewardNumber; i++)
             {
-                rewards.Add(DefDatabase<RewardDef>.AllDefsListForReading.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key && !rewards.Contains(r)).RandomElement());
+                rewards.Add(rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement());
             }
         }
 

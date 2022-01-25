@@ -125,12 +125,12 @@ namespace VSEWW
             nextRaidInfo.sentAt = Find.TickManager.TicksGame;
             if (nextRaidSendAllies)
             {
-                IncidentParms incidentParms = new IncidentParms()
-                {
-                    target = map,
-                    faction = Find.FactionManager.RandomAlliedFaction(),
-                };
-                Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidFriendly, tick, incidentParms);
+                IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
+                incidentParms.target = map;
+                incidentParms.faction = Find.FactionManager.RandomAlliedFaction();
+                incidentParms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, VESWWMod.settings.maxPoints);
+
+                IncidentDefOf.RaidFriendly.Worker.TryExecute(incidentParms);
                 nextRaidSendAllies = false;
             }
             nextRaidInfo.sent = true;
