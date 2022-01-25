@@ -25,6 +25,8 @@ namespace VSEWW
         public List<ThingDef> neededApparelDef;
         // Don't use with those other modifiers
         public List<ModifierDef> incompatibleWith = new List<ModifierDef>();
+        // Use specific pawnkind
+        public List<PawnKindDef> specificPawnKinds;
         // RANDOM
         public bool mystery = false;
 

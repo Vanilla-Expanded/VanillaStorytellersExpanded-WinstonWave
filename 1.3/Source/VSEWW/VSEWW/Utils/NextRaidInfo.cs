@@ -309,9 +309,20 @@ namespace VSEWW
                 {
                     incidentParms.canTimeoutOrFlee = false;
                 }
+
+                if (!modifier.specificPawnKinds.NullOrEmpty())
+                {
+                    float point = 0;
+                    while (point < incidentParms.points)
+                    {
+                        var kind = modifier.specificPawnKinds.RandomElement();
+                        raidPawns.Add(PawnGenerator.GeneratePawn(kind, incidentParms.faction));
+                        point += kind.combatPower;
+                    }
+                }
             }
 
-            if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
+            if (!raidPawns.NullOrEmpty() && !first) // Pawn modifier, only applied if pawns are generated
             {
                 foreach (var pawn in raidPawns)
                 {
@@ -458,7 +469,8 @@ namespace VSEWW
         /** Set pawns prediction string and count **/
         public void SetPawnsInfo()
         {
-            raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
+            if (raidPawns.NullOrEmpty())
+                raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
             // Get all kinds and the number of them
             var tempDic = new Dictionary<PawnKindDef, int>();
             foreach (Pawn pawn in raidPawns)

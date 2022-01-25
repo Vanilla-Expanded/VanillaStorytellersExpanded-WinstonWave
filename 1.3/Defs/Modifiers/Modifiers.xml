@@ -207,6 +207,7 @@
     <texPath>UI/Modifiers/Modifier_StrategicApproach</texPath>
     <label>Strategic approach</label>
     <description>Enemies use a combination of : grenades, rocket launcher and sniper. Wave raid point is multiplied by 0.7.</description>
+    <pointMultiplier>0.7</pointMultiplier>
     <allowedWeaponDef>
       <li>Gun_SniperRifle</li>
       <li>Gun_TripleRocket</li>
@@ -237,5 +238,27 @@
     <label>Mystery</label>
     <description>A random modifier has been applied. You will discover it soon enough.</description>
     <mystery>true</mystery>
+  </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_BigBosses</defName>
+    <texPath>UI/Modifiers/Modifier_BigBosses</texPath>
+    <label>Big Bosses</label>
+    <description>All enemies are mercenaries. Wave raid point is divided by two.</description>
+    <pointMultiplier>0.5</pointMultiplier>
+    <specificPawnKinds>
+      <li>Grenadier_Destructive</li>
+      <li>Grenadier_Smoke</li>
+      <li>Grenadier_EMP</li>
+      <li>Mercenary_Gunner</li>
+      <li>Mercenary_Gunner_Acidifier</li>
+      <li>Mercenary_Sniper</li>
+      <li>Mercenary_Sniper_Acidifier</li>
+      <li>Mercenary_Slasher</li>
+      <li>Mercenary_Slasher_Acidifier</li>
+      <li>Mercenary_Heavy</li>
+      <li>Mercenary_Elite</li>
+      <li>Mercenary_Elite_Acidifier</li>
+    </specificPawnKinds>
   </VSEWW.ModifierDef>
 </Defs>
