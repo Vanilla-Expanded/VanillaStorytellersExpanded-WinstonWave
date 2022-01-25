@@ -40,6 +40,8 @@ namespace VSEWW
         internal string cacheKindList;
         // - Number of pawns at the start
         public int totalPawn;
+        // Mystery
+        public List<ModifierDef> mysteryModifier;
 
         // CE Loaded?
         public bool? ceActive = null;
@@ -146,6 +148,7 @@ namespace VSEWW
             Scribe_Values.Look(ref totalPawn, "totalPawn");
             Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
             Scribe_Collections.Look(ref lords, "lords", LookMode.Reference);
+            Scribe_Collections.Look(ref mysteryModifier, "mysteryModifier", LookMode.Def);
 
             if (lords.NullOrEmpty()) // Pawns are not part of a lord yet, else we don't save them, they are saved in the lord(s)
                 Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep); // Deep save them
@@ -228,16 +231,7 @@ namespace VSEWW
         /** Choose and add modifier(s) **/
         public void ChooseAndApplyModifier()
         {
-            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
-            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > VESWWMod.settings.maxPoints);
-
-            if (!incidentParms.faction.def.humanlikeFaction)
-            {
-                modifiersPool.RemoveAll(m => !m.allowedWeaponDef.NullOrEmpty() ||
-                                             !m.allowedWeaponCategory.NullOrEmpty() ||
-                                             !m.neededApparelDef.NullOrEmpty() ||
-                                             !m.techHediffs.NullOrEmpty());
-            }
+            var modifiersPool = GetModifiersPool();
 
             if (modifiersPool.Count > 0)
             {
@@ -256,122 +250,161 @@ namespace VSEWW
                 if (modifiersChance[1] > 0 && modifiersChance[1] < rand.Next(0, 100) && modifiersPool.Count > 0)
                     modifiers.Add(modifiersPool.RandomElement());
 
-                ApplyModifier(true);
+                ApplyModifiers(true);
             }
         }
 
+        public List<ModifierDef> GetModifiersPool()
+        {
+            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
+            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > VESWWMod.settings.maxPoints);
+
+            if (!incidentParms.faction.def.humanlikeFaction)
+            {
+                modifiersPool.RemoveAll(m => !m.allowedWeaponDef.NullOrEmpty() ||
+                                             !m.allowedWeaponCategory.NullOrEmpty() ||
+                                             !m.neededApparelDef.NullOrEmpty() ||
+                                             !m.techHediffs.NullOrEmpty());
+            }
+
+            return modifiersPool;
+        }
+
         /** Apply modifier(s) **/
-        public void ApplyModifier(bool first = false)
+        public void ApplyModifiers(bool first = false)
         {
             foreach (var modifier in modifiers)
             {
-                if (first)
+                if (modifier.mystery)
                 {
-                    if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
-                        incidentParms.points *= modifier.pointMultiplier;
-
-                    if (!modifier.everRetreat)
+                    if (mysteryModifier.NullOrEmpty())
                     {
-                        incidentParms.canTimeoutOrFlee = false;
-                        incidentParms.raidNeverFleeIndividual = true;
+                        mysteryModifier = new List<ModifierDef>();
+                        var modifiersPool = GetModifiersPool();
+                        var modi = modifiers.Find(m => m != modifier);
+                        modifiersPool.Remove(modi);
+                        modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modi));
+
+                        if (!modifiersPool.NullOrEmpty())
+                            mysteryModifier.Add(modifiersPool.RandomElement());
                     }
+
+                    ApplyModifier(mysteryModifier.First(), first);
                 }
-
-                if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
+                else
                 {
-                    foreach (var pawn in raidPawns)
+                    ApplyModifier(modifier, first);
+                }
+            }
+        }
+
+        public void ApplyModifier(ModifierDef modifier, bool first = false)
+        {
+            if (first)
+            {
+                if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
+                    incidentParms.points *= modifier.pointMultiplier;
+
+                if (!modifier.everRetreat)
+                {
+                    incidentParms.canTimeoutOrFlee = false;
+                }
+            }
+
+            if (!raidPawns.NullOrEmpty()) // Pawn modifier, only applied if pawns are generated
+            {
+                foreach (var pawn in raidPawns)
+                {
+                    if (!modifier.globalHediffs.NullOrEmpty())
                     {
-                        if (!modifier.globalHediffs.NullOrEmpty())
+                        foreach (var hediff in modifier.globalHediffs)
                         {
-                            foreach (var hediff in modifier.globalHediffs)
-                            {
-                                pawn.health.AddHediff(hediff);
-                            }
+                            pawn.health.AddHediff(hediff);
                         }
+                    }
 
-                        if (!modifier.techHediffs.NullOrEmpty())
+                    if (!modifier.techHediffs.NullOrEmpty())
+                    {
+                        foreach (var hediff in modifier.techHediffs)
                         {
-                            foreach (var hediff in modifier.techHediffs)
-                            {
-                                InstallPart(pawn, hediff);
-                            }
+                            InstallPart(pawn, hediff);
                         }
+                    }
 
-                        if (!modifier.allowedWeaponDef.NullOrEmpty())
+                    if (!modifier.allowedWeaponDef.NullOrEmpty())
+                    {
+                        // Remove equipements
+                        pawn.equipment.DestroyAllEquipment();
+                        // Generate new weapon matching defs
+                        var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
+                        ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
+                        // Add it to the pawn equipement
+                        if (newWeapon != null)
                         {
-                            // Remove equipements
-                            pawn.equipment.DestroyAllEquipment();
-                            // Generate new weapon matching defs
-                            var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
-                            ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
-                            // Add it to the pawn equipement
-                            if (newWeapon != null)
-                            {
-                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
-                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
-                                    wBioco.CodeFor(pawn);
+                            var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                            if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                wBioco.CodeFor(pawn);
 
-                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
-                            }
-                            // If CE is loaded we regenerate inventory
-                            if (CEActive)
+                            pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                        }
+                        // If CE is loaded we regenerate inventory
+                        if (CEActive)
+                        {
+                            pawn.inventory.DestroyAll();
+                            PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                            if (newWeaponDef.IsRangedWeapon)
                             {
-                                pawn.inventory.DestroyAll();
-                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                                if (newWeaponDef.IsRangedWeapon)
+                                // Remove shield(s)
+                                var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                                for (int i = 0; i < appToRemove.Count; i++)
                                 {
-                                    // Remove shield(s)
-                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                    for (int i = 0; i < appToRemove.Count; i++)
-                                    {
-                                        pawn.apparel.Remove(appToRemove[i]);
-                                    }
+                                    pawn.apparel.Remove(appToRemove[i]);
                                 }
                             }
                         }
-                        else if (!modifier.allowedWeaponCategory.NullOrEmpty())
+                    }
+                    else if (!modifier.allowedWeaponCategory.NullOrEmpty())
+                    {
+                        // Remove equipements
+                        pawn.equipment.DestroyAllEquipment();
+                        // Generate new weapon matching defs
+                        var newWeaponDef = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => modifier.allowedWeaponCategory.Any(c => t.IsWithinCategory(c))).RandomElement();
+                        ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
+                        // Add it to the pawn equipement
+                        if (newWeapon != null)
                         {
-                            // Remove equipements
-                            pawn.equipment.DestroyAllEquipment();
-                            // Generate new weapon matching defs
-                            var newWeaponDef = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => modifier.allowedWeaponCategory.Any(c => t.IsWithinCategory(c))).RandomElement();
-                            ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
-                            // Add it to the pawn equipement
-                            if (newWeapon != null)
-                            {
-                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
-                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
-                                    wBioco.CodeFor(pawn);
+                            var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                            if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                wBioco.CodeFor(pawn);
 
-                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
-                            }
-                            // If CE is loaded we regenerate inventory
-                            if (CEActive)
+                            pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                        }
+                        // If CE is loaded we regenerate inventory
+                        if (CEActive)
+                        {
+                            pawn.inventory.DestroyAll();
+                            PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                            if (newWeaponDef.IsRangedWeapon)
                             {
-                                pawn.inventory.DestroyAll();
-                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                                if (newWeaponDef.IsRangedWeapon)
+                                // Remove shield(s)
+                                var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                                for (int i = 0; i < appToRemove.Count; i++)
                                 {
-                                    // Remove shield(s)
-                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                    for (int i = 0; i < appToRemove.Count; i++)
-                                    {
-                                        pawn.apparel.Remove(appToRemove[i]);
-                                    }
+                                    pawn.apparel.Remove(appToRemove[i]);
                                 }
                             }
                         }
+                    }
 
-                        if (!modifier.neededApparelDef.NullOrEmpty())
+                    if (!modifier.neededApparelDef.NullOrEmpty())
+                    {
+                        foreach (var apparelDef in modifier.neededApparelDef)
                         {
-                            foreach (var apparelDef in modifier.neededApparelDef)
+                            if (!pawn.apparel.WornApparel.Any(a => a.def == apparelDef))
                             {
-                                if (!pawn.apparel.WornApparel.Any(a => a.def == apparelDef))
-                                {
-                                    ThingStuffPair apparel = ThingStuffPair.AllWith(a => a.IsApparel && a == apparelDef).RandomElement();
-                                    if (apparel != null)
-                                        pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff));
-                                }
+                                ThingStuffPair apparel = ThingStuffPair.AllWith(a => a.IsApparel && a == apparelDef).RandomElement();
+                                if (apparel != null)
+                                    pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff));
                             }
                         }
                     }
@@ -450,7 +483,7 @@ namespace VSEWW
             }
             kindList = kindLabel.TrimEndNewlines();
 
-            ApplyModifier();
+            ApplyModifiers();
         }
     }
 }

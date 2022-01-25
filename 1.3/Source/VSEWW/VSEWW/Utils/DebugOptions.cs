@@ -76,7 +76,7 @@ namespace VSEWW
                     if (c.nextRaidInfo.modifiers.Count < 2 && !c.nextRaidInfo.modifiers.Any(mo => mo.incompatibleWith.Contains(m)))
                     {
                         c.nextRaidInfo.modifiers.Add(m);
-                        c.nextRaidInfo.ApplyModifier();
+                        c.nextRaidInfo.ApplyModifiers();
                         c.nextRaidInfo.modifierCount = null;
                     }
                     else

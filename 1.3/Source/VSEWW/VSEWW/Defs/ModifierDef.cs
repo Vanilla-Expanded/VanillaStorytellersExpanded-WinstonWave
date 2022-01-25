@@ -25,6 +25,8 @@ namespace VSEWW
         public List<ThingDef> neededApparelDef;
         // Don't use with those other modifiers
         public List<ModifierDef> incompatibleWith = new List<ModifierDef>();
+        // RANDOM
+        public bool mystery = false;
 
         private Texture2D modifierIcon;
         public Texture2D ModifierIcon

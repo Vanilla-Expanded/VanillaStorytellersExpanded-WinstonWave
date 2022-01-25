@@ -230,4 +230,12 @@
       <li>VESWW_MeteorStorm</li>
     </incidents>
   </VSEWW.ModifierDef>
+
+  <VSEWW.ModifierDef>
+    <defName>VSEWW_Mystery</defName>
+    <texPath>UI/Modifiers/Modifier_Mystery</texPath>
+    <label>Mystery</label>
+    <description>A random modifier has been applied. You will discover it soon enough.</description>
+    <mystery>true</mystery>
+  </VSEWW.ModifierDef>
 </Defs>
