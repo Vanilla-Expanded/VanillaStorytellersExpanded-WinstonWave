@@ -84,9 +84,7 @@ namespace VSEWW
 
         private void GetNextExplosionCell()
         {
-            nextExplosionCell = (from x in GenRadial.RadialCellsAround(aroundThis, 80, true)
-                                 where x.InBounds(SingleMap) && !x.Fogged(SingleMap) && !x.Roofed(SingleMap)
-                                 select x).RandomElementByWeight((IntVec3 x) => Bombardment.DistanceChanceFactor.Evaluate(x.DistanceTo(aroundThis)));
+            nextExplosionCell = CellFinderLoose.RandomCellWith(x => x.InBounds(SingleMap) && !x.Fogged(SingleMap) && !x.Roofed(SingleMap), SingleMap);
         }
 
         public static readonly SimpleCurve DistanceChanceFactor = new SimpleCurve
