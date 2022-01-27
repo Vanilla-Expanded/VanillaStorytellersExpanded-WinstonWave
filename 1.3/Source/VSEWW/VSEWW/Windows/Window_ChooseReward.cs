@@ -6,13 +6,14 @@ using Verse;
 
 namespace VSEWW
 {
-    internal class Window_ChooseReward : Window
+    public class Window_ChooseReward : Window
     {
         private readonly Dictionary<RewardCategory, int> commonality;
         private readonly List<RewardDef> rewards;
         private readonly int margin = 10;
         private readonly int width = 750;
         private readonly int rewardNumber = 3;
+        public RewardDef choosenReward;
 
         public Window_ChooseReward(int waveNumber, float fourthRewardChance)
         {
@@ -31,16 +32,24 @@ namespace VSEWW
             if (Find.FactionManager.RandomAlliedFaction() == null)
                 rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
 
-            if (new System.Random().NextDouble() < fourthRewardChance)
-                rewardNumber++;
-
-            width /= rewardNumber;
-            rewards = new List<RewardDef>();
-            for (int i = 0; i < rewardNumber; i++)
+            if (!VESWWMod.settings.randomRewardMod)
             {
-                var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
-                rewards.Add(reward);
-                rewardPool.Remove(reward);
+                if (new System.Random().NextDouble() < fourthRewardChance)
+                    rewardNumber++;
+
+                width /= rewardNumber;
+                rewards = new List<RewardDef>();
+                for (int i = 0; i < rewardNumber; i++)
+                {
+                    var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                    rewards.Add(reward);
+                    rewardPool.Remove(reward);
+                }
+            }
+            else
+            {
+                choosenReward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                Close();
             }
         }
 
@@ -56,6 +65,24 @@ namespace VSEWW
                 rewards.ElementAt(i).DrawCard(r, this, Find.CurrentMap);
                 lastMaxX = r.xMax;
             }
+        }
+
+        public override void PostClose()
+        {
+            base.PostClose();
+            var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+
+            winston.nextRaidInfo.StopEvents();
+            RewardCreator.SendReward(choosenReward, Find.CurrentMap);
+            var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
+
+            if (++winston.currentWave % 5 == 0)
+                winston.nextRaidInfo = winston.SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+            else
+                winston.nextRaidInfo = winston.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+
+            winston.waveCounter.UpdateHeight();
+            winston.waveCounter.WaveTip();
         }
     }
 }

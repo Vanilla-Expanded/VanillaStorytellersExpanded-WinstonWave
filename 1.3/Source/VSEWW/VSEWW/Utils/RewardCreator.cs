@@ -66,8 +66,6 @@ namespace VSEWW
                 var winston = map.GetComponent<MapComponent_Winston>();
                 if (winston != null && winston.nextRaidInfo != null && reward.waveModifier != null)
                 {
-                    if (reward.waveModifier.delayBy > 0)
-                        winston.nextRaidInfo.atTick += reward.waveModifier.delayBy * 60000;
                     if (reward.waveModifier.weakenBy > 0)
                         winston.nextRaidMultiplyPoints = reward.waveModifier.weakenBy;
                     if (reward.waveModifier.allies)
@@ -83,6 +81,9 @@ namespace VSEWW
 
                 if (thingList.Count > 0)
                 {
+                    if (map == null)
+                        map = Find.CurrentMap;
+
                     IntVec3 intVec3 = winston.dropSpot != IntVec3.Invalid ? winston.dropSpot : DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
                     DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: true, canRoofPunch: false, forbid: false);
                 }

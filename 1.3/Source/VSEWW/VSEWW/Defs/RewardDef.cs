@@ -81,7 +81,7 @@ namespace VSEWW
             }
         }
 
-        public void DrawCard(Rect rect, Window window, Map map)
+        public void DrawCard(Rect rect, Window_ChooseReward window, Map map)
         {
             Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
             GUI.DrawTexture(iconRect.ContractedBy(20), RewardIcon);
@@ -104,7 +104,7 @@ namespace VSEWW
             Rect buttonRectB = buttonRect.ContractedBy(5);
             if (Widgets.ButtonText(buttonRectB, "VESWW.SelectReward".Translate()))
             {
-                RewardCreator.SendReward(this, map);
+                window.choosenReward = this;
                 window.Close();
             }
             Text.Font = GameFont.Small;
