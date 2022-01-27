@@ -9,6 +9,7 @@ namespace VSEWW
     internal class Window_GameOver : Window
     {
         readonly string stats;
+        readonly float score;
 
         private Texture2D winston;
 
@@ -41,9 +42,7 @@ namespace VSEWW
             var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             var counter = Find.World.GetComponent<WorldComponent_KillCounter>();
             sB.AppendLine("VESWW.SurvivedX".Translate(winston.currentWave - 1));
-            var score = ((winston.currentWave * 100) + (counter.totalKill * 5) - (Find.StoryWatcher.statsRecord.colonistsKilled * 50)) * Find.Storyteller.difficultyDef.threatScale;
-
-            sB.AppendLine("VESWW.Score".Translate(score));
+            score = ((winston.currentWave * 100) + (counter.totalKill * 5) - (Find.StoryWatcher.statsRecord.colonistsKilled * 50)) * Find.Storyteller.difficultyDef.threatScale;
             sB.AppendLine("VESWW.SurvivedDaysX".Translate(Find.TickManager.TicksGame.TicksToDays()));
             sB.AppendLine("VESWW.TotalKill".Translate(counter.totalKill));
             sB.AppendLine();

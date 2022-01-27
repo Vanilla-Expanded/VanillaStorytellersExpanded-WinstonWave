@@ -49,7 +49,6 @@ namespace VSEWW
             else
             {
                 choosenReward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
-                Close();
             }
         }
 
@@ -57,13 +56,20 @@ namespace VSEWW
 
         public override void DoWindowContents(Rect inRect)
         {
-            float lastMaxX = 0f;
-            for (int i = 0; i < rewards.Count; i++)
+            if (!rewards.NullOrEmpty())
             {
-                Rect r = new Rect(lastMaxX + (i > 0 ? margin : 0), 0, width, inRect.height).Rounded();
-                Widgets.DrawWindowBackground(r);
-                rewards.ElementAt(i).DrawCard(r, this, Find.CurrentMap);
-                lastMaxX = r.xMax;
+                float lastMaxX = 0f;
+                for (int i = 0; i < rewards.Count; i++)
+                {
+                    Rect r = new Rect(lastMaxX + (i > 0 ? margin : 0), 0, width, inRect.height).Rounded();
+                    Widgets.DrawWindowBackground(r);
+                    rewards.ElementAt(i).DrawCard(r, this, Find.CurrentMap);
+                    lastMaxX = r.xMax;
+                }
+            }
+            else
+            {
+                Close();
             }
         }
 
@@ -73,6 +79,11 @@ namespace VSEWW
             var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
 
             winston.nextRaidInfo.StopEvents();
+            if (VESWWMod.settings.randomRewardMod)
+            {
+                Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
+            }
+
             RewardCreator.SendReward(choosenReward, Find.CurrentMap);
             var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
 
