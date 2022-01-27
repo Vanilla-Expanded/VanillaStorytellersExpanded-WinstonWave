@@ -37,7 +37,6 @@ namespace VSEWW
             TimeSpan timeSpan = new TimeSpan(0, 0, (int)Find.GameInfo.RealPlayTimeInteracting);
             sB.AppendLine(msg);
             sB.AppendLine();
-            sB.AppendLine();
 
             var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             var counter = Find.World.GetComponent<WorldComponent_KillCounter>();
@@ -86,16 +85,22 @@ namespace VSEWW
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect gameOverRect = new Rect(textRect)
             {
-                height = 60
+                height = 50
             };
             Widgets.Label(gameOverRect, "VESWW.GameOver".Translate());
+            Rect scoreOverRect = new Rect(textRect)
+            {
+                height = 50,
+                y = gameOverRect.yMax
+            };
+            Widgets.Label(scoreOverRect, "VESWW.Score".Translate(score));
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             // Stats
             Rect statsRect = new Rect(textRect)
             {
-                height = textRect.height - gameOverRect.height - 10,
-                y = gameOverRect.yMax + 10
+                height = textRect.height - scoreOverRect.height - 10,
+                y = scoreOverRect.yMax + 10
             };
             Widgets.Label(statsRect, stats);
         }
