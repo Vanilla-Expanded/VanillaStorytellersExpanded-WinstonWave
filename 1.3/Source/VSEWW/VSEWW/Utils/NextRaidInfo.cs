@@ -193,6 +193,7 @@ namespace VSEWW
                     parms.faction = incidentParms.faction;
                     parms.points = Math.Max(100f, incidentParms.points * 0.5f);
                     parms.pawnGroupMakerSeed = new Random().Next(1, 10000);
+                    parms.customLetterLabel = "VESWW.Reinforcement".Translate();
                     reinforcementSeed = parms.pawnGroupMakerSeed.Value;
                     IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
                 }
