@@ -63,7 +63,7 @@ namespace VSEWW
 
                     if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
                     {
-                        int inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+                        float inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
                         nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
                     }
                     else
@@ -149,7 +149,7 @@ namespace VSEWW
             nextRaidInfo.sent = true;
         }
 
-        internal NextRaidInfo SetNextNormalRaidInfo(int inDays)
+        internal NextRaidInfo SetNextNormalRaidInfo(float inDays)
         {
             NextRaidInfo nri = new NextRaidInfo()
             {
@@ -161,7 +161,7 @@ namespace VSEWW
                     faction = Find.FactionManager.RandomEnemyFaction(),
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
-                atTick = Find.TickManager.TicksGame + (inDays * 60000),
+                atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
                 generatedAt = Find.TickManager.TicksGame,
                 waveNum = currentWave
             };
@@ -173,7 +173,7 @@ namespace VSEWW
             return nri;
         }
 
-        internal NextRaidInfo SetNextBossRaidInfo(int inDays)
+        internal NextRaidInfo SetNextBossRaidInfo(float inDays)
         {
             NextRaidInfo nri = new NextRaidInfo()
             {
@@ -184,7 +184,7 @@ namespace VSEWW
                     faction = Find.FactionManager.RandomEnemyFaction(),
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
-                atTick = Find.TickManager.TicksGame + (inDays * 60000),
+                atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
                 generatedAt = Find.TickManager.TicksGame,
                 waveNum = currentWave
             };

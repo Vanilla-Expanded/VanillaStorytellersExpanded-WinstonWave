@@ -6,8 +6,8 @@ namespace VSEWW
 {
     public class VESWWModSettings : ModSettings
     {
-        public int timeBeforeFirstWave = 5;
-        public int timeBetweenWaves = 1;
+        public float timeBeforeFirstWave = 5f;
+        public float timeBetweenWaves = 1.2f;
         public int maxPoints = 25000;
         public float pointMultiplierBefore = 1.2f;
         public float pointMultiplierAfter = 1.1f;
@@ -21,8 +21,8 @@ namespace VSEWW
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref timeBeforeFirstWave, "timeBeforeFirstWave", 5);
-            Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 1);
+            Scribe_Values.Look(ref timeBeforeFirstWave, "timeBeforeFirstWave", 5f);
+            Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 1.2f);
             Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
             Scribe_Values.Look(ref pointMultiplierBefore, "pointMultiplierBefore", 1.2f);
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
@@ -85,11 +85,11 @@ namespace VSEWW
             lst.Gap();
 
             lst.Label("VESWW.TimeBeforeFirstWave".Translate());
-            lst.IntEntry(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave);
+            lst.TextFieldNumeric(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave, 1f, 10f);
             lst.Gap();
 
             lst.Label("VESWW.TimeBetweenWaves".Translate());
-            lst.IntEntry(ref settings.timeBetweenWaves, ref _timeBetweenWaves);
+            lst.TextFieldNumeric(ref settings.timeBetweenWaves, ref _timeBetweenWaves, 1f, 10f);
             lst.Gap();
 
             lst.Label("VESWW.MaxPoints".Translate());
