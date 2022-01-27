@@ -38,7 +38,9 @@ namespace VSEWW
             rewards = new List<RewardDef>();
             for (int i = 0; i < rewardNumber; i++)
             {
-                rewards.Add(rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement());
+                var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                rewards.Add(reward);
+                rewardPool.Remove(reward);
             }
         }
 
