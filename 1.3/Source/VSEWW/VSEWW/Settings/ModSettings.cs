@@ -78,36 +78,39 @@ namespace VSEWW
             Listing_Standard lst = new Listing_Standard();
             lst.Begin(rect);
 
-            lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod);
+            lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod, "VESWW.MysteryModTip".Translate());
             lst.Gap();
 
-            lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod);
-            lst.Gap();
+            lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod, "VESWW.RandomRewardModTip".Translate());
+            lst.GapLine();
 
-            lst.Label("VESWW.TimeBeforeFirstWave".Translate());
+            lst.Label("VESWW.TimeBeforeFirstWave".Translate(), tooltip: "VESWW.TimeBeforeFirstWaveTip".Translate());
             lst.TextFieldNumeric(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave, 1f, 10f);
             lst.Gap();
 
-            lst.Label("VESWW.TimeBetweenWaves".Translate());
+            lst.Label("VESWW.TimeBetweenWaves".Translate(), tooltip: "VESWW.TimeBetweenWavesTip".Translate());
             lst.TextFieldNumeric(ref settings.timeBetweenWaves, ref _timeBetweenWaves, 1f, 10f);
-            lst.Gap();
+            lst.GapLine();
 
-            lst.Label("VESWW.MaxPoints".Translate());
+            lst.Label("VESWW.MaxPoints".Translate(), tooltip: "VESWW.MaxPointsTip".Translate());
             lst.IntEntry(ref settings.maxPoints, ref _maxPoints, 10);
             lst.Gap();
 
-            lst.Label("VESWW.PointMultiplierBefore20".Translate());
+            lst.Label("VESWW.PointMultiplierBefore20".Translate(), tooltip: "VESWW.PointMultiplierBefore20Tip".Translate());
             lst.TextFieldNumeric(ref settings.pointMultiplierBefore, ref _pointMultiplierBefore, 1f, 10f);
             lst.Gap();
 
-            lst.Label("VESWW.PointMultiplierAfter20".Translate());
+            lst.Label("VESWW.PointMultiplierAfter20".Translate(), tooltip: "VESWW.PointMultiplierAfter20Tip".Translate());
             lst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
-            lst.Gap();
+            lst.GapLine();
 
-            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease);
+            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease, "VESWW.EnableStatsTip".Translate());
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
+            lst.GapLine();
+
+            lst.Label("VESWW.Modifiers".Translate());
             lst.Gap();
 
             if (settings.modifierDefs != null)
@@ -115,7 +118,7 @@ namespace VSEWW
                 foreach (var modifier in DefDatabase<ModifierDef>.AllDefsListForReading)
                 {
                     bool enabled = !settings.modifierDefs.Contains(modifier.defName);
-                    if (lst.ButtonText($"{modifier.LabelCap} (Enabled: {enabled})", modifier.description))
+                    if (lst.ButtonTextLabeled($"{modifier.LabelCap}", $"{enabled}"))
                     {
                         if (enabled)
                             settings.modifierDefs.Add(modifier.defName);

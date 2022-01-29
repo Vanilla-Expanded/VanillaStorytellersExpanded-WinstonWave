@@ -48,6 +48,16 @@
   <VESWW.PointMultiplierAfter20>Wave points multiplier after wave 20:</VESWW.PointMultiplierAfter20>
   <VESWW.EnableStats>Enable stats increase:</VESWW.EnableStats>
   <VESWW.DrawBack>Draw wave counter background:</VESWW.DrawBack>
-  <VESWW.MysteryMod>Enable mystery mode (modifiers types are hidden):</VESWW.MysteryMod>
-  <VESWW.RandomRewardMod>Send random reward (instead of choosing one):</VESWW.RandomRewardMod>
+  <VESWW.MysteryMod>Enable mystery mode:</VESWW.MysteryMod>
+  <VESWW.RandomRewardMod>Send random reward:</VESWW.RandomRewardMod>
+  <VESWW.Modifiers>Enable or disable modifiers here:</VESWW.Modifiers>
+  <!-- Settings tooltips -->
+  <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
+  <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>
+  <VESWW.MaxPointsTip>Maximum amount of points used in the raid generation.</VESWW.MaxPointsTip>
+  <VESWW.PointMultiplierBefore20Tip>Raid point multiplier used before the wave 20.</VESWW.PointMultiplierBefore20Tip>
+  <VESWW.PointMultiplierAfter20Tip>Raid point multiplier used after the wave 20.</VESWW.PointMultiplierAfter20Tip>
+  <VESWW.EnableStatsTip>Stats increased are: natural healing factor, global work speed, research speed and plant growth speed.</VESWW.EnableStatsTip>
+  <VESWW.RandomRewardModTip>With this enabled, the reward window will never be showed. You will always get a random reward.</VESWW.RandomRewardModTip>
+  <VESWW.MysteryModTip>With this enabled, the modifier will always be hidden. You will know a modifier has been applied, but not which one.</VESWW.MysteryModTip>
 </LanguageData>
