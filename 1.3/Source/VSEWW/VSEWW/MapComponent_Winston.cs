@@ -76,6 +76,11 @@ namespace VSEWW
                         {
                             Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
                         }
+                        else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && Find.TickManager.TicksGame - nextRaidInfo.atTick > 1000)
+                        {
+                            var at = Find.TickManager.TicksGame + 500;
+                            nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(at) : SetNextNormalRaidInfo(at);
+                        }
                     }
 
                     if (waveCounter == null)

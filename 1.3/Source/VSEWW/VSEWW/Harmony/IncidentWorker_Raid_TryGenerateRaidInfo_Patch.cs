@@ -32,7 +32,8 @@ namespace VSEWW
 
                     if (pawns.Count == 0)
                     {
-                        Log.Error($"[VESWW] Tried to use empty raiders list");
+                        Log.Error($"[VESWW] Tried to use empty raiders list. Details follow.");
+                        Log.Error($"[VESWW] Faction: {parms.faction.def.defName ?? "null"} | Strategy: {parms.raidStrategy.defName ?? "null"} | Arrival: {parms.raidArrivalMode.defName ?? "null"}");
                         __result = false;
                         return false;
                     }
