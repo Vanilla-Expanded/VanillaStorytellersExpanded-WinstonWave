@@ -4,6 +4,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
     <defName>VSEWW_SuperNanitesDrop</defName>
     <label>Super-nanites drop</label>
+    <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
     <description>Cargo pod drops 5 super-nanites.</description>
     <category>Excellent</category>
     <items>
@@ -17,6 +18,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
     <defName>VSEWW_RandomLabDrop</defName>
     <label>Lab part drop</label>
+    <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
     <description>Cargo pod drop one gene-tailoring lab part.</description>
     <category>Excellent</category>
     <randomItems>
@@ -42,6 +44,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
     <defName>VSEWW_LegendaryRandomLabDrop</defName>
     <label>Lab parts drop</label>
+    <texPath>UI/Rewards/RewardDefault_Legendary</texPath>
     <description>Cargo pod drops 3 random gene-tailoring lab parts.</description>
     <category>Legendary</category>
     <randomItems>
@@ -68,6 +71,7 @@
   <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid">
     <defName>VSEWW_IncubatorDrop</defName>
     <label>Incubator drop</label>
+    <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drop one incubator.</description>
     <category>Good</category>
     <items>
@@ -81,6 +85,7 @@
   <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid">
     <defName>VSEWW_GenomeDrop</defName>
     <label>Genomes drop</label>
+    <texPath>UI/Rewards/RewardDefault_Normal</texPath>
     <description>Cargo pod drops 5 random genomes.</description>
     <category>Normal</category>
     <randomItems>
@@ -98,6 +103,7 @@
   <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid">
     <defName>VSEWW_PlasmaWeaponsDrop</defName>
     <label>Plasma weapons drop</label>
+    <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drops 3 random plasma weapons.</description>
     <category>Good</category>
     <randomItems>
@@ -119,6 +125,7 @@
   <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Vikings">
     <defName>VSEWW_CryoGearDrop</defName>
     <label>Cryo gears drop</label>
+    <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drops 3 random cryo gears.</description>
     <category>Good</category>
     <randomItems>
@@ -143,6 +150,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VWEL">
     <defName>VSEWW_LaserWeaponsDrop</defName>
     <label>Laser weapons drop</label>
+    <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drops 3 random laser weapons.</description>
     <category>Good</category>
     <randomItems>
@@ -167,6 +175,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VWEHW">
     <defName>VSEWW_HeavyWeaponDrop</defName>
     <label>Heavy weapon drop</label>
+    <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drop one random heavy weapon and one exoskeleton frame.</description>
     <category>Good</category>
     <randomItems>
@@ -195,6 +204,7 @@
   <VSEWW.RewardDef MayRequire="VanillaExpanded.VBooksE">
     <defName>VSEWW_BooksDrop</defName>
     <label>Books drop</label>
+    <texPath>UI/Rewards/RewardDefault_Normal</texPath>
     <description>Cargo pods 3 random books.</description>
     <category>Normal</category>
     <randomItems>
