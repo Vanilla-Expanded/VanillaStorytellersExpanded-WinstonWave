@@ -119,7 +119,7 @@ namespace VSEWW
                 if (settings.excludedFactionDefs.NullOrEmpty())
                     settings.excludedFactionDefs = new List<string>();
 
-                foreach (var item in DefDatabase<FactionDef>.AllDefsListForReading.FindAll(f => !f.pawnGroupMakers.NullOrEmpty()))
+                foreach (var item in DefDatabase<FactionDef>.AllDefsListForReading.FindAll(f => !f.pawnGroupMakers.NullOrEmpty() && !settings.excludedFactionDefs.Contains(f.defName)))
                 {
                     floatMenuOptions.Add(new FloatMenuOption($"{item.LabelCap} ({item.defName})", () => settings.excludedFactionDefs.Add(item.defName)));
                 }
