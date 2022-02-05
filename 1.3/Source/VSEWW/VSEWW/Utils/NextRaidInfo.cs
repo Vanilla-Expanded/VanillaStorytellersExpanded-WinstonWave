@@ -265,7 +265,9 @@ namespace VSEWW
                 modifiersPool.RemoveAll(m => !m.allowedWeaponDef.NullOrEmpty() ||
                                              !m.allowedWeaponCategory.NullOrEmpty() ||
                                              !m.neededApparelDef.NullOrEmpty() ||
-                                             !m.techHediffs.NullOrEmpty());
+                                             !m.techHediffs.NullOrEmpty() ||
+                                             !m.globalHediffs.NullOrEmpty() ||
+                                             !m.everRetreat);
             }
 
             return modifiersPool;
