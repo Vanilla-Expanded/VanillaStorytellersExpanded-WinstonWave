@@ -23,7 +23,7 @@ namespace VSEWW
 
                     if (!parms.raidArrivalMode.Worker.TryResolveRaidSpawnCenter(parms))
                     {
-                        Log.Error($"[VESWW] Couldn't reslove raid spawn center");
+                        Log.Error($"[VESWW] Couldn't reslove raid spawn center. Strategy: {parms.raidStrategy.defName ?? "null"} | Arrival: {parms.raidArrivalMode.defName ?? "null"}");
                         __result = false;
                         return false;
                     }
@@ -34,8 +34,8 @@ namespace VSEWW
                     {
                         Log.Error($"[VESWW] Tried to use empty raiders list. Details follow.");
                         Log.Error($"[VESWW] Faction: {parms.faction.def.defName ?? "null"} | Strategy: {parms.raidStrategy.defName ?? "null"} | Arrival: {parms.raidArrivalMode.defName ?? "null"}");
-                        __result = false;
-                        return false;
+                        Log.Error($"[VESWW] Regenerating panws.");
+                        return true;
                     }
                     parms.raidArrivalMode.Worker.Arrive(pawns, parms);
                     __result = true;
