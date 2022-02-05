@@ -229,12 +229,20 @@ namespace VSEWW
 
         internal Faction FindRandomEnnemy()
         {
-            return Find.FactionManager.AllFactions.ToList().FindAll(f =>
-                            (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName)) &&
-                            f.HostileTo(Faction.OfPlayer) &&
-                            !f.def.pawnGroupMakers.NullOrEmpty() &&
-                            currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat))
-                .RandomElement();
+            var from = Find.FactionManager.AllFactions.ToList().FindAll(f =>
+                            (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName))
+                            && f.HostileTo(Faction.OfPlayer)
+                            && !f.def.pawnGroupMakers.NullOrEmpty()
+                            && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat));
+
+            if (from.NullOrEmpty())
+            {
+                Find.Storyteller.difficultyDef = DifficultyDefOf.Peaceful;
+                Log.Error($"[VSEWW] No ennemy have faction been found. Switching to Peaceful to prevent further errors.");
+                return null;
+            }
+
+            return from.RandomElement();
         }
     }
 }
