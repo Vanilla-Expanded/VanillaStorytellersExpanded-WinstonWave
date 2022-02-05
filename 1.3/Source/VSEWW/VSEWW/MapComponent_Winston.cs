@@ -227,6 +227,14 @@ namespace VSEWW
             statPawns = new List<Pawn>();
         }
 
-        internal Faction FindRandomEnnemy() => Find.FactionManager.AllFactions.ToList().FindAll(f => f.HostileTo(Faction.OfPlayer) && !f.def.pawnGroupMakers.NullOrEmpty() && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat)).RandomElement();
+        internal Faction FindRandomEnnemy()
+        {
+            return Find.FactionManager.AllFactions.ToList().FindAll(f =>
+                            (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName)) &&
+                            f.HostileTo(Faction.OfPlayer) &&
+                            !f.def.pawnGroupMakers.NullOrEmpty() &&
+                            currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat))
+                .RandomElement();
+        }
     }
 }

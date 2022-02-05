@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -17,6 +18,7 @@ namespace VSEWW
         public bool randomRewardMod = false;
 
         public List<string> modifierDefs = new List<string>();
+        public List<string> excludedFactionDefs = new List<string>();
 
         public override void ExposeData()
         {
@@ -31,6 +33,7 @@ namespace VSEWW
             Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
+            Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
         }
     }
 
@@ -51,7 +54,7 @@ namespace VSEWW
             {
                 if (settingsHeight == 0f)
                 {
-                    settingsHeight = (8 * 12f) + ((13 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                    settingsHeight = (8 * 12f) + ((14 + DefDatabase<ModifierDef>.DefCount) * 32f);
                 }
                 return settingsHeight;
             }
@@ -109,6 +112,36 @@ namespace VSEWW
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
             lst.GapLine();
+
+            if (lst.ButtonText("VESWW.AddExcludedFaction".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (settings.excludedFactionDefs.NullOrEmpty())
+                    settings.excludedFactionDefs = new List<string>();
+
+                foreach (var item in DefDatabase<FactionDef>.AllDefsListForReading.FindAll(f => !f.pawnGroupMakers.NullOrEmpty()))
+                {
+                    floatMenuOptions.Add(new FloatMenuOption($"{item.LabelCap} ({item.defName})", () => settings.excludedFactionDefs.Add(item.defName)));
+                }
+
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to add", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
+
+            if (lst.ButtonText("VESWW.RemoveExcludedFaction".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (!settings.excludedFactionDefs.NullOrEmpty())
+                {
+                    foreach (var item in settings.excludedFactionDefs)
+                    {
+                        floatMenuOptions.Add(new FloatMenuOption(item, () => settings.excludedFactionDefs.Remove(item)));
+                    }
+                }
+
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
 
             lst.Label("VESWW.Modifiers".Translate());
             lst.Gap();
