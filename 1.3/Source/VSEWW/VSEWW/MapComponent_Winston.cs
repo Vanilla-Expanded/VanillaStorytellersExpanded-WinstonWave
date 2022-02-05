@@ -218,7 +218,7 @@ namespace VSEWW
 
         internal void RemoveStatHediff()
         {
-            statPawns.ForEach(p =>
+            statPawns?.ForEach(p =>
             {
                 var hediff = p.health.hediffSet.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
                 if (hediff != null)
