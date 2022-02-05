@@ -68,7 +68,7 @@ namespace VSEWW
                 Map map = (Map)incidentParms.target;
                 if (map.lordManager != null && !map.lordManager.lords.NullOrEmpty())
                 {
-                    lords = map.lordManager.lords.FindAll(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty());
+                    lords = map.lordManager.lords.FindAll(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty() && l.AnyActivePawn);
                 }
 
                 return lords ?? null;
