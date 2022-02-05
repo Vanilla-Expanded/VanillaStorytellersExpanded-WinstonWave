@@ -140,7 +140,7 @@ namespace VSEWW
                     target = map,
                     points = GetNextWavePoint(),
                     raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
-                    faction = Find.FactionManager.RandomEnemyFaction(allowHidden: true),
+                    faction = FindRandomEnnemy(),
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
@@ -163,7 +163,7 @@ namespace VSEWW
                 {
                     target = map,
                     points = GetNextWavePoint(),
-                    faction = Find.FactionManager.RandomEnemyFaction(allowHidden: true),
+                    faction = FindRandomEnnemy(),
                     pawnGroupMakerSeed = new Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
@@ -226,5 +226,7 @@ namespace VSEWW
             });
             statPawns = new List<Pawn>();
         }
+
+        internal Faction FindRandomEnnemy() => Find.FactionManager.AllFactions.ToList().FindAll(f => f.HostileTo(Faction.OfPlayer) && !f.def.pawnGroupMakers.NullOrEmpty() && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat)).RandomElement();
     }
 }
