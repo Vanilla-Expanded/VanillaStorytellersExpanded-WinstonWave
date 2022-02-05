@@ -343,80 +343,83 @@ namespace VSEWW
                         }
                     }
 
-                    if (!modifier.allowedWeaponDef.NullOrEmpty())
+                    if (pawn.RaceProps?.intelligence == Intelligence.Humanlike)
                     {
-                        // Remove equipements
-                        pawn.equipment.DestroyAllEquipment();
-                        // Generate new weapon matching defs
-                        var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
-                        ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
-                        // Add it to the pawn equipement
-                        if (newWeapon != null)
+                        if (!modifier.allowedWeaponDef.NullOrEmpty())
                         {
-                            var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
-                            if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
-                                wBioco.CodeFor(pawn);
-
-                            pawn.equipment.AddEquipment((ThingWithComps)weapon);
-                        }
-                        // If CE is loaded we regenerate inventory
-                        if (CEActive)
-                        {
-                            pawn.inventory.DestroyAll();
-                            PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                            if (newWeaponDef.IsRangedWeapon)
+                            // Remove equipements
+                            pawn.equipment.DestroyAllEquipment();
+                            // Generate new weapon matching defs
+                            var newWeaponDef = modifier.allowedWeaponDef.RandomElement();
+                            ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
+                            // Add it to the pawn equipement
+                            if (newWeapon != null)
                             {
-                                // Remove shield(s)
-                                var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                for (int i = 0; i < appToRemove.Count; i++)
+                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                    wBioco.CodeFor(pawn);
+
+                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                            }
+                            // If CE is loaded we regenerate inventory
+                            if (CEActive)
+                            {
+                                pawn.inventory.DestroyAll();
+                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                                if (newWeaponDef.IsRangedWeapon)
                                 {
-                                    pawn.apparel.Remove(appToRemove[i]);
+                                    // Remove shield(s)
+                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                                    for (int i = 0; i < appToRemove.Count; i++)
+                                    {
+                                        pawn.apparel.Remove(appToRemove[i]);
+                                    }
                                 }
                             }
                         }
-                    }
-                    else if (!modifier.allowedWeaponCategory.NullOrEmpty())
-                    {
-                        // Remove equipements
-                        pawn.equipment.DestroyAllEquipment();
-                        // Generate new weapon matching defs
-                        var newWeaponDef = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => modifier.allowedWeaponCategory.Any(c => t.IsWithinCategory(c))).RandomElement();
-                        ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
-                        // Add it to the pawn equipement
-                        if (newWeapon != null)
+                        else if (!modifier.allowedWeaponCategory.NullOrEmpty())
                         {
-                            var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
-                            if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
-                                wBioco.CodeFor(pawn);
-
-                            pawn.equipment.AddEquipment((ThingWithComps)weapon);
-                        }
-                        // If CE is loaded we regenerate inventory
-                        if (CEActive)
-                        {
-                            pawn.inventory.DestroyAll();
-                            PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                            if (newWeaponDef.IsRangedWeapon)
+                            // Remove equipements
+                            pawn.equipment.DestroyAllEquipment();
+                            // Generate new weapon matching defs
+                            var newWeaponDef = DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t => modifier.allowedWeaponCategory.Any(c => t.IsWithinCategory(c))).RandomElement();
+                            ThingStuffPair newWeapon = ThingStuffPair.AllWith(a => a.IsWeapon && a == newWeaponDef).RandomElement();
+                            // Add it to the pawn equipement
+                            if (newWeapon != null)
                             {
-                                // Remove shield(s)
-                                var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                for (int i = 0; i < appToRemove.Count; i++)
+                                var weapon = ThingMaker.MakeThing(newWeapon.thing, newWeapon.stuff);
+                                if (weapon.TryGetComp<CompBiocodable>() is CompBiocodable wBioco && wBioco != null)
+                                    wBioco.CodeFor(pawn);
+
+                                pawn.equipment.AddEquipment((ThingWithComps)weapon);
+                            }
+                            // If CE is loaded we regenerate inventory
+                            if (CEActive)
+                            {
+                                pawn.inventory.DestroyAll();
+                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                                if (newWeaponDef.IsRangedWeapon)
                                 {
-                                    pawn.apparel.Remove(appToRemove[i]);
+                                    // Remove shield(s)
+                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                                    for (int i = 0; i < appToRemove.Count; i++)
+                                    {
+                                        pawn.apparel.Remove(appToRemove[i]);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    if (!modifier.neededApparelDef.NullOrEmpty())
-                    {
-                        foreach (var apparelDef in modifier.neededApparelDef)
+                        if (!modifier.neededApparelDef.NullOrEmpty())
                         {
-                            if (!pawn.apparel.WornApparel.Any(a => a.def == apparelDef))
+                            foreach (var apparelDef in modifier.neededApparelDef)
                             {
-                                ThingStuffPair apparel = ThingStuffPair.AllWith(a => a.IsApparel && a == apparelDef).RandomElement();
-                                if (apparel != null)
-                                    pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff));
+                                if (!pawn.apparel.WornApparel.Any(a => a.def == apparelDef))
+                                {
+                                    ThingStuffPair apparel = ThingStuffPair.AllWith(a => a.IsApparel && a == apparelDef).RandomElement();
+                                    if (apparel != null)
+                                        pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff));
+                                }
                             }
                         }
                     }
