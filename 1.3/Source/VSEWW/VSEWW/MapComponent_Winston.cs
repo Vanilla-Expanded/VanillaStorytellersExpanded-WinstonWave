@@ -238,7 +238,7 @@ namespace VSEWW
             if (from.NullOrEmpty())
             {
                 Find.Storyteller.difficultyDef = DifficultyDefOf.Peaceful;
-                Log.Error($"[VSEWW] No ennemy have faction been found. Switching to Peaceful to prevent further errors.");
+                Log.Error($"[VSEWW] No ennemy faction has been found. Switching to Peaceful to prevent further errors.");
                 return null;
             }
 
