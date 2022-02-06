@@ -11,17 +11,19 @@ namespace VSEWW
 
         private readonly MapComponent_Winston mcw;
         private string waveTip;
+        internal Vector2 pos;
 
-        public Window_WaveCounter(MapComponent_Winston mapComponent_Winston)
+        public Window_WaveCounter(MapComponent_Winston mapComponent_Winston, bool counterDraggable, Vector2 pos)
         {
             mcw = mapComponent_Winston;
+            this.pos = pos;
             forcePause = false;
             absorbInputAroundWindow = false;
             closeOnCancel = false;
             closeOnClickedOutside = false;
             doCloseButton = false;
             doCloseX = false;
-            draggable = true;
+            draggable = counterDraggable;
             drawShadow = false;
             preventCameraMotion = false;
             resizeable = false;
@@ -47,13 +49,14 @@ namespace VSEWW
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
-            windowRect.x = (float)(UI.screenWidth - windowRect.width - 5f);
-            windowRect.y = 5f;
+            Log.Message($"{pos}");
+            windowRect.x = pos.x - windowRect.width;
+            windowRect.y = pos.y;
         }
 
         public void UpdateHeight()
         {
-            windowRect.height = 35f + 180f + mcw.nextRaidInfo.kindListLines * 16f;
+            windowRect.height = 35f + 190f + mcw.nextRaidInfo.kindListLines * 16f;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -67,7 +70,7 @@ namespace VSEWW
                     b = Widgets.WindowBGFillColor.b,
                     a = 0.25f
                 };
-                Widgets.DrawBoxSolid(inRect.ExpandedBy(5), c);
+                Widgets.DrawBoxSolid(inRect, c);
             }
 
             if (mcw.nextRaidInfo.sent)
@@ -202,6 +205,15 @@ namespace VSEWW
                 mcw.ExecuteRaid(Find.TickManager.TicksGame);
             }
             TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
+            // lock button
+            Rect lockRect = new Rect(rect)
+            {
+                y = skipRect.yMax,
+                x = rect.x + ((rect.width / 3) * 2),
+                width = rect.width / 3,
+                height = 25
+            };
+            Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
             // Restore anchor and font size
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
@@ -258,6 +270,15 @@ namespace VSEWW
                 };
                 // - Showing label
                 Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
+                // lock button
+                Rect lockRect = new Rect(rect)
+                {
+                    y = kindRect.yMax,
+                    x = rect.x + ((rect.width / 3) * 2),
+                    width = rect.width / 3,
+                    height = 25
+                };
+                Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
             }
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;

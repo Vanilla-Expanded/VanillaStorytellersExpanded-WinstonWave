@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace VSEWW
@@ -26,12 +27,21 @@ namespace VSEWW
         private bool once = false;
 
         public IntVec3 dropSpot = IntVec3.Invalid;
+        // counter settings
+        internal bool counterDraggable = true;
+        internal Vector2 counterPos;
 
         public MapComponent_Winston(Map map) : base(map) { }
 
         public override void ExposeData()
         {
             base.ExposeData();
+            if (waveCounter != null)
+            {
+                counterDraggable = waveCounter.draggable;
+                counterPos = new Vector2(waveCounter.windowRect.x + waveCounter.windowRect.width, waveCounter.windowRect.y);
+            }
+
             Scribe_Values.Look(ref currentWave, "currentWave");
             Scribe_Values.Look(ref currentPoints, "currentPoints");
             Scribe_Values.Look(ref modifierChance, "modifierChance");
@@ -40,7 +50,18 @@ namespace VSEWW
             Scribe_Deep.Look(ref nextRaidInfo, "nextRaidInfo");
             Scribe_Values.Look(ref tickUntilStatCheck, "tickUntilStatCheck", 0);
             Scribe_Collections.Look(ref statPawns, "statPawns", LookMode.Reference);
+            Scribe_Values.Look(ref counterDraggable, "counterDraggable");
+            Scribe_Values.Look(ref counterPos, "counterPos");
             Scribe_Values.Look(ref once, "once");
+        }
+
+        public override void FinalizeInit()
+        {
+            base.FinalizeInit();
+            if (counterPos.x == 0 && counterPos.y == 0)
+            {
+                counterPos = new Vector2(UI.screenWidth - 5f, 5f);
+            }
         }
 
         public override void MapComponentTick()
@@ -85,7 +106,7 @@ namespace VSEWW
 
                     if (waveCounter == null)
                     {
-                        waveCounter = new Window_WaveCounter(this);
+                        waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
                         Find.WindowStack.Add(waveCounter);
                         waveCounter.UpdateHeight();
                     }
@@ -104,6 +125,8 @@ namespace VSEWW
 
                     if (waveCounter != null)
                     {
+                        counterPos = new Vector2(waveCounter.windowRect.x + waveCounter.windowRect.width, waveCounter.windowRect.y);
+                        counterDraggable = waveCounter.draggable;
                         waveCounter.Close();
                         waveCounter = null;
                     }
@@ -141,7 +164,7 @@ namespace VSEWW
                     points = GetNextWavePoint(),
                     raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
                     faction = FindRandomEnnemy(),
-                    pawnGroupMakerSeed = new Random().Next(1, 10000)
+                    pawnGroupMakerSeed = new System.Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
                 generatedAt = Find.TickManager.TicksGame,
@@ -164,7 +187,7 @@ namespace VSEWW
                     target = map,
                     points = GetNextWavePoint(),
                     faction = FindRandomEnnemy(),
-                    pawnGroupMakerSeed = new Random().Next(1, 10000)
+                    pawnGroupMakerSeed = new System.Random().Next(1, 10000)
                 },
                 atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
                 generatedAt = Find.TickManager.TicksGame,
