@@ -109,6 +109,7 @@ namespace VSEWW
                         waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
                         Find.WindowStack.Add(waveCounter);
                         waveCounter.UpdateHeight();
+                        waveCounter.UpdateWidth();
                     }
                 }
                 else

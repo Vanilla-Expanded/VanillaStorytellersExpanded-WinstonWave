@@ -93,6 +93,7 @@ namespace VSEWW
                 winston.nextRaidInfo = winston.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
 
             winston.waveCounter.UpdateHeight();
+            winston.waveCounter.UpdateWidth();
             winston.waveCounter.WaveTip();
         }
     }

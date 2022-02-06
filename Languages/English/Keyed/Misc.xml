@@ -30,7 +30,7 @@
   <VESWW.NormalWave>Normal wave</VESWW.NormalWave>
   <VESWW.PointUsed>{0} points used</VESWW.PointUsed>
   <VESWW.RewardChance>Reward commonality at this wave:</VESWW.RewardChance>
-  <VESWW.MoreRewardChance>{0} chance of getting a fourth reward if summoning the wave now</VESWW.MoreRewardChance>
+  <VESWW.MoreRewardChance>{0} chance of getting a fourth reward choice if summoning the wave now</VESWW.MoreRewardChance>
   <VESWW.GameOver>Game Over!</VESWW.GameOver>
   <VESWW.SurvivedX>Waves survived: {0}</VESWW.SurvivedX>
   <VESWW.SurvivedDaysX>Days survived: {0}</VESWW.SurvivedDaysX>

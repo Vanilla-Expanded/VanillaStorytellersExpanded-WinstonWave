@@ -49,7 +49,6 @@ namespace VSEWW
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
-            Log.Message($"{pos}");
             windowRect.x = pos.x - windowRect.width;
             windowRect.y = pos.y;
         }
@@ -57,6 +56,12 @@ namespace VSEWW
         public void UpdateHeight()
         {
             windowRect.height = 35f + 190f + mcw.nextRaidInfo.kindListLines * 16f;
+        }
+
+        public void UpdateWidth()
+        {
+            windowRect.width = (float)(210f + 60f * mcw.nextRaidInfo.ModifierCount);
+            windowRect.x = pos.x - windowRect.width;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -79,7 +84,7 @@ namespace VSEWW
                 DoWavePredictionUI(inRect);
         }
 
-        private float DoWaveNumberAndModifierUI(Rect rect)
+        private void DoWaveNumberAndModifierUI(Rect rect)
         {
             var prevFont = Text.Font;
             var prevAnch = Text.Anchor;
@@ -124,8 +129,6 @@ namespace VSEWW
 
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
-
-            return waveNumRect.x;
         }
 
         public void WaveTip()
@@ -196,8 +199,8 @@ namespace VSEWW
             Rect skipRect = new Rect(rect)
             {
                 y = kindRect.yMax + 10,
-                x = rect.x + ((rect.width / 3) * 2),
-                width = rect.width / 3,
+                x = rect.x + (rect.width / 2),
+                width = rect.width / 2,
                 height = 20f
             };
             if (Widgets.ButtonText(skipRect, "VESWW.SkipWave".Translate()))
@@ -209,8 +212,8 @@ namespace VSEWW
             Rect lockRect = new Rect(rect)
             {
                 y = skipRect.yMax,
-                x = rect.x + ((rect.width / 3) * 2),
-                width = rect.width / 3,
+                x = rect.x + (rect.width / 2),
+                width = rect.width / 2,
                 height = 25
             };
             Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
@@ -226,13 +229,12 @@ namespace VSEWW
             {
                 height = 60
             };
-            float startAt = DoWaveNumberAndModifierUI(numRect);
+            DoWaveNumberAndModifierUI(numRect);
             // Progress bar
             Rect barRect = new Rect(rect)
             {
-                x = startAt,
                 y = numRect.yMax + 10,
-                width = rect.width - startAt,
+                width = rect.width,
                 height = 25
             };
 
@@ -270,15 +272,6 @@ namespace VSEWW
                 };
                 // - Showing label
                 Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
-                // lock button
-                Rect lockRect = new Rect(rect)
-                {
-                    y = kindRect.yMax,
-                    x = rect.x + ((rect.width / 3) * 2),
-                    width = rect.width / 3,
-                    height = 25
-                };
-                Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
             }
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
