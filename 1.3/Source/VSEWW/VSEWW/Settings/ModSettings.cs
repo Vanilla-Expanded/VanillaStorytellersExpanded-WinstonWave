@@ -19,6 +19,7 @@ namespace VSEWW
 
         public List<string> modifierDefs = new List<string>();
         public List<string> excludedFactionDefs = new List<string>();
+        public List<string> excludedStrategyDefs = new List<string>();
 
         public override void ExposeData()
         {
@@ -34,6 +35,7 @@ namespace VSEWW
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
+            Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
         }
     }
 
@@ -54,7 +56,7 @@ namespace VSEWW
             {
                 if (settingsHeight == 0f)
                 {
-                    settingsHeight = (8 * 12f) + ((14 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                    settingsHeight = (12 * 12f) + ((17 + DefDatabase<ModifierDef>.DefCount) * 32f);
                 }
                 return settingsHeight;
             }
@@ -142,6 +144,41 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
+            lst.GapLine();
+
+            lst.Label("VESWW.ExcludedStrategy".Translate());
+            if (lst.ButtonText("VESWW.AddExcludedStrategy".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (settings.excludedStrategyDefs.NullOrEmpty())
+                    settings.excludedStrategyDefs = new List<string>();
+
+                foreach (var item in DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(f => f.arrivalTextEnemy != null
+                                                                                                     && !MapComponent_Winston.normalStrategies.Contains(f)
+                                                                                                     && !settings.excludedStrategyDefs.Contains(f.defName)))
+                {
+                    floatMenuOptions.Add(new FloatMenuOption($"{item.defName}", () => settings.excludedStrategyDefs.Add(item.defName)));
+                }
+
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to add", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
+
+            if (lst.ButtonText("VESWW.RemoveExcludedStrategy".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (!settings.excludedStrategyDefs.NullOrEmpty())
+                {
+                    foreach (var item in settings.excludedStrategyDefs)
+                    {
+                        floatMenuOptions.Add(new FloatMenuOption(item, () => settings.excludedStrategyDefs.Remove(item)));
+                    }
+                }
+
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
+            lst.GapLine();
 
             lst.Label("VESWW.Modifiers".Translate());
             lst.Gap();

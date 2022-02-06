@@ -53,6 +53,9 @@
   <VESWW.Modifiers>Enable or disable modifiers here:</VESWW.Modifiers>
   <VESWW.AddExcludedFaction>Exclude faction</VESWW.AddExcludedFaction>
   <VESWW.RemoveExcludedFaction>Remove faction from excluded</VESWW.RemoveExcludedFaction>
+  <VESWW.ExcludedStrategy>Exclude certain strategies from boss waves:</VESWW.ExcludedStrategy>
+  <VESWW.AddExcludedStrategy>Exclude raid strategy</VESWW.AddExcludedStrategy>
+  <VESWW.RemoveExcludedStrategy>Remove raid strategy from excluded</VESWW.RemoveExcludedStrategy>
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>

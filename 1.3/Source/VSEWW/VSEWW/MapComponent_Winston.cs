@@ -18,7 +18,7 @@ namespace VSEWW
 
         internal Window_WaveCounter waveCounter = null;
 
-        private static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
+        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
         // Stat hediff
         private int tickUntilStatCheck = 0;
         private List<Pawn> statPawns = new List<Pawn>();
@@ -170,9 +170,11 @@ namespace VSEWW
                 generatedAt = Find.TickManager.TicksGame,
                 waveNum = currentWave
             };
-            nri.incidentParms.raidStrategy = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat) &&
-                                                    !normalStrategies.Contains(s))
-                .RandomElement();
+            var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
+                                                                                       && !normalStrategies.Contains(s)
+                                                                                       && (VESWWMod.settings.excludedStrategyDefs.NullOrEmpty()
+                                                                                           || !VESWWMod.settings.excludedStrategyDefs.Contains(s.defName)));
+            nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
 
             nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
