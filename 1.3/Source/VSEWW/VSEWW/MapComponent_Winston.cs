@@ -104,12 +104,19 @@ namespace VSEWW
                         }
                     }
 
-                    if (waveCounter == null)
+                    if (waveCounter == null && Find.CurrentMap == map)
                     {
                         waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
                         Find.WindowStack.Add(waveCounter);
                         waveCounter.UpdateHeight();
                         waveCounter.UpdateWidth();
+                    }
+                    else if (waveCounter != null && Find.CurrentMap != map)
+                    {
+                        counterPos = new Vector2(waveCounter.windowRect.x + waveCounter.windowRect.width, waveCounter.windowRect.y);
+                        counterDraggable = waveCounter.draggable;
+                        waveCounter.Close();
+                        waveCounter = null;
                     }
                 }
                 else
