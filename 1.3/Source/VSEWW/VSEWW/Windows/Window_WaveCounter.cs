@@ -208,15 +208,18 @@ namespace VSEWW
                 mcw.ExecuteRaid(Find.TickManager.TicksGame);
             }
             TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
-            // lock button
-            Rect lockRect = new Rect(rect)
+            if (!VESWWMod.settings.hideToggleDraggable)
             {
-                y = skipRect.yMax,
-                x = rect.x + (rect.width / 2),
-                width = rect.width / 2,
-                height = 25
-            };
-            Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
+                // lock button
+                Rect lockRect = new Rect(rect)
+                {
+                    y = skipRect.yMax,
+                    x = rect.x + (rect.width / 2),
+                    width = rect.width / 2,
+                    height = 25
+                };
+                Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
+            }
             // Restore anchor and font size
             Text.Font = prevFont;
             Text.Anchor = prevAnch;

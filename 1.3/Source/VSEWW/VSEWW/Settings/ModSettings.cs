@@ -16,6 +16,7 @@ namespace VSEWW
         public bool drawBackground = false;
         public bool mysteryMod = false;
         public bool randomRewardMod = false;
+        public bool hideToggleDraggable = false;
 
         public List<string> modifierDefs = new List<string>();
         public List<string> excludedFactionDefs = new List<string>();
@@ -33,6 +34,7 @@ namespace VSEWW
             Scribe_Values.Look(ref drawBackground, "drawBackground", false);
             Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
+            Scribe_Values.Look(ref hideToggleDraggable, "hideToggleDraggable", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
@@ -56,7 +58,7 @@ namespace VSEWW
             {
                 if (settingsHeight == 0f)
                 {
-                    settingsHeight = (12 * 12f) + ((17 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                    settingsHeight = (13 * 12f) + ((18 + DefDatabase<ModifierDef>.DefCount) * 32f);
                 }
                 return settingsHeight;
             }
@@ -113,6 +115,9 @@ namespace VSEWW
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.ShowDraggable".Translate(), ref settings.hideToggleDraggable, "VESWW.ShowDraggableTip".Translate());
             lst.GapLine();
 
             if (lst.ButtonText("VESWW.AddExcludedFaction".Translate()))

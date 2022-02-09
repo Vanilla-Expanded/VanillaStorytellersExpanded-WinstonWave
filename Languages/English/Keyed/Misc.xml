@@ -57,6 +57,7 @@
   <VESWW.ExcludedStrategy>Exclude certain strategies from boss waves:</VESWW.ExcludedStrategy>
   <VESWW.AddExcludedStrategy>Exclude raid strategy</VESWW.AddExcludedStrategy>
   <VESWW.RemoveExcludedStrategy>Remove raid strategy from excluded</VESWW.RemoveExcludedStrategy>
+  <VESWW.ShowDraggable>Hide the wave counter "draggable" checkbox:</VESWW.ShowDraggable>
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>
@@ -66,4 +67,5 @@
   <VESWW.EnableStatsTip>Stats increased are: natural healing factor, global work speed, research speed and plant growth speed.</VESWW.EnableStatsTip>
   <VESWW.RandomRewardModTip>With this enabled, the reward window will never be showed. You will always get a random reward.</VESWW.RandomRewardModTip>
   <VESWW.MysteryModTip>With this enabled, the modifier will always be hidden. You will know a modifier has been applied, but not which one.</VESWW.MysteryModTip>
+  <VESWW.ShowDraggableTip>If disabled, you won't be able to change the counter draggabality until you reactivate this.</VESWW.ShowDraggableTip>
 </LanguageData>
