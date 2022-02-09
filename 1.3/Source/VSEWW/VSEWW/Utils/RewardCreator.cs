@@ -43,7 +43,7 @@ namespace VSEWW
                 {
                     for (int i = 0; i < reward.unlockXResearch; i++)
                     {
-                        var r = DefDatabase<ResearchProjectDef>.AllDefsListForReading.Find(x => x.CanStartNow);
+                        var r = DefDatabase<ResearchProjectDef>.AllDefsListForReading.FindAll(x => x.CanStartNow).RandomElement();
                         if (r != null)
                         {
                             Find.ResearchManager.FinishProject(r);

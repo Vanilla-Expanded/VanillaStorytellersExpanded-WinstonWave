@@ -18,6 +18,7 @@ namespace VSEWW
         public Window_ChooseReward(int waveNumber, float fourthRewardChance)
         {
             commonality = RewardCategoryExtension.GetCommonality(waveNumber);
+            // if (!LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
             forcePause = true;
             doCloseX = false;
             doCloseButton = false;
