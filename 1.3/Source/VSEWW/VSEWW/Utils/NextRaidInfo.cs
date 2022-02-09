@@ -267,6 +267,7 @@ namespace VSEWW
                                              !m.neededApparelDef.NullOrEmpty() ||
                                              !m.techHediffs.NullOrEmpty() ||
                                              !m.globalHediffs.NullOrEmpty() ||
+                                             !m.specificPawnKinds.NullOrEmpty() ||
                                              !m.everRetreat);
             }
 
