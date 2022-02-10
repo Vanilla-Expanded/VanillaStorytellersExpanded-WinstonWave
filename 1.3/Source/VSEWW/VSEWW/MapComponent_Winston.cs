@@ -92,7 +92,7 @@ namespace VSEWW
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned)
                         {
-                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, map, this));
+                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, this));
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && Find.TickManager.TicksGame - nextRaidInfo.atTick > 1000)
                         {

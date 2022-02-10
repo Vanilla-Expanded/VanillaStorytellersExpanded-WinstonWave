@@ -15,10 +15,9 @@ namespace VSEWW
         private readonly int margin = 10;
         private readonly int width = 750;
         private readonly int rewardNumber = 3;
-        private Map map;
-        private MapComponent_Winston mapComp;
+        private readonly MapComponent_Winston mapComp;
 
-        internal Window_ChooseReward(int waveNumber, float fourthRewardChance, Map map, MapComponent_Winston mapComp)
+        internal Window_ChooseReward(int waveNumber, float fourthRewardChance, MapComponent_Winston mapComp)
         {
             commonality = RewardCategoryExtension.GetCommonality(waveNumber);
             // if (!LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
@@ -31,7 +30,6 @@ namespace VSEWW
             doWindowBackground = false;
             drawShadow = false;
             preventSave = true;
-            this.map = map;
             this.mapComp = mapComp;
 
             var rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
@@ -88,7 +86,7 @@ namespace VSEWW
                 Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
             }
 
-            RewardCreator.SendReward(choosenReward, map);
+            RewardCreator.SendReward(choosenReward, mapComp.map);
             var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
 
             if (++mapComp.currentWave % 5 == 0)
