@@ -59,6 +59,7 @@
   <VESWW.RemoveExcludedStrategy>Remove raid strategy from excluded</VESWW.RemoveExcludedStrategy>
   <VESWW.ShowDraggable>Hide the wave counter "draggable" checkbox:</VESWW.ShowDraggable>
   <VESWW.UseRimworldTime>Timer use rimworld time:</VESWW.UseRimworldTime>
+  <VESWW.DontShowPawnList>Show raiders pawns list and faction:</VESWW.DontShowPawnList>
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>

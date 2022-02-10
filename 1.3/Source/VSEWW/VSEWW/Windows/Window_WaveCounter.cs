@@ -55,7 +55,9 @@ namespace VSEWW
 
         public void UpdateHeight()
         {
-            windowRect.height = 35f + 190f + mcw.nextRaidInfo.kindListLines * 16f;
+            windowRect.height = 35f + 190f;
+            if (VESWWMod.settings.showPawnList)
+                windowRect.height += mcw.nextRaidInfo.kindListLines * 16f;
         }
 
         public void UpdateWidth()
@@ -168,37 +170,42 @@ namespace VSEWW
             };
             Widgets.Label(timeRect, mcw.nextRaidInfo.TimeBeforeWave());
             Text.Font = GameFont.Tiny;
-            // Faction
-            Rect factionIconRect = new Rect(rect)
+            float max = timeRect.yMax;
+            if (VESWWMod.settings.showPawnList)
             {
-                x = numRect.xMax - 20f,
-                y = timeRect.yMax + 10,
-                height = 20f,
-                width = 20f
-            };
-            GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
-            GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
-            GUI.color = Color.white;
-            Rect factionRect = new Rect(rect)
-            {
-                y = timeRect.yMax + 10,
-                height = 20f,
-                width = rect.width - factionIconRect.width
-            };
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
-            Text.Anchor = TextAnchor.UpperRight;
-            // Kinds
-            Rect kindRect = new Rect(rect)
-            {
-                y = factionRect.yMax + 5f,
-                height = mcw.nextRaidInfo.kindListLines * 16f
-            };
-            Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
+                // Faction
+                Rect factionIconRect = new Rect(rect)
+                {
+                    x = numRect.xMax - 20f,
+                    y = timeRect.yMax + 10,
+                    height = 20f,
+                    width = 20f
+                };
+                GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
+                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
+                GUI.color = Color.white;
+                Rect factionRect = new Rect(rect)
+                {
+                    y = timeRect.yMax + 10,
+                    height = 20f,
+                    width = rect.width - factionIconRect.width
+                };
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
+                Text.Anchor = TextAnchor.UpperRight;
+                // Kinds
+                Rect kindRect = new Rect(rect)
+                {
+                    y = factionRect.yMax + 5f,
+                    height = mcw.nextRaidInfo.kindListLines * 16f
+                };
+                Widgets.Label(kindRect, mcw.nextRaidInfo.kindList);
+                max = kindRect.yMax;
+            }
             // Skip wave button
             Rect skipRect = new Rect(rect)
             {
-                y = kindRect.yMax + 10,
+                y = max + 10,
                 x = rect.x + (rect.width / 2),
                 width = rect.width / 2,
                 height = 20f

@@ -18,6 +18,7 @@ namespace VSEWW
         public bool randomRewardMod = false;
         public bool hideToggleDraggable = false;
         public bool useRimworldTime = false;
+        public bool showPawnList = true;
 
         public List<string> modifierDefs = new List<string>();
         public List<string> excludedFactionDefs = new List<string>();
@@ -37,6 +38,7 @@ namespace VSEWW
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Values.Look(ref hideToggleDraggable, "hideToggleDraggable", false);
             Scribe_Values.Look(ref useRimworldTime, "useRimworldTime", false);
+            Scribe_Values.Look(ref showPawnList, "showPawnList", true);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
@@ -60,7 +62,7 @@ namespace VSEWW
             {
                 if (settingsHeight == 0f)
                 {
-                    settingsHeight = (13 * 12f) + ((18 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                    settingsHeight = (14 * 12f) + ((19 + DefDatabase<ModifierDef>.DefCount) * 32f);
                 }
                 return settingsHeight;
             }
@@ -88,6 +90,9 @@ namespace VSEWW
             lst.Begin(rect);
 
             lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod, "VESWW.MysteryModTip".Translate());
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.DontShowPawnList".Translate(), ref settings.showPawnList);
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod, "VESWW.RandomRewardModTip".Translate());
