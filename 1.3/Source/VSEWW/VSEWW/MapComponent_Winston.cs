@@ -266,10 +266,12 @@ namespace VSEWW
         {
             var from = Find.FactionManager.AllFactions.ToList().FindAll(f =>
                             (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName))
+                            && !f.temporary
+                            && !f.defeated
                             && f.HostileTo(Faction.OfPlayer)
-                            && !f.def.pawnGroupMakers.NullOrEmpty()
-                            && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat)
-                            && f.def.canStageAttacks);
+                            && f.def.pawnGroupMakers != null
+                            && f.def.pawnGroupMakers.Any(p => p.kindDef == PawnGroupKindDefOf.Combat)
+                            && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat));
 
             if (from.NullOrEmpty())
             {
@@ -278,7 +280,17 @@ namespace VSEWW
                 return null;
             }
 
-            return from.RandomElement();
+            from.TryRandomElementByWeight(f =>
+            {
+                float num = 1f;
+                if (map.StoryState != null && map.StoryState.lastRaidFaction != null && f == map.StoryState.lastRaidFaction)
+                {
+                    num = 0.4f;
+                }
+                return f.def.RaidCommonalityFromPoints(currentPoints) * num;
+            }, out Faction faction);
+
+            return faction;
         }
     }
 }

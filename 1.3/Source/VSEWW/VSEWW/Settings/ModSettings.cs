@@ -126,7 +126,10 @@ namespace VSEWW
                 if (settings.excludedFactionDefs.NullOrEmpty())
                     settings.excludedFactionDefs = new List<string>();
 
-                foreach (var item in DefDatabase<FactionDef>.AllDefsListForReading.FindAll(f => !f.pawnGroupMakers.NullOrEmpty() && !settings.excludedFactionDefs.Contains(f.defName)))
+                foreach (var item in DefDatabase<FactionDef>.AllDefsListForReading.FindAll(f => !f.pawnGroupMakers.NullOrEmpty()
+                                                                                                && !settings.excludedFactionDefs.Contains(f.defName)
+                                                                                                && f.pawnGroupMakers != null
+                                                                                                && f.pawnGroupMakers.Any(p => p.kindDef == PawnGroupKindDefOf.Combat)))
                 {
                     floatMenuOptions.Add(new FloatMenuOption($"{item.LabelCap} ({item.defName})", () => settings.excludedFactionDefs.Add(item.defName)));
                 }
