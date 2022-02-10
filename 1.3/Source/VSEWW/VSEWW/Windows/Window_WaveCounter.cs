@@ -62,6 +62,7 @@ namespace VSEWW
 
         public void UpdateWidth()
         {
+            windowRect.x = pos.x + windowRect.width;
             windowRect.width = (float)(210f + 60f * mcw.nextRaidInfo.ModifierCount);
             windowRect.x = pos.x - windowRect.width;
         }
