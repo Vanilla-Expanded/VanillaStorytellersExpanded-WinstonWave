@@ -70,7 +70,6 @@ namespace VSEWW
                 {
                     lords = map.lordManager.lords.FindAll(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty() && l.AnyActivePawn);
                 }
-
                 return lords ?? null;
             }
         }
@@ -319,11 +318,6 @@ namespace VSEWW
                 if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
                     incidentParms.points *= modifier.pointMultiplier;
 
-                if (!modifier.everRetreat)
-                {
-                    incidentParms.canTimeoutOrFlee = false;
-                }
-
                 if (!modifier.specificPawnKinds.NullOrEmpty())
                 {
                     float point = 0;
@@ -340,6 +334,11 @@ namespace VSEWW
             {
                 foreach (var pawn in raidPawns)
                 {
+                    if (!modifier.everRetreat)
+                    {
+                        pawn.mindState.canFleeIndividual = false;
+                    }
+
                     if (!modifier.globalHediffs.NullOrEmpty())
                     {
                         foreach (var hediff in modifier.globalHediffs)
@@ -431,7 +430,7 @@ namespace VSEWW
                                 {
                                     ThingStuffPair apparel = ThingStuffPair.AllWith(a => a.IsApparel && a == apparelDef).RandomElement();
                                     if (apparel != null)
-                                        pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff));
+                                        pawn.apparel.Wear((Apparel)ThingMaker.MakeThing(apparel.thing, apparel.stuff), false);
                                 }
                             }
                         }
