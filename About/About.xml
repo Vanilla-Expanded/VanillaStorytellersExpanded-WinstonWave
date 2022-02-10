@@ -27,5 +27,6 @@ Winston is a battle-hardened combat expert, and he believes that through combat,
   <incompatibleWith>
     <li>Torann.RimWar</li>
     <li>brrainz.nopausechallenge</li>
+    <li>rwmt.Multiplayer</li>
   </incompatibleWith>
 </ModMetaData>
