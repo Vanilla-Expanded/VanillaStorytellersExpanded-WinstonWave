@@ -92,7 +92,7 @@ namespace VSEWW
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned)
                         {
-                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance));
+                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, map, this));
                         }
                         else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && Find.TickManager.TicksGame - nextRaidInfo.atTick > 1000)
                         {
@@ -107,6 +107,7 @@ namespace VSEWW
                         Find.WindowStack.Add(waveCounter);
                         waveCounter.UpdateHeight();
                         waveCounter.UpdateWidth();
+                        waveCounter.WaveTip();
                     }
                     else if (waveCounter != null && Find.CurrentMap != map)
                         RemoveCounter();

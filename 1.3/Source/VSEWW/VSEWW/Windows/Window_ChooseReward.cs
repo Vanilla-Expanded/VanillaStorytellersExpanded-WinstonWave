@@ -8,14 +8,17 @@ namespace VSEWW
 {
     public class Window_ChooseReward : Window
     {
+        internal RewardDef choosenReward;
+        
         private readonly Dictionary<RewardCategory, int> commonality;
         private readonly List<RewardDef> rewards;
         private readonly int margin = 10;
         private readonly int width = 750;
         private readonly int rewardNumber = 3;
-        public RewardDef choosenReward;
+        private Map map;
+        private MapComponent_Winston mapComp;
 
-        public Window_ChooseReward(int waveNumber, float fourthRewardChance)
+        internal Window_ChooseReward(int waveNumber, float fourthRewardChance, Map map, MapComponent_Winston mapComp)
         {
             commonality = RewardCategoryExtension.GetCommonality(waveNumber);
             // if (!LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
@@ -28,6 +31,8 @@ namespace VSEWW
             doWindowBackground = false;
             drawShadow = false;
             preventSave = true;
+            this.map = map;
+            this.mapComp = mapComp;
 
             var rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
             if (Find.FactionManager.RandomAlliedFaction() == null)
@@ -77,25 +82,23 @@ namespace VSEWW
         public override void PostClose()
         {
             base.PostClose();
-            var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-
-            winston.nextRaidInfo.StopEvents();
+            mapComp.nextRaidInfo.StopEvents();
             if (VESWWMod.settings.randomRewardMod)
             {
                 Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
             }
 
-            RewardCreator.SendReward(choosenReward, Find.CurrentMap);
+            RewardCreator.SendReward(choosenReward, map);
             var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
 
-            if (++winston.currentWave % 5 == 0)
-                winston.nextRaidInfo = winston.SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+            if (++mapComp.currentWave % 5 == 0)
+                mapComp.nextRaidInfo = mapComp.SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
             else
-                winston.nextRaidInfo = winston.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+                mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
 
-            winston.waveCounter.UpdateHeight();
-            winston.waveCounter.UpdateWidth();
-            winston.waveCounter.WaveTip();
+            mapComp.waveCounter?.UpdateHeight();
+            mapComp.waveCounter?.UpdateWidth();
+            mapComp.waveCounter?.WaveTip();
         }
     }
 }
