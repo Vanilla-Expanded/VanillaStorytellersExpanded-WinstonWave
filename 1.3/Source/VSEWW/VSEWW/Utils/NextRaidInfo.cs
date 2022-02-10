@@ -155,7 +155,17 @@ namespace VSEWW
         }
 
         /** Get IRL time before this raid **/
-        public string TimeBeforeWave() => TimeSpanExtension.Verbose(TimeSpan.FromSeconds((atTick - Find.TickManager.TicksGame).TicksToSeconds()));
+        public string TimeBeforeWave()
+        {
+            if (VESWWMod.settings.useRimworldTime)
+            {
+                return (atTick - Find.TickManager.TicksGame).ToStringTicksToPeriod();
+            }
+            else
+            {
+                return TimeSpanExtension.Verbose(TimeSpan.FromSeconds((atTick - Find.TickManager.TicksGame).TicksToSeconds()));
+            }
+        }
 
         /** Get all pawns part of the raid - with caching **/
         public List<Pawn> WavePawns()

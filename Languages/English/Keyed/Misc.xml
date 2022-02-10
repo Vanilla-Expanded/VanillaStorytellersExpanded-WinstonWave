@@ -58,6 +58,7 @@
   <VESWW.AddExcludedStrategy>Exclude raid strategy</VESWW.AddExcludedStrategy>
   <VESWW.RemoveExcludedStrategy>Remove raid strategy from excluded</VESWW.RemoveExcludedStrategy>
   <VESWW.ShowDraggable>Hide the wave counter "draggable" checkbox:</VESWW.ShowDraggable>
+  <VESWW.UseRimworldTime>Timer use rimworld time:</VESWW.UseRimworldTime>
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>
@@ -68,4 +69,5 @@
   <VESWW.RandomRewardModTip>With this enabled, the reward window will never be showed. You will always get a random reward.</VESWW.RandomRewardModTip>
   <VESWW.MysteryModTip>With this enabled, the modifier will always be hidden. You will know a modifier has been applied, but not which one.</VESWW.MysteryModTip>
   <VESWW.ShowDraggableTip>If disabled, you won't be able to change the counter draggabality until you reactivate this.</VESWW.ShowDraggableTip>
+  <VESWW.UseRimworldTimeTip>If this is enabled the timer use rimworld time instead of real life time.</VESWW.UseRimworldTimeTip>
 </LanguageData>

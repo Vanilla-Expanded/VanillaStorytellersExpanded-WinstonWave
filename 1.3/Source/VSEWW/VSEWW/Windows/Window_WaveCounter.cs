@@ -164,7 +164,7 @@ namespace VSEWW
             Rect timeRect = new Rect(rect)
             {
                 y = numRect.yMax + 10,
-                height = 25
+                height = 30
             };
             Widgets.Label(timeRect, mcw.nextRaidInfo.TimeBeforeWave());
             Text.Font = GameFont.Tiny;

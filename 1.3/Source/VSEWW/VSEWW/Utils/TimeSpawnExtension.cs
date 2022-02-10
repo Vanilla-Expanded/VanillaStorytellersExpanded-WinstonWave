@@ -10,8 +10,8 @@ namespace VSEWW
             var minutes = timeSpan.Minutes;
             var seconds = timeSpan.Seconds;
 
-            if (hours > 0) return string.Format("{0}:{1}:{2}", hours, minutes, seconds);
-            return string.Format("{0}:{1}", minutes, seconds);
+            if (hours > 0) return string.Format("{0}h{1}m{2}s", hours, minutes, seconds);
+            return string.Format("{0}m{1}s", minutes, seconds);
         }
     }
 }

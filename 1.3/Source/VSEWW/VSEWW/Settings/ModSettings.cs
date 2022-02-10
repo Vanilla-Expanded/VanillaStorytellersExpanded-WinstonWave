@@ -17,6 +17,7 @@ namespace VSEWW
         public bool mysteryMod = false;
         public bool randomRewardMod = false;
         public bool hideToggleDraggable = false;
+        public bool useRimworldTime = false;
 
         public List<string> modifierDefs = new List<string>();
         public List<string> excludedFactionDefs = new List<string>();
@@ -35,6 +36,7 @@ namespace VSEWW
             Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Values.Look(ref hideToggleDraggable, "hideToggleDraggable", false);
+            Scribe_Values.Look(ref useRimworldTime, "useRimworldTime", false);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
@@ -89,6 +91,9 @@ namespace VSEWW
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod, "VESWW.RandomRewardModTip".Translate());
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease, "VESWW.EnableStatsTip".Translate());
             lst.GapLine();
 
             lst.Label("VESWW.TimeBeforeFirstWave".Translate(), tooltip: "VESWW.TimeBeforeFirstWaveTip".Translate());
@@ -111,13 +116,13 @@ namespace VSEWW
             lst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
             lst.GapLine();
 
-            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease, "VESWW.EnableStatsTip".Translate());
-            lst.Gap();
-
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
             lst.Gap();
 
             lst.CheckboxLabeled("VESWW.ShowDraggable".Translate(), ref settings.hideToggleDraggable, "VESWW.ShowDraggableTip".Translate());
+            lst.Gap();
+
+            lst.CheckboxLabeled("VESWW.UseRimworldTime".Translate(), ref settings.useRimworldTime, "VESWW.UseRimworldTimeTip".Translate());
             lst.GapLine();
 
             if (lst.ButtonText("VESWW.AddExcludedFaction".Translate()))
