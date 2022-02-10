@@ -374,20 +374,7 @@ namespace VSEWW
                                 pawn.equipment.AddEquipment((ThingWithComps)weapon);
                             }
                             // If CE is loaded we regenerate inventory
-                            if (CEActive)
-                            {
-                                pawn.inventory.DestroyAll();
-                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                                if (newWeaponDef.IsRangedWeapon)
-                                {
-                                    // Remove shield(s)
-                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                    for (int i = 0; i < appToRemove.Count; i++)
-                                    {
-                                        pawn.apparel.Remove(appToRemove[i]);
-                                    }
-                                }
-                            }
+                            RegenerateInventory(pawn, newWeaponDef);
                         }
                         else if (!modifier.allowedWeaponCategory.NullOrEmpty())
                         {
@@ -406,20 +393,7 @@ namespace VSEWW
                                 pawn.equipment.AddEquipment((ThingWithComps)weapon);
                             }
                             // If CE is loaded we regenerate inventory
-                            if (CEActive)
-                            {
-                                pawn.inventory.DestroyAll();
-                                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
-                                if (newWeaponDef.IsRangedWeapon)
-                                {
-                                    // Remove shield(s)
-                                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
-                                    for (int i = 0; i < appToRemove.Count; i++)
-                                    {
-                                        pawn.apparel.Remove(appToRemove[i]);
-                                    }
-                                }
-                            }
+                            RegenerateInventory(pawn, newWeaponDef);
                         }
 
                         if (!modifier.neededApparelDef.NullOrEmpty())
@@ -434,6 +408,25 @@ namespace VSEWW
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        /** CE Regenerate inventory method **/
+        internal void RegenerateInventory(Pawn pawn, ThingDef newWeaponDef)
+        {
+            if (CEActive)
+            {
+                pawn.inventory.DestroyAll();
+                PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
+                if (newWeaponDef.IsRangedWeapon)
+                {
+                    // Remove shield(s)
+                    var appToRemove = pawn.apparel.WornApparel.FindAll(a => a.def.thingCategories != null && a.def.thingCategories.Any(c => c.defName == "Shields"));
+                    for (int i = 0; i < appToRemove.Count; i++)
+                    {
+                        pawn.apparel.Remove(appToRemove[i]);
                     }
                 }
             }
