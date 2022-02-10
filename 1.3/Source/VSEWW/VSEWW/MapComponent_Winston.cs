@@ -24,7 +24,6 @@ namespace VSEWW
         private int tickUntilStatCheck = 0;
         private List<Pawn> statPawns = new List<Pawn>();
         private static readonly int checkEachXTicks = 2000;
-        private bool once = false;
 
         public IntVec3 dropSpot = IntVec3.Invalid;
         // counter settings
@@ -52,7 +51,6 @@ namespace VSEWW
             Scribe_Collections.Look(ref statPawns, "statPawns", LookMode.Reference);
             Scribe_Values.Look(ref counterDraggable, "counterDraggable");
             Scribe_Values.Look(ref counterPos, "counterPos");
-            Scribe_Values.Look(ref once, "once");
         }
 
         public override void FinalizeInit()
@@ -77,7 +75,6 @@ namespace VSEWW
                         {
                             AddStatHediff();
                             tickUntilStatCheck = checkEachXTicks;
-                            once = false;
                         }
                         tickUntilStatCheck--;
                     }
@@ -124,10 +121,9 @@ namespace VSEWW
                     if (nextRaidInfo != null)
                         nextRaidInfo.atTick++;
 
-                    if (!once && VESWWMod.settings.enableStatIncrease)
+                    if (statPawns.NullOrEmpty())
                     {
                         RemoveStatHediff();
-                        once = true;
                         tickUntilStatCheck = 0; // Instant stat back if switch storyteller
                     }
 
@@ -239,9 +235,12 @@ namespace VSEWW
 
         internal void AddStatHediff()
         {
+            if (statPawns == null)
+                statPawns = new List<Pawn>();
+
             map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
             {
-                if (!statPawns.Contains(p) && p.health != null)
+                if (!statPawns.Contains(p) && p.health != null && p.health.hediffSet != null && !p.health.hediffSet.HasHediff(VDefOf.VESWW_IncreasedStats))
                 {
                     p.health.AddHediff(VDefOf.VESWW_IncreasedStats);
                     statPawns.Add(p);
@@ -251,9 +250,12 @@ namespace VSEWW
 
         internal void RemoveStatHediff()
         {
-            statPawns?.ForEach(p =>
+            if (statPawns.NullOrEmpty())
+                return;
+
+            statPawns.ForEach(p =>
             {
-                var hediff = p.health.hediffSet.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
+                var hediff = p.health?.hediffSet?.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
                 if (hediff != null)
                     p.health.RemoveHediff(hediff);
             });
@@ -266,7 +268,8 @@ namespace VSEWW
                             (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName))
                             && f.HostileTo(Faction.OfPlayer)
                             && !f.def.pawnGroupMakers.NullOrEmpty()
-                            && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat));
+                            && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat)
+                            && f.def.canStageAttacks);
 
             if (from.NullOrEmpty())
             {
