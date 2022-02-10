@@ -206,6 +206,12 @@ namespace VSEWW
                     reinforcementSeed = parms.pawnGroupMakerSeed.Value;
                     IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
                 }
+
+                if (modifiers.Any(m => !m.everRetreat) && lords.Any(l => l.Graph.transitions.Any(t => t.target is LordToil_PanicFlee)))
+                {
+                    foreach (var l in lords)
+                       l.Graph.transitions.RemoveAll(t => t.target is LordToil_PanicFlee);
+                }
             }
 
             cacheTick++;
@@ -317,6 +323,9 @@ namespace VSEWW
             {
                 if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
                     incidentParms.points *= modifier.pointMultiplier;
+
+                if (!modifier.everRetreat)
+                    incidentParms.canTimeoutOrFlee = false;
 
                 if (!modifier.specificPawnKinds.NullOrEmpty())
                 {

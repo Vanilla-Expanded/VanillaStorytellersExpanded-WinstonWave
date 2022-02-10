@@ -69,7 +69,7 @@ namespace VSEWW
             var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             foreach (var m in DefDatabase<ModifierDef>.AllDefsListForReading)
             {
-                if (m.defName == "VSEWW_NoRetreat" || m.defName == "VSEWW_DoubleTrouble")
+                if (m.defName == "VSEWW_DoubleTrouble")
                     continue;
 
                 debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
