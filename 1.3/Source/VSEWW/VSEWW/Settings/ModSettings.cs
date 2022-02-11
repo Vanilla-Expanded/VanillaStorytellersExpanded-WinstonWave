@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -45,6 +46,7 @@ namespace VSEWW
         }
     }
 
+    [StaticConstructorOnStartup]
     class VESWWMod : Mod
     {
         private string _timeBeforeFirstWave;
@@ -53,21 +55,6 @@ namespace VSEWW
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
 
-        private Vector2 scrollPosition = Vector2.zero;
-        private float settingsHeight = 0f;
-
-        public float SettingsHeight
-        {
-            get
-            {
-                if (settingsHeight == 0f)
-                {
-                    settingsHeight = (15 * 12f) + ((20 + DefDatabase<ModifierDef>.DefCount) * 32f);
-                }
-                return settingsHeight;
-            }
-        }
-
         public static VESWWModSettings settings;
 
         public VESWWMod(ModContentPack content) : base(content)
@@ -75,78 +62,125 @@ namespace VSEWW
             settings = GetSettings<VESWWModSettings>();
         }
 
+        public int currentTab = 0;
+
         public override string SettingsCategory() => "VESWW.ModName".Translate();
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Rect rect = new Rect(inRect)
+            Rect tabRect = new Rect(inRect)
             {
-                height = SettingsHeight,
-                width = inRect.width - 20
+                y = inRect.y + 40f
+            };
+            Rect mainRect = new Rect(inRect)
+            {
+                height = inRect.height - 40f,
+                y = inRect.y + 40f
             };
 
-            Widgets.BeginScrollView(inRect, ref scrollPosition, rect);
-            Listing_Standard lst = new Listing_Standard();
-            lst.Begin(rect);
-
-            lst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod, "VESWW.MysteryModTip".Translate());
-            lst.Gap();
-
-            lst.CheckboxLabeled("VESWW.DontShowPawnList".Translate(), ref settings.showPawnList);
-            lst.Gap();
-
-            lst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod, "VESWW.RandomRewardModTip".Translate());
-            lst.Gap();
-
-            lst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease, "VESWW.EnableStatsTip".Translate());
-            lst.GapLine();
-
-            lst.Label("VESWW.TimeBeforeFirstWave".Translate(), tooltip: "VESWW.TimeBeforeFirstWaveTip".Translate());
-            lst.TextFieldNumeric(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave, 1f, 10f);
-            lst.Gap();
-
-            lst.Label("VESWW.TimeBetweenWaves".Translate(), tooltip: "VESWW.TimeBetweenWavesTip".Translate());
-            lst.TextFieldNumeric(ref settings.timeBetweenWaves, ref _timeBetweenWaves, 1f, 10f);
-            lst.GapLine();
-
-            lst.Label("VESWW.MaxPoints".Translate(), tooltip: "VESWW.MaxPointsTip".Translate());
-            lst.IntEntry(ref settings.maxPoints, ref _maxPoints, 10);
-            lst.Gap();
-
-            lst.Label("VESWW.PointMultiplierBefore20".Translate(), tooltip: "VESWW.PointMultiplierBefore20Tip".Translate());
-            lst.TextFieldNumeric(ref settings.pointMultiplierBefore, ref _pointMultiplierBefore, 1f, 10f);
-            lst.Gap();
-
-            lst.Label("VESWW.PointMultiplierAfter20".Translate(), tooltip: "VESWW.PointMultiplierAfter20Tip".Translate());
-            lst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
-            lst.GapLine();
-
-            if (Find.CurrentMap != null)
+            Widgets.DrawMenuSection(mainRect);
+            List<TabRecord> tabs = new List<TabRecord>
             {
-                if (lst.ButtonText("VESWW.ResetCounterPos".Translate()) && Find.CurrentMap.GetComponent<MapComponent_Winston>() is MapComponent_Winston mcW)
+                new TabRecord("VESWW.GS".Translate(), () =>
                 {
-                    mcW.counterPos = new Vector2(UI.screenWidth - 5f, 5f);
-                    mcW.waveCounter.windowRect.y = 5f;
-                    mcW.waveCounter.UpdateHeight();
-                    mcW.waveCounter.UpdateWidth();
-                }
-            }
-            else
+                    currentTab = 0;
+                    WriteSettings();
+                }, currentTab == 0),
+                new TabRecord("VESWW.VS".Translate(), () =>
+                {
+                    currentTab = 1;
+                    WriteSettings();
+                }, currentTab == 1),
+                new TabRecord("VESWW.MS".Translate(), () =>
+                {
+                    currentTab = 2;
+                    WriteSettings();
+                }, currentTab == 2)
+            };
+            TabDrawer.DrawTabs(tabRect, tabs);
+
+
+            if (currentTab == 0)
             {
-                lst.Label("VESWW.LoadToReset".Translate());
+                DoGameSettings(mainRect.ContractedBy(15f));
             }
-            lst.Gap();
+            else if (currentTab == 1)
+            {
+                DoWaveSettings(mainRect.ContractedBy(15f));
+            }
+            else if (currentTab == 2)
+            {
+                DoModifierSettings(mainRect.ContractedBy(15f));
+            }
+        }
 
-            lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
-            lst.Gap();
+        private void DoModifierSettings(Rect rect)
+        {
+            var modSettingsLst = new Listing_Standard();
+            modSettingsLst.Begin(rect);
 
-            lst.CheckboxLabeled("VESWW.ShowDraggable".Translate(), ref settings.hideToggleDraggable, "VESWW.ShowDraggableTip".Translate());
-            lst.Gap();
+            modSettingsLst.Label("VESWW.Modifiers".Translate());
+            if (modSettingsLst.ButtonText("VESWW.AModifiers".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (settings.modifierDefs.NullOrEmpty())
+                    settings.modifierDefs = new List<string>();
 
-            lst.CheckboxLabeled("VESWW.UseRimworldTime".Translate(), ref settings.useRimworldTime, "VESWW.UseRimworldTimeTip".Translate());
-            lst.GapLine();
+                foreach (var item in DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !settings.modifierDefs.Contains(m.defName)))
+                {
+                    floatMenuOptions.Add(new FloatMenuOption($"{item.LabelCap}", () => settings.modifierDefs.Add(item.defName)));
+                }
 
-            if (lst.ButtonText("VESWW.AddExcludedFaction".Translate()))
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to add", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
+            modSettingsLst.Gap(5);
+            if (modSettingsLst.ButtonText("VESWW.RModifiers".Translate()))
+            {
+                var floatMenuOptions = new List<FloatMenuOption>();
+                if (!settings.modifierDefs.NullOrEmpty())
+                {
+                    foreach (var item in settings.modifierDefs)
+                    {
+                        floatMenuOptions.Add(new FloatMenuOption(item, () => settings.modifierDefs.Remove(item)));
+                    }
+                }
+
+                if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
+                Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
+            }
+            modSettingsLst.End();
+        }
+
+        private void DoWaveSettings(Rect rect)
+        {
+            var waveSettingsLst = new Listing_Standard();
+            waveSettingsLst.Begin(rect);
+
+            waveSettingsLst.Label("VESWW.TimeBeforeFirstWave".Translate(), tooltip: "VESWW.TimeBeforeFirstWaveTip".Translate());
+            waveSettingsLst.TextFieldNumeric(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave, 1f, 10f);
+            waveSettingsLst.Gap(5);
+
+            waveSettingsLst.Label("VESWW.TimeBetweenWaves".Translate(), tooltip: "VESWW.TimeBetweenWavesTip".Translate());
+            waveSettingsLst.TextFieldNumeric(ref settings.timeBetweenWaves, ref _timeBetweenWaves, 1f, 10f);
+            waveSettingsLst.GapLine(12);
+
+            waveSettingsLst.Gap(12);
+            waveSettingsLst.Label("VESWW.MaxPoints".Translate(), tooltip: "VESWW.MaxPointsTip".Translate());
+            waveSettingsLst.IntEntry(ref settings.maxPoints, ref _maxPoints, 10);
+            waveSettingsLst.Gap(5);
+
+            waveSettingsLst.Label("VESWW.PointMultiplierBefore20".Translate(), tooltip: "VESWW.PointMultiplierBefore20Tip".Translate());
+            waveSettingsLst.TextFieldNumeric(ref settings.pointMultiplierBefore, ref _pointMultiplierBefore, 1f, 10f);
+            waveSettingsLst.Gap(5);
+
+            waveSettingsLst.Label("VESWW.PointMultiplierAfter20".Translate(), tooltip: "VESWW.PointMultiplierAfter20Tip".Translate());
+            waveSettingsLst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
+            waveSettingsLst.GapLine(12);
+
+            waveSettingsLst.Gap(12);
+            waveSettingsLst.Label("VESWW.ExcludedFaction".Translate());
+            if (waveSettingsLst.ButtonText("VESWW.AddExcludedFaction".Translate()))
             {
                 var floatMenuOptions = new List<FloatMenuOption>();
                 if (settings.excludedFactionDefs.NullOrEmpty())
@@ -163,8 +197,8 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to add", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
-
-            if (lst.ButtonText("VESWW.RemoveExcludedFaction".Translate()))
+            waveSettingsLst.Gap(5);
+            if (waveSettingsLst.ButtonText("VESWW.RemoveExcludedFaction".Translate()))
             {
                 var floatMenuOptions = new List<FloatMenuOption>();
                 if (!settings.excludedFactionDefs.NullOrEmpty())
@@ -178,10 +212,11 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
-            lst.GapLine();
+            waveSettingsLst.GapLine(12);
 
-            lst.Label("VESWW.ExcludedStrategy".Translate());
-            if (lst.ButtonText("VESWW.AddExcludedStrategy".Translate()))
+            waveSettingsLst.Gap(12);
+            waveSettingsLst.Label("VESWW.ExcludedStrategy".Translate());
+            if (waveSettingsLst.ButtonText("VESWW.AddExcludedStrategy".Translate()))
             {
                 var floatMenuOptions = new List<FloatMenuOption>();
                 if (settings.excludedStrategyDefs.NullOrEmpty())
@@ -197,8 +232,8 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to add", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
-
-            if (lst.ButtonText("VESWW.RemoveExcludedStrategy".Translate()))
+            waveSettingsLst.Gap(5);
+            if (waveSettingsLst.ButtonText("VESWW.RemoveExcludedStrategy".Translate()))
             {
                 var floatMenuOptions = new List<FloatMenuOption>();
                 if (!settings.excludedStrategyDefs.NullOrEmpty())
@@ -212,30 +247,51 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
-            lst.GapLine();
+            waveSettingsLst.End();
+        }
 
-            lst.Label("VESWW.Modifiers".Translate());
-            lst.Gap();
+        private void DoGameSettings(Rect rect)
+        {
+            var gameSettingsLst = new Listing_Standard();
+            gameSettingsLst.Begin(rect);
 
-            if (settings.modifierDefs != null)
+            gameSettingsLst.CheckboxLabeled("VESWW.MysteryMod".Translate(), ref settings.mysteryMod, "VESWW.MysteryModTip".Translate());
+            gameSettingsLst.Gap(5);
+
+            gameSettingsLst.CheckboxLabeled("VESWW.DontShowPawnList".Translate(), ref settings.showPawnList);
+            gameSettingsLst.Gap(5);
+
+            gameSettingsLst.CheckboxLabeled("VESWW.RandomRewardMod".Translate(), ref settings.randomRewardMod, "VESWW.RandomRewardModTip".Translate());
+            gameSettingsLst.Gap(5);
+
+            gameSettingsLst.CheckboxLabeled("VESWW.EnableStats".Translate(), ref settings.enableStatIncrease, "VESWW.EnableStatsTip".Translate());
+            gameSettingsLst.GapLine(12);
+
+            gameSettingsLst.Gap(12);
+            gameSettingsLst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
+            gameSettingsLst.Gap(5);
+
+            gameSettingsLst.CheckboxLabeled("VESWW.ShowDraggable".Translate(), ref settings.hideToggleDraggable, "VESWW.ShowDraggableTip".Translate());
+            gameSettingsLst.Gap(5);
+
+            gameSettingsLst.CheckboxLabeled("VESWW.UseRimworldTime".Translate(), ref settings.useRimworldTime, "VESWW.UseRimworldTimeTip".Translate());
+            gameSettingsLst.Gap(5);
+
+            if (gameSettingsLst.ButtonText("VESWW.ResetCounterPos".Translate()))
             {
-                foreach (var modifier in DefDatabase<ModifierDef>.AllDefsListForReading)
+                if (Find.CurrentMap != null && Find.CurrentMap.GetComponent<MapComponent_Winston>() is MapComponent_Winston mcW)
                 {
-                    bool enabled = !settings.modifierDefs.Contains(modifier.defName);
-                    if (lst.ButtonTextLabeled($"{modifier.LabelCap}", $"{enabled}"))
-                    {
-                        if (enabled)
-                            settings.modifierDefs.Add(modifier.defName);
-                        else
-                            settings.modifierDefs.Remove(modifier.defName);
-                    }
+                    mcW.counterPos = new Vector2(UI.screenWidth - 5f, 5f);
+                    mcW.waveCounter.windowRect.y = 5f;
+                    mcW.waveCounter.UpdateHeight();
+                    mcW.waveCounter.UpdateWidth();
+                }
+                else
+                {
+                    Messages.Message("VESWW.LoadToReset".Translate(), MessageTypeDefOf.NeutralEvent, false);
                 }
             }
-            else
-                settings.modifierDefs = new List<string>();
-
-            lst.End();
-            Widgets.EndScrollView();
+            gameSettingsLst.End();
         }
 
         public override void WriteSettings()

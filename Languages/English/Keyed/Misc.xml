@@ -51,7 +51,10 @@
   <VESWW.DrawBack>Draw wave counter background:</VESWW.DrawBack>
   <VESWW.MysteryMod>Enable mystery mode:</VESWW.MysteryMod>
   <VESWW.RandomRewardMod>Send random reward:</VESWW.RandomRewardMod>
-  <VESWW.Modifiers>Enable or disable modifiers here:</VESWW.Modifiers>
+  <VESWW.Modifiers>Exclude modifier(s) from waves:</VESWW.Modifiers>
+  <VESWW.RModifiers>Remove modifier(s) from excluded</VESWW.RModifiers>
+  <VESWW.AModifiers>Exclude modifier(s)</VESWW.AModifiers>
+  <VESWW.ExcludedFaction>Exclude certain faction(s) from waves:</VESWW.ExcludedFaction>
   <VESWW.AddExcludedFaction>Exclude faction</VESWW.AddExcludedFaction>
   <VESWW.RemoveExcludedFaction>Remove faction from excluded</VESWW.RemoveExcludedFaction>
   <VESWW.ExcludedStrategy>Exclude certain strategies from boss waves:</VESWW.ExcludedStrategy>
@@ -61,7 +64,11 @@
   <VESWW.UseRimworldTime>Timer use rimworld time:</VESWW.UseRimworldTime>
   <VESWW.DontShowPawnList>Show raiders pawns list and faction:</VESWW.DontShowPawnList>
   <VESWW.ResetCounterPos>Reset wave counter position</VESWW.ResetCounterPos>
-  <VESWW.LoadToReset>You first need to load a save to be able to reset the counter position</VESWW.LoadToReset>
+  <VESWW.LoadToReset>Load a save using Winston first!</VESWW.LoadToReset>
+  <VESWW.GS>General</VESWW.GS>
+  <VESWW.VS>Waves</VESWW.VS>
+  <VESWW.MS>Modifiers</VESWW.MS>
+  <VESWW.WCS>Wave counter</VESWW.WCS>
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>
