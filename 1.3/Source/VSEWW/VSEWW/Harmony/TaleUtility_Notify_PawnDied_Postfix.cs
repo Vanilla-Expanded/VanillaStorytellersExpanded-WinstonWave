@@ -14,7 +14,7 @@ namespace VSEWW
             if (victim.IsColonist)
             {
                 int kills = (int)(victim.records.GetValue(RecordDefOf.KillsHumanlikes) + victim.records.GetValue(RecordDefOf.KillsMechanoids));
-                Find.World.GetComponent<WorldComponent_KillCounter>().totalKill += kills;
+                Find.World.GetComponent<WorldComponent_KillCounter>().AddKills(kills);
             }
         }
     }
