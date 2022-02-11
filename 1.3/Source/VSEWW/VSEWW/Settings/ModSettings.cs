@@ -62,7 +62,7 @@ namespace VSEWW
             {
                 if (settingsHeight == 0f)
                 {
-                    settingsHeight = (14 * 12f) + ((19 + DefDatabase<ModifierDef>.DefCount) * 32f);
+                    settingsHeight = (15 * 12f) + ((20 + DefDatabase<ModifierDef>.DefCount) * 32f);
                 }
                 return settingsHeight;
             }
@@ -120,6 +120,22 @@ namespace VSEWW
             lst.Label("VESWW.PointMultiplierAfter20".Translate(), tooltip: "VESWW.PointMultiplierAfter20Tip".Translate());
             lst.TextFieldNumeric(ref settings.pointMultiplierAfter, ref _pointMultiplierAfter, 1f, 10f);
             lst.GapLine();
+
+            if (Find.CurrentMap != null)
+            {
+                if (lst.ButtonText("VESWW.ResetCounterPos".Translate()) && Find.CurrentMap.GetComponent<MapComponent_Winston>() is MapComponent_Winston mcW)
+                {
+                    mcW.counterPos = new Vector2(UI.screenWidth - 5f, 5f);
+                    mcW.waveCounter.windowRect.y = 5f;
+                    mcW.waveCounter.UpdateHeight();
+                    mcW.waveCounter.UpdateWidth();
+                }
+            }
+            else
+            {
+                lst.Label("VESWW.LoadToReset".Translate());
+            }
+            lst.Gap();
 
             lst.CheckboxLabeled("VESWW.DrawBack".Translate(), ref settings.drawBackground);
             lst.Gap();
