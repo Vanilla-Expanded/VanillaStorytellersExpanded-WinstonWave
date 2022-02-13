@@ -124,9 +124,9 @@
   <!-- Vanilla Faction Expanded Vikings -->
   <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Vikings">
     <defName>VSEWW_CryoGearDrop</defName>
-    <label>Cryo gears drop</label>
+    <label>Crypto gears drop</label>
     <texPath>UI/Rewards/RewardDefault_Good</texPath>
-    <description>Cargo pod drops 3 random cryo gears.</description>
+    <description>Cargo pod drops 3 random crypto gears.</description>
     <category>Good</category>
     <randomItems>
       <li>
