@@ -47,6 +47,8 @@ namespace VSEWW
             rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
             if (Find.FactionManager.RandomAlliedFaction() == null)
                 rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
+            if (!DefDatabase<ResearchProjectDef>.AllDefsListForReading.FindAll(x => x.CanStartNow).Any())
+                rewardPool.RemoveAll(r => r.unlockXResearch != 0);
         }
 
         public override Vector2 InitialSize => new Vector2(850f, 500f);
