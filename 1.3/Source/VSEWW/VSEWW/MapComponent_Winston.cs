@@ -65,7 +65,7 @@ namespace VSEWW
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            if (map.ParentFaction == Faction.OfPlayer)
+            if (map.ParentFaction == Faction.OfPlayer && !Find.WindowStack.AnyWindowAbsorbingAllInput)
             {
                 if (Find.Storyteller.def.defName == "VSE_WinstonWave" && Find.Storyteller.difficultyDef != DifficultyDefOf.Peaceful)
                 {

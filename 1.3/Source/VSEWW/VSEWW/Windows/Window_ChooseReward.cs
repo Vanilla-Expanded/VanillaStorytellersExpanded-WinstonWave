@@ -11,49 +11,42 @@ namespace VSEWW
         internal RewardDef choosenReward;
         
         private readonly Dictionary<RewardCategory, int> commonality;
-        private readonly List<RewardDef> rewards;
         private readonly int margin = 10;
-        private readonly int width = 750;
-        private readonly int rewardNumber = 3;
         private readonly MapComponent_Winston mapComp;
+        private readonly List<RewardDef> rewardPool;
+        private readonly float fourthRewardChance;
+
+        private List<RewardDef> rewards;
+        private int rewardNumber = 3;
+        private int width = 750;
 
         internal Window_ChooseReward(int waveNumber, float fourthRewardChance, MapComponent_Winston mapComp)
         {
             commonality = RewardCategoryExtension.GetCommonality(waveNumber);
-            // if (!LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
-            forcePause = true;
+            if (LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
+            {
+                forcePause = false;
+                preventSave = false;
+            }
+            else
+            {
+                forcePause = true;
+                preventSave = true;
+            }
+            absorbInputAroundWindow = true;
             doCloseX = false;
             doCloseButton = false;
             closeOnClickedOutside = false;
             closeOnCancel = false;
-            absorbInputAroundWindow = true;
             doWindowBackground = false;
             drawShadow = false;
-            preventSave = true;
-            this.mapComp = mapComp;
 
-            var rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
+            this.mapComp = mapComp;
+            this.fourthRewardChance = fourthRewardChance;
+
+            rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
             if (Find.FactionManager.RandomAlliedFaction() == null)
                 rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
-
-            if (!VESWWMod.settings.randomRewardMod)
-            {
-                if (new System.Random().NextDouble() < fourthRewardChance)
-                    rewardNumber++;
-
-                width /= rewardNumber;
-                rewards = new List<RewardDef>();
-                for (int i = 0; i < rewardNumber; i++)
-                {
-                    var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
-                    rewards.Add(reward);
-                    rewardPool.Remove(reward);
-                }
-            }
-            else
-            {
-                choosenReward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
-            }
         }
 
         public override Vector2 InitialSize => new Vector2(850f, 500f);
@@ -71,8 +64,23 @@ namespace VSEWW
                     lastMaxX = r.xMax;
                 }
             }
+            else if (!VESWWMod.settings.randomRewardMod)
+            {
+                if (new System.Random().NextDouble() < fourthRewardChance)
+                    rewardNumber++;
+
+                width /= rewardNumber;
+                rewards = new List<RewardDef>();
+                for (int i = 0; i < rewardNumber; i++)
+                {
+                    var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                    rewards.Add(reward);
+                    rewardPool.Remove(reward);
+                }
+            }
             else
             {
+                choosenReward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
                 Close();
             }
         }
