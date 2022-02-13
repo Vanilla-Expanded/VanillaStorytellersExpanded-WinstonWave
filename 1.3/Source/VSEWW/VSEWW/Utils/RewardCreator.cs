@@ -49,11 +49,12 @@ namespace VSEWW
                 {
                     for (int i = 0; i < reward.unlockXResearch; i++)
                     {
-                        var r = DefDatabase<ResearchProjectDef>.AllDefsListForReading.FindAll(x => x.CanStartNow).RandomElement();
-                        if (r != null)
+                        var rPool = DefDatabase<ResearchProjectDef>.AllDefsListForReading.FindAll(x => x.CanStartNow);
+                        if (!rPool.NullOrEmpty())
                         {
-                            Find.ResearchManager.FinishProject(r);
-                            Messages.Message("VESWW.ResearchUnlocked".Translate(r.LabelCap), MessageTypeDefOf.NeutralEvent);
+                            var rReward = rPool.RandomElement();
+                            Find.ResearchManager.FinishProject(rReward);
+                            Messages.Message("VESWW.ResearchUnlocked".Translate(rReward.LabelCap), MessageTypeDefOf.NeutralEvent);
                         }
                     }
                 }
