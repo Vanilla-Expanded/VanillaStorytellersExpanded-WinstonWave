@@ -65,6 +65,7 @@
   <VESWW.DontShowPawnList>Show raiders pawns list and faction:</VESWW.DontShowPawnList>
   <VESWW.ResetCounterPos>Reset wave counter position</VESWW.ResetCounterPos>
   <VESWW.LoadToReset>Load a save using Winston first!</VESWW.LoadToReset>
+  <VESWW.DisableSteelSlagChunk>Reward drop pods also drop steel slag chunk(s)</VESWW.DisableSteelSlagChunk>
   <VESWW.GS>General</VESWW.GS>
   <VESWW.VS>Waves</VESWW.VS>
   <VESWW.MS>Modifiers</VESWW.MS>

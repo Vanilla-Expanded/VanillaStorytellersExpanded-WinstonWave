@@ -20,6 +20,7 @@ namespace VSEWW
         public bool hideToggleDraggable = false;
         public bool useRimworldTime = false;
         public bool showPawnList = true;
+        public bool dropSlagChunk = true;
 
         public List<string> modifierDefs = new List<string>();
         public List<string> excludedFactionDefs = new List<string>();
@@ -40,6 +41,7 @@ namespace VSEWW
             Scribe_Values.Look(ref hideToggleDraggable, "hideToggleDraggable", false);
             Scribe_Values.Look(ref useRimworldTime, "useRimworldTime", false);
             Scribe_Values.Look(ref showPawnList, "showPawnList", true);
+            Scribe_Values.Look(ref dropSlagChunk, "dropSlagChunk", true);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
@@ -291,6 +293,10 @@ namespace VSEWW
                     Messages.Message("VESWW.LoadToReset".Translate(), MessageTypeDefOf.NeutralEvent, false);
                 }
             }
+            gameSettingsLst.GapLine(12);
+
+            gameSettingsLst.Gap(12);
+            gameSettingsLst.CheckboxLabeled("VESWW.DisableSteelSlagChunk".Translate(), ref settings.dropSlagChunk);
             gameSettingsLst.End();
         }
 
