@@ -8,6 +8,21 @@ namespace VSEWW
 {
     public static class RewardCreator
     {
+        private static void CureAll(Pawn p)
+        {
+            if (p.health != null && p.health.hediffSet != null && !p.health.hediffSet.hediffs.NullOrEmpty())
+            {
+                var tmpHediffs = p.health.hediffSet.hediffs.ToList();
+                for (int i = 0; i < tmpHediffs.Count; i++)
+                {
+                    if (tmpHediffs[i] is Hediff_Injury injury)
+                        p.health.RemoveHediff(injury);
+                    else if (tmpHediffs[i] is Hediff_MissingPart missingPart && missingPart.Part.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore) && (missingPart.Part.parent == null || p.health.hediffSet.GetNotMissingParts().Contains(missingPart.Part.parent)))
+                        p.health.RestorePart(missingPart.Part);
+                }
+            }
+        }
+
         public static void SendReward(RewardDef reward, Map map)
         {
             if (reward.sendRewardOf > RewardCategory.Poor)
@@ -27,17 +42,8 @@ namespace VSEWW
                 }
                 if (reward.massHeal)
                 {
-                    map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer).ForEach(p =>
-                    {
-                        var tmpHediffs = p.health.hediffSet.hediffs.ToList();
-                        for (int i = 0; i < tmpHediffs.Count; i++)
-                        {
-                            if (tmpHediffs[i] is Hediff_Injury injury)
-                                p.health.RemoveHediff(injury);
-                            else if (tmpHediffs[i] is Hediff_MissingPart missingPart && missingPart.Part.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore) && (missingPart.Part.parent == null || p.health.hediffSet.GetNotMissingParts().Contains(missingPart.Part.parent)))
-                                p.health.RestorePart(missingPart.Part);
-                        }
-                    });
+                    map.mapPawns.FreeColonistsSpawned.ForEach(p => CureAll(p));
+                    map.mapPawns.SlavesAndPrisonersOfColonySpawned.ForEach(p => CureAll(p));
                 }
                 if (reward.unlockXResearch > 0)
                 {
