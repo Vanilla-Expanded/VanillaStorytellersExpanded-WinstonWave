@@ -176,7 +176,7 @@ namespace VSEWW
                 Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
                 lords.ForEach(l =>
                 {
-                    lordPawnsCache.AddRange(l.ownedPawns.FindAll(p => p.Spawned && !p.Downed && !p.mindState.mentalStateHandler.InMentalState));
+                    lordPawnsCache.AddRange(l.ownedPawns.FindAll(p => !p.Downed && !p.mindState.mentalStateHandler.InMentalState));
                 });
                 lordPawnsCache.ForEach(p =>
                 {
