@@ -88,5 +88,23 @@ namespace VSEWW
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
+
+        [DebugAction("VES Winston Wave", "Reset wave", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ResetWave()
+        {
+            var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+            float inD = mapComp.currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+            mapComp.nextRaidInfo = mapComp.currentWave % 5 == 0 ? mapComp.SetNextBossRaidInfo(inD) : mapComp.SetNextNormalRaidInfo(inD);
+        }
+
+        [DebugAction("VES Winston Wave", "Reset to wave 1", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void ResetToWaveOne()
+        {
+            var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+
+            mapComp.currentWave = 1;
+            mapComp.currentPoints = 1;
+            mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(VESWWMod.settings.timeBeforeFirstWave);
+        }
     }
 }
