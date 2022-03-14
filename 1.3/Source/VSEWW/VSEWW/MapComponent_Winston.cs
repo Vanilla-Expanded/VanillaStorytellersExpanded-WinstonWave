@@ -228,9 +228,7 @@ namespace VSEWW
             return Math.Min(point, VESWWMod.settings.maxPoints);
         }
 
-        internal void RegisterDropSpot(CompRegisterAsRewardDrop comp) => dropSpot = comp.parent.Position;
-
-        internal void UnRegisterDropSpot() => dropSpot = IntVec3.Invalid;
+        internal void RegisterDropSpot(IntVec3 spot) => dropSpot = spot;
 
         internal void AddStatHediff()
         {

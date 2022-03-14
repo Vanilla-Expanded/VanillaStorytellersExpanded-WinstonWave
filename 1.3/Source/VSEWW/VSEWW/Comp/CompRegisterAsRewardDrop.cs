@@ -9,24 +9,16 @@ namespace VSEWW
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            var dropSpots = parent.Map.listerBuildings.AllBuildingsColonistOfDef(parent.def).ToList();
-            int count = dropSpots.Count;
-            if (count > 0)
+            var dropSpots = parent.Map.listerBuildings.AllBuildingsColonistOfDef(parent.def);
+
+            if (dropSpots.Count() > 0)
             {
                 Messages.Message("VESWW.RemoveOldDropSpot".Translate(), MessageTypeDefOf.NeutralEvent, false);
-                for (int i = 0; i < count; i++)
-                {
-                    dropSpots[0].DeSpawn();
-                    dropSpots.RemoveAt(0);
-                }
+                dropSpots.ElementAt(0).DeSpawn();
             }
-            parent.Map.GetComponent<MapComponent_Winston>()?.RegisterDropSpot(this);
-        }
 
-        public override void PostDeSpawn(Map map)
-        {
-            base.PostDeSpawn(map);
-            parent.Map.GetComponent<MapComponent_Winston>()?.UnRegisterDropSpot();
+
+            parent.Map.GetComponent<MapComponent_Winston>()?.RegisterDropSpot(parent.Position);
         }
     }
 }
