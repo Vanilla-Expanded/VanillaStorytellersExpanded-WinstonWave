@@ -169,24 +169,42 @@ namespace VSEWW
         /** Get all pawns part of the raid - with caching **/
         public List<Pawn> WavePawns()
         {
-            if ((lordPawnsCache.NullOrEmpty() is bool wasEmpty && wasEmpty) || cacheTick % 600 == 0)
+            var wasEmpty = lordPawnsCache.NullOrEmpty();
+            if (wasEmpty || cacheTick % 600 == 0)
             {
                 string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
                 lordPawnsCache = new List<Pawn>();
+
+                if (lords.NullOrEmpty())
+                    lords = Lords;
+
+                for (int i = 0; i < lords.Count; i++)
+                {
+                    var lord = lords[i];
+                    if (lord != null && !lord.ownedPawns.NullOrEmpty())
+                    {
+                        for (int o = 0; o < lord.ownedPawns.Count; o++)
+                        {
+                            var pawn = lord.ownedPawns[o];
+                            if (pawn != null && !pawn.Downed && !pawn.mindState.mentalStateHandler.InMentalState)
+                                lordPawnsCache.Add(pawn);
+                        }
+                    }
+                }
+
                 Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
-                lords.ForEach(l =>
+                for (int i = 0; i < lordPawnsCache.Count; i++)
                 {
-                    lordPawnsCache.AddRange(l.ownedPawns.FindAll(p => !p.Downed && !p.mindState.mentalStateHandler.InMentalState));
-                });
-                lordPawnsCache.ForEach(p =>
-                {
-                    if (toDefeat.ContainsKey(p.kindDef))
-                        toDefeat[p.kindDef]++;
+                    var pawn = lordPawnsCache[i];
+                    if (toDefeat.ContainsKey(pawn.kindDef))
+                        toDefeat[pawn.kindDef]++;
                     else
-                        toDefeat.Add(p.kindDef, 1);
-                });
-                foreach (var pair in toDefeat)
+                        toDefeat.Add(pawn.kindDef, 1);
+                }
+
+                for (int i = 0; i < toDefeat.Count; i++)
                 {
+                    var pair = toDefeat.ElementAt(i);
                     kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
                 }
                 cacheKindList = kindLabel.TrimEndNewlines();
@@ -210,7 +228,7 @@ namespace VSEWW
                 if (modifiers.Any(m => !m.everRetreat) && lords.Any(l => l.Graph.transitions.Any(t => t.target is LordToil_PanicFlee)))
                 {
                     foreach (var l in lords)
-                       l.Graph.transitions.RemoveAll(t => t.target is LordToil_PanicFlee);
+                        l.Graph.transitions.RemoveAll(t => t.target is LordToil_PanicFlee);
                 }
             }
 
@@ -261,7 +279,7 @@ namespace VSEWW
                     modifiersPool.Remove(modi);
                     modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modi));
                 }
-                    
+
 
                 if (modifiersChance[1] > 0 && modifiersChance[1] < rand.Next(0, 100) && modifiersPool.Count > 0)
                     modifiers.Add(modifiersPool.RandomElement());
