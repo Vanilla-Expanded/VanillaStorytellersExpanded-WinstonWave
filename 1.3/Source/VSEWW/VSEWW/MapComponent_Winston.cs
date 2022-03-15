@@ -39,7 +39,7 @@ namespace VSEWW
             if (waveCounter != null)
             {
                 counterDraggable = waveCounter.draggable;
-                counterPos = new Vector2(waveCounter.windowRect.x + waveCounter.windowRect.width, waveCounter.windowRect.y);
+                counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
             }
 
             Scribe_Values.Look(ref currentWave, "currentWave");
@@ -59,7 +59,7 @@ namespace VSEWW
             base.FinalizeInit();
             if (counterPos.x == 0 && counterPos.y == 0)
             {
-                counterPos = new Vector2(UI.screenWidth - 5f, 5f);
+                counterPos = new Vector2(5f, 5f);
             }
             sosSpace = map.Biome.defName == "OuterSpaceBiome";
         }
@@ -132,7 +132,7 @@ namespace VSEWW
 
         internal void RemoveCounter()
         {
-            counterPos = new Vector2(waveCounter.windowRect.x + waveCounter.windowRect.width, waveCounter.windowRect.y);
+            counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
             counterDraggable = waveCounter.draggable;
             waveCounter.Close();
             waveCounter = null;
