@@ -60,14 +60,19 @@ namespace VSEWW
                 }
                 if (reward.boostSkillBy > 0)
                 {
-                    map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.intelligence == Intelligence.Humanlike).ForEach(p =>
+                    var pawns = map.mapPawns.AllPawns.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.intelligence == Intelligence.Humanlike);
+                    for (int i = 0; i < pawns.Count; i++)
                     {
-                        var pSkills = DefDatabase<SkillDef>.AllDefs.Where(x => !p.skills.GetSkill(x).TotallyDisabled);
-                        foreach (var s in pSkills)
+                        var pawn = pawns[i];
+                        var skill = pawn.skills.skills;
+                        for (int o = 0; o < skill.Count; o++)
                         {
-                            p.skills.GetSkill(s).levelInt += Math.Min(reward.boostSkillBy, 20 - p.skills.GetSkill(s).levelInt);
+                            if (skill[o].levelInt <= 20)
+                            {
+                                skill[0].levelInt = Math.Min(skill[0].levelInt + reward.boostSkillBy, 20);
+                            }
                         }
-                    });
+                    }
                 }
 
                 var winston = map.GetComponent<MapComponent_Winston>();
