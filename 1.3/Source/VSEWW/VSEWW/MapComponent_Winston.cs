@@ -18,6 +18,7 @@ namespace VSEWW
         internal NextRaidInfo nextRaidInfo;
 
         internal Window_WaveCounter waveCounter = null;
+        internal bool sosSpace;
 
         internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
         // Stat hediff
@@ -60,12 +61,13 @@ namespace VSEWW
             {
                 counterPos = new Vector2(UI.screenWidth - 5f, 5f);
             }
+            sosSpace = map.Biome.defName == "OuterSpaceBiome";
         }
 
         public override void MapComponentTick()
         {
             base.MapComponentTick();
-            if (map.ParentFaction == Faction.OfPlayer && !Find.WindowStack.AnyWindowAbsorbingAllInput)
+            if (!sosSpace && map.ParentFaction == Faction.OfPlayer && !Find.WindowStack.AnyWindowAbsorbingAllInput)
             {
                 if (Find.Storyteller.def.defName == "VSE_WinstonWave" && Find.Storyteller.difficultyDef != DifficultyDefOf.Peaceful)
                 {

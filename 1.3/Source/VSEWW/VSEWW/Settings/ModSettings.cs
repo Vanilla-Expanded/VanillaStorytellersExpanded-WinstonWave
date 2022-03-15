@@ -284,6 +284,7 @@ namespace VSEWW
                 {
                     mcW.counterPos = new Vector2(UI.screenWidth - 5f, 5f);
                     mcW.waveCounter.windowRect.y = 5f;
+                    mcW.waveCounter.windowRect.x = UI.screenWidth - 5f - mcW.waveCounter.windowRect.width;
                     mcW.waveCounter.UpdateHeight();
                 }
                 else
