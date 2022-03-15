@@ -302,7 +302,7 @@
     <texPath>UI/Rewards/RewardRandom_Legendary</texPath>
     <label>Random Legendary reward</label>
     <description>Instead of picking up a specific Excellent-level reward, obtain a completely random Legendary-level reward</description>
-    <category>Legendary</category>
-    <sendRewardOf>Excellent</sendRewardOf>
+    <category>Excellent</category>
+    <sendRewardOf>Legendary</sendRewardOf>
   </VSEWW.RewardDef>
 </Defs>
