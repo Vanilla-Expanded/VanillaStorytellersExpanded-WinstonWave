@@ -7,7 +7,7 @@ namespace VSEWW
 {
     internal class Window_WaveCounter : Window
     {
-        public override Vector2 InitialSize => new Vector2(350f, 300f);
+        public override Vector2 InitialSize => new Vector2(330f, 300f);
 
         private readonly MapComponent_Winston mcw;
         private string waveTip;
@@ -58,15 +58,6 @@ namespace VSEWW
             windowRect.height = 35f + 190f;
             if (VESWWMod.settings.showPawnList)
                 windowRect.height += mcw.nextRaidInfo.kindListLines * 16f;
-        }
-
-        public void UpdateWidth()
-        {
-            /*windowRect.x = pos.x + windowRect.width;
-            windowRect.width = (float)(210f + 60f * mcw.nextRaidInfo.ModifierCount);
-            windowRect.x = pos.x - windowRect.width;*/
-            windowRect.width = (float)(210f + 60f * mcw.nextRaidInfo.ModifierCount);
-            windowRect.x = pos.x - windowRect.width;
         }
 
         public override void DoWindowContents(Rect inRect)

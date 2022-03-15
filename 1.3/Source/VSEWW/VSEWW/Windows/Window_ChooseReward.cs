@@ -9,7 +9,7 @@ namespace VSEWW
     public class Window_ChooseReward : Window
     {
         internal RewardDef choosenReward;
-        
+
         private readonly Dictionary<RewardCategory, int> commonality;
         private readonly int margin = 10;
         private readonly MapComponent_Winston mapComp;
@@ -105,7 +105,6 @@ namespace VSEWW
                 mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
 
             mapComp.waveCounter?.UpdateHeight();
-            mapComp.waveCounter?.UpdateWidth();
             mapComp.waveCounter?.WaveTip();
         }
     }

@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -286,7 +285,6 @@ namespace VSEWW
                     mcW.counterPos = new Vector2(UI.screenWidth - 5f, 5f);
                     mcW.waveCounter.windowRect.y = 5f;
                     mcW.waveCounter.UpdateHeight();
-                    mcW.waveCounter.UpdateWidth();
                 }
                 else
                 {

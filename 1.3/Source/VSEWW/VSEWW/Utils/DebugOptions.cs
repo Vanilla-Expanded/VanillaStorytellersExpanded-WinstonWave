@@ -48,7 +48,6 @@ namespace VSEWW
                     }
                     c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(1) : c.SetNextNormalRaidInfo(1);
                     c.waveCounter.UpdateHeight();
-                    c.waveCounter.UpdateWidth();
                     c.waveCounter.WaveTip();
                 }));
             }
