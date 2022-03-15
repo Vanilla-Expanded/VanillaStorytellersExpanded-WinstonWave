@@ -49,16 +49,25 @@ namespace VSEWW
         public override void Notify_ResolutionChanged()
         {
             base.Notify_ResolutionChanged();
-            Log.Warning("changing res");
-            windowRect.x = UI.screenWidth - pos.x - windowRect.width;
-            windowRect.y = pos.y;
+            UpdatePosition();
         }
 
         protected override void SetInitialSizeAndPosition()
         {
             base.SetInitialSizeAndPosition();
+            UpdatePosition();
+        }
+
+        private void UpdatePosition()
+        {
             windowRect.x = UI.screenWidth - pos.x - windowRect.width;
             windowRect.y = pos.y;
+
+            if (windowRect.y < 0)
+                windowRect.y = 0;
+
+            if (windowRect.x > UI.screenWidth)
+                windowRect.x = UI.screenWidth - windowRect.width;
         }
 
         public void UpdateHeight()
