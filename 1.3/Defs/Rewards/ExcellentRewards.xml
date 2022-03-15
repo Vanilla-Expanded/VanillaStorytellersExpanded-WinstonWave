@@ -278,6 +278,7 @@
           <li>BodyPartsBionic</li>
         </thingCategories>
         <count>10</count>
+        <quality MayRequire="rebelrabbit.qualitybionics">Excellent</quality>
       </li>
     </randomItems>
   </VSEWW.RewardDef>

@@ -235,6 +235,7 @@
           <li>BodyPartsProsthetic</li>
         </thingCategories>
         <count>5</count>
+        <quality MayRequire="rebelrabbit.qualitybionics">Normal</quality>
       </li>
     </randomItems>
   </VSEWW.RewardDef>

@@ -176,6 +176,7 @@
           <li>BodyPartsArchotech</li>
         </thingCategories>
         <count>10</count>
+        <quality MayRequire="rebelrabbit.qualitybionics">Legendary</quality>
       </li>
     </randomItems>
   </VSEWW.RewardDef>

@@ -349,12 +349,14 @@
           <li>BodyPartsProsthetic</li>
         </thingCategories>
         <count>5</count>
+        <quality MayRequire="rebelrabbit.qualitybionics">Good</quality>
       </li>
       <li>
         <thingCategories>
           <li>BodyPartsBionic</li>
         </thingCategories>
         <count>5</count>
+        <quality MayRequire="rebelrabbit.qualitybionics">Good</quality>
       </li>
     </randomItems>
   </VSEWW.RewardDef>
