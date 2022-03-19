@@ -69,7 +69,7 @@ namespace VSEWW
                         {
                             if (skill[o].levelInt <= 20)
                             {
-                                skill[0].levelInt = Math.Min(skill[0].levelInt + reward.boostSkillBy, 20);
+                                skill[o].levelInt = Math.Min(skill[o].levelInt + reward.boostSkillBy, 20);
                             }
                         }
                     }
