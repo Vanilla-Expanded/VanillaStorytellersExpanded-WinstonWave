@@ -7,8 +7,8 @@ namespace VSEWW
     {
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
-            base.PostSpawnSetup(respawningAfterLoad);
-            var dropSpots = parent.Map.listerBuildings.AllBuildingsColonistOfDef(parent.def);
+            var map = parent.Map;
+            var dropSpots = map.listerBuildings.AllBuildingsColonistOfDef(parent.def);
 
             foreach (var spot in dropSpots)
             {
@@ -19,7 +19,7 @@ namespace VSEWW
                 }
             }
 
-            parent.Map.GetComponent<MapComponent_Winston>()?.RegisterDropSpot(parent.Position);
+            map.GetComponent<MapComponent_Winston>()?.RegisterDropSpot(parent.Position);
         }
     }
 }

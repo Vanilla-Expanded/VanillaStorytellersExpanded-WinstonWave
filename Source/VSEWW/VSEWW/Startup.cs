@@ -20,7 +20,7 @@ namespace VSEWW
 
         static Startup()
         {
-            typeof(WeatherDecider).GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
+            weatherDecider_ticksWhenRainAllowedAgain = typeof(WeatherDecider).GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
         }
     }
 }
