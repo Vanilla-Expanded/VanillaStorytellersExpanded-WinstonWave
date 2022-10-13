@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using RimWorld;
+﻿using RimWorld;
 using Verse;
 
 namespace VSEWW
@@ -15,8 +14,7 @@ namespace VSEWW
         public override void End()
         {
             base.End();
-            var field = SingleMap.weatherDecider.GetType().GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
-            field.SetValue(SingleMap.weatherDecider, Find.TickManager.TicksGame);
+            Startup.weatherDecider_ticksWhenRainAllowedAgain.SetValue(SingleMap.weatherDecider, Find.TickManager.TicksGame);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace VSEWW
 
         internal Window_ChooseReward(int waveNumber, float fourthRewardChance, MapComponent_Winston mapComp)
         {
-            commonality = RewardCategoryExtension.GetCommonality(waveNumber);
+            commonality = RewardCommonalities.GetCommonalities(waveNumber);
             if (LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
             {
                 forcePause = false;

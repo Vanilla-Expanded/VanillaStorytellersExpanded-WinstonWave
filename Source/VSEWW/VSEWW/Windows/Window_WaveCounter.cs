@@ -116,9 +116,9 @@ namespace VSEWW
                     height = mWidth,
                 };
                 mRect.y += 5;
-                GUI.DrawTexture(mRect, Textures.ModifierBGTex);
+                GUI.DrawTexture(mRect, Startup.ModifierBGTex);
                 if (WinstonMod.settings.mysteryMod)
-                    VDefOf.VSEWW_Mystery.DrawCard(mRect);
+                    WDefOf.VSEWW_Mystery.DrawCard(mRect);
                 else
                     mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
             }
@@ -128,8 +128,8 @@ namespace VSEWW
                 x = rect.xMax - (i * mWidth) - ((i - 1) * 5) - 10,
                 width = mWidth + 10,
             };
-            GUI.DrawTexture(wRect, Textures.WaveBGTex);
-            Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Textures.NormalTex : Textures.BossTex, 0.8f);
+            GUI.DrawTexture(wRect, Startup.WaveBGTex);
+            Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Startup.NormalTex : Startup.BossTex, 0.8f);
             TooltipHandler.TipRegion(wRect, waveTip);
             // Wave number
             Rect waveNumRect = new Rect(rect)
@@ -150,7 +150,7 @@ namespace VSEWW
             string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.incidentParms.points);
             string rewardChance = "";
 
-            var c = RewardCategoryExtension.GetCommonality(mcw.nextRaidInfo.waveNum);
+            var c = RewardCommonalities.GetCommonalities(mcw.nextRaidInfo.waveNum);
             int total = c.Sum(v => v.Value);
             foreach (var item in c)
             {

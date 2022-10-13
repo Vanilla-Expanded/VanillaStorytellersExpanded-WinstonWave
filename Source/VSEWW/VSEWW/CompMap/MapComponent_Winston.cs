@@ -20,7 +20,7 @@ namespace VSEWW
         internal Window_WaveCounter waveCounter = null;
         internal bool sosSpace;
 
-        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
+        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, WDefOf.ImmediateAttackSmart, WDefOf.StageThenAttack };
 
         // Stat hediff
         private int tickUntilStatCheck = 0;
@@ -246,9 +246,9 @@ namespace VSEWW
 
             map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
             {
-                if (!statPawns.Contains(p) && p.health != null && p.health.hediffSet != null && !p.health.hediffSet.HasHediff(VDefOf.VESWW_IncreasedStats))
+                if (!statPawns.Contains(p) && p.health != null && p.health.hediffSet != null && !p.health.hediffSet.HasHediff(WDefOf.VESWW_IncreasedStats))
                 {
-                    p.health.AddHediff(VDefOf.VESWW_IncreasedStats);
+                    p.health.AddHediff(WDefOf.VESWW_IncreasedStats);
                     statPawns.Add(p);
                 }
             });
@@ -261,7 +261,7 @@ namespace VSEWW
 
             statPawns.ForEach(p =>
             {
-                var hediff = p.health?.hediffSet?.GetFirstHediffOfDef(VDefOf.VESWW_IncreasedStats);
+                var hediff = p.health?.hediffSet?.GetFirstHediffOfDef(WDefOf.VESWW_IncreasedStats);
                 if (hediff != null)
                     p.health.RemoveHediff(hediff);
             });

@@ -4,7 +4,7 @@ using Verse;
 namespace VSEWW
 {
     [DefOf]
-    public static class VDefOf
+    public static class WDefOf
     {
         public static HediffDef VSEWW_BulletSponge;
         public static HediffDef VESWW_IncreasedStats;

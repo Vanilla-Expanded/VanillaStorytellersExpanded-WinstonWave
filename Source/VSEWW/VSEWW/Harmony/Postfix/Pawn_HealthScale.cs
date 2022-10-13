@@ -12,14 +12,14 @@ namespace VSEWW
         {
             if (Find.Storyteller.def.defName == "VSE_WinstonWave" && __instance.RaceProps.Humanlike)
             {
-                if (HarmonyInit.hediffCache.ContainsKey(__instance))
+                if (Startup.hediffCache.ContainsKey(__instance))
                 {
-                    if (HarmonyInit.hediffCache[__instance])
+                    if (Startup.hediffCache[__instance])
                         __result *= 2;
                 }
                 else if (__instance.Spawned)
                 {
-                    HarmonyInit.hediffCache[__instance] = __instance.health.hediffSet.HasHediff(VDefOf.VSEWW_BulletSponge);
+                    Startup.hediffCache[__instance] = __instance.health.hediffSet.HasHediff(WDefOf.VSEWW_BulletSponge);
                 }
             }
         }

@@ -2,18 +2,9 @@
 
 namespace VSEWW
 {
-    public enum RewardCategory
+    public static class RewardCommonalities
     {
-        Poor,
-        Normal,
-        Good,
-        Excellent,
-        Legendary
-    }
-
-    public static class RewardCategoryExtension
-    {
-        public static Dictionary<RewardCategory, int> GetCommonality(int waveN)
+        public static Dictionary<RewardCategory, int> GetCommonalities(int waveN)
         {
             var com = new Dictionary<RewardCategory, int>()
             {

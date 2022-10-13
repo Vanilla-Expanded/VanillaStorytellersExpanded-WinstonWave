@@ -71,27 +71,28 @@
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
     <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="Settings\WinstonMod.cs" />
-    <Compile Include="VDefOf.cs" />
+    <Compile Include="Utils\Reward\RewardCommonalities.cs" />
+    <Compile Include="WDefOf.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />
     <Compile Include="Hediff\Hediff_RemoveIfColonist.cs" />
     <Compile Include="Incidents\FullMapFlashstorm.cs" />
     <Compile Include="Incidents\IncidentWorker_MakeGameConditionNoLetter.cs" />
     <Compile Include="Incidents\OrbitalBombardement.cs" />
-    <Compile Include="RewardCategory.cs" />
-    <Compile Include="Textures.cs" />
+    <Compile Include="Utils\Reward\RewardCategory.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Utils\DebugOptions.cs" />
     <Compile Include="Defs\RewardDef.cs" />
-    <Compile Include="MapComponent_Winston.cs" />
+    <Compile Include="CompMap\MapComponent_Winston.cs" />
     <Compile Include="Utils\NextRaidInfo.cs" />
     <Compile Include="Settings\WinstonSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\RewardCreator.cs" />
+    <Compile Include="Utils\Reward\RewardCreator.cs" />
     <Compile Include="StorytellerComp\StorytellerComp_ClassicIntroNoRaid.cs" />
     <Compile Include="Utils\TimeSpawnExtension.cs" />
     <Compile Include="Windows\Window_ChooseReward.cs" />
     <Compile Include="Windows\Window_GameOver.cs" />
     <Compile Include="Windows\Window_WaveCounter.cs" />
-    <Compile Include="WorldComponent_KillCounter.cs" />
+    <Compile Include="CompWorld\WorldComponent_KillCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime">
