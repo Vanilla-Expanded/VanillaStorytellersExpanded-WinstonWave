@@ -82,6 +82,8 @@ namespace VSEWW
                         winston.nextRaidMultiplyPoints = reward.waveModifier.weakenBy;
                     if (reward.waveModifier.allies)
                         winston.nextRaidSendAllies = true;
+
+                    winston.nextRaidInfo.atTick += reward.waveModifier.delayBy * 60000;
                 }
 
                 List<Thing> thingList = new List<Thing>();

@@ -40,13 +40,14 @@ namespace VSEWW
                 int waveNum = i * 5;
                 debugMenuOptionList.Add(new DebugMenuOption(waveNum.ToString(), DebugMenuOptionMode.Action, () =>
                 {
+                    var ticksGame = Find.TickManager.TicksGame;
                     var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
                     for (int w = c.currentWave; w < waveNum; w++)
                     {
                         c.currentWave++;
                         c.GetNextWavePoint();
                     }
-                    c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(1) : c.SetNextNormalRaidInfo(1);
+                    c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(ticksGame, 1) : c.SetNextNormalRaidInfo(ticksGame, 1);
                     c.waveCounter.UpdateHeight();
                     c.waveCounter.WaveTip();
                 }));
@@ -91,9 +92,10 @@ namespace VSEWW
         [DebugAction("VES Winston Wave", "Reset wave", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void ResetWave()
         {
+            var ticksGame = Find.TickManager.TicksGame;
             var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             float inD = mapComp.currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
-            mapComp.nextRaidInfo = mapComp.currentWave % 5 == 0 ? mapComp.SetNextBossRaidInfo(inD) : mapComp.SetNextNormalRaidInfo(inD);
+            mapComp.nextRaidInfo = mapComp.currentWave % 5 == 0 ? mapComp.SetNextBossRaidInfo(ticksGame, inD) : mapComp.SetNextNormalRaidInfo(ticksGame, inD);
         }
 
         [DebugAction("VES Winston Wave", "Reset to wave 1", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -103,7 +105,7 @@ namespace VSEWW
 
             mapComp.currentWave = 1;
             mapComp.currentPoints = 1;
-            mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(WinstonMod.settings.timeBeforeFirstWave);
+            mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(Find.TickManager.TicksGame, WinstonMod.settings.timeBeforeFirstWave);
         }
     }
 }

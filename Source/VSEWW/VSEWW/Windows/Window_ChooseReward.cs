@@ -10,9 +10,10 @@ namespace VSEWW
     {
         internal RewardDef choosenReward;
 
-        private readonly Dictionary<RewardCategory, int> commonality;
         private readonly int margin = 10;
-        private readonly MapComponent_Winston mapComp;
+        private readonly Map map;
+
+        private readonly Dictionary<RewardCategory, int> commonalities;
         private readonly List<RewardDef> rewardPool;
         private readonly float fourthRewardChance;
 
@@ -20,9 +21,9 @@ namespace VSEWW
         private int rewardNumber = 3;
         private int width = 750;
 
-        internal Window_ChooseReward(int waveNumber, float fourthRewardChance, MapComponent_Winston mapComp)
+        internal Window_ChooseReward(int waveNumber, float fourthRewardChance, Map map)
         {
-            commonality = RewardCommonalities.GetCommonalities(waveNumber);
+            commonalities = RewardCommonalities.GetCommonalities(waveNumber);
             if (LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
             {
                 forcePause = false;
@@ -41,7 +42,7 @@ namespace VSEWW
             doWindowBackground = false;
             drawShadow = false;
 
-            this.mapComp = mapComp;
+            this.map = map;
             this.fourthRewardChance = fourthRewardChance;
 
             rewardPool = DefDatabase<RewardDef>.AllDefsListForReading.ToList();
@@ -75,37 +76,24 @@ namespace VSEWW
                 rewards = new List<RewardDef>();
                 for (int i = 0; i < rewardNumber; i++)
                 {
-                    var reward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                    var reward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).RandomElement();
                     rewards.Add(reward);
                     rewardPool.Remove(reward);
                 }
             }
             else
             {
-                choosenReward = rewardPool.FindAll(r => r.category == commonality.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                choosenReward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).RandomElement();
                 Close();
             }
         }
 
         public override void PostClose()
         {
-            base.PostClose();
-            mapComp.nextRaidInfo.StopEvents();
             if (WinstonMod.settings.randomRewardMod)
-            {
                 Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
-            }
 
-            RewardCreator.SendReward(choosenReward, mapComp.map);
-            var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
-
-            if (++mapComp.currentWave % 5 == 0)
-                mapComp.nextRaidInfo = mapComp.SetNextBossRaidInfo(WinstonMod.settings.timeBetweenWaves + delay);
-            else
-                mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(WinstonMod.settings.timeBetweenWaves + delay);
-
-            mapComp.waveCounter?.UpdateHeight();
-            mapComp.waveCounter?.WaveTip();
+            RewardCreator.SendReward(choosenReward, map);
         }
     }
 }

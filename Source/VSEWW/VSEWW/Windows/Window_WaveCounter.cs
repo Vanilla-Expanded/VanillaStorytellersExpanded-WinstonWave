@@ -223,7 +223,7 @@ namespace VSEWW
             };
             if (Widgets.ButtonText(skipRect, "VESWW.SkipWave".Translate()))
             {
-                mcw.ExecuteRaid(Find.TickManager.TicksGame);
+                mcw.StartRaid(Find.TickManager.TicksGame);
             }
             TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
             if (!WinstonMod.settings.hideToggleDraggable)

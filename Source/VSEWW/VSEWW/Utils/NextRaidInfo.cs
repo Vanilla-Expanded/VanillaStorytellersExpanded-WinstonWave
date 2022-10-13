@@ -12,7 +12,7 @@ namespace VSEWW
         // Raid infos
         // - Is always false at start - Set to true when lord isn't null
         public bool sent = false;
-
+        public Map map;
         private List<Lord> lords;
 
         // - When
@@ -142,6 +142,14 @@ namespace VSEWW
                     return ticksInAdvance / ticksInBetween;
                 }
                 return 0f;
+            }
+        }
+
+        public bool RaidOver
+        {
+            get
+            {
+                return sent && Lords != null && WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned;
             }
         }
 

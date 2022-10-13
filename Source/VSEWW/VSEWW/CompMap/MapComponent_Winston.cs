@@ -9,31 +9,32 @@ namespace VSEWW
 {
     internal class MapComponent_Winston : MapComponent
     {
+        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, WDefOf.ImmediateAttackSmart, WDefOf.StageThenAttack };
+
+        internal Vector2 counterPos;
+        internal bool counterDraggable = true;
+
         internal int currentWave = 1;
         internal float currentPoints = 0;
         internal float modifierChance = 0;
 
-        internal bool nextRaidSendAllies = false;
-        internal float nextRaidMultiplyPoints = 1f;
         internal NextRaidInfo nextRaidInfo;
+        internal float nextRaidMultiplyPoints = 1f;
+        internal bool nextRaidSendAllies = false;
 
         internal Window_WaveCounter waveCounter = null;
+
+        internal IntVec3 dropSpot = IntVec3.Invalid;
+
         internal bool sosSpace;
 
-        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, WDefOf.ImmediateAttackSmart, WDefOf.StageThenAttack };
+        internal int tickUntilStatCheck = 0;
+        internal List<Pawn> statPawns = new List<Pawn>();
+        internal static readonly int checkEachXTicks = 2000;
 
-        // Stat hediff
-        private int tickUntilStatCheck = 0;
+        internal Faction mapFaction;
 
-        private List<Pawn> statPawns = new List<Pawn>();
-        private static readonly int checkEachXTicks = 2000;
-
-        public IntVec3 dropSpot = IntVec3.Invalid;
-
-        // counter settings
-        internal bool counterDraggable = true;
-
-        internal Vector2 counterPos;
+        internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null;
 
         public MapComponent_Winston(Map map) : base(map)
         {
@@ -41,7 +42,6 @@ namespace VSEWW
 
         public override void ExposeData()
         {
-            base.ExposeData();
             if (waveCounter != null)
             {
                 counterDraggable = waveCounter.draggable;
@@ -62,170 +62,121 @@ namespace VSEWW
 
         public override void FinalizeInit()
         {
-            base.FinalizeInit();
             if (counterPos.x == 0 && counterPos.y == 0)
-            {
                 counterPos = new Vector2(5f, 5f);
-            }
+
             sosSpace = map.Biome.defName == "OuterSpaceBiome";
+            mapFaction = map.ParentFaction;
         }
 
         public override void MapComponentTick()
         {
-            base.MapComponentTick();
-            if (!sosSpace && map.ParentFaction == Faction.OfPlayer && !Find.WindowStack.AnyWindowAbsorbingAllInput)
+            // No waves in space, other faction maps, if there is a window
+            if (sosSpace || mapFaction != Faction.OfPlayer || Find.WindowStack.AnyWindowAbsorbingAllInput)
+                return;
+
+            var storyteller = Find.Storyteller;
+            var ticksGame = Find.TickManager.TicksGame;
+            // If winston selected and not peaceful
+            if (storyteller.def.defName == "VSE_WinstonWave" && storyteller.difficultyDef != DifficultyDefOf.Peaceful)
             {
-                if (Find.Storyteller.def.defName == "VSE_WinstonWave" && Find.Storyteller.difficultyDef != DifficultyDefOf.Peaceful)
+                // If stats increase enabled
+                if (WinstonMod.settings.enableStatIncrease)
                 {
-                    if (WinstonMod.settings.enableStatIncrease)
+                    // Check
+                    if (tickUntilStatCheck <= 0)
                     {
-                        if (tickUntilStatCheck <= 0)
-                        {
-                            AddStatHediff();
-                            tickUntilStatCheck = checkEachXTicks;
-                        }
-                        tickUntilStatCheck--;
+                        // Add
+                        AddStatHediff();
+                        tickUntilStatCheck = checkEachXTicks;
                     }
-
-                    if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
-                    {
-                        float inD = currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
-                        nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
-                    }
-                    else
-                    {
-                        if (!nextRaidInfo.sent && nextRaidInfo.atTick <= Find.TickManager.TicksGame)
-                        {
-                            ExecuteRaid(Find.TickManager.TicksGame);
-                        }
-                        else if (nextRaidInfo.sent && nextRaidInfo.Lords != null && nextRaidInfo.WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned)
-                        {
-                            Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, this));
-                        }
-                        else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && Find.TickManager.TicksGame - nextRaidInfo.atTick > 1000)
-                        {
-                            var at = Find.TickManager.TicksGame + 500;
-                            nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(at) : SetNextNormalRaidInfo(at);
-                        }
-                    }
-
-                    if (waveCounter == null && Find.CurrentMap == map)
-                    {
-                        waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
-                        Find.WindowStack.Add(waveCounter);
-                        waveCounter.UpdateHeight();
-                        waveCounter.WaveTip();
-                    }
-                    else if (waveCounter != null && Find.CurrentMap != map)
-                    {
-                        RemoveCounter();
-                    }
+                    tickUntilStatCheck--;
+                }
+                // If next raid isn't set, or is bugged
+                if (ShouldRegenerateRaid)
+                {
+                    nextRaidInfo = GetNextRaid(ticksGame);
                 }
                 else
                 {
-                    if (nextRaidInfo != null)
-                        nextRaidInfo.atTick++;
-
-                    if (statPawns.NullOrEmpty())
+                    // If raid isn't sent, but should be
+                    if (!nextRaidInfo.sent && nextRaidInfo.atTick <= ticksGame)
                     {
-                        RemoveStatHediff();
-                        tickUntilStatCheck = 0; // Instant stat back if switch storyteller
+                        StartRaid(ticksGame);
                     }
-
-                    if (waveCounter != null)
-                        RemoveCounter();
+                    // If raid is over
+                    else if (nextRaidInfo.RaidOver)
+                    {
+                        // Prepare next wave
+                        currentWave++;
+                        nextRaidInfo.StopEvents();
+                        nextRaidInfo = GetNextRaid(ticksGame);
+                        waveCounter?.UpdateHeight();
+                        waveCounter?.WaveTip();
+                        // Show rewards window
+                        Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, map));
+                    }
+                    // If raid lords fail
+                    else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && ticksGame - nextRaidInfo.atTick > 1000)
+                    {
+                        // Regenerate raid
+                        nextRaidInfo = GetNextRaid(ticksGame);
+                    }
+                }
+                // Manage counter visibility
+                var currentMap = Find.CurrentMap;
+                if (waveCounter == null && currentMap == map)
+                {
+                    waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
+                    Find.WindowStack.Add(waveCounter);
+                    waveCounter.UpdateHeight();
+                    waveCounter.WaveTip();
+                }
+                else if (waveCounter != null && currentMap != map)
+                {
+                    RemoveCounter();
                 }
             }
-        }
-
-        internal void RemoveCounter()
-        {
-            counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
-            counterDraggable = waveCounter.draggable;
-            waveCounter.Close();
-            waveCounter = null;
-        }
-
-        internal void ExecuteRaid(int tick)
-        {
-            ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
-            map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
-            Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
-            nextRaidInfo.SendAddditionalModifier();
-            nextRaidInfo.sentAt = Find.TickManager.TicksGame;
-            if (nextRaidSendAllies)
+            // If winston ins't selected or it's peaceful
+            else
             {
-                IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
-                incidentParms.target = map;
-                incidentParms.faction = Find.FactionManager.RandomAlliedFaction();
-                incidentParms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, WinstonMod.settings.maxPoints);
-
-                IncidentDefOf.RaidFriendly.Worker.TryExecute(incidentParms);
-                nextRaidSendAllies = false;
+                // Delay next raid
+                if (nextRaidInfo != null)
+                    nextRaidInfo.atTick++;
+                // Remove all stats increase hediffs
+                if (statPawns.NullOrEmpty())
+                {
+                    RemoveStatHediff();
+                    tickUntilStatCheck = 0; // Instant stat back if switch storyteller
+                }
+                // Remove the counter
+                if (waveCounter != null)
+                    RemoveCounter();
             }
-            nextRaidInfo.sent = true;
         }
 
-        internal NextRaidInfo SetNextNormalRaidInfo(float inDays)
+        /// <summary>
+        /// Generate either a normal or a boss wave depending on the current wave number
+        /// </summary>
+        internal NextRaidInfo GetNextRaid(int ticks)
         {
-            NextRaidInfo nri = new NextRaidInfo()
-            {
-                incidentParms = new IncidentParms()
-                {
-                    target = map,
-                    points = GetNextWavePoint(),
-                    raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
-                    faction = FindRandomEnnemy(),
-                    pawnGroupMakerSeed = new System.Random().Next(1, 10000)
-                },
-                atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
-                generatedAt = Find.TickManager.TicksGame,
-                waveNum = currentWave
-            };
-            nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
-
-            nri.ChooseAndApplyModifier();
-            nri.SetPawnsInfo();
-            waveCounter?.UpdateHeight();
-            return nri;
+            float days = currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
+            return currentWave % 5 == 0 ? SetNextBossRaidInfo(ticks, days) : SetNextNormalRaidInfo(ticks, days);
         }
 
-        internal NextRaidInfo SetNextBossRaidInfo(float inDays)
-        {
-            NextRaidInfo nri = new NextRaidInfo()
-            {
-                incidentParms = new IncidentParms()
-                {
-                    target = map,
-                    points = GetNextWavePoint(),
-                    faction = FindRandomEnnemy(),
-                    pawnGroupMakerSeed = new System.Random().Next(1, 10000)
-                },
-                atTick = Find.TickManager.TicksGame + (int)(inDays * 60000),
-                generatedAt = Find.TickManager.TicksGame,
-                waveNum = currentWave
-            };
-            var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
-                                                                                       && !normalStrategies.Contains(s)
-                                                                                       && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty()
-                                                                                           || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
-            nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
-
-            nri.ChooseAndApplyModifier();
-            nri.SetPawnsInfo();
-            waveCounter?.UpdateHeight();
-            return nri;
-        }
-
+        /// <summary>
+        /// Calculate new wave raid points
+        /// </summary>
         internal float GetNextWavePoint()
         {
             if (currentPoints < WinstonMod.settings.maxPoints)
             {
-                if (currentPoints <= 0) currentPoints = 100f;
-                else if (currentWave <= 20) currentPoints *= WinstonMod.settings.pointMultiplierBefore;
-                else currentPoints *= WinstonMod.settings.pointMultiplierAfter;
-
-                // currentPoints *= Find.Storyteller.difficulty.threatScale;
+                if (currentPoints <= 0)
+                    currentPoints = 100f;
+                else if (currentWave <= 20)
+                    currentPoints *= WinstonMod.settings.pointMultiplierBefore;
+                else
+                    currentPoints *= WinstonMod.settings.pointMultiplierAfter;
             }
 
             if (currentPoints < 100)
@@ -234,41 +185,13 @@ namespace VSEWW
             float point = currentPoints * nextRaidMultiplyPoints;
             nextRaidMultiplyPoints = 1f;
 
-            return Math.Min(point, WinstonMod.settings.maxPoints);
+            return Mathf.Min(point, WinstonMod.settings.maxPoints);
         }
 
-        internal void RegisterDropSpot(IntVec3 spot) => dropSpot = spot;
-
-        internal void AddStatHediff()
-        {
-            if (statPawns == null)
-                statPawns = new List<Pawn>();
-
-            map.mapPawns.AllPawnsSpawned.FindAll(p => p.Faction == Faction.OfPlayer && p.RaceProps.Humanlike).ForEach(p =>
-            {
-                if (!statPawns.Contains(p) && p.health != null && p.health.hediffSet != null && !p.health.hediffSet.HasHediff(WDefOf.VESWW_IncreasedStats))
-                {
-                    p.health.AddHediff(WDefOf.VESWW_IncreasedStats);
-                    statPawns.Add(p);
-                }
-            });
-        }
-
-        internal void RemoveStatHediff()
-        {
-            if (statPawns.NullOrEmpty())
-                return;
-
-            statPawns.ForEach(p =>
-            {
-                var hediff = p.health?.hediffSet?.GetFirstHediffOfDef(WDefOf.VESWW_IncreasedStats);
-                if (hediff != null)
-                    p.health.RemoveHediff(hediff);
-            });
-            statPawns = new List<Pawn>();
-        }
-
-        internal Faction FindRandomEnnemy()
+        /// <summary>
+        /// Find random faction for the next wave
+        /// </summary>
+        internal Faction RandomEnnemyFaction()
         {
             var from = Find.FactionManager.AllFactions.ToList().FindAll(f =>
                             (WinstonMod.settings.excludedFactionDefs == null || !WinstonMod.settings.excludedFactionDefs.Contains(f.def.defName))
@@ -297,6 +220,145 @@ namespace VSEWW
             }, out Faction faction);
 
             return faction;
+        }
+
+        /// <summary>
+        /// Create next boss raid
+        /// </summary>
+        internal NextRaidInfo SetNextBossRaidInfo(int ticks, float inDays)
+        {
+            NextRaidInfo nri = new NextRaidInfo()
+            {
+                incidentParms = new IncidentParms()
+                {
+                    target = map,
+                    points = GetNextWavePoint(),
+                    faction = RandomEnnemyFaction(),
+                    pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000)
+                },
+                atTick = ticks + (int)(inDays * 60000),
+                generatedAt = ticks,
+                waveNum = currentWave
+            };
+            var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
+                                                                                       && !normalStrategies.Contains(s)
+                                                                                       && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty() || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
+            nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
+
+            nri.ChooseAndApplyModifier();
+            nri.SetPawnsInfo();
+            waveCounter?.UpdateHeight();
+            return nri;
+        }
+
+        /// <summary>
+        /// Create next normal raid
+        /// </summary>
+        internal NextRaidInfo SetNextNormalRaidInfo(int ticks, float inDays)
+        {
+            NextRaidInfo nri = new NextRaidInfo()
+            {
+                incidentParms = new IncidentParms()
+                {
+                    target = map,
+                    points = GetNextWavePoint(),
+                    raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
+                    faction = RandomEnnemyFaction(),
+                    pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000)
+                },
+                atTick = ticks + (int)(inDays * 60000),
+                generatedAt = ticks,
+                waveNum = currentWave
+            };
+            nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
+
+            nri.ChooseAndApplyModifier();
+            nri.SetPawnsInfo();
+            waveCounter?.UpdateHeight();
+            return nri;
+        }
+
+        /// <summary>
+        /// Start the raid
+        /// </summary>
+        internal void StartRaid(int tick)
+        {
+            // Keep trac of raid
+            Find.StoryWatcher.statsRecord.numRaidsEnemy++;
+            map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
+            // Queue raid event
+            Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
+            // Manage nextRaidInfo
+            nextRaidInfo.SendAddditionalModifier();
+            nextRaidInfo.sentAt = tick;
+            nextRaidInfo.sent = true;
+            nextRaidInfo.map = map;
+            // Send allies if necessary
+            if (nextRaidSendAllies)
+            {
+                nextRaidSendAllies = false;
+                // Create parms
+                var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
+                parms.target = map;
+                parms.faction = Find.FactionManager.RandomAlliedFaction();
+                parms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, WinstonMod.settings.maxPoints);
+                // Send raid
+                IncidentDefOf.RaidFriendly.Worker.TryExecute(parms);
+            }
+        }
+
+        /// <summary>
+        /// Add hediff increasing stats to pawns
+        /// </summary>
+        internal void AddStatHediff()
+        {
+            if (statPawns == null)
+                statPawns = new List<Pawn>();
+
+            var pawns = map.mapPawns.AllPawnsSpawned;
+            for (int i = 0; i < pawns.Count; i++)
+            {
+                var pawn = pawns[i];
+                if (pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Humanlike && !statPawns.Contains(pawn) && !pawn.health.hediffSet.HasHediff(WDefOf.VESWW_IncreasedStats))
+                {
+                    pawn.health.AddHediff(WDefOf.VESWW_IncreasedStats);
+                    statPawns.Add(pawn);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove hediff increasing stats to pawns
+        /// </summary>
+        internal void RemoveStatHediff()
+        {
+            if (statPawns.NullOrEmpty())
+                return;
+
+            for (int i = 0; i < statPawns.Count; i++)
+            {
+                var pawn = statPawns[i];
+                if (pawn.health?.hediffSet?.GetFirstHediffOfDef(WDefOf.VESWW_IncreasedStats) is Hediff hediff)
+                    pawn.health.RemoveHediff(hediff);
+            }
+
+            statPawns.Clear();
+        }
+
+        /// <summary>
+        /// Register new drop spot
+        /// </summary>
+        internal void RegisterDropSpot(IntVec3 spot) => dropSpot = spot;
+
+        /// <summary>
+        /// Remove ounter from screen
+        /// </summary>
+        internal void RemoveCounter()
+        {
+            counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
+            counterDraggable = waveCounter.draggable;
+            waveCounter.Close();
+            waveCounter = null;
         }
     }
 }
