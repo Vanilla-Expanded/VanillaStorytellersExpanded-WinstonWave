@@ -1,5 +1,5 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -48,7 +48,7 @@ namespace VSEWW
     }
 
     [StaticConstructorOnStartup]
-    class VESWWMod : Mod
+    internal class VESWWMod : Mod
     {
         private string _timeBeforeFirstWave;
         private string _timeBetweenWaves;
@@ -99,7 +99,6 @@ namespace VSEWW
                 }, currentTab == 2)
             };
             TabDrawer.DrawTabs(tabRect, tabs);
-
 
             if (currentTab == 0)
             {

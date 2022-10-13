@@ -6,7 +6,7 @@ namespace VSEWW
 {
     [HarmonyPatch(typeof(IncidentWorker_Raid))]
     [HarmonyPatch("TryExecuteWorker", MethodType.Normal)]
-    public class IncidentWorker_Raid_TryExecuteWorker_Patch
+    public class IncidentWorker_Raid_TryExecuteWorker
     {
         [HarmonyPrefix]
         public static bool Prefix(IncidentParms parms, ref IncidentWorker_Raid __instance)

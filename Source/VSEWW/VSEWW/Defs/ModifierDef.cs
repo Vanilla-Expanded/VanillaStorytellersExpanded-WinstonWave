@@ -1,5 +1,5 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -8,29 +8,41 @@ namespace VSEWW
     public class ModifierDef : Def
     {
         public string texPath;
+
         // Multiply points by
         public float pointMultiplier = 0f;
+
         // Hediff not applied to a part
         public List<HediffDef> globalHediffs;
+
         // Hediff applied to specific part
         public List<ThingDef> techHediffs;
+
         // Retreat ?
         public bool everRetreat = true;
+
         // Incidents to fire
         public List<IncidentDef> incidents;
+
         // Weapons choice
         public List<ThingCategoryDef> allowedWeaponCategory;
+
         public List<ThingDef> allowedWeaponDef;
+
         // Apparels choice
         public List<ThingDef> neededApparelDef;
+
         // Don't use with those other modifiers
         public List<ModifierDef> incompatibleWith = new List<ModifierDef>();
+
         // Use specific pawnkind
         public List<PawnKindDef> specificPawnKinds;
+
         // RANDOM
         public bool mystery = false;
 
         private Texture2D modifierIcon;
+
         public Texture2D ModifierIcon
         {
             get

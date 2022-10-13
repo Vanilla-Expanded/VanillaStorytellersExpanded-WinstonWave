@@ -1,12 +1,11 @@
-﻿using RimWorld;
-using System.Reflection;
+﻿using System.Reflection;
+using RimWorld;
 using Verse;
 
 namespace VSEWW
 {
     public class FullMapFlashstorm : GameCondition_Flashstorm
     {
-
         public override void Init()
         {
             base.Init();

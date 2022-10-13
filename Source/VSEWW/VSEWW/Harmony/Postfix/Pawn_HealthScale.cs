@@ -5,7 +5,7 @@ namespace VSEWW
 {
     [HarmonyPatch(typeof(Pawn))]
     [HarmonyPatch("HealthScale", MethodType.Getter)]
-    public class Pawn_HealthScale_Patch
+    public class Pawn_HealthScale
     {
         [HarmonyPostfix]
         public static void Postfix(ref float __result, ref Pawn __instance)

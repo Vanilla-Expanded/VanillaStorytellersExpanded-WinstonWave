@@ -1,6 +1,6 @@
-﻿using RimWorld;
+﻿using System.Linq;
+using RimWorld;
 using RimWorld.Planet;
-using System.Linq;
 using Verse;
 
 namespace VSEWW
@@ -9,7 +9,9 @@ namespace VSEWW
     {
         private int totalKill = 0;
 
-        public WorldComponent_KillCounter(World world) : base(world) { }
+        public WorldComponent_KillCounter(World world) : base(world)
+        {
+        }
 
         public override void ExposeData()
         {

@@ -6,7 +6,7 @@ namespace VSEWW
 {
     [HarmonyPatch(typeof(Plant))]
     [HarmonyPatch("GrowthRate", MethodType.Getter)]
-    public class Plant_GrowthRate_Patch
+    public class Plant_GrowthRate
     {
         [HarmonyPostfix]
         public static void Postfix(ref float __result)

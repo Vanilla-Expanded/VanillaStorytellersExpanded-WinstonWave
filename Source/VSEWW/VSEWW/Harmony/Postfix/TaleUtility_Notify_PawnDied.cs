@@ -6,10 +6,10 @@ namespace VSEWW
 {
     [HarmonyPatch(typeof(TaleUtility))]
     [HarmonyPatch("Notify_PawnDied", MethodType.Normal)]
-    public class TaleUtility_Notify_PawnDied_Postfix
+    public class TaleUtility_Notify_PawnDied
     {
         [HarmonyPostfix]
-        public static void Postfix(Pawn victim, DamageInfo? dinfo)
+        public static void Postfix(Pawn victim)
         {
             if (victim.IsColonist)
             {

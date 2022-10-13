@@ -1,7 +1,7 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -21,17 +21,23 @@ namespace VSEWW
         internal bool sosSpace;
 
         internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, VDefOf.ImmediateAttackSmart, VDefOf.StageThenAttack };
+
         // Stat hediff
         private int tickUntilStatCheck = 0;
+
         private List<Pawn> statPawns = new List<Pawn>();
         private static readonly int checkEachXTicks = 2000;
 
         public IntVec3 dropSpot = IntVec3.Invalid;
+
         // counter settings
         internal bool counterDraggable = true;
+
         internal Vector2 counterPos;
 
-        public MapComponent_Winston(Map map) : base(map) { }
+        public MapComponent_Winston(Map map) : base(map)
+        {
+        }
 
         public override void ExposeData()
         {
@@ -111,7 +117,9 @@ namespace VSEWW
                         waveCounter.WaveTip();
                     }
                     else if (waveCounter != null && Find.CurrentMap != map)
+                    {
                         RemoveCounter();
+                    }
                 }
                 else
                 {

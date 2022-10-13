@@ -1,7 +1,7 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using Verse;
 
 namespace VSEWW
@@ -150,7 +150,9 @@ namespace VSEWW
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
                     }
                     else
+                    {
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pr.pawnkind, Faction.OfPlayer));
+                    }
 
                     things.Add(p);
                 }
@@ -226,7 +228,9 @@ namespace VSEWW
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
                     }
                     else
+                    {
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnkind, Faction.OfPlayer));
+                    }
 
                     things.Add(p);
                 }

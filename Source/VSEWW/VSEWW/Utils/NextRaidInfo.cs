@@ -1,7 +1,7 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using Verse;
 using Verse.AI.Group;
 
@@ -12,34 +12,49 @@ namespace VSEWW
         // Raid infos
         // - Is always false at start - Set to true when lord isn't null
         public bool sent = false;
+
         private List<Lord> lords;
+
         // - When
         public int atTick;
+
         public int generatedAt;
         public int sentAt = 0;
+
         // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
+
         public int? modifierCount;
         public bool reinforcementSent = false;
+
         // - Raid parms
         public IncidentParms incidentParms;
+
         public int reinforcementSeed = -1;
+
         // - Raid pawns
         public List<Pawn> raidPawns = new List<Pawn>();
+
         // - Wave number
         public int waveNum;
+
         private int? waveType;
 
         // Utils for wave counter
         // - Wave prediction string && size
         public string kindList;
+
         public int kindListLines;
+
         // - Wave progress cached alive pawns
         private int cacheTick = 0;
+
         private List<Pawn> lordPawnsCache = new List<Pawn>();
         internal string cacheKindList;
+
         // - Number of pawns at the start
         public int totalPawn;
+
         // Mystery
         public List<ModifierDef> mysteryModifier;
 
@@ -154,6 +169,7 @@ namespace VSEWW
         }
 
         /** Get IRL time before this raid **/
+
         public string TimeBeforeWave()
         {
             if (VESWWMod.settings.useRimworldTime)
@@ -167,6 +183,7 @@ namespace VSEWW
         }
 
         /** Get all pawns part of the raid - with caching **/
+
         public List<Pawn> WavePawns()
         {
             var wasEmpty = lordPawnsCache.NullOrEmpty();
@@ -237,9 +254,11 @@ namespace VSEWW
         }
 
         /** Get pawns count left **/
+
         public int WavePawnsLeft() => WavePawns().Count;
 
         /** Get modifiers chance **/
+
         private int[] GetModifiersChance()
         {
             int modifierChance = 0;
@@ -263,6 +282,7 @@ namespace VSEWW
         }
 
         /** Choose and add modifier(s) **/
+
         public void ChooseAndApplyModifier()
         {
             var modifiersPool = GetModifiersPool();
@@ -279,7 +299,6 @@ namespace VSEWW
                     modifiersPool.Remove(modi);
                     modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modi));
                 }
-
 
                 if (modifiersChance[1] > 0 && modifiersChance[1] < rand.Next(0, 100) && modifiersPool.Count > 0)
                     modifiers.Add(modifiersPool.RandomElement());
@@ -308,6 +327,7 @@ namespace VSEWW
         }
 
         /** Apply modifier(s) **/
+
         public void ApplyModifiers(bool first = false)
         {
             foreach (var modifier in modifiers)
@@ -441,6 +461,7 @@ namespace VSEWW
         }
 
         /** CE Regenerate inventory method **/
+
         internal void RegenerateInventory(Pawn pawn, ThingDef newWeaponDef)
         {
             if (CEActive)
@@ -460,6 +481,7 @@ namespace VSEWW
         }
 
         /** Send non-pawn modifier **/
+
         public void SendAddditionalModifier()
         {
             foreach (var modifier in modifiers)
@@ -478,6 +500,7 @@ namespace VSEWW
         }
 
         /** Stop non-pawn modifier **/
+
         public void StopEvents()
         {
             foreach (var modifier in modifiers)
@@ -491,6 +514,7 @@ namespace VSEWW
         }
 
         /** Install part on pawn - copy of vanilla private method **/
+
         private void InstallPart(Pawn pawn, ThingDef partDef)
         {
             IEnumerable<RecipeDef> source = DefDatabase<RecipeDef>.AllDefs.Where(x => x.IsIngredient(partDef) && pawn.def.AllRecipes.Contains(x));
@@ -503,6 +527,7 @@ namespace VSEWW
         }
 
         /** Set pawns prediction string and count **/
+
         public void SetPawnsInfo()
         {
             if (raidPawns.NullOrEmpty())

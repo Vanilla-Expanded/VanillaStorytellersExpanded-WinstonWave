@@ -1,5 +1,5 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -9,29 +9,40 @@ namespace VSEWW
     {
         public string texPath;
         public RewardCategory category;
-        // Send reward of specific category : everything else will be ignored. 
+
+        // Send reward of specific category : everything else will be ignored.
         // We never send a random poor reward
         public RewardCategory sendRewardOf = RewardCategory.Poor;
+
         // Specific pawnkind
         public List<PawnReward> pawns;
+
         // Random pawns
         public List<RPawnReward> randomPawns;
+
         // Specific items
         public List<ItemReward> items;
+
         // Random items of categories
         public List<RItemReward> randomItems;
+
         // Send specific incident
         public IncidentDef incidentDef;
+
         // Skills boost
         public int boostSkillBy = 0;
+
         // Unlock X research projects
         public int unlockXResearch = 0;
+
         // Mass heal all colony pawns (colonists, slaves, prisonners, animals)
         public bool massHeal = false;
+
         // Modify waves
         public WaveModifier waveModifier;
 
         private Texture2D rewardIcon;
+
         public Texture2D RewardIcon
         {
             get
@@ -63,18 +74,23 @@ namespace VSEWW
                     case RewardCategory.Poor:
                         texPath = "UI/Rewards/RewardDefault_Poor";
                         break;
+
                     case RewardCategory.Normal:
                         texPath = "UI/Rewards/RewardDefault_Normal";
                         break;
+
                     case RewardCategory.Good:
                         texPath = "UI/Rewards/RewardDefault_Good";
                         break;
+
                     case RewardCategory.Excellent:
                         texPath = "UI/Rewards/RewardDefault_Excellent";
                         break;
+
                     case RewardCategory.Legendary:
                         texPath = "UI/Rewards/RewardDefault_Legendary";
                         break;
+
                     default:
                         break;
                 }

@@ -59,15 +59,15 @@
   <ItemGroup>
     <Compile Include="Comp\CompProperties\CompProperties_RegisterAsRewardDrop.cs" />
     <Compile Include="Comp\CompRegisterAsRewardDrop.cs" />
-    <Compile Include="Defs\Options.cs" />
+    <Compile Include="Defs\DefUtils.cs" />
     <Compile Include="Defs\ModifierDef.cs" />
-    <Compile Include="Harmony\GenGameEnd_EndGameDialogMessage_Patch.cs" />
+    <Compile Include="Harmony\Prefix\GenGameEnd_EndGameDialogMessage.cs" />
     <Compile Include="Harmony\HarmonyInit.cs" />
-    <Compile Include="Harmony\IncidentWorker_Raid_TryExecuteWorker_Patch.cs" />
-    <Compile Include="Harmony\IncidentWorker_Raid_TryGenerateRaidInfo_Patch.cs" />
-    <Compile Include="Harmony\Pawn_HealthScale_Patch.cs" />
-    <Compile Include="Harmony\Plant_GrowthRate_Patch.cs" />
-    <Compile Include="Harmony\TaleUtility_Notify_PawnDied_Postfix.cs" />
+    <Compile Include="Harmony\Prefix\IncidentWorker_Raid_TryExecuteWorker.cs" />
+    <Compile Include="Harmony\Prefix\IncidentWorker_Raid_TryGenerateRaidInfo.cs" />
+    <Compile Include="Harmony\Postfix\Pawn_HealthScale.cs" />
+    <Compile Include="Harmony\Postfix\Plant_GrowthRate.cs" />
+    <Compile Include="Harmony\Postfix\TaleUtility_Notify_PawnDied.cs" />
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
     <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="VDefOf.cs" />

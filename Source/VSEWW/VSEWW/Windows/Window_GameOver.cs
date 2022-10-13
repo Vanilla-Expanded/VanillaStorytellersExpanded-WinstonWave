@@ -1,6 +1,6 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Text;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -8,8 +8,8 @@ namespace VSEWW
 {
     internal class Window_GameOver : Window
     {
-        readonly string stats;
-        readonly float score;
+        private readonly string stats;
+        private readonly float score;
 
         private Texture2D winston;
 

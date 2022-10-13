@@ -1,6 +1,5 @@
-﻿using RimWorld;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.Sound;
@@ -10,7 +9,7 @@ namespace VSEWW
     [StaticConstructorOnStartup]
     public class OrbitalBombardement : GameCondition
     {
-        IntVec3 aroundThis = new IntVec3();
+        private IntVec3 aroundThis = new IntVec3();
 
         public override bool AllowEnjoyableOutsideNow(Map map) => false;
 

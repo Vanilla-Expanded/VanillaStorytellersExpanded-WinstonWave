@@ -1,13 +1,13 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using RimWorld;
-using System.Collections.Generic;
 using Verse;
 
 namespace VSEWW
 {
     [HarmonyPatch(typeof(IncidentWorker_Raid))]
     [HarmonyPatch("TryGenerateRaidInfo", MethodType.Normal)]
-    public class IncidentWorker_Raid_TryGenerateRaidInfo_Patch
+    public class IncidentWorker_Raid_TryGenerateRaidInfo
     {
         [HarmonyPrefix]
         public static bool Prefix(IncidentParms parms, out List<Pawn> pawns, ref IncidentWorker_Raid __instance, ref bool __result)

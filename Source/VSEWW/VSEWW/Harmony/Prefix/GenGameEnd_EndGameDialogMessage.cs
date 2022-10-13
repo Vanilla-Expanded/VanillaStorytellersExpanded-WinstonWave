@@ -1,6 +1,6 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using RimWorld;
-using System;
 using Verse;
 
 namespace VSEWW
@@ -8,7 +8,7 @@ namespace VSEWW
     [HarmonyPatch(typeof(GenGameEnd))]
     [HarmonyPatch("EndGameDialogMessage")]
     [HarmonyPatch(MethodType.Normal, new Type[] { typeof(string), typeof(bool) })]
-    public class GenGameEnd_EndGameDialogMessage_Patch
+    public class GenGameEnd_EndGameDialogMessage
     {
         [HarmonyPrefix]
         public static bool Prefix(string msg, bool allowKeepPlaying)
