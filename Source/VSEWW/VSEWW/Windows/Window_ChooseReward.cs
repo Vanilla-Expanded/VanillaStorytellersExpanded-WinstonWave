@@ -24,7 +24,7 @@ namespace VSEWW
         internal Window_ChooseReward(int waveNumber, float fourthRewardChance, Map map)
         {
             commonalities = RewardCommonalities.GetCommonalities(waveNumber);
-            if (LoadedModManager.RunningMods.Any(m => m.PackageId == "brrainz.nopausechallenge"))
+            if (Startup.NoPauseChallengeActive)
             {
                 forcePause = false;
                 preventSave = false;
