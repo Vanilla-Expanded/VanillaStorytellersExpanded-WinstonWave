@@ -77,7 +77,7 @@ namespace VSEWW
             {
                 if (Find.Storyteller.def.defName == "VSE_WinstonWave" && Find.Storyteller.difficultyDef != DifficultyDefOf.Peaceful)
                 {
-                    if (VESWWMod.settings.enableStatIncrease)
+                    if (WinstonMod.settings.enableStatIncrease)
                     {
                         if (tickUntilStatCheck <= 0)
                         {
@@ -89,7 +89,7 @@ namespace VSEWW
 
                     if (nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null)
                     {
-                        float inD = currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+                        float inD = currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
                         nextRaidInfo = currentWave % 5 == 0 ? SetNextBossRaidInfo(inD) : SetNextNormalRaidInfo(inD);
                     }
                     else
@@ -158,7 +158,7 @@ namespace VSEWW
                 IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
                 incidentParms.target = map;
                 incidentParms.faction = Find.FactionManager.RandomAlliedFaction();
-                incidentParms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, VESWWMod.settings.maxPoints);
+                incidentParms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, WinstonMod.settings.maxPoints);
 
                 IncidentDefOf.RaidFriendly.Worker.TryExecute(incidentParms);
                 nextRaidSendAllies = false;
@@ -207,8 +207,8 @@ namespace VSEWW
             };
             var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
                                                                                        && !normalStrategies.Contains(s)
-                                                                                       && (VESWWMod.settings.excludedStrategyDefs.NullOrEmpty()
-                                                                                           || !VESWWMod.settings.excludedStrategyDefs.Contains(s.defName)));
+                                                                                       && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty()
+                                                                                           || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
             nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
 
             nri.ChooseAndApplyModifier();
@@ -219,11 +219,11 @@ namespace VSEWW
 
         internal float GetNextWavePoint()
         {
-            if (currentPoints < VESWWMod.settings.maxPoints)
+            if (currentPoints < WinstonMod.settings.maxPoints)
             {
                 if (currentPoints <= 0) currentPoints = 100f;
-                else if (currentWave <= 20) currentPoints *= VESWWMod.settings.pointMultiplierBefore;
-                else currentPoints *= VESWWMod.settings.pointMultiplierAfter;
+                else if (currentWave <= 20) currentPoints *= WinstonMod.settings.pointMultiplierBefore;
+                else currentPoints *= WinstonMod.settings.pointMultiplierAfter;
 
                 // currentPoints *= Find.Storyteller.difficulty.threatScale;
             }
@@ -234,7 +234,7 @@ namespace VSEWW
             float point = currentPoints * nextRaidMultiplyPoints;
             nextRaidMultiplyPoints = 1f;
 
-            return Math.Min(point, VESWWMod.settings.maxPoints);
+            return Math.Min(point, WinstonMod.settings.maxPoints);
         }
 
         internal void RegisterDropSpot(IntVec3 spot) => dropSpot = spot;
@@ -271,7 +271,7 @@ namespace VSEWW
         internal Faction FindRandomEnnemy()
         {
             var from = Find.FactionManager.AllFactions.ToList().FindAll(f =>
-                            (VESWWMod.settings.excludedFactionDefs == null || !VESWWMod.settings.excludedFactionDefs.Contains(f.def.defName))
+                            (WinstonMod.settings.excludedFactionDefs == null || !WinstonMod.settings.excludedFactionDefs.Contains(f.def.defName))
                             && !f.temporary
                             && !f.defeated
                             && f.HostileTo(Faction.OfPlayer)

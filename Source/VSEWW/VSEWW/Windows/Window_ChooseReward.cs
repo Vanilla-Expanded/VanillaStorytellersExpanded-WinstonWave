@@ -66,7 +66,7 @@ namespace VSEWW
                     lastMaxX = r.xMax;
                 }
             }
-            else if (!VESWWMod.settings.randomRewardMod)
+            else if (!WinstonMod.settings.randomRewardMod)
             {
                 if (new System.Random().NextDouble() < fourthRewardChance)
                     rewardNumber++;
@@ -91,7 +91,7 @@ namespace VSEWW
         {
             base.PostClose();
             mapComp.nextRaidInfo.StopEvents();
-            if (VESWWMod.settings.randomRewardMod)
+            if (WinstonMod.settings.randomRewardMod)
             {
                 Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
             }
@@ -100,9 +100,9 @@ namespace VSEWW
             var delay = choosenReward.waveModifier != null ? choosenReward.waveModifier.delayBy : 0f;
 
             if (++mapComp.currentWave % 5 == 0)
-                mapComp.nextRaidInfo = mapComp.SetNextBossRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+                mapComp.nextRaidInfo = mapComp.SetNextBossRaidInfo(WinstonMod.settings.timeBetweenWaves + delay);
             else
-                mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(VESWWMod.settings.timeBetweenWaves + delay);
+                mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(WinstonMod.settings.timeBetweenWaves + delay);
 
             mapComp.waveCounter?.UpdateHeight();
             mapComp.waveCounter?.WaveTip();

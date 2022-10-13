@@ -73,13 +73,13 @@ namespace VSEWW
         public void UpdateHeight()
         {
             windowRect.height = 35f + 190f;
-            if (VESWWMod.settings.showPawnList)
+            if (WinstonMod.settings.showPawnList)
                 windowRect.height += mcw.nextRaidInfo.kindListLines * 16f;
         }
 
         public override void DoWindowContents(Rect inRect)
         {
-            if (VESWWMod.settings.drawBackground)
+            if (WinstonMod.settings.drawBackground)
             {
                 Color c = new Color
                 {
@@ -117,7 +117,7 @@ namespace VSEWW
                 };
                 mRect.y += 5;
                 GUI.DrawTexture(mRect, Textures.ModifierBGTex);
-                if (VESWWMod.settings.mysteryMod)
+                if (WinstonMod.settings.mysteryMod)
                     VDefOf.VSEWW_Mystery.DrawCard(mRect);
                 else
                     mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
@@ -182,7 +182,7 @@ namespace VSEWW
             Widgets.Label(timeRect, mcw.nextRaidInfo.TimeBeforeWave());
             Text.Font = GameFont.Tiny;
             float max = timeRect.yMax;
-            if (VESWWMod.settings.showPawnList)
+            if (WinstonMod.settings.showPawnList)
             {
                 // Faction
                 Rect factionIconRect = new Rect(rect)
@@ -226,7 +226,7 @@ namespace VSEWW
                 mcw.ExecuteRaid(Find.TickManager.TicksGame);
             }
             TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
-            if (!VESWWMod.settings.hideToggleDraggable)
+            if (!WinstonMod.settings.hideToggleDraggable)
             {
                 // lock button
                 Rect lockRect = new Rect(rect)

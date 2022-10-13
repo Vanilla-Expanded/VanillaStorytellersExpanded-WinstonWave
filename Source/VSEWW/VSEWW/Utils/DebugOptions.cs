@@ -92,7 +92,7 @@ namespace VSEWW
         public static void ResetWave()
         {
             var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-            float inD = mapComp.currentWave > 1 ? VESWWMod.settings.timeBetweenWaves : VESWWMod.settings.timeBeforeFirstWave;
+            float inD = mapComp.currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
             mapComp.nextRaidInfo = mapComp.currentWave % 5 == 0 ? mapComp.SetNextBossRaidInfo(inD) : mapComp.SetNextNormalRaidInfo(inD);
         }
 
@@ -103,7 +103,7 @@ namespace VSEWW
 
             mapComp.currentWave = 1;
             mapComp.currentPoints = 1;
-            mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(VESWWMod.settings.timeBeforeFirstWave);
+            mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(WinstonMod.settings.timeBeforeFirstWave);
         }
     }
 }

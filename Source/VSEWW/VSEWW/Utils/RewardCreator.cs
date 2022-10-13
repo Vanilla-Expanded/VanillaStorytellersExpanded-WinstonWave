@@ -97,7 +97,7 @@ namespace VSEWW
                         map = Find.CurrentMap;
 
                     IntVec3 intVec3 = winston.dropSpot != IntVec3.Invalid ? winston.dropSpot : DropCellFinder.TryFindSafeLandingSpotCloseToColony(map, ThingDefOf.DropPodIncoming.Size, map.ParentFaction);
-                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: VESWWMod.settings.dropSlagChunk, canRoofPunch: false, forbid: false);
+                    DropPodUtility.DropThingsNear(intVec3, map, thingList, leaveSlag: WinstonMod.settings.dropSlagChunk, canRoofPunch: false, forbid: false);
                 }
             }
         }

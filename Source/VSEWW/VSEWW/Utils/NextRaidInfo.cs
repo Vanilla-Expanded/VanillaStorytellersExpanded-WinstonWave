@@ -172,7 +172,7 @@ namespace VSEWW
 
         public string TimeBeforeWave()
         {
-            if (VESWWMod.settings.useRimworldTime)
+            if (WinstonMod.settings.useRimworldTime)
             {
                 return (atTick - Find.TickManager.TicksGame).ToStringTicksToPeriod();
             }
@@ -309,8 +309,8 @@ namespace VSEWW
 
         public List<ModifierDef> GetModifiersPool()
         {
-            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !VESWWMod.settings.modifierDefs.Contains(m.defName));
-            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > VESWWMod.settings.maxPoints);
+            var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !WinstonMod.settings.modifierDefs.Contains(m.defName));
+            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > WinstonMod.settings.maxPoints);
 
             if (!incidentParms.faction.def.humanlikeFaction)
             {
