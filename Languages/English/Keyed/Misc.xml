@@ -39,6 +39,11 @@
   <VESWW.Reinforcement>Reinforcement!</VESWW.Reinforcement>
   <VESWW.Score>Final score: {0}</VESWW.Score>
   <VESWW.Locked>Draggable:</VESWW.Locked>
+  <VESWW.Poor>Poor</VESWW.Poor>
+  <VESWW.Normal>Normal</VESWW.Normal>
+  <VESWW.Good>Good</VESWW.Good>
+  <VESWW.Excellent>Excellent</VESWW.Excellent>
+  <VESWW.Legendary>Legendary</VESWW.Legendary>
   <!-- Settings -->
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>

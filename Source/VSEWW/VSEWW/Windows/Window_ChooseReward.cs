@@ -62,7 +62,7 @@ namespace VSEWW
                 {
                     Rect r = new Rect(lastMaxX + (i > 0 ? margin : 0), 0, width, inRect.height).Rounded();
                     Widgets.DrawWindowBackground(r);
-                    rewards.ElementAt(i).DrawCard(r, this, Find.CurrentMap);
+                    rewards.ElementAt(i).DrawCard(r, this);
                     lastMaxX = r.xMax;
                 }
             }

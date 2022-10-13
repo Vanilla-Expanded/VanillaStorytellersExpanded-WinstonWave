@@ -59,6 +59,26 @@ namespace VSEWW
             }
         }
 
+        public string Category
+        {
+            get
+            {
+                switch (category)
+                {
+                    case RewardCategory.Normal:
+                        return "VESWW.Normal".Translate();
+                    case RewardCategory.Good:
+                        return "VESWW.Good".Translate();
+                    case RewardCategory.Excellent:
+                        return "VESWW.Excellent".Translate();
+                    case RewardCategory.Legendary:
+                        return "VESWW.Legendary".Translate();
+                    default:
+                        return "VESWW.Poor".Translate();
+                }
+            }
+        }
+
         public override IEnumerable<string> ConfigErrors()
         {
             foreach (string str in base.ConfigErrors())
@@ -97,7 +117,7 @@ namespace VSEWW
             }
         }
 
-        public void DrawCard(Rect rect, Window_ChooseReward window, Map map)
+        public void DrawCard(Rect rect, Window_ChooseReward window)
         {
             Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
             GUI.DrawTexture(iconRect.ContractedBy(20), RewardIcon);
@@ -111,7 +131,7 @@ namespace VSEWW
 
             Text.Font = GameFont.Tiny;
             Rect catRect = new Rect(rect.x, labelRect.yMax + 10, rect.width, 20);
-            Widgets.Label(catRect, "VESWW.Reward".Translate(category.ToString()));
+            Widgets.Label(catRect, "VESWW.Reward".Translate(Category));
 
             Rect descRect = new Rect(rect.x, catRect.yMax + 5, rect.width, 70);
             Widgets.Label(descRect.ContractedBy(5), description);
