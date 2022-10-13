@@ -9,69 +9,36 @@ namespace VSEWW
 {
     internal class NextRaidInfo : IExposable
     {
-        // Raid infos
-        // - Is always false at start - Set to true when lord isn't null
         public bool sent = false;
         public Map map;
+
         private List<Lord> lords;
 
-        // - When
         public int atTick;
-
         public int generatedAt;
         public int sentAt = 0;
 
-        // - All modifiers applied to the raid
         public List<ModifierDef> modifiers = new List<ModifierDef>();
-
-        public int? modifierCount;
+        public bool modifiersPreventFlee = false;
         public bool reinforcementSent = false;
+        public int modifierCount;
 
-        // - Raid parms
+        public List<Pawn> raidPawns = new List<Pawn>();
         public IncidentParms incidentParms;
-
         public int reinforcementSeed = -1;
 
-        // - Raid pawns
-        public List<Pawn> raidPawns = new List<Pawn>();
-
-        // - Wave number
         public int waveNum;
-
-        private int? waveType;
-
-        // Utils for wave counter
-        // - Wave prediction string && size
-        public string kindList;
+        public int waveType;
 
         public int kindListLines;
-
-        // - Wave progress cached alive pawns
-        private int cacheTick = 0;
+        public string kindList;
 
         private List<Pawn> lordPawnsCache = new List<Pawn>();
         internal string cacheKindList;
+        private int cacheTick = 0;
+        public int totalPawns;
 
-        // - Number of pawns at the start
-        public int totalPawn;
-
-        // Mystery
         public List<ModifierDef> mysteryModifier;
-
-        // CE Loaded?
-        public bool? ceActive = null;
-
-        public bool CEActive
-        {
-            get
-            {
-                if (ceActive.HasValue)
-                    return ceActive.Value;
-
-                ceActive = ModsConfig.IsActive("CETeam.CombatExtended");
-                return ceActive.Value;
-            }
-        }
 
         public List<Lord> Lords
         {
@@ -80,42 +47,13 @@ namespace VSEWW
                 if (!lords.NullOrEmpty())
                     return lords;
 
-                Map map = (Map)incidentParms.target;
-                if (map.lordManager != null && !map.lordManager.lords.NullOrEmpty())
-                {
-                    lords = map.lordManager.lords.FindAll(l => l.faction != null && l.faction == incidentParms.faction && !l.ownedPawns.NullOrEmpty() && l.AnyActivePawn);
-                }
-                return lords ?? null;
+                lords = map.lordManager?.lords?.FindAll(l => l.faction == incidentParms.faction && l.AnyActivePawn);
+
+                return lords;
             }
         }
 
-        public int WaveType
-        {
-            get
-            {
-                if (waveType != null)
-                    return waveType.Value;
-
-                waveType = waveNum % 5 == 0 ? 1 : 0;
-
-                return waveType.Value;
-            }
-        }
-
-        public int ModifierCount
-        {
-            get
-            {
-                if (modifierCount != null)
-                    return modifierCount.Value;
-
-                modifierCount = modifiers.Count;
-
-                return modifierCount.Value;
-            }
-        }
-
-        public bool Reinforcements => !reinforcementSent ? modifiers.Any(m => m.defName == "VSEWW_Reinforcements") : false;
+        public bool Reinforcements => !reinforcementSent && modifiers.Any(m => m.defName == "VSEWW_Reinforcements");
 
         public float FourthRewardChance
         {
@@ -158,17 +96,19 @@ namespace VSEWW
             Scribe_Values.Look(ref sent, "sent");
             Scribe_Values.Look(ref atTick, "atTick");
             Scribe_Values.Look(ref sentAt, "sentAt");
-            Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
-            Scribe_Deep.Look(ref incidentParms, "incidentParms");
             Scribe_Values.Look(ref waveNum, "waveNum");
             Scribe_Values.Look(ref kindList, "kindList");
             Scribe_Values.Look(ref kindListLines, "kindListLines");
             Scribe_Values.Look(ref cacheTick, "cacheTick");
             Scribe_Values.Look(ref cacheKindList, "cacheKindList");
-            Scribe_Values.Look(ref totalPawn, "totalPawn");
-            Scribe_Values.Look(ref totalPawn, "totalPawn");
+            Scribe_Values.Look(ref totalPawns, "totalPawn");
+            Scribe_Values.Look(ref totalPawns, "totalPawn");
             Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
+
+            Scribe_Deep.Look(ref incidentParms, "incidentParms");
+
+            Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Collections.Look(ref lords, "lords", LookMode.Reference);
             Scribe_Collections.Look(ref mysteryModifier, "mysteryModifier", LookMode.Def);
 
@@ -176,8 +116,9 @@ namespace VSEWW
                 Scribe_Collections.Look(ref raidPawns, "raidPawns", LookMode.Deep); // Deep save them
         }
 
-        /** Get IRL time before this raid **/
-
+        /// <summary>
+        /// Get time before this raid (IRL or rimworld)
+        /// </summary>
         public string TimeBeforeWave()
         {
             if (WinstonMod.settings.useRimworldTime)
@@ -190,70 +131,76 @@ namespace VSEWW
             }
         }
 
-        /** Get all pawns part of the raid - with caching **/
-
+        /// <summary>
+        /// Get all pawns part of the raid - with caching
+        /// </summary>
         public List<Pawn> WavePawns()
         {
-            var wasEmpty = lordPawnsCache.NullOrEmpty();
-            if (wasEmpty || cacheTick % 600 == 0)
+            if (lordPawnsCache.NullOrEmpty() || cacheTick % 600 == 0)
             {
-                string kindLabel = "VESWW.EnemiesR".Translate() + "\n";
+                string desc = "VESWW.EnemiesR".Translate() + "\n";
+
                 lordPawnsCache = new List<Pawn>();
+                // Get all pawns in lord(s) & pawns kinds
+                var lords = Lords;
+                var toDefeat = new Dictionary<PawnKindDef, int>();
 
-                if (lords.NullOrEmpty())
-                    lords = Lords;
-
-                for (int i = 0; i < lords.Count; i++)
+                for (int l = 0; l < lords.Count; l++)
                 {
-                    var lord = lords[i];
-                    if (lord != null && !lord.ownedPawns.NullOrEmpty())
+                    var lord = lords[l];
+                    if (lord != null && lord.AnyActivePawn)
                     {
-                        for (int o = 0; o < lord.ownedPawns.Count; o++)
+                        // Foreach pawn in lord
+                        for (int p = 0; p < lord.ownedPawns.Count; p++)
                         {
-                            var pawn = lord.ownedPawns[o];
+                            var pawn = lord.ownedPawns[p];
+                            // If not downed and not in mental state
                             if (pawn != null && !pawn.Downed && !pawn.mindState.mentalStateHandler.InMentalState)
+                            {
+                                // Count it
                                 lordPawnsCache.Add(pawn);
+                                // Get it's kind
+                                if (toDefeat.ContainsKey(pawn.kindDef))
+                                    toDefeat[pawn.kindDef]++;
+                                else
+                                    toDefeat.Add(pawn.kindDef, 1);
+                            }
                         }
                     }
                 }
 
-                Dictionary<PawnKindDef, int> toDefeat = new Dictionary<PawnKindDef, int>();
-                for (int i = 0; i < lordPawnsCache.Count; i++)
-                {
-                    var pawn = lordPawnsCache[i];
-                    if (toDefeat.ContainsKey(pawn.kindDef))
-                        toDefeat[pawn.kindDef]++;
-                    else
-                        toDefeat.Add(pawn.kindDef, 1);
-                }
-
+                // Add kinds and kinds count to string
                 for (int i = 0; i < toDefeat.Count; i++)
                 {
                     var pair = toDefeat.ElementAt(i);
-                    kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
+                    desc += $"{pair.Value} {pair.Key.LabelCap}\n";
                 }
-                cacheKindList = kindLabel.TrimEndNewlines();
-
-                if (wasEmpty)
-                    totalPawn = lordPawnsCache.Count;
-
-                if (Reinforcements && lordPawnsCache.Count <= (int)(totalPawn * 0.8f))
+                cacheKindList = desc.TrimEndNewlines();
+                // Recount
+                totalPawns = lordPawnsCache.Count;
+                // Send reinforcement if needed
+                if (Reinforcements && totalPawns <= (int)(totalPawns * 0.8f))
                 {
                     reinforcementSent = true;
                     ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
+                    // Create parms
                     var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, incidentParms.target);
                     parms.faction = incidentParms.faction;
                     parms.points = Math.Max(100f, incidentParms.points * 0.5f);
-                    parms.pawnGroupMakerSeed = new Random().Next(1, 10000);
+                    parms.pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000);
                     parms.customLetterLabel = "VESWW.Reinforcement".Translate();
+                    // Set seed
                     reinforcementSeed = parms.pawnGroupMakerSeed.Value;
+                    // Execute
                     IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
                 }
-
-                if (modifiers.Any(m => !m.everRetreat) && lords.Any(l => l.Graph.transitions.Any(t => t.target is LordToil_PanicFlee)))
+                // Remove flee toil if any modifier have everRetreat to false
+                if (modifiersPreventFlee)
                 {
-                    foreach (var l in lords)
-                        l.Graph.transitions.RemoveAll(t => t.target is LordToil_PanicFlee);
+                    for (int l = 0; l < lords.Count; l++)
+                    {
+                        lords[l].Graph.transitions.RemoveAll(t => t.target is LordToil_PanicFlee);
+                    }
                 }
             }
 
@@ -261,17 +208,19 @@ namespace VSEWW
             return lordPawnsCache;
         }
 
-        /** Get pawns count left **/
-
+        /// <summary>
+        /// Get pawns count left
+        /// </summary>
         public int WavePawnsLeft() => WavePawns().Count;
 
-        /** Get modifiers chance **/
-
+        /// <summary>
+        /// Get modifiers chance
+        /// </summary>
         private int[] GetModifiersChance()
         {
             int modifierChance = 0;
 
-            if (WaveType == 1) modifierChance += 10;
+            if (waveType == 1) modifierChance += 10;
 
             if (waveNum > 10)
             {
@@ -289,8 +238,9 @@ namespace VSEWW
             return new int[] { modifierChance, 0 };
         }
 
-        /** Choose and add modifier(s) **/
-
+        /// <summary>
+        /// Choose and add modifier(s)
+        /// </summary>
         public void ChooseAndApplyModifier()
         {
             var modifiersPool = GetModifiersPool();
@@ -304,17 +254,26 @@ namespace VSEWW
                 {
                     var modi = modifiersPool.RandomElement();
                     modifiers.Add(modi);
+                    modifierCount++;
                     modifiersPool.Remove(modi);
                     modifiersPool.RemoveAll(m => m.incompatibleWith.Contains(modi));
                 }
 
                 if (modifiersChance[1] > 0 && modifiersChance[1] < rand.Next(0, 100) && modifiersPool.Count > 0)
+                {
                     modifiers.Add(modifiersPool.RandomElement());
+                    modifierCount++;
+                }
 
                 ApplyModifiers(true);
             }
+
+            modifiersPreventFlee = modifiers.Any(m => !m.everRetreat);
         }
 
+        /// <summary>
+        /// Get all usable modifiers
+        /// </summary>
         public List<ModifierDef> GetModifiersPool()
         {
             var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !WinstonMod.settings.modifierDefs.Contains(m.defName));
@@ -334,8 +293,9 @@ namespace VSEWW
             return modifiersPool;
         }
 
-        /** Apply modifier(s) **/
-
+        /// <summary>
+        /// Apply all modifiers. Call ApplyModifier
+        /// </summary>
         public void ApplyModifiers(bool first = false)
         {
             foreach (var modifier in modifiers)
@@ -363,6 +323,9 @@ namespace VSEWW
             }
         }
 
+        /// <summary>
+        /// Apply single modifier
+        /// </summary>
         public void ApplyModifier(ModifierDef modifier, bool first = false)
         {
             if (first)
@@ -468,11 +431,12 @@ namespace VSEWW
             }
         }
 
-        /** CE Regenerate inventory method **/
-
+        /// <summary>
+        /// CE Regenerate inventory method
+        /// </summary>
         internal void RegenerateInventory(Pawn pawn, ThingDef newWeaponDef)
         {
-            if (CEActive)
+            if (Startup.CEActive)
             {
                 pawn.inventory.DestroyAll();
                 PawnInventoryGenerator.GenerateInventoryFor(pawn, new PawnGenerationRequest(pawn.kindDef));
@@ -488,9 +452,10 @@ namespace VSEWW
             }
         }
 
-        /** Send non-pawn modifier **/
-
-        public void SendAddditionalModifier()
+        /// <summary>
+        /// Send incidents modifiers
+        /// </summary>
+        public void SendIncidentModifiers()
         {
             foreach (var modifier in modifiers)
             {
@@ -500,29 +465,41 @@ namespace VSEWW
                     {
                         Find.Storyteller.incidentQueue.Add(i, Find.TickManager.TicksGame, new IncidentParms()
                         {
-                            target = incidentParms.target
+                            target = map
                         });
                     });
                 }
             }
         }
 
-        /** Stop non-pawn modifier **/
-
-        public void StopEvents()
+        /// <summary>
+        /// Stop incidents modifiers
+        /// </summary>
+        public void StopIncidentModifiers()
         {
-            foreach (var modifier in modifiers)
+            var incidents = new List<IncidentDef>();
+            for (int m = 0; m < modifierCount; m++)
             {
-                if (!modifier.incidents.NullOrEmpty())
+                if (modifiers[m].incidents is List<IncidentDef> _incidents)
+                    incidents.AddRange(_incidents);
+            }
+
+            for (int i = 0; i < incidents.Count; i++)
+            {
+                var incident = incidents[i];
+                var conditions = map.GameConditionManager.ActiveConditions;
+                for (int c = 0; c < conditions.Count; c++)
                 {
-                    Map map = (Map)incidentParms.target;
-                    map.GameConditionManager.ActiveConditions.FindAll(g => modifier.incidents.Any(i => i.gameCondition != null && i.gameCondition == g.def)).ForEach(c => c.End());
+                    var condition = conditions[c];
+                    if (incident.gameCondition == condition.def)
+                        condition.End();
                 }
             }
         }
 
-        /** Install part on pawn - copy of vanilla private method **/
-
+        /// <summary>
+        /// Install part on pawn - copy of vanilla private method
+        /// </summary>
         private void InstallPart(Pawn pawn, ThingDef partDef)
         {
             IEnumerable<RecipeDef> source = DefDatabase<RecipeDef>.AllDefs.Where(x => x.IsIngredient(partDef) && pawn.def.AllRecipes.Contains(x));
@@ -534,8 +511,9 @@ namespace VSEWW
             recipe.Worker.ApplyOnPawn(pawn, recipe.Worker.GetPartsToApplyOn(pawn, recipe).RandomElement(), null, new List<Thing>(), null);
         }
 
-        /** Set pawns prediction string and count **/
-
+        /// <summary>
+        /// Set pawns prediction string and count
+        /// </summary>
         public void SetPawnsInfo()
         {
             if (raidPawns.NullOrEmpty())
@@ -553,9 +531,9 @@ namespace VSEWW
                     tempDic[pawn.kindDef] = 1;
                 }
             }
-            totalPawn = tempDic.Sum(k => k.Value);
+            totalPawns = tempDic.Sum(k => k.Value);
 
-            string kindLabel = "VESWW.EnemiesC".Translate(totalPawn) + "\n";
+            string kindLabel = "VESWW.EnemiesC".Translate(totalPawns) + "\n";
             kindListLines++;
             foreach (var pair in tempDic)
             {

@@ -109,7 +109,7 @@ namespace VSEWW
                     {
                         // Prepare next wave
                         currentWave++;
-                        nextRaidInfo.StopEvents();
+                        nextRaidInfo.StopIncidentModifiers();
                         nextRaidInfo = GetNextRaid(ticksGame);
                         waveCounter?.UpdateHeight();
                         waveCounter?.WaveTip();
@@ -238,7 +238,8 @@ namespace VSEWW
                 },
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
-                waveNum = currentWave
+                waveNum = currentWave,
+                waveType = currentWave % 5 == 0 ? 1 : 0
             };
             var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
                                                                                        && !normalStrategies.Contains(s)
@@ -268,7 +269,8 @@ namespace VSEWW
                 },
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
-                waveNum = currentWave
+                waveNum = currentWave,
+                waveType = currentWave % 5 == 0 ? 1 : 0
             };
             nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
 
@@ -289,7 +291,7 @@ namespace VSEWW
             // Queue raid event
             Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
             // Manage nextRaidInfo
-            nextRaidInfo.SendAddditionalModifier();
+            nextRaidInfo.SendIncidentModifiers();
             nextRaidInfo.sentAt = tick;
             nextRaidInfo.sent = true;
             nextRaidInfo.map = map;

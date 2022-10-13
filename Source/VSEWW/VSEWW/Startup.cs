@@ -18,9 +18,13 @@ namespace VSEWW
 
         internal static FieldInfo weatherDecider_ticksWhenRainAllowedAgain;
 
+        internal static bool CEActive = false;
+
         static Startup()
         {
             weatherDecider_ticksWhenRainAllowedAgain = typeof(WeatherDecider).GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            CEActive = ModsConfig.IsActive("CETeam.CombatExtended");
         }
     }
 }

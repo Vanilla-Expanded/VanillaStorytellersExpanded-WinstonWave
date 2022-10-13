@@ -107,7 +107,7 @@ namespace VSEWW
             // Modifiers and wave rect
             float mWidth = rect.height - 10;
             int i;
-            for (i = 1; i <= mcw.nextRaidInfo.ModifierCount; i++)
+            for (i = 1; i <= mcw.nextRaidInfo.modifierCount; i++)
             {
                 Rect mRect = new Rect(rect)
                 {
@@ -129,7 +129,7 @@ namespace VSEWW
                 width = mWidth + 10,
             };
             GUI.DrawTexture(wRect, Startup.WaveBGTex);
-            Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.WaveType == 0 ? Startup.NormalTex : Startup.BossTex, 0.8f);
+            Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.waveType == 0 ? Startup.NormalTex : Startup.BossTex, 0.8f);
             TooltipHandler.TipRegion(wRect, waveTip);
             // Wave number
             Rect waveNumRect = new Rect(rect)
@@ -146,7 +146,7 @@ namespace VSEWW
 
         public void WaveTip()
         {
-            string title = mcw.nextRaidInfo.WaveType == 0 ? "VESWW.NormalWave".Translate() : "VESWW.BossWave".Translate();
+            string title = mcw.nextRaidInfo.waveType == 0 ? "VESWW.NormalWave".Translate() : "VESWW.BossWave".Translate();
             string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.incidentParms.points);
             string rewardChance = "";
 
@@ -261,8 +261,8 @@ namespace VSEWW
 
             if (mcw.nextRaidInfo.Lords != null)
             {
-                int pKill = mcw.nextRaidInfo.totalPawn - mcw.nextRaidInfo.WavePawnsLeft();
-                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawn}", (float)pKill / mcw.nextRaidInfo.totalPawn);
+                int pKill = mcw.nextRaidInfo.totalPawns - mcw.nextRaidInfo.totalPawns;
+                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawns}", (float)pKill / mcw.nextRaidInfo.totalPawns);
                 // Faction
                 Rect factionIconRect = new Rect(rect)
                 {

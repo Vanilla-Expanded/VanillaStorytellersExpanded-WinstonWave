@@ -78,7 +78,6 @@ namespace VSEWW
                     {
                         c.nextRaidInfo.modifiers.Add(m);
                         c.nextRaidInfo.ApplyModifiers();
-                        c.nextRaidInfo.modifierCount = null;
                     }
                     else
                     {
