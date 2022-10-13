@@ -11,7 +11,7 @@ namespace VSEWW
         [HarmonyPostfix]
         public static void Postfix(ref float __result)
         {
-            if (Find.Storyteller.def.defName == "VSE_WinstonWave")
+            if (WinstonMod.settings.enableStatIncrease && Find.Storyteller.def.defName == "VSE_WinstonWave")
                 __result *= 1.75f;
         }
     }
