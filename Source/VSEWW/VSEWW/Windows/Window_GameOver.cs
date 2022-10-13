@@ -41,9 +41,9 @@ namespace VSEWW
             var winston = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             var counter = Find.World.GetComponent<WorldComponent_KillCounter>();
             sB.AppendLine("VESWW.SurvivedX".Translate(winston.currentWave - 1));
-            score = ((winston.currentWave * 100) + (counter.GetTotal() * 5) - (Find.StoryWatcher.statsRecord.colonistsKilled * 50)) * Find.Storyteller.difficultyDef.threatScale;
+            score = ((winston.currentWave * 100) + (counter.totalKill * 5) - (Find.StoryWatcher.statsRecord.colonistsKilled * 50)) * Find.Storyteller.difficultyDef.threatScale;
             sB.AppendLine("VESWW.SurvivedDaysX".Translate(Find.TickManager.TicksGame.TicksToDays()));
-            sB.AppendLine("VESWW.TotalKill".Translate(counter.GetTotal()));
+            sB.AppendLine("VESWW.TotalKill".Translate(counter.totalKill));
             sB.AppendLine();
 
             sB.AppendLine("Playtime".Translate() + ": " + timeSpan.Days + "LetterDay".Translate() + " " + timeSpan.Hours + "LetterHour".Translate() + " " + timeSpan.Minutes + "LetterMinute".Translate() + " " + timeSpan.Seconds + "LetterSecond".Translate());

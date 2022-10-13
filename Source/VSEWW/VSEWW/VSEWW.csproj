@@ -67,7 +67,7 @@
     <Compile Include="Harmony\Prefix\IncidentWorker_Raid_TryGenerateRaidInfo.cs" />
     <Compile Include="Harmony\Postfix\Pawn_HealthScale.cs" />
     <Compile Include="Harmony\Postfix\Plant_GrowthRate.cs" />
-    <Compile Include="Harmony\Postfix\TaleUtility_Notify_PawnDied.cs" />
+    <Compile Include="Harmony\Postfix\RecordsUtility_Notify_PawnKilled.cs" />
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
     <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="Settings\WinstonMod.cs" />
