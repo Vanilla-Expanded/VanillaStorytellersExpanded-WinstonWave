@@ -50,7 +50,7 @@ namespace VSEWW
             Props.sound.PlayOneShot(SoundInfo.InMap(Pawn));
             Pawn.equipment.DestroyAllEquipment();
             Pawn.apparel.DestroyAll();
-            // Pawn.health.RemoveAllHediffs();
+
             var toRemove = Pawn.health.hediffSet.hediffs.FindAll(h => !h.def.tendable).ToList();
             for (int i = 0; i < toRemove.Count; i++)
             {

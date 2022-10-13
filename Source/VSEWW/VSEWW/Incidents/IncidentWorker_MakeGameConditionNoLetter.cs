@@ -7,10 +7,8 @@ namespace VSEWW
     {
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
-            GameConditionManager conditionManager = parms.target.GameConditionManager;
-            GameCondition gameCondition = GameConditionMaker.MakeCondition(def.gameCondition, Mathf.RoundToInt(def.durationDays.RandomInRange * 60000f));
-
-            conditionManager.RegisterCondition(gameCondition);
+            var gameCondition = GameConditionMaker.MakeCondition(def.gameCondition, Mathf.RoundToInt(def.durationDays.RandomInRange * 60000f));
+            parms.target.GameConditionManager.RegisterCondition(gameCondition);
             return true;
         }
     }
