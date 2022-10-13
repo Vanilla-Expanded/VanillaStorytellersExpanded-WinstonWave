@@ -31,30 +31,34 @@ namespace VSEWW
 
         public override void Notify_PawnKilled()
         {
-            if (!Pawn.Spawned)
+            Pawn pawn = Pawn;
+
+            if (!pawn.Spawned)
                 return;
+
             if (Props.fleck != null)
             {
-                Vector3 drawPos = Pawn.DrawPos;
+                Vector3 drawPos = pawn.DrawPos;
                 for (int index = 0; index < Props.moteCount; ++index)
                 {
                     Vector2 vector2 = Rand.InsideUnitCircle * Props.moteOffsetRange.RandomInRange * Rand.Sign;
                     Vector3 loc = new Vector3(drawPos.x + vector2.x, drawPos.y, drawPos.z + vector2.y);
-                    FleckMaker.Static(loc, Pawn.Map, Props.fleck);
+                    FleckMaker.Static(loc, pawn.Map, Props.fleck);
                 }
             }
-            if (Props.filth != null)
-                FilthMaker.TryMakeFilth(Pawn.Position, Pawn.Map, Props.filth, Props.filthCount);
-            if (Props.sound == null)
-                return;
-            Props.sound.PlayOneShot(SoundInfo.InMap(Pawn));
-            Pawn.equipment.DestroyAllEquipment();
-            Pawn.apparel.DestroyAll();
 
-            var toRemove = Pawn.health.hediffSet.hediffs.FindAll(h => !h.def.tendable).ToList();
+            if (Props.filth != null)
+                FilthMaker.TryMakeFilth(pawn.Position, pawn.Map, Props.filth, Props.filthCount);
+
+            Props.sound?.PlayOneShot(SoundInfo.InMap(pawn));
+
+            pawn.equipment.DestroyAllEquipment();
+            pawn.apparel.DestroyAll();
+
+            var toRemove = pawn.health.hediffSet.hediffs.FindAll(h => !h.def.tendable).ToList();
             for (int i = 0; i < toRemove.Count; i++)
             {
-                Pawn.health.RemoveHediff(toRemove[i]);
+                pawn.health.RemoveHediff(toRemove[i]);
             }
         }
     }
