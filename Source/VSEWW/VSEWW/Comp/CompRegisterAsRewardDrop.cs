@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System.Linq;
 using Verse;
 
 namespace VSEWW
@@ -11,12 +10,14 @@ namespace VSEWW
             base.PostSpawnSetup(respawningAfterLoad);
             var dropSpots = parent.Map.listerBuildings.AllBuildingsColonistOfDef(parent.def);
 
-            if (dropSpots.Count() > 0)
+            foreach (var spot in dropSpots)
             {
-                Messages.Message("VESWW.RemoveOldDropSpot".Translate(), MessageTypeDefOf.NeutralEvent, false);
-                dropSpots.ElementAt(0).DeSpawn();
+                if (spot != parent)
+                {
+                    Messages.Message("VESWW.RemoveOldDropSpot".Translate(), MessageTypeDefOf.NeutralEvent, false);
+                    spot.DeSpawn();
+                }
             }
-
 
             parent.Map.GetComponent<MapComponent_Winston>()?.RegisterDropSpot(parent.Position);
         }
