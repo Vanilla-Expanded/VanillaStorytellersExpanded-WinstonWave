@@ -81,14 +81,7 @@ namespace VSEWW
         {
             if (WinstonMod.settings.drawBackground)
             {
-                Color c = new Color
-                {
-                    r = Widgets.WindowBGFillColor.r,
-                    g = Widgets.WindowBGFillColor.g,
-                    b = Widgets.WindowBGFillColor.b,
-                    a = 0.25f
-                };
-                Widgets.DrawBoxSolid(inRect, c);
+                Widgets.DrawBoxSolid(inRect, Startup.counterColor);
             }
 
             if (mcw.nextRaidInfo.sent)

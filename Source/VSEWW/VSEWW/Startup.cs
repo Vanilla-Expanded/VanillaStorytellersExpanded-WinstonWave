@@ -21,12 +21,22 @@ namespace VSEWW
         internal static bool CEActive = false;
         internal static bool NoPauseChallengeActive = false;
 
+        internal static Color counterColor;
+
         static Startup()
         {
             weatherDecider_ticksWhenRainAllowedAgain = typeof(WeatherDecider).GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
 
             CEActive = ModsConfig.IsActive("CETeam.CombatExtended");
             NoPauseChallengeActive = ModsConfig.IsActive("brrainz.nopausechallenge");
+
+            counterColor = new Color
+            {
+                r = Widgets.WindowBGFillColor.r,
+                g = Widgets.WindowBGFillColor.g,
+                b = Widgets.WindowBGFillColor.b,
+                a = 0.25f
+            };
         }
     }
 }
