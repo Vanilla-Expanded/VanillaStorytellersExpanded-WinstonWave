@@ -15,6 +15,10 @@ namespace VSEWW
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
 
+        private const float _fullHeight = 590;
+
+        private Vector2 _scrollPosition;
+
         public static WinstonSettings settings;
 
         public WinstonMod(ModContentPack content) : base(content)
@@ -113,8 +117,14 @@ namespace VSEWW
 
         private void DoWaveSettings(Rect rect)
         {
+            var fullRect = new Rect(rect)
+            {
+                height = _fullHeight
+            };
+
+            Widgets.BeginScrollView(rect, ref _scrollPosition, fullRect, false);
             var waveSettingsLst = new Listing_Standard();
-            waveSettingsLst.Begin(rect);
+            waveSettingsLst.Begin(fullRect);
 
             waveSettingsLst.Label("VESWW.TimeBeforeFirstWave".Translate(), tooltip: "VESWW.TimeBeforeFirstWaveTip".Translate());
             waveSettingsLst.TextFieldNumeric(ref settings.timeBeforeFirstWave, ref _timeBeforeFirstWave, 1f, 10f);
@@ -211,6 +221,7 @@ namespace VSEWW
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
             waveSettingsLst.End();
+            Widgets.EndScrollView();
         }
 
         private void DoGameSettings(Rect rect)
