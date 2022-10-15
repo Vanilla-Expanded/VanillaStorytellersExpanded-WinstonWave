@@ -5,9 +5,10 @@ namespace VSEWW
 {
     public class WinstonSettings : ModSettings
     {
+        public int maxPoints = 25000;
         public float timeBeforeFirstWave = 5f;
         public float timeBetweenWaves = 1.2f;
-        public int maxPoints = 25000;
+        public float timeToDefeatWave = 3f;
         public float pointMultiplierBefore = 1.2f;
         public float pointMultiplierAfter = 1.1f;
         public bool enableStatIncrease = true;
@@ -26,9 +27,10 @@ namespace VSEWW
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
             Scribe_Values.Look(ref timeBeforeFirstWave, "timeBeforeFirstWave", 5f);
             Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 1.2f);
-            Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
+            Scribe_Values.Look(ref timeToDefeatWave, "timeToDefeatWave", 3f);
             Scribe_Values.Look(ref pointMultiplierBefore, "pointMultiplierBefore", 1.2f);
             Scribe_Values.Look(ref pointMultiplierAfter, "pointMultiplierAfter", 1.1f);
             Scribe_Values.Look(ref enableStatIncrease, "enableStatIncrease", true);

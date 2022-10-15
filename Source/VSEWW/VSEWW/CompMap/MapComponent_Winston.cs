@@ -107,14 +107,12 @@ namespace VSEWW
                     // If raid is over
                     else if (nextRaidInfo.RaidOver)
                     {
-                        // Prepare next wave
-                        currentWave++;
-                        nextRaidInfo.StopIncidentModifiers();
-                        nextRaidInfo = GetNextRaid(ticksGame);
-                        waveCounter?.UpdateHeight();
-                        waveCounter?.WaveTip();
-                        // Show rewards window
-                        Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, map));
+                        PrepareNextWave(ticksGame);
+                    }
+                    // If player took too long to finish the wave
+                    else if (nextRaidInfo.sent && ticksGame - nextRaidInfo.sentAt >= WinstonMod.settings.timeToDefeatWave * 60000)
+                    {
+                        PrepareNextWave(ticksGame, false);
                     }
                     // If raid lords fail
                     else if (nextRaidInfo.sent && nextRaidInfo.Lords == null && ticksGame - nextRaidInfo.atTick > 1000)
@@ -153,6 +151,22 @@ namespace VSEWW
                 if (waveCounter != null)
                     RemoveCounter();
             }
+        }
+
+        /// <summary>
+        /// Call functions and prepare the next wave and send reward if wanted
+        /// </summary>
+        internal void PrepareNextWave(int ticksGame, bool sendReward = true)
+        {
+            // Prepare next wave
+            currentWave++;
+            nextRaidInfo.StopIncidentModifiers();
+            nextRaidInfo = GetNextRaid(ticksGame);
+            waveCounter?.UpdateHeight();
+            waveCounter?.WaveTip();
+            // Show rewards window
+            if (sendReward)
+                Find.WindowStack.Add(new Window_ChooseReward(currentWave, nextRaidInfo.FourthRewardChance, map));
         }
 
         /// <summary>

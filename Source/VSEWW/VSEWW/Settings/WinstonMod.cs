@@ -10,6 +10,7 @@ namespace VSEWW
     {
         private string _timeBeforeFirstWave;
         private string _timeBetweenWaves;
+        private string _timeToDefeatWave;
         private string _maxPoints;
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
@@ -121,6 +122,10 @@ namespace VSEWW
 
             waveSettingsLst.Label("VESWW.TimeBetweenWaves".Translate(), tooltip: "VESWW.TimeBetweenWavesTip".Translate());
             waveSettingsLst.TextFieldNumeric(ref settings.timeBetweenWaves, ref _timeBetweenWaves, 1f, 10f);
+            waveSettingsLst.Gap(5);
+
+            waveSettingsLst.Label("VESWW.TimeToDefeatWave".Translate(), tooltip: "VESWW.TimeToDefeatWaveTip".Translate());
+            waveSettingsLst.TextFieldNumeric(ref settings.timeToDefeatWave, ref _timeToDefeatWave, 1f, 10f);
             waveSettingsLst.GapLine(12);
 
             waveSettingsLst.Gap(12);

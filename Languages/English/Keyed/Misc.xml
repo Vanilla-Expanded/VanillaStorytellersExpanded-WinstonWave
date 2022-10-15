@@ -48,6 +48,7 @@
   <VESWW.ModName>Vanilla Storytellers Expanded - Winston Wave</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>
   <VESWW.TimeBetweenWaves>Time between waves:</VESWW.TimeBetweenWaves>
+  <VESWW.TimeToDefeatWave>Maximum days to deafeat a wave:</VESWW.TimeToDefeatWave>
   <VESWW.MaxPoints>Max threat points used:</VESWW.MaxPoints>
   <VESWW.DrawBackground>Draw wave counter background:</VESWW.DrawBackground>
   <VESWW.PointMultiplierBefore20>Wave points multiplier before wave 20:</VESWW.PointMultiplierBefore20>
@@ -78,6 +79,7 @@
   <!-- Settings tooltips -->
   <VESWW.TimeBeforeFirstWaveTip>Number of days before the first wave arrive.</VESWW.TimeBeforeFirstWaveTip>
   <VESWW.TimeBetweenWavesTip>Number of days in between each wave.</VESWW.TimeBetweenWavesTip>
+  <VESWW.TimeToDefeatWaveTip>Maximum number of days the player have to defeat a wave. If the wave isn't defeated in this time, the next wave is prepared and no rewards are given.</VESWW.TimeToDefeatWaveTip>
   <VESWW.MaxPointsTip>Maximum amount of points used in the raid generation.</VESWW.MaxPointsTip>
   <VESWW.PointMultiplierBefore20Tip>Raid point multiplier used before the wave 20.</VESWW.PointMultiplierBefore20Tip>
   <VESWW.PointMultiplierAfter20Tip>Raid point multiplier used after the wave 20.</VESWW.PointMultiplierAfter20Tip>
