@@ -32,8 +32,9 @@ namespace VSEWW
 
     public class MeteorStorm : GameCondition
     {
+        const int meteorIntervalTicks = 450;
+
         private IntVec3 nextMeteorCell = new IntVec3();
-        private readonly int meteorIntervalTicks = 450;
         private int ticksToNextEffect;
 
         private bool TryFindCell(out IntVec3 cell, Map map)
@@ -60,18 +61,12 @@ namespace VSEWW
             Map map = SingleMap;
 
             // Explosion handle
-            if (!nextMeteorCell.IsValid)
-            {
-                ticksToNextEffect = meteorIntervalTicks;
-                TryFindCell(out nextMeteorCell, map);
-            }
             ticksToNextEffect--;
-            if (ticksToNextEffect <= 0 && TicksLeft >= meteorIntervalTicks)
+            if (ticksToNextEffect <= 0 && TicksLeft >= meteorIntervalTicks && TryFindCell(out nextMeteorCell, map))
             {
                 var list = ThingSetMakerMeteorite.VESWW_Meteorite.root.Generate();
                 SkyfallerMaker.SpawnSkyfaller(ThingDefOf.MeteoriteIncoming, list, nextMeteorCell, map);
                 ticksToNextEffect = meteorIntervalTicks;
-                TryFindCell(out nextMeteorCell, map);
             }
         }
     }
