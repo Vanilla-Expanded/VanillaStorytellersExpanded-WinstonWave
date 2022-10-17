@@ -212,6 +212,7 @@ namespace VSEWW
             {
                 var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence);
                 if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags != null && !p.race.tradeTags.Contains(pr.tradeTag));
+                if (pr.excludeInsectoid) pawnChoices.RemoveAll(p => p.RaceProps.Insect);
 
                 bool skipMin = false;
                 if (pr.minCombatPower > 0 && pr.maxCombatPower > 0)

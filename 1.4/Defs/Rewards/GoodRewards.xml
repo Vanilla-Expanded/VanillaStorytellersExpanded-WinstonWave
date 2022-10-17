@@ -176,6 +176,7 @@
         <tradeTag>AnimalFighter</tradeTag>
         <intelligence>Animal</intelligence>
         <count>5</count>
+        <excludeInsectoid>true</excludeInsectoid>
       </li>
     </randomPawns>
   </VSEWW.RewardDef>

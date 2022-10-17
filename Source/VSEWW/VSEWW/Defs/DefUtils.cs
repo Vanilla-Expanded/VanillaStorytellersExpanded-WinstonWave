@@ -11,6 +11,7 @@ namespace VSEWW
         public int maxCombatPower;
         public int minCombatPower;
         public int count;
+        public bool excludeInsectoid = false;
     }
 
     public class ItemReward
