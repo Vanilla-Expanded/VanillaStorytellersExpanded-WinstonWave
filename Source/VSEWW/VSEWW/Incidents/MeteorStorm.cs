@@ -15,39 +15,30 @@ namespace VSEWW
 
     public class ThingSetMaker_StoneMeteorite : ThingSetMaker
     {
-        public static List<ThingDef> nonSmoothedMineables = new List<ThingDef>();
-        public static readonly IntRange MineablesCountRange = new IntRange(2, 8);
-
-        public static void Reset()
-        {
-            nonSmoothedMineables.Clear();
-            nonSmoothedMineables.Add(ThingDefOf.Granite);
-        }
+        public static IntRange mineablesCountRange = new IntRange(8, 16);
 
         protected override void Generate(ThingSetMakerParams parms, List<Thing> outThings)
         {
-            int randomInRange = (parms.countRange ?? MineablesCountRange).RandomInRange;
-            ThingDef randomMineableDef = ThingDefOf.Granite;
-            for (int index = 0; index < randomInRange; ++index)
+            for (int index = 0; index < mineablesCountRange.RandomInRange; ++index)
             {
-                Building building = (Building)ThingMaker.MakeThing(randomMineableDef);
+                Building building = (Building)ThingMaker.MakeThing(ThingDefOf.Granite);
                 building.canChangeTerrainOnDestroyed = false;
                 outThings.Add(building);
             }
         }
 
-        protected override IEnumerable<ThingDef> AllGeneratableThingsDebugSub(ThingSetMakerParams parms) => nonSmoothedMineables;
+        protected override IEnumerable<ThingDef> AllGeneratableThingsDebugSub(ThingSetMakerParams parms) => new List<ThingDef> { ThingDefOf.Granite };
     }
 
     public class MeteorStorm : GameCondition
     {
         private IntVec3 nextMeteorCell = new IntVec3();
-        private readonly int meteorIntervalTicks = 150;
+        private readonly int meteorIntervalTicks = 450;
         private int ticksToNextEffect;
 
         private bool TryFindCell(out IntVec3 cell, Map map)
         {
-            int maxMineables = ThingSetMaker_StoneMeteorite.MineablesCountRange.max;
+            int maxMineables = ThingSetMaker_StoneMeteorite.mineablesCountRange.max;
             return CellFinderLoose.TryFindSkyfallerCell(ThingDefOf.MeteoriteIncoming, map, out cell, 10, default, -1, true, false, false, false, true, true, delegate (IntVec3 x)
             {
                 int num = Mathf.CeilToInt(Mathf.Sqrt(maxMineables)) + 2;
