@@ -10,12 +10,14 @@ namespace VSEWW
         [DebugAction("VES Winston Wave", "Rewards test", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void RewardTest()
         {
-            List<DebugMenuOption> debugMenuOptionList = new List<DebugMenuOption>();
-            List<RewardDef> rewards = DefDatabase<RewardDef>.AllDefsListForReading;
+            var debugMenuOptionList = new List<DebugMenuOption>();
+            var rewards = DefDatabase<RewardDef>.AllDefsListForReading;
+            var map = Find.CurrentMap;
+            var comp = map.GetComponent<MapComponent_Winston>();
 
             foreach (var r in rewards)
             {
-                debugMenuOptionList.Add(new DebugMenuOption(r.defName.Remove(0, 6), DebugMenuOptionMode.Action, () => RewardCreator.SendReward(r, Find.CurrentMap)));
+                debugMenuOptionList.Add(new DebugMenuOption(r.defName.Remove(0, 6), DebugMenuOptionMode.Action, () => RewardCreator.SendReward(r, map, comp)));
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
@@ -23,9 +25,11 @@ namespace VSEWW
         [DebugAction("VES Winston Wave", "Send all rewards", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SendAllReward()
         {
+            var map = Find.CurrentMap;
+            var comp = map.GetComponent<MapComponent_Winston>();
             foreach (var r in DefDatabase<RewardDef>.AllDefsListForReading)
             {
-                RewardCreator.SendReward(r, Find.CurrentMap);
+                RewardCreator.SendReward(r, map, comp);
             }
         }
 

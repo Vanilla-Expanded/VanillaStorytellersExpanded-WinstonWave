@@ -93,7 +93,8 @@ namespace VSEWW
             if (WinstonMod.settings.randomRewardMod)
                 Messages.Message("VESWW.RandRewardOutcome".Translate(choosenReward.LabelCap), MessageTypeDefOf.NeutralEvent);
 
-            RewardCreator.SendReward(choosenReward, map);
+            var comp = map.GetComponent<MapComponent_Winston>();
+            RewardCreator.SendReward(choosenReward, map, comp);
         }
     }
 }
