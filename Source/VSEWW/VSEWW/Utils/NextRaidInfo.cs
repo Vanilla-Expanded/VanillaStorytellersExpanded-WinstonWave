@@ -592,7 +592,7 @@ namespace VSEWW
                 }
             }
             // Send letter
-            SendLetter(letterLabel, letterText, parms, targetInfoList);
+            SendLetter(letterLabel, letterText, targetInfoList);
 
             if (parms.controllerPawn == null || parms.controllerPawn.Faction != Faction.OfPlayer)
                 parms.raidStrategy.Worker.MakeLords(parms, raidPawns);
@@ -629,7 +629,7 @@ namespace VSEWW
         /// <summary>
         /// Send raid letter
         /// </summary>
-        private void SendLetter(TaggedString label, TaggedString text, IncidentParms parms, LookTargets lookTargets)
+        private void SendLetter(TaggedString label, TaggedString text, LookTargets lookTargets)
         {
             var letter = LetterMaker.MakeLetter(label, text, LetterDefOf.ThreatBig, lookTargets, parms.faction, parms.quest, parms.letterHyperlinkThingDefs);
             Find.LetterStack.ReceiveLetter(letter);
@@ -653,6 +653,29 @@ namespace VSEWW
             }
 
             parms.raidArrivalMode.Worker.Arrive(raidPawns, parms);
+        }
+
+        /// <summary>
+        /// Generate raiders loot
+        /// </summary>
+        private void GenerateRaidLoot()
+        {
+            if (parms.faction.def.raidLootMaker == null || !raidPawns.Any())
+                return;
+
+            var raidLootPoints = parms.points * Find.Storyteller.difficulty.EffectiveRaidLootPointsFactor;
+            var num = parms.faction.def.raidLootValueFromPointsCurve.Evaluate(raidLootPoints);
+
+            if (parms.raidStrategy != null)
+                num *= parms.raidStrategy.raidLootValueFactor;
+
+            List<Thing> loot = parms.faction.def.raidLootMaker.root.Generate(new ThingSetMakerParams()
+            {
+                totalMarketValueRange = new FloatRange?(new FloatRange(num, num)),
+                makingFaction = parms.faction
+            });
+
+            new WinstonRaidLootDistributor(raidPawns, loot).DistributeLoot();
         }
     }
 }
