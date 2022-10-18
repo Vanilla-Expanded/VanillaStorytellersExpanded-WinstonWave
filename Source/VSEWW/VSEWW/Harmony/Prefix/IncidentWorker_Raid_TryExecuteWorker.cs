@@ -20,7 +20,7 @@ namespace VSEWW
                         return true;
                 }
 
-                if ((parms.faction != null && !parms.faction.HostileTo(Faction.OfPlayer)) || parms.quest != null) // Not hostile to player or quest raid
+                if (!map.IsPlayerHome || parms.quest != null || (parms.faction != null && !parms.faction.HostileTo(Faction.OfPlayer))) // Not hostile to player or quest raid
                 {
                     return true; // Send it
                 }
