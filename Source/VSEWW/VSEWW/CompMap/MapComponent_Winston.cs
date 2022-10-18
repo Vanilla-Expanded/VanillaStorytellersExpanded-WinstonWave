@@ -254,8 +254,7 @@ namespace VSEWW
                 {
                     target = map,
                     points = GetNextWavePoint(),
-                    faction = RandomEnnemyFaction(),
-                    pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000)
+                    faction = RandomEnnemyFaction()
                 },
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
@@ -306,8 +305,7 @@ namespace VSEWW
                 {
                     target = map,
                     points = GetNextWavePoint(),
-                    faction = RandomEnnemyFaction(),
-                    pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000)
+                    faction = RandomEnnemyFaction()
                 },
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
