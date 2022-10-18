@@ -11,6 +11,7 @@ namespace VSEWW
     internal class MapComponent_Winston : MapComponent
     {
         internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, WDefOf.ImmediateAttackSmart, WDefOf.StageThenAttack };
+        internal List<RaidStrategyDef> allOtherStrategies;
 
         internal Vector2 counterPos;
         internal bool counterDraggable = true;
@@ -66,6 +67,9 @@ namespace VSEWW
         {
             if (counterPos.x == 0 && counterPos.y == 0)
                 counterPos = new Vector2(5f, 5f);
+
+            allOtherStrategies = DefDatabase<RaidStrategyDef>.AllDefsListForReading;
+            allOtherStrategies.RemoveAll(s => normalStrategies.Contains(s));
 
             sosSpace = map.Biome.defName == "OuterSpaceBiome";
             mapFaction = map.ParentFaction;
@@ -258,13 +262,13 @@ namespace VSEWW
                 waveNum = currentWave,
                 waveType = currentWave % 5 == 0 ? 1 : 0
             };
-            var list = DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
-                                                                                       && !normalStrategies.Contains(s)
+            var list = allOtherStrategies.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
                                                                                        && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty() || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
+
             nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
 
-            nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
+            nri.ChooseAndApplyModifier();
             waveCounter?.UpdateHeight();
             return nri;
         }
@@ -291,8 +295,8 @@ namespace VSEWW
             };
             nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
 
-            nri.ChooseAndApplyModifier();
             nri.SetPawnsInfo();
+            nri.ChooseAndApplyModifier();
             waveCounter?.UpdateHeight();
             return nri;
         }

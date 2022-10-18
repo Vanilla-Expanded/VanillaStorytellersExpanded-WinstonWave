@@ -517,26 +517,33 @@ namespace VSEWW
         /// </summary>
         public void SetPawnsInfo()
         {
-            if (raidPawns.NullOrEmpty())
+            var tries = 0;
+            while (raidPawns.NullOrEmpty() && tries < 100)
+            {
                 raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
+                tries++;
+            }
+
+            if (raidPawns.NullOrEmpty())
+                Log.Error($"Tried to generate raid pawns for {incidentParms.faction} with {incidentParms.raidStrategy} failed after {tries} atempt.");
 
             totalPawnsBefore = totalPawnsLeft = raidPawns.Count;
             // Get all kinds and the number of them
             var tempDic = new Dictionary<PawnKindDef, int>();
-            foreach (Pawn pawn in raidPawns)
+            for (int i = 0; i < raidPawns.Count; i++)
             {
+                Pawn pawn = raidPawns[i];
                 if (tempDic.ContainsKey(pawn.kindDef))
                 {
                     tempDic[pawn.kindDef]++;
                 }
                 else
-                {
-                    tempDic[pawn.kindDef] = 1;
+                    tempDic.Add(pawn.kindDef, 1);
                 }
-            }
-
+            // Create kinds list
             string kindLabel = "VESWW.EnemiesC".Translate(totalPawnsLeft) + "\n";
             kindListLines++;
+
             foreach (var pair in tempDic)
             {
                 kindLabel += $"{pair.Value} {pair.Key.LabelCap}\n";
