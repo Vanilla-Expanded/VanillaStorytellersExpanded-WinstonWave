@@ -32,7 +32,7 @@ namespace VSEWW
 
     public class MeteorStorm : GameCondition
     {
-        const int meteorIntervalTicks = 450;
+        const int meteorIntervalTicks = 350;
 
         private IntVec3 nextMeteorCell = new IntVec3();
         private int ticksToNextEffect;
