@@ -37,7 +37,7 @@ namespace VSEWW
         internal Faction mapFaction;
         internal MapParent mapParent;
 
-        internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.parms.raidStrategy == null || nextRaidInfo.parms.faction == null;
+        internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.parms.raidStrategy == null || nextRaidInfo.parms.faction == null || nextRaidInfo.totalPawnsBefore == 0;
 
         public MapComponent_Winston(Map map) : base(map)
         {
@@ -102,6 +102,7 @@ namespace VSEWW
                 // If next raid isn't set, or is bugged
                 if (ShouldRegenerateRaid)
                 {
+                    Log.Warning("regenerating raid");
                     nextRaidInfo = GetNextRaid(ticksGame);
                 }
                 else
@@ -220,7 +221,7 @@ namespace VSEWW
                             && !f.defeated
                             && f.HostileTo(Faction.OfPlayer)
                             && f.def.pawnGroupMakers != null
-                            && f.def.pawnGroupMakers.Any(p => p.kindDef == PawnGroupKindDefOf.Combat)
+                            && f.def.pawnGroupMakers.Any(p => p.kindDef == PawnGroupKindDefOf.Combat && currentPoints <= p.maxTotalPoints)
                             && currentPoints > f.def.MinPointsToGeneratePawnGroup(PawnGroupKindDefOf.Combat));
 
             if (from.NullOrEmpty())
@@ -285,7 +286,7 @@ namespace VSEWW
         internal bool CanUseStrategy(RaidStrategyDef def, NextRaidInfo nri)
         {
             var excluded = WinstonMod.settings.excludedStrategyDefs;
-            if (excluded.NullOrEmpty() || !excluded.Contains(def.defName))
+            if (!excluded.NullOrEmpty() || excluded.Contains(def.defName))
                 return false;
 
             if (def == null || !def.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat))
@@ -314,7 +315,8 @@ namespace VSEWW
                 map = map
             };
 
-            normalStrategies.FindAll(s => CanUseStrategy(s, nri)).TryRandomElementByWeight(d => d.Worker.SelectionWeightForFaction(map, nri.parms.faction, nri.parms.points), out nri.parms.raidStrategy);
+            if (!normalStrategies.FindAll(s => CanUseStrategy(s, nri)).TryRandomElementByWeight(d => d.Worker.SelectionWeightForFaction(map, nri.parms.faction, nri.parms.points), out nri.parms.raidStrategy))
+                Log.Warning("null raidstrategy");
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
