@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
@@ -33,6 +34,7 @@ namespace VSEWW
         internal static readonly int checkEachXTicks = 2000;
 
         internal Faction mapFaction;
+        internal MapParent mapParent;
 
         internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null;
 
@@ -67,12 +69,13 @@ namespace VSEWW
 
             sosSpace = map.Biome.defName == "OuterSpaceBiome";
             mapFaction = map.ParentFaction;
+            mapParent = map.Parent;
         }
 
         public override void MapComponentTick()
         {
             // No waves in space, other faction maps, if there is a window
-            if (sosSpace || mapFaction != Faction.OfPlayer || Find.WindowStack.AnyWindowAbsorbingAllInput)
+            if (sosSpace || (mapParent != null && !mapParent.def.canBePlayerHome) || mapFaction != Faction.OfPlayer || Find.WindowStack.AnyWindowAbsorbingAllInput)
                 return;
 
             var storyteller = Find.Storyteller;
