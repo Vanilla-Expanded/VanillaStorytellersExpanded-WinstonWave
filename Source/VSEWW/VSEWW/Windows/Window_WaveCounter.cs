@@ -254,8 +254,8 @@ namespace VSEWW
 
             if (mcw.nextRaidInfo.Lords != null)
             {
-                int pKill = mcw.nextRaidInfo.totalPawns - mcw.nextRaidInfo.totalPawns;
-                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawns}", (float)pKill / mcw.nextRaidInfo.totalPawns);
+                int pKill = mcw.nextRaidInfo.totalPawnsBefore - mcw.nextRaidInfo.totalPawns;
+                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawnsBefore}", (float)pKill / mcw.nextRaidInfo.totalPawnsBefore);
                 // Faction
                 Rect factionIconRect = new Rect(rect)
                 {

@@ -37,6 +37,7 @@ namespace VSEWW
         internal string cacheKindList;
         private int cacheTick = 0;
         public int totalPawns;
+        public int totalPawnsBefore;
 
         public List<ModifierDef> mysteryModifier;
 
@@ -518,6 +519,8 @@ namespace VSEWW
         {
             if (raidPawns.NullOrEmpty())
                 raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
+
+            totalPawnsBefore = raidPawns.Count;
             // Get all kinds and the number of them
             var tempDic = new Dictionary<PawnKindDef, int>();
             foreach (Pawn pawn in raidPawns)
