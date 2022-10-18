@@ -521,8 +521,12 @@ namespace VSEWW
             var tries = 0;
             while (raidPawns.NullOrEmpty() && tries < 100)
             {
-                raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, parms)).ToList();
                 tries++;
+                var group = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, parms);
+                if (group == null)
+                    break;
+
+                raidPawns = PawnGroupMakerUtility.GeneratePawns(group).ToList();
             }
 
             if (raidPawns.NullOrEmpty())
