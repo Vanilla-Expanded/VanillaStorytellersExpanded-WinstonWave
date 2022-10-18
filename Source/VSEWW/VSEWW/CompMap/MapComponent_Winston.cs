@@ -102,8 +102,9 @@ namespace VSEWW
                 // If next raid isn't set, or is bugged
                 if (ShouldRegenerateRaid)
                 {
-                    Log.Warning("regenerating raid");
                     nextRaidInfo = GetNextRaid(ticksGame);
+                    waveCounter?.UpdateHeight();
+                    waveCounter?.WaveTip();
                 }
                 else
                 {
