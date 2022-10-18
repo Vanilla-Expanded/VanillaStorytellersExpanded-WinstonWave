@@ -16,14 +16,14 @@ namespace VSEWW
 
         public override IEnumerable<FiringIncident> MakeIntervalIncidents(IIncidentTarget target)
         {
-            StorytellerComp_ClassicIntroNoRaid compCINR = this;
+            var comp = this;
             if (target == Find.Maps.Find(x => x.IsPlayerHome))
             {
-                if (compCINR.IntervalsPassed == 150)
+                if (comp.IntervalsPassed == 150)
                 {
                     if (IncidentDefOf.VisitorGroup.TargetAllowed(target))
                     {
-                        yield return new FiringIncident(IncidentDefOf.VisitorGroup, compCINR)
+                        yield return new FiringIncident(IncidentDefOf.VisitorGroup, comp)
                         {
                             parms = {
                                 target = target,
@@ -32,20 +32,24 @@ namespace VSEWW
                         };
                     }
                 }
-                if (compCINR.IntervalsPassed == 204 && DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == (Find.Storyteller.difficulty.allowIntroThreats ? IncidentCategoryDefOf.ThreatSmall : IncidentCategoryDefOf.Misc))
-                        .TryRandomElementByWeight(compCINR.IncidentChanceFinal, out IncidentDef result))
+
+                if (comp.IntervalsPassed == 204)
                 {
-                    yield return new FiringIncident(result, compCINR)
+                    IncidentCategoryDef threatCategory = Find.Storyteller.difficulty.allowIntroThreats ? IncidentCategoryDefOf.ThreatSmall : IncidentCategoryDefOf.Misc;
+                    if (DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == threatCategory).TryRandomElementByWeight(comp.IncidentChanceFinal, out IncidentDef result))
                     {
-                        parms = StorytellerUtility.DefaultParmsNow(result.category, target)
-                    };
+                        yield return new FiringIncident(result, comp)
+                        {
+                            parms = StorytellerUtility.DefaultParmsNow(result.category, target)
+                        };
+                    }
                 }
-                if (compCINR.IntervalsPassed == 264 && DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == IncidentCategoryDefOf.Misc)
-                    .TryRandomElementByWeight(compCINR.IncidentChanceFinal, out IncidentDef result1))
+
+                if (comp.IntervalsPassed == 264 && DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == IncidentCategoryDefOf.Misc).TryRandomElementByWeight(comp.IncidentChanceFinal, out IncidentDef incident))
                 {
-                    yield return new FiringIncident(result1, compCINR)
+                    yield return new FiringIncident(incident, comp)
                     {
-                        parms = StorytellerUtility.DefaultParmsNow(result1.category, target)
+                        parms = StorytellerUtility.DefaultParmsNow(incident.category, target)
                     };
                 }
             }
