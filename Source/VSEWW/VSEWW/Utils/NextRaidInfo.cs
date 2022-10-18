@@ -36,7 +36,7 @@ namespace VSEWW
         private List<Pawn> lordPawnsCache = new List<Pawn>();
         internal string cacheKindList;
         private int cacheTick = 0;
-        public int totalPawns;
+        public int totalPawnsLeft;
         public int totalPawnsBefore;
 
         public List<ModifierDef> mysteryModifier;
@@ -103,8 +103,8 @@ namespace VSEWW
             Scribe_Values.Look(ref kindListLines, "kindListLines");
             Scribe_Values.Look(ref cacheTick, "cacheTick");
             Scribe_Values.Look(ref cacheKindList, "cacheKindList");
-            Scribe_Values.Look(ref totalPawns, "totalPawn");
-            Scribe_Values.Look(ref totalPawns, "totalPawn");
+            Scribe_Values.Look(ref totalPawnsLeft, "totalPawnsLeft");
+            Scribe_Values.Look(ref totalPawnsBefore, "totalPawnsBefore");
             Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
 
             Scribe_Deep.Look(ref incidentParms, "incidentParms");
@@ -178,9 +178,9 @@ namespace VSEWW
                 }
                 cacheKindList = desc.TrimEndNewlines();
                 // Recount
-                totalPawns = lordPawnsCache.Count;
+                totalPawnsLeft = lordPawnsCache.Count;
                 // Send reinforcement if needed
-                if (Reinforcements && totalPawns <= (int)(totalPawns * 0.8f))
+                if (Reinforcements && totalPawnsLeft <= (int)(totalPawnsLeft * 0.8f))
                 {
                     reinforcementSent = true;
                     ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
@@ -520,7 +520,7 @@ namespace VSEWW
             if (raidPawns.NullOrEmpty())
                 raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
 
-            totalPawnsBefore = raidPawns.Count;
+            totalPawnsBefore = totalPawnsLeft = raidPawns.Count;
             // Get all kinds and the number of them
             var tempDic = new Dictionary<PawnKindDef, int>();
             foreach (Pawn pawn in raidPawns)
@@ -534,9 +534,8 @@ namespace VSEWW
                     tempDic[pawn.kindDef] = 1;
                 }
             }
-            totalPawns = tempDic.Sum(k => k.Value);
 
-            string kindLabel = "VESWW.EnemiesC".Translate(totalPawns) + "\n";
+            string kindLabel = "VESWW.EnemiesC".Translate(totalPawnsLeft) + "\n";
             kindListLines++;
             foreach (var pair in tempDic)
             {
