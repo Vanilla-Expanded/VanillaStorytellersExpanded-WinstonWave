@@ -264,15 +264,35 @@ namespace VSEWW
                 map = map
             };
 
-            var list = allOtherStrategies.FindAll(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat)
-                                                  && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty() || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
-
-            nri.parms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
+            var list = allOtherStrategies.FindAll(s => CanUseStrategy(s, nri));
+            if (list.NullOrEmpty())
+            {
+                normalStrategies.FindAll(s => CanUseStrategy(s, nri)).TryRandomElementByWeight(d => d.Worker.SelectionWeightForFaction(map, nri.parms.faction, nri.parms.points), out nri.parms.raidStrategy);
+            }
+            else
+            {
+                list.TryRandomElementByWeight(d => d.Worker.SelectionWeightForFaction(map, nri.parms.faction, nri.parms.points), out nri.parms.raidStrategy);
+            }
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
             waveCounter?.UpdateHeight();
             return nri;
+        }
+
+        /// <summary>
+        /// Check if strategy can be used with parms
+        /// </summary>
+        internal bool CanUseStrategy(RaidStrategyDef def, NextRaidInfo nri)
+        {
+            var excluded = WinstonMod.settings.excludedStrategyDefs;
+            if (excluded.NullOrEmpty() || !excluded.Contains(def.defName))
+                return false;
+
+            if (def == null || !def.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat))
+                return false;
+
+            return def.arriveModes != null && def.arriveModes.Any(x => x.Worker.CanUseWith(nri.parms));
         }
 
         /// <summary>
@@ -295,7 +315,8 @@ namespace VSEWW
                 waveType = currentWave % 5 == 0 ? 1 : 0,
                 map = map
             };
-            nri.parms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat));
+
+            normalStrategies.FindAll(s => CanUseStrategy(s, nri)).TryRandomElementByWeight(d => d.Worker.SelectionWeightForFaction(map, nri.parms.faction, nri.parms.points), out nri.parms.raidStrategy);
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
