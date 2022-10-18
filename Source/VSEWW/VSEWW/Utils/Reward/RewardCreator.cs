@@ -115,6 +115,9 @@ namespace VSEWW
 
         private static void GenerateItems(RewardDef reward, ref List<Thing> thingsToSend)
         {
+            if (reward.items.NullOrEmpty())
+                return;
+
             for (int i = 0; i < reward.items.Count; i++)
             {
                 var itemReward = reward.items[i];
@@ -145,6 +148,9 @@ namespace VSEWW
 
         private static void GeneratePawns(RewardDef reward, ref List<Thing> thingsToSend)
         {
+            if (reward.pawns.NullOrEmpty())
+                return;
+
             for (int i1 = 0; i1 < reward.pawns.Count; i1++)
             {
                 var pawn = reward.pawns[i1];
@@ -168,6 +174,9 @@ namespace VSEWW
 
         private static void GenerateRandomItems(RewardDef reward, ref List<Thing> thingsToSend)
         {
+            if (reward.randomItems.NullOrEmpty())
+                return;
+
             for (int i = 0; i < reward.randomItems.Count; i++)
             {
                 var item = reward.randomItems[i];
@@ -209,8 +218,12 @@ namespace VSEWW
 
         private static void GenerateRandomPawns(RewardDef reward, ref List<Thing> thingsToSend)
         {
-            foreach (var pr in reward.randomPawns)
+            if (reward.randomPawns.NullOrEmpty())
+                return;
+
+            for (int i1 = 0; i1 < reward.randomPawns.Count; i1++)
             {
+                RPawnReward pr = reward.randomPawns[i1];
                 var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence);
                 if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags != null && !p.race.tradeTags.Contains(pr.tradeTag));
                 if (pr.excludeInsectoid) pawnChoices.RemoveAll(p => p.RaceProps.Insect);
