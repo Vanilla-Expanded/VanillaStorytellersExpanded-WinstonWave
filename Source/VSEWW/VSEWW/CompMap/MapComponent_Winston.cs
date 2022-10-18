@@ -284,7 +284,6 @@ namespace VSEWW
                 {
                     target = map,
                     points = GetNextWavePoint(),
-                    raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn,
                     faction = RandomEnnemyFaction(),
                     pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000)
                 },
