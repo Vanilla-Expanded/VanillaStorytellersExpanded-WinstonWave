@@ -24,7 +24,7 @@ namespace VSEWW
         public int modifierCount;
 
         public List<Pawn> raidPawns = new List<Pawn>();
-        public IncidentParms incidentParms;
+        public IncidentParms parms;
         public int reinforcementSeed = -1;
 
         public int waveNum;
@@ -48,7 +48,7 @@ namespace VSEWW
                 if (!lords.NullOrEmpty())
                     return lords;
 
-                lords = map.lordManager?.lords?.FindAll(l => l.faction == incidentParms.faction && l.AnyActivePawn);
+                lords = map.lordManager?.lords?.FindAll(l => l.faction == parms.faction && l.AnyActivePawn);
 
                 return lords;
             }
@@ -107,7 +107,7 @@ namespace VSEWW
             Scribe_Values.Look(ref totalPawnsBefore, "totalPawnsBefore");
             Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
 
-            Scribe_Deep.Look(ref incidentParms, "incidentParms");
+            Scribe_Deep.Look(ref parms, "incidentParms");
 
             Scribe_Collections.Look(ref modifiers, "modifiers");
             Scribe_Collections.Look(ref lords, "lords", LookMode.Reference);
@@ -185,9 +185,9 @@ namespace VSEWW
                     reinforcementSent = true;
                     ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
                     // Create parms
-                    var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, incidentParms.target);
-                    parms.faction = incidentParms.faction;
-                    parms.points = Math.Max(100f, incidentParms.points * 0.5f);
+                    var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, this.parms.target);
+                    parms.faction = this.parms.faction;
+                    parms.points = Math.Max(100f, this.parms.points * 0.5f);
                     parms.pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000);
                     parms.customLetterLabel = "VESWW.Reinforcement".Translate();
                     // Set seed
@@ -278,9 +278,9 @@ namespace VSEWW
         public List<ModifierDef> GetModifiersPool()
         {
             var modifiersPool = DefDatabase<ModifierDef>.AllDefsListForReading.FindAll(m => !WinstonMod.settings.modifierDefs.Contains(m.defName));
-            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * incidentParms.points) > WinstonMod.settings.maxPoints);
+            modifiersPool.RemoveAll(m => m.pointMultiplier > 0 && (m.pointMultiplier * parms.points) > WinstonMod.settings.maxPoints);
 
-            if (!incidentParms.faction.def.humanlikeFaction)
+            if (!parms.faction.def.humanlikeFaction)
             {
                 modifiersPool.RemoveAll(m => !m.allowedWeaponDef.NullOrEmpty() ||
                                              !m.allowedWeaponCategory.NullOrEmpty() ||
@@ -332,18 +332,19 @@ namespace VSEWW
             if (first)
             {
                 if (modifier.pointMultiplier > 0) // Can only be applied before raid is sent
-                    incidentParms.points *= modifier.pointMultiplier;
+                    parms.points *= modifier.pointMultiplier;
 
                 if (!modifier.everRetreat)
-                    incidentParms.canTimeoutOrFlee = false;
+                    parms.canTimeoutOrFlee = false;
 
                 if (!modifier.specificPawnKinds.NullOrEmpty())
                 {
+                    raidPawns.Clear();
                     float point = 0;
-                    while (point < incidentParms.points)
+                    while (point < parms.points)
                     {
                         var kind = modifier.specificPawnKinds.RandomElement();
-                        raidPawns.Add(PawnGenerator.GeneratePawn(kind, incidentParms.faction));
+                        raidPawns.Add(PawnGenerator.GeneratePawn(kind, parms.faction));
                         point += kind.combatPower;
                     }
                 }
@@ -520,12 +521,12 @@ namespace VSEWW
             var tries = 0;
             while (raidPawns.NullOrEmpty() && tries < 100)
             {
-                raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms)).ToList();
+                raidPawns = PawnGroupMakerUtility.GeneratePawns(IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, parms)).ToList();
                 tries++;
             }
 
             if (raidPawns.NullOrEmpty())
-                Log.Error($"Tried to generate raid pawns for {incidentParms.faction} with {incidentParms.raidStrategy} failed after {tries} atempt.");
+                Log.Error($"[VESWW] Got no pawns spawning raid from parms {parms}");
 
             totalPawnsBefore = totalPawnsLeft = raidPawns.Count;
             // Get all kinds and the number of them
@@ -534,12 +535,10 @@ namespace VSEWW
             {
                 Pawn pawn = raidPawns[i];
                 if (tempDic.ContainsKey(pawn.kindDef))
-                {
                     tempDic[pawn.kindDef]++;
-                }
                 else
                     tempDic.Add(pawn.kindDef, 1);
-                }
+            }
             // Create kinds list
             string kindLabel = "VESWW.EnemiesC".Translate(totalPawnsLeft) + "\n";
             kindListLines++;
@@ -552,6 +551,108 @@ namespace VSEWW
             kindList = kindLabel.TrimEndNewlines();
 
             ApplyModifiers();
+        }
+
+        /// <summary>
+        /// Set pawns prediction string and count
+        /// </summary>
+        public void SendRaid(Map map, int ticks)
+        {
+            // Slow down, keep track of raids
+            Find.TickManager.slower.SignalForceNormalSpeedShort();
+            Find.StoryWatcher.statsRecord.numRaidsEnemy++;
+            map.StoryState.lastRaidFaction = parms.faction;
+            // Resolve stuff and send pawns
+            ResolveRaidArrival();
+            // Make letter label/text
+            TaggedString letterLabel = parms.raidStrategy.letterLabelEnemy + ": " + parms.faction.Name;
+            TaggedString letterText = GetLetterText();
+            PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(raidPawns, ref letterLabel, ref letterText, GetRelatedPawnsInfoLetterText(), true);
+            // Get letter target(s)
+            var targetInfoList = new List<TargetInfo>();
+            if (parms.pawnGroups != null)
+            {
+                var source = IncidentParmsUtility.SplitIntoGroups(raidPawns, parms.pawnGroups);
+                var list = source.MaxBy(x => x.Count);
+
+                if (list.Any())
+                    targetInfoList.Add(list[0]);
+
+                for (int i = 0; i < source.Count; ++i)
+                {
+                    if (source[i] != list && source[i].Any())
+                        targetInfoList.Add(source[i][0]);
+                }
+            }
+            else if (raidPawns.Any())
+            {
+                for (int i = 0; i < raidPawns.Count; i++)
+                {
+                    targetInfoList.Add(raidPawns[i]);
+                }
+            }
+            // Send letter
+            SendLetter(letterLabel, letterText, parms, targetInfoList);
+
+            if (parms.controllerPawn == null || parms.controllerPawn.Faction != Faction.OfPlayer)
+                parms.raidStrategy.Worker.MakeLords(parms, raidPawns);
+
+            // Manage nextRaidInfo
+            SendIncidentModifiers();
+            sentAt = ticks;
+            sent = true;
+            this.map = map;
+        }
+
+        /// <summary>
+        /// Return related pawns letter text
+        /// </summary>
+        private string GetRelatedPawnsInfoLetterText() => "LetterRelatedPawnsRaidEnemy".Translate(Faction.OfPlayer.def.pawnsPlural, parms.faction.def.pawnsPlural);
+
+        /// <summary>
+        /// Create raid letter text
+        /// </summary>
+        private string GetLetterText()
+        {
+            var letterText = string.Format(parms.raidArrivalMode.textEnemy, parms.faction.def.pawnsPlural, parms.faction.Name.ApplyTag(parms.faction)).CapitalizeFirst() + "\n\n" + parms.raidStrategy.arrivalTextEnemy;
+            var pawn = raidPawns.Find(x => x.Faction.leader == x);
+
+            if (pawn != null)
+                letterText = letterText + "\n\n" + "EnemyRaidLeaderPresent".Translate(pawn.Faction.def.pawnsPlural, pawn.LabelShort, pawn.Named("LEADER")).Resolve();
+
+            if (parms.raidAgeRestriction != null && !parms.raidAgeRestriction.arrivalTextExtra.NullOrEmpty())
+                letterText = letterText + "\n\n" + parms.raidAgeRestriction.arrivalTextExtra.Formatted(parms.faction.def.pawnsPlural.Named("PAWNSPLURAL")).Resolve();
+
+            return letterText;
+        }
+
+        /// <summary>
+        /// Send raid letter
+        /// </summary>
+        private void SendLetter(TaggedString label, TaggedString text, IncidentParms parms, LookTargets lookTargets)
+        {
+            var letter = LetterMaker.MakeLetter(label, text, LetterDefOf.ThreatBig, lookTargets, parms.faction, parms.quest, parms.letterHyperlinkThingDefs);
+            Find.LetterStack.ReceiveLetter(letter);
+        }
+
+        /// <summary>
+        /// Resolve raid arrival mode and spawn center
+        /// </summary>
+        private void ResolveRaidArrival()
+        {
+            if (parms.raidArrivalMode == null && !parms.raidStrategy.arriveModes.Where(x => x.Worker.CanUseWith(parms)).TryRandomElementByWeight(x => x.Worker.GetSelectionWeight(parms), out parms.raidArrivalMode))
+            {
+                Log.Error("[VESWW] Could not resolve arrival mode for raid. Defaulting to EdgeWalkIn. parms=" + parms);
+                parms.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
+            }
+
+            if (!parms.raidArrivalMode.Worker.TryResolveRaidSpawnCenter(parms))
+            {
+                Log.Error($"[VESWW] Couldn't reslove raid spawn center. parms=" + parms);
+                return;
+            }
+
+            parms.raidArrivalMode.Worker.Arrive(raidPawns, parms);
         }
     }
 }

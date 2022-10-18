@@ -1,10 +1,6 @@
-﻿using HarmonyLib;
-using RimWorld;
-using Verse;
-
-namespace VSEWW
+﻿namespace VSEWW
 {
-    [HarmonyPatch(typeof(IncidentWorker_Raid))]
+    /*[HarmonyPatch(typeof(IncidentWorker_Raid))]
     [HarmonyPatch("TryExecuteWorker", MethodType.Normal)]
     public class IncidentWorker_Raid_TryExecuteWorker
     {
@@ -16,7 +12,7 @@ namespace VSEWW
                 Map map = (Map)parms.target;
                 if (map.GetComponent<MapComponent_Winston>() is MapComponent_Winston mapComp && mapComp != null)
                 {
-                    if (mapComp.nextRaidInfo.incidentParms.pawnGroupMakerSeed == parms.pawnGroupMakerSeed || mapComp.nextRaidInfo.reinforcementSeed == parms.pawnGroupMakerSeed)
+                    if (mapComp.nextRaidInfo.parms.pawnGroupMakerSeed == parms.pawnGroupMakerSeed || mapComp.nextRaidInfo.reinforcementSeed == parms.pawnGroupMakerSeed)
                         return true;
                 }
 
@@ -30,5 +26,5 @@ namespace VSEWW
             }
             return true;
         }
-    }
+    }*/
 }

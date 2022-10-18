@@ -140,7 +140,7 @@ namespace VSEWW
         public void WaveTip()
         {
             string title = mcw.nextRaidInfo.waveType == 0 ? "VESWW.NormalWave".Translate() : "VESWW.BossWave".Translate();
-            string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.incidentParms.points);
+            string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.parms.points);
             string rewardChance = "";
 
             var c = RewardCommonalities.GetCommonalities(mcw.nextRaidInfo.waveNum);
@@ -185,8 +185,8 @@ namespace VSEWW
                     height = 20f,
                     width = 20f
                 };
-                GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
-                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
+                GUI.color = mcw.nextRaidInfo.parms.faction.Color;
+                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.parms.faction.def.FactionIcon);
                 GUI.color = Color.white;
                 Rect factionRect = new Rect(rect)
                 {
@@ -195,7 +195,7 @@ namespace VSEWW
                     width = rect.width - factionIconRect.width
                 };
                 Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
+                Widgets.Label(factionRect, mcw.nextRaidInfo.parms.faction.Name);
                 Text.Anchor = TextAnchor.UpperRight;
                 // Kinds
                 Rect kindRect = new Rect(rect)
@@ -264,8 +264,8 @@ namespace VSEWW
                     height = 20f,
                     width = 20f
                 };
-                GUI.color = mcw.nextRaidInfo.incidentParms.faction.Color;
-                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.incidentParms.faction.def.FactionIcon);
+                GUI.color = mcw.nextRaidInfo.parms.faction.Color;
+                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.parms.faction.def.FactionIcon);
                 GUI.color = Color.white;
                 Rect factionRect = new Rect(rect)
                 {
@@ -274,7 +274,7 @@ namespace VSEWW
                     width = rect.width - factionIconRect.width
                 };
                 Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(factionRect, mcw.nextRaidInfo.incidentParms.faction.Name);
+                Widgets.Label(factionRect, mcw.nextRaidInfo.parms.faction.Name);
                 Text.Anchor = TextAnchor.UpperRight;
                 // Pawn left
                 Text.Anchor = TextAnchor.UpperRight;

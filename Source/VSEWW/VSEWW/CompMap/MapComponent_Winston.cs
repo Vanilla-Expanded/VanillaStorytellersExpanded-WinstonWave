@@ -37,7 +37,7 @@ namespace VSEWW
         internal Faction mapFaction;
         internal MapParent mapParent;
 
-        internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.incidentParms.raidStrategy == null || nextRaidInfo.incidentParms.faction == null;
+        internal bool ShouldRegenerateRaid => nextRaidInfo == null || nextRaidInfo.parms.raidStrategy == null || nextRaidInfo.parms.faction == null;
 
         public MapComponent_Winston(Map map) : base(map)
         {
@@ -250,7 +250,7 @@ namespace VSEWW
         {
             NextRaidInfo nri = new NextRaidInfo()
             {
-                incidentParms = new IncidentParms()
+                parms = new IncidentParms()
                 {
                     target = map,
                     points = GetNextWavePoint(),
@@ -260,12 +260,14 @@ namespace VSEWW
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
                 waveNum = currentWave,
-                waveType = currentWave % 5 == 0 ? 1 : 0
+                waveType = currentWave % 5 == 0 ? 1 : 0,
+                map = map
             };
-            var list = allOtherStrategies.FindAll(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)
-                                                                                       && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty() || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
 
-            nri.incidentParms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
+            var list = allOtherStrategies.FindAll(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat)
+                                                  && (WinstonMod.settings.excludedStrategyDefs.NullOrEmpty() || !WinstonMod.settings.excludedStrategyDefs.Contains(s.defName)));
+
+            nri.parms.raidStrategy = list.NullOrEmpty() ? normalStrategies.Find(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat)) : list.RandomElement();
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
@@ -280,7 +282,7 @@ namespace VSEWW
         {
             NextRaidInfo nri = new NextRaidInfo()
             {
-                incidentParms = new IncidentParms()
+                parms = new IncidentParms()
                 {
                     target = map,
                     points = GetNextWavePoint(),
@@ -290,9 +292,10 @@ namespace VSEWW
                 atTick = ticks + (int)(inDays * 60000),
                 generatedAt = ticks,
                 waveNum = currentWave,
-                waveType = currentWave % 5 == 0 ? 1 : 0
+                waveType = currentWave % 5 == 0 ? 1 : 0,
+                map = map
             };
-            nri.incidentParms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.incidentParms, PawnGroupKindDefOf.Combat));
+            nri.parms.raidStrategy = normalStrategies.Find(s => s.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat));
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
@@ -303,18 +306,10 @@ namespace VSEWW
         /// <summary>
         /// Start the raid
         /// </summary>
-        internal void StartRaid(int tick)
+        internal void StartRaid(int ticks)
         {
-            // Keep trac of raid
-            Find.StoryWatcher.statsRecord.numRaidsEnemy++;
-            map.StoryState.lastRaidFaction = nextRaidInfo.incidentParms.faction;
-            // Queue raid event
-            Find.Storyteller.incidentQueue.Add(IncidentDefOf.RaidEnemy, tick, nextRaidInfo.incidentParms);
-            // Manage nextRaidInfo
-            nextRaidInfo.SendIncidentModifiers();
-            nextRaidInfo.sentAt = tick;
-            nextRaidInfo.sent = true;
-            nextRaidInfo.map = map;
+            // Send raid
+            nextRaidInfo.SendRaid(map, ticks);
             // Send allies if necessary
             if (nextRaidSendAllies)
             {
@@ -323,7 +318,7 @@ namespace VSEWW
                 var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, map);
                 parms.target = map;
                 parms.faction = Find.FactionManager.RandomAlliedFaction();
-                parms.points = Math.Min(nextRaidInfo.incidentParms.points * 2, WinstonMod.settings.maxPoints);
+                parms.points = Math.Min(nextRaidInfo.parms.points * 2, WinstonMod.settings.maxPoints);
                 // Send raid
                 IncidentDefOf.RaidFriendly.Worker.TryExecute(parms);
             }

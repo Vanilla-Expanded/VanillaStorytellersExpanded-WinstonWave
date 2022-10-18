@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using HarmonyLib;
-using RimWorld;
-using Verse;
-
-namespace VSEWW
+﻿namespace VSEWW
 {
-    [HarmonyPatch(typeof(IncidentWorker_Raid))]
+    /*[HarmonyPatch(typeof(IncidentWorker_Raid))]
     [HarmonyPatch("TryGenerateRaidInfo", MethodType.Normal)]
     public class IncidentWorker_Raid_TryGenerateRaidInfo
     {
@@ -16,7 +11,7 @@ namespace VSEWW
             if (Find.Storyteller.def.defName == "VSE_WinstonWave")
             {
                 Map map = (Map)parms.target;
-                if (map.GetComponent<MapComponent_Winston>() is MapComponent_Winston mapComp && mapComp != null && mapComp.nextRaidInfo.incidentParms.pawnGroupMakerSeed == parms.pawnGroupMakerSeed)
+                if (map.GetComponent<MapComponent_Winston>() is MapComponent_Winston mapComp && mapComp != null && mapComp.nextRaidInfo.parms.pawnGroupMakerSeed == parms.pawnGroupMakerSeed)
                 {
                     __instance.ResolveRaidStrategy(parms, PawnGroupKindDefOf.Combat);
                     __instance.ResolveRaidArriveMode(parms);
@@ -44,5 +39,5 @@ namespace VSEWW
             }
             return true;
         }
-    }
+    }*/
 }
