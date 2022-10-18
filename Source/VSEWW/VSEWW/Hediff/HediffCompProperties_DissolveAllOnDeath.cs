@@ -25,8 +25,9 @@ namespace VSEWW
         public override void CompPostTick(ref float severityAdjustment)
         {
             base.CompPostTick(ref severityAdjustment);
-            if (Find.TickManager.TicksGame % 100 == 0 && (Pawn.IsSlave || Pawn.IsPrisoner))
-                Pawn.Kill(new DamageInfo(DamageDefOf.Stab, 9999, instigator: Pawn));
+            var pawn = Pawn;
+            if (Find.TickManager.TicksGame % 100 == 0 && (pawn.IsSlave || pawn.IsPrisoner))
+                pawn.Kill(new DamageInfo(DamageDefOf.Burn, 9999, instigator: pawn));
         }
 
         public override void Notify_PawnKilled()
