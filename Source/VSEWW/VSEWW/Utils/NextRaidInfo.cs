@@ -566,6 +566,8 @@ namespace VSEWW
             Find.TickManager.slower.SignalForceNormalSpeedShort();
             Find.StoryWatcher.statsRecord.numRaidsEnemy++;
             map.StoryState.lastRaidFaction = parms.faction;
+            // Generate raid loot
+            GenerateRaidLoot();
             // Resolve stuff and send pawns
             ResolveRaidArrival();
             // Make letter label/text
