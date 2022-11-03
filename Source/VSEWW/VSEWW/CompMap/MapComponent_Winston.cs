@@ -74,7 +74,7 @@ namespace VSEWW
             if (counterPos.x == 0 && counterPos.y == 0)
                 counterPos = new Vector2(5f, 5f);
 
-            allOtherStrategies = DefDatabase<RaidStrategyDef>.AllDefsListForReading;
+            allOtherStrategies = DefDatabase<RaidStrategyDef>.AllDefsListForReading.ToList();
             allOtherStrategies.RemoveAll(s => normalStrategies.Contains(s));
 
             sosSpace = map.Biome.defName == "OuterSpaceBiome";
