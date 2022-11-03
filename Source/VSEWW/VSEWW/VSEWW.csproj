@@ -66,8 +66,6 @@
     <Compile Include="Defs\ModifierDef.cs" />
     <Compile Include="Harmony\Prefix\GenGameEnd_EndGameDialogMessage.cs" />
     <Compile Include="Harmony\HarmonyInit.cs" />
-    <Compile Include="Harmony\Prefix\IncidentWorker_Raid_TryExecuteWorker.cs" />
-    <Compile Include="Harmony\Prefix\IncidentWorker_Raid_TryGenerateRaidInfo.cs" />
     <Compile Include="Harmony\Postfix\Pawn_HealthScale.cs" />
     <Compile Include="Harmony\Postfix\Plant_GrowthRate.cs" />
     <Compile Include="Harmony\Postfix\RecordsUtility_Notify_PawnKilled.cs" />
