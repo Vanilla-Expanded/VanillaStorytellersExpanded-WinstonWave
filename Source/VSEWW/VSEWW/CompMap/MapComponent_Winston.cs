@@ -287,7 +287,7 @@ namespace VSEWW
         internal bool CanUseStrategy(RaidStrategyDef def, NextRaidInfo nri)
         {
             var excluded = WinstonMod.settings.excludedStrategyDefs;
-            if (!excluded.NullOrEmpty() || excluded.Contains(def.defName))
+            if (excluded != null && excluded.Contains(def.defName))
                 return false;
 
             if (def == null || !def.Worker.CanUseWith(nri.parms, PawnGroupKindDefOf.Combat))
