@@ -10,7 +10,13 @@ namespace VSEWW
 {
     internal class MapComponent_Winston : MapComponent
     {
-        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>() { RaidStrategyDefOf.ImmediateAttack, RaidStrategyDefOf.ImmediateAttackFriendly, WDefOf.ImmediateAttackSmart, WDefOf.StageThenAttack };
+        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>()
+        {
+            RaidStrategyDefOf.ImmediateAttack,
+            RaidStrategyDefOf.ImmediateAttackFriendly,
+            WRaidStrategyDefOf.ImmediateAttackSmart,
+            WRaidStrategyDefOf.StageThenAttack
+        };
         internal List<RaidStrategyDef> allOtherStrategies;
 
         internal Vector2 counterPos;
@@ -358,9 +364,9 @@ namespace VSEWW
             for (int i = 0; i < pawns.Count; i++)
             {
                 var pawn = pawns[i];
-                if (pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Humanlike && !statPawns.Contains(pawn) && !pawn.health.hediffSet.HasHediff(WDefOf.VESWW_IncreasedStats))
+                if (pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Humanlike && !statPawns.Contains(pawn) && !pawn.health.hediffSet.HasHediff(WHediffDefOf.VESWW_IncreasedStats))
                 {
-                    pawn.health.AddHediff(WDefOf.VESWW_IncreasedStats);
+                    pawn.health.AddHediff(WHediffDefOf.VESWW_IncreasedStats);
                     statPawns.Add(pawn);
                 }
             }
@@ -377,7 +383,7 @@ namespace VSEWW
             for (int i = 0; i < statPawns.Count; i++)
             {
                 var pawn = statPawns[i];
-                if (pawn.health?.hediffSet?.GetFirstHediffOfDef(WDefOf.VESWW_IncreasedStats) is Hediff hediff)
+                if (pawn.health?.hediffSet?.GetFirstHediffOfDef(WHediffDefOf.VESWW_IncreasedStats) is Hediff hediff)
                     pawn.health.RemoveHediff(hediff);
             }
 

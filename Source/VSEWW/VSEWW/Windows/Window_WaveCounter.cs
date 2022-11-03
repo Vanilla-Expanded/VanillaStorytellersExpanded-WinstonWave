@@ -111,7 +111,7 @@ namespace VSEWW
                 mRect.y += 5;
                 GUI.DrawTexture(mRect, Startup.ModifierBGTex);
                 if (WinstonMod.settings.mysteryMod)
-                    WDefOf.VSEWW_Mystery.DrawCard(mRect);
+                    ModifierDefOf.VSEWW_Mystery.DrawCard(mRect);
                 else
                     mcw.nextRaidInfo.modifiers[i - 1].DrawCard(mRect);
             }

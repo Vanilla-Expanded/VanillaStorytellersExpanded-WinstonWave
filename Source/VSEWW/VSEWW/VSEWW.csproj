@@ -59,6 +59,9 @@
   <ItemGroup>
     <Compile Include="Comp\CompProperties\CompProperties_RegisterAsRewardDrop.cs" />
     <Compile Include="Comp\CompRegisterAsRewardDrop.cs" />
+    <Compile Include="DefOf\ModifierDefOf.cs" />
+    <Compile Include="DefOf\WHediffDefOf.cs" />
+    <Compile Include="DefOf\WRaidStrategyDefOf.cs" />
     <Compile Include="Defs\DefUtils.cs" />
     <Compile Include="Defs\ModifierDef.cs" />
     <Compile Include="Harmony\Prefix\GenGameEnd_EndGameDialogMessage.cs" />
@@ -73,7 +76,6 @@
     <Compile Include="Settings\WinstonMod.cs" />
     <Compile Include="Utils\WinstonRaidLootDistributor.cs" />
     <Compile Include="Utils\Reward\RewardCommonalities.cs" />
-    <Compile Include="WDefOf.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />
     <Compile Include="Hediff\Hediff_RemoveIfColonist.cs" />
     <Compile Include="Incidents\FullMapFlashstorm.cs" />
