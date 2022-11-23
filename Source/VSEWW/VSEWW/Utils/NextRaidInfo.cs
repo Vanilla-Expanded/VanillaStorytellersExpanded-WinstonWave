@@ -88,7 +88,7 @@ namespace VSEWW
         {
             get
             {
-                return sent && Lords != null && WavePawnsLeft() == 0 && map.mapPawns.AnyColonistSpawned;
+                return sent && Lords != null && WavePawnsLeft() == 0 && (map == null || map.mapPawns == null || map.mapPawns.AnyColonistSpawned);
             }
         }
 
