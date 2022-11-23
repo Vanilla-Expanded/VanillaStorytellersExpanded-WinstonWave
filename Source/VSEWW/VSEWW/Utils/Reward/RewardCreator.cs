@@ -122,19 +122,20 @@ namespace VSEWW
             {
                 var itemReward = reward.items[i];
                 var countLeft = itemReward.count;
+                var thingDef = itemReward.thing;
 
                 while (countLeft > 0)
                 {
                     Thing thing;
-                    if (itemReward.thing.CostStuffCount > 0)
-                        thing = ThingMaker.MakeThing(itemReward.thing, GenStuff.RandomStuffFor(itemReward.thing));
+                    if (thingDef.CostStuffCount > 0)
+                        thing = ThingMaker.MakeThing(thingDef, GenStuff.RandomStuffFor(thingDef));
                     else
-                        thing = ThingMaker.MakeThing(itemReward.thing);
+                        thing = ThingMaker.MakeThing(thingDef);
 
                     if (thing.TryGetComp<CompQuality>() is CompQuality comp)
                         comp.SetQuality(itemReward.quality > QualityCategory.Awful ? itemReward.quality : QualityUtility.GenerateQualityRandomEqualChance(), ArtGenerationContext.Outsider);
 
-                    int stack = Math.Min(countLeft, thing.def.stackLimit);
+                    int stack = Math.Min(countLeft, thingDef.stackLimit);
                     thing.stackCount = stack;
                     countLeft -= stack;
 
@@ -206,6 +207,10 @@ namespace VSEWW
                         int stack = Math.Min(countLeft, thing.def.stackLimit);
                         thing.stackCount = stack;
                         countLeft -= stack;
+                    }
+                    else
+                    {
+                        countLeft--;
                     }
 
                     if (thing.def.minifiedDef != null)
