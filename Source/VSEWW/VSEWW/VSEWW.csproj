@@ -75,7 +75,6 @@
     <Compile Include="Utils\WinstonRaidLootDistributor.cs" />
     <Compile Include="Utils\Reward\RewardCommonalities.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />
-    <Compile Include="Hediff\Hediff_RemoveIfColonist.cs" />
     <Compile Include="Incidents\FullMapFlashstorm.cs" />
     <Compile Include="Incidents\IncidentWorker_MakeGameConditionNoLetter.cs" />
     <Compile Include="Incidents\OrbitalBombardement.cs" />

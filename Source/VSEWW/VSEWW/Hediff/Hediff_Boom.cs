@@ -3,17 +3,21 @@ using Verse;
 
 namespace VSEWW
 {
-    public class Hediff_Boom : Hediff_RemoveIfColonist
+    public class Hediff_Boom : HediffWithComps
     {
         public override void Notify_PawnKilled()
         {
-            GenExplosion.DoExplosion(pawn.Position, pawn.Map, 2.9f, DamageDefOf.Bomb, pawn);
+            if (pawn.Faction != Faction.OfPlayer)
+                GenExplosion.DoExplosion(pawn.Position, pawn.Map, 2.9f, DamageDefOf.Bomb, pawn);
+
             base.Notify_PawnKilled();
         }
 
         public override void Notify_PawnDied()
         {
-            GenExplosion.DoExplosion(pawn.Position, pawn.Map, 2.9f, DamageDefOf.Bomb, pawn);
+            if (pawn.Faction != Faction.OfPlayer)
+                GenExplosion.DoExplosion(pawn.Position, pawn.Map, 2.9f, DamageDefOf.Bomb, pawn);
+
             base.Notify_PawnDied();
         }
     }
