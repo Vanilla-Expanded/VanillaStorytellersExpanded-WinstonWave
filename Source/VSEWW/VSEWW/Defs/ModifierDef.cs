@@ -74,6 +74,7 @@ namespace VSEWW
         public void DrawCard(Rect rect)
         {
             Rect iconRect = new Rect(rect.x, rect.y, rect.width, rect.width);
+            GUI.DrawTexture(iconRect, Startup.ModifierBGTex);
             GUI.DrawTexture(iconRect.ContractedBy(10), ModifierIcon);
             TooltipHandler.TipRegion(rect, $"<b>{label}</b>\n{description}");
         }

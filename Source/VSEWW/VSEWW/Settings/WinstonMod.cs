@@ -258,7 +258,7 @@ namespace VSEWW
                     mcW.counterPos = new Vector2(5f, 5f);
                     mcW.waveCounter.windowRect.y = 5f;
                     mcW.waveCounter.windowRect.x = UI.screenWidth - 5f - mcW.waveCounter.windowRect.width;
-                    mcW.waveCounter.UpdateHeight();
+                    mcW.waveCounter.UpdateWindow();
                 }
                 else
                 {
@@ -275,10 +275,17 @@ namespace VSEWW
         public override void WriteSettings()
         {
             base.WriteSettings();
+
+            var mapComp = Find.CurrentMap?.GetComponent<MapComponent_Winston>();
+            if (mapComp == null)
+                return;
+
             if (settings.enableStatIncrease)
-                Find.CurrentMap?.GetComponent<MapComponent_Winston>()?.AddStatHediff();
+                mapComp.AddStatHediff();
             else
-                Find.CurrentMap?.GetComponent<MapComponent_Winston>()?.RemoveStatHediff();
+                mapComp.RemoveStatHediff();
+
+            mapComp.waveCounter.UpdateWindow();
         }
     }
 }

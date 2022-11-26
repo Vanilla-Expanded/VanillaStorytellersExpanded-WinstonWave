@@ -109,7 +109,7 @@ namespace VSEWW
                 if (ShouldRegenerateRaid)
                 {
                     nextRaidInfo = GetNextRaid(ticksGame);
-                    waveCounter?.UpdateHeight();
+                    waveCounter?.UpdateWindow();
                     waveCounter?.WaveTip();
                 }
                 else
@@ -142,7 +142,7 @@ namespace VSEWW
                 {
                     waveCounter = new Window_WaveCounter(this, counterDraggable, counterPos);
                     Find.WindowStack.Add(waveCounter);
-                    waveCounter.UpdateHeight();
+                    waveCounter.UpdateWindow();
                     waveCounter.WaveTip();
                 }
                 else if (waveCounter != null && currentMap != map)
@@ -177,7 +177,7 @@ namespace VSEWW
             currentWave++;
             nextRaidInfo.StopIncidentModifiers();
             nextRaidInfo = GetNextRaid(ticksGame);
-            waveCounter?.UpdateHeight();
+            waveCounter?.UpdateWindow();
             waveCounter?.WaveTip();
             // Show rewards window
             if (sendReward)
@@ -283,7 +283,7 @@ namespace VSEWW
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
-            waveCounter?.UpdateHeight();
+            waveCounter?.UpdateWindow();
             return nri;
         }
 
@@ -327,7 +327,7 @@ namespace VSEWW
 
             nri.SetPawnsInfo();
             nri.ChooseAndApplyModifier();
-            waveCounter?.UpdateHeight();
+            waveCounter?.UpdateWindow();
             return nri;
         }
 
@@ -338,6 +338,7 @@ namespace VSEWW
         {
             // Send raid
             nextRaidInfo.SendRaid(map, ticks);
+            waveCounter?.UpdateWindow();
             // Send allies if necessary
             if (nextRaidSendAllies)
             {

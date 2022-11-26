@@ -52,7 +52,7 @@ namespace VSEWW
                         c.GetNextWavePoint();
                     }
                     c.nextRaidInfo = c.currentWave % 5 == 0 ? c.SetNextBossRaidInfo(ticksGame, 1) : c.SetNextNormalRaidInfo(ticksGame, 1);
-                    c.waveCounter.UpdateHeight();
+                    c.waveCounter.UpdateWindow();
                     c.waveCounter.WaveTip();
                 }));
             }
@@ -82,6 +82,7 @@ namespace VSEWW
                     {
                         c.nextRaidInfo.modifiers.Add(m);
                         c.nextRaidInfo.ApplyModifiers();
+                        c.waveCounter.UpdateWindow();
                     }
                     else
                     {
@@ -99,6 +100,8 @@ namespace VSEWW
             var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
             float inD = mapComp.currentWave > 1 ? WinstonMod.settings.timeBetweenWaves : WinstonMod.settings.timeBeforeFirstWave;
             mapComp.nextRaidInfo = mapComp.currentWave % 5 == 0 ? mapComp.SetNextBossRaidInfo(ticksGame, inD) : mapComp.SetNextNormalRaidInfo(ticksGame, inD);
+            mapComp.waveCounter.UpdateWindow();
+
         }
 
         [DebugAction("VES Winston Wave", "Reset to wave 1", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -109,6 +112,7 @@ namespace VSEWW
             mapComp.currentWave = 1;
             mapComp.currentPoints = 1;
             mapComp.nextRaidInfo = mapComp.SetNextNormalRaidInfo(Find.TickManager.TicksGame, WinstonMod.settings.timeBeforeFirstWave);
+            mapComp.waveCounter.UpdateWindow();
         }
     }
 }

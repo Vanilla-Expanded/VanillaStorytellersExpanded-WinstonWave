@@ -7,10 +7,13 @@ namespace VSEWW
 {
     internal class Window_WaveCounter : Window
     {
-        public override Vector2 InitialSize => new Vector2(330f, 300f);
+        public override Vector2 InitialSize => new Vector2(150f, 200f);
 
-        private readonly MapComponent_Winston mcw;
-        private string waveTip;
+        const int MarginSize = 10;
+        const int ModifierSize = 50;
+
+        internal MapComponent_Winston mcw;
+        internal string waveTip;
         internal Vector2 pos;
 
         public Window_WaveCounter(MapComponent_Winston mapComponent_Winston, bool counterDraggable, Vector2 pos)
@@ -24,10 +27,10 @@ namespace VSEWW
             doCloseButton = false;
             doCloseX = false;
             draggable = counterDraggable;
-            drawShadow = false;
             preventCameraMotion = false;
             resizeable = false;
             doWindowBackground = false;
+            drawShadow = false;
             layer = WindowLayer.GameUI;
 
             WaveTip();
@@ -35,9 +38,7 @@ namespace VSEWW
 
         public override void WindowOnGUI()
         {
-            if (WorldRendererUtility.WorldRenderedNow)
-                return;
-            base.WindowOnGUI();
+            if (!WorldRendererUtility.WorldRenderedNow) base.WindowOnGUI();
         }
 
         public override void PostClose()
@@ -46,48 +47,41 @@ namespace VSEWW
             mcw.waveCounter = null;
         }
 
-        public override void Notify_ResolutionChanged()
+        public override void Notify_ResolutionChanged() { }
+
+        public void UpdateWindow()
         {
-            base.Notify_ResolutionChanged();
-            UpdatePosition();
-        }
+            // Manage height
+            if (mcw.nextRaidInfo.sent)
+                windowRect.height = 125f + (mcw.nextRaidInfo.kindListLines * 16f);
+            else
+                windowRect.height = 160f;
 
-        protected override void SetInitialSizeAndPosition()
-        {
-            base.SetInitialSizeAndPosition();
-            UpdatePosition();
-        }
+            if (!WinstonMod.settings.hideToggleDraggable)
+                windowRect.height += 30f;
 
-        private void UpdatePosition()
-        {
-            windowRect.x = UI.screenWidth - pos.x - windowRect.width;
-            windowRect.y = pos.y;
-
-            if (windowRect.y < 0)
-                windowRect.y = 0;
-
-            if (windowRect.x > UI.screenWidth)
-                windowRect.x = UI.screenWidth - windowRect.width;
-        }
-
-        public void UpdateHeight()
-        {
-            windowRect.height = 35f + 190f;
-            if (WinstonMod.settings.showPawnList)
+            if (WinstonMod.settings.showPawnList && !mcw.nextRaidInfo.sent)
+            {
+                windowRect.height += 35f;
                 windowRect.height += mcw.nextRaidInfo.kindListLines * 16f;
+            }
+            // Manage width
+            windowRect.width = 150f + 10f + ModifierSize + (mcw.nextRaidInfo.modifierCount * ModifierSize);
         }
 
         public override void DoWindowContents(Rect inRect)
         {
+            var rect = inRect;
             if (WinstonMod.settings.drawBackground)
             {
-                Widgets.DrawBoxSolid(inRect, Startup.counterColor);
+                Widgets.DrawWindowBackground(inRect);
+                rect = inRect.ContractedBy(MarginSize);
             }
 
             if (mcw.nextRaidInfo.sent)
-                DoWaveProgressUI(inRect);
+                DoWaveProgressUI(rect);
             else
-                DoWavePredictionUI(inRect);
+                DoWavePredictionUI(rect);
         }
 
         private void DoWaveNumberAndModifierUI(Rect rect)
@@ -98,18 +92,15 @@ namespace VSEWW
             Text.Anchor = TextAnchor.MiddleCenter;
 
             // Modifiers and wave rect
-            float mWidth = rect.height - 10;
             int i;
             for (i = 1; i <= mcw.nextRaidInfo.modifierCount; i++)
             {
                 Rect mRect = new Rect(rect)
                 {
-                    x = rect.xMax - (i * mWidth) - ((i - 1) * 5),
-                    width = mWidth,
-                    height = mWidth,
+                    x = rect.xMax - (i * ModifierSize) - ((i - 1) * 5),
+                    width = ModifierSize,
                 };
-                mRect.y += 5;
-                GUI.DrawTexture(mRect, Startup.ModifierBGTex);
+
                 if (WinstonMod.settings.mysteryMod)
                     ModifierDefOf.VSEWW_Mystery.DrawCard(mRect);
                 else
@@ -118,8 +109,8 @@ namespace VSEWW
 
             Rect wRect = new Rect(rect)
             {
-                x = rect.xMax - (i * mWidth) - ((i - 1) * 5) - 10,
-                width = mWidth + 10,
+                x = rect.xMax - (i * ModifierSize) - ((i - 1) * 5) - 10,
+                width = ModifierSize,
             };
             GUI.DrawTexture(wRect, Startup.WaveBGTex);
             Widgets.DrawTextureFitted(wRect, mcw.nextRaidInfo.waveType == 0 ? Startup.NormalTex : Startup.BossTex, 0.8f);
@@ -158,7 +149,7 @@ namespace VSEWW
             // Wave and modifier
             Rect numRect = new Rect(rect)
             {
-                height = 60
+                height = ModifierSize
             };
             DoWaveNumberAndModifierUI(numRect);
             // Progress bar
@@ -210,8 +201,6 @@ namespace VSEWW
             Rect skipRect = new Rect(rect)
             {
                 y = max + 10,
-                x = rect.x + (rect.width / 2),
-                width = rect.width / 2,
                 height = 20f
             };
             if (Widgets.ButtonText(skipRect, "VESWW.SkipWave".Translate()))
@@ -225,8 +214,6 @@ namespace VSEWW
                 Rect lockRect = new Rect(rect)
                 {
                     y = skipRect.yMax,
-                    x = rect.x + (rect.width / 2),
-                    width = rect.width / 2,
                     height = 25
                 };
                 Widgets.CheckboxLabeled(lockRect, "VESWW.Locked".Translate(), ref draggable);
@@ -241,14 +228,13 @@ namespace VSEWW
             // Wave and modifier
             Rect numRect = new Rect(rect)
             {
-                height = 60
+                height = 50
             };
             DoWaveNumberAndModifierUI(numRect);
             // Progress bar
             Rect barRect = new Rect(rect)
             {
                 y = numRect.yMax + 10,
-                width = rect.width,
                 height = 25
             };
 
