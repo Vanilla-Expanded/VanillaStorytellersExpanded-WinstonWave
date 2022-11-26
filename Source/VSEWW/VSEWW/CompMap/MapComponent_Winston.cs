@@ -51,12 +51,6 @@ namespace VSEWW
 
         public override void ExposeData()
         {
-            if (waveCounter != null)
-            {
-                counterDraggable = waveCounter.draggable;
-                counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
-            }
-
             Scribe_Values.Look(ref currentWave, "currentWave");
             Scribe_Values.Look(ref currentPoints, "currentPoints");
             Scribe_Values.Look(ref modifierChance, "modifierChance");
@@ -71,9 +65,6 @@ namespace VSEWW
 
         public override void FinalizeInit()
         {
-            if (counterPos.x == 0 && counterPos.y == 0)
-                counterPos = new Vector2(5f, 5f);
-
             allOtherStrategies = DefDatabase<RaidStrategyDef>.AllDefsListForReading.ToList();
             allOtherStrategies.RemoveAll(s => normalStrategies.Contains(s));
 
@@ -135,6 +126,12 @@ namespace VSEWW
                         // Regenerate raid
                         nextRaidInfo = GetNextRaid(ticksGame);
                     }
+                }
+
+                if (waveCounter != null)
+                {
+                    counterDraggable = waveCounter.draggable;
+                    counterPos = new Vector2(UI.screenWidth - waveCounter.windowRect.xMax, waveCounter.windowRect.y);
                 }
                 // Manage counter visibility
                 var currentMap = Find.CurrentMap;

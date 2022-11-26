@@ -47,7 +47,10 @@ namespace VSEWW
             mcw.waveCounter = null;
         }
 
-        public override void Notify_ResolutionChanged() { }
+        public override void Notify_ResolutionChanged()
+        {
+            UpdateWindow();
+        }
 
         public void UpdateWindow()
         {
@@ -67,6 +70,9 @@ namespace VSEWW
             }
             // Manage width
             windowRect.width = 150f + 10f + ModifierSize + (mcw.nextRaidInfo.modifierCount * ModifierSize);
+            // Manage position
+            var pos = new Vector2(UI.screenWidth - windowRect.width - mcw.counterPos.x, mcw.counterPos.y);
+            windowRect.position = pos;
         }
 
         public override void DoWindowContents(Rect inRect)

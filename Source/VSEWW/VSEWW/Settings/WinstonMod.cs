@@ -255,9 +255,7 @@ namespace VSEWW
             {
                 if (Find.CurrentMap != null && Find.CurrentMap.GetComponent<MapComponent_Winston>() is MapComponent_Winston mcW)
                 {
-                    mcW.counterPos = new Vector2(5f, 5f);
-                    mcW.waveCounter.windowRect.y = 5f;
-                    mcW.waveCounter.windowRect.x = UI.screenWidth - 5f - mcW.waveCounter.windowRect.width;
+                    mcW.counterPos = Vector2.zero;
                     mcW.waveCounter.UpdateWindow();
                 }
                 else
