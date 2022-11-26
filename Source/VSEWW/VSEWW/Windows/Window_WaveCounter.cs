@@ -5,8 +5,11 @@ using Verse;
 
 namespace VSEWW
 {
+    [StaticConstructorOnStartup]
     internal class Window_WaveCounter : Window
     {
+        private static readonly Color WindowBGColor = new ColorInt(21, 25, 29, 64).ToColor;
+
         public override Vector2 InitialSize => new Vector2(150f, 200f);
 
         const int MarginSize = 10;
@@ -77,17 +80,17 @@ namespace VSEWW
 
         public override void DoWindowContents(Rect inRect)
         {
-            var rect = inRect;
             if (WinstonMod.settings.drawBackground)
             {
-                Widgets.DrawWindowBackground(inRect);
-                rect = inRect.ContractedBy(MarginSize);
+                GUI.color = WindowBGColor;
+                GUI.DrawTexture(inRect, BaseContent.WhiteTex);
+                GUI.color = Color.white;
             }
 
             if (mcw.nextRaidInfo.sent)
-                DoWaveProgressUI(rect);
+                DoWaveProgressUI(inRect);
             else
-                DoWavePredictionUI(rect);
+                DoWavePredictionUI(inRect);
         }
 
         private void DoWaveNumberAndModifierUI(Rect rect)
