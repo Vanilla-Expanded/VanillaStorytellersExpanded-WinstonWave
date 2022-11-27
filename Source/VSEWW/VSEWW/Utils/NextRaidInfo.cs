@@ -171,7 +171,9 @@ namespace VSEWW
             var kindsCount = new Dictionary<PawnKindDef, int>();
             for (int i = 0; i < raidPawns.Count; i++)
             {
-                kindsCount.SetOrAdd(raidPawns[i].kindDef, 1);
+                var kind = raidPawns[i].kindDef;
+                if (kindsCount.ContainsKey(kind)) kindsCount[kind]++;
+                else kindsCount.Add(kind, 1);
             }
             // Create kinds list string
             string kindLabel = "VESWW.EnemiesC".Translate(totalPawnsBefore) + "\n";
