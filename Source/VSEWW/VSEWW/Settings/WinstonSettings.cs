@@ -16,7 +16,6 @@ namespace VSEWW
         public bool mysteryMod = false;
         public bool randomRewardMod = false;
         public bool hideToggleDraggable = false;
-        public bool useRimworldTime = false;
         public bool showPawnList = true;
         public bool dropSlagChunk = true;
 
@@ -38,7 +37,6 @@ namespace VSEWW
             Scribe_Values.Look(ref mysteryMod, "mysteryMod", false);
             Scribe_Values.Look(ref randomRewardMod, "randomRewardMod", false);
             Scribe_Values.Look(ref hideToggleDraggable, "hideToggleDraggable", false);
-            Scribe_Values.Look(ref useRimworldTime, "useRimworldTime", false);
             Scribe_Values.Look(ref showPawnList, "showPawnList", true);
             Scribe_Values.Look(ref dropSlagChunk, "dropSlagChunk", true);
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());

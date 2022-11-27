@@ -12,7 +12,6 @@ namespace VSEWW
 
         public override Vector2 InitialSize => new Vector2(150f, 200f);
 
-        const int MarginSize = 10;
         const int ModifierSize = 50;
 
         internal MapComponent_Winston mcw;
@@ -131,7 +130,7 @@ namespace VSEWW
             };
             waveNumRect.x = wRect.x - 10 - waveNumRect.width;
             Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(waveNumRect.Rounded(), "VESWW.WaveNum".Translate(mcw.nextRaidInfo.waveNum));
+            Widgets.Label(waveNumRect.Rounded(), "VESWW.WaveNum".Translate(mcw.nextRaidInfo.waveNumber));
 
             Text.Font = prevFont;
             Text.Anchor = prevAnch;
@@ -143,7 +142,7 @@ namespace VSEWW
             string pointUsed = "VESWW.PointUsed".Translate(mcw.nextRaidInfo.parms.points);
             string rewardChance = "";
 
-            var c = RewardCommonalities.GetCommonalities(mcw.nextRaidInfo.waveNum);
+            var c = RewardCommonalities.GetCommonalities(mcw.nextRaidInfo.waveNumber);
             int total = c.Sum(v => v.Value);
             foreach (var item in c)
             {
@@ -216,7 +215,7 @@ namespace VSEWW
             {
                 mcw.StartRaid(Find.TickManager.TicksGame);
             }
-            TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.nextRaidInfo.FourthRewardChanceNow.ToStringPercent()));
+            TooltipHandler.TipRegion(skipRect, "VESWW.MoreRewardChance".Translate(mcw.FourthRewardChance(true).ToStringPercent()));
             if (!WinstonMod.settings.hideToggleDraggable)
             {
                 // lock button
@@ -247,41 +246,47 @@ namespace VSEWW
                 height = 25
             };
 
-            if (mcw.nextRaidInfo.Lords != null)
+            if (mcw.nextRaidInfo.anyPawnSpawned)
             {
                 int pKill = mcw.nextRaidInfo.totalPawnsBefore - mcw.nextRaidInfo.totalPawnsLeft;
                 DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawnsBefore}", (float)pKill / mcw.nextRaidInfo.totalPawnsBefore);
-                // Faction
-                Rect factionIconRect = new Rect(rect)
-                {
-                    x = numRect.xMax - 20f,
-                    y = barRect.yMax + 10,
-                    height = 20f,
-                    width = 20f
-                };
-                GUI.color = mcw.nextRaidInfo.parms.faction.Color;
-                GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.parms.faction.def.FactionIcon);
-                GUI.color = Color.white;
-                Rect factionRect = new Rect(rect)
-                {
-                    y = barRect.yMax + 10,
-                    height = 20f,
-                    width = rect.width - factionIconRect.width
-                };
-                Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(factionRect, mcw.nextRaidInfo.parms.faction.Name);
-                Text.Anchor = TextAnchor.UpperRight;
-                // Pawn left
-                Text.Anchor = TextAnchor.UpperRight;
-                Text.Font = GameFont.Tiny;
-                Rect kindRect = new Rect(rect)
-                {
-                    y = factionRect.yMax + 10,
-                    height = rect.height - numRect.height - barRect.height - 20,
-                };
-                // - Showing label
-                Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
             }
+            else
+            {
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(barRect, "VESWW.PawnsArriving".Translate());
+            }
+            // Faction
+            Rect factionIconRect = new Rect(rect)
+            {
+                x = numRect.xMax - 20f,
+                y = barRect.yMax + 10,
+                height = 20f,
+                width = 20f
+            };
+            GUI.color = mcw.nextRaidInfo.parms.faction.Color;
+            GUI.DrawTexture(factionIconRect, mcw.nextRaidInfo.parms.faction.def.FactionIcon);
+            GUI.color = Color.white;
+            Rect factionRect = new Rect(rect)
+            {
+                y = barRect.yMax + 10,
+                height = 20f,
+                width = rect.width - factionIconRect.width
+            };
+            Text.Anchor = TextAnchor.MiddleRight;
+            Widgets.Label(factionRect, mcw.nextRaidInfo.parms.faction.Name);
+            Text.Anchor = TextAnchor.UpperRight;
+            // Pawn left
+            Text.Anchor = TextAnchor.UpperRight;
+            Text.Font = GameFont.Tiny;
+            Rect kindRect = new Rect(rect)
+            {
+                y = factionRect.yMax + 10,
+                height = rect.height - numRect.height - barRect.height - 20,
+            };
+            // - Showing label
+            Widgets.Label(kindRect, mcw.nextRaidInfo.cacheKindList);
+
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
         }

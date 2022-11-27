@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using RimWorld;
 using UnityEngine;
@@ -24,6 +25,15 @@ namespace VSEWW
         internal static Color counterColor;
 
         internal static Dictionary<RewardCategory, List<RewardDef>> rewardsPerCat;
+
+        internal static readonly List<RaidStrategyDef> normalStrategies = new List<RaidStrategyDef>()
+        {
+            RaidStrategyDefOf.ImmediateAttack,
+            RaidStrategyDefOf.ImmediateAttackFriendly,
+            WRaidStrategyDefOf.ImmediateAttackSmart,
+            WRaidStrategyDefOf.StageThenAttack
+        };
+        internal static List<RaidStrategyDef> allOtherStrategies;
 
         static Startup()
         {
@@ -56,6 +66,9 @@ namespace VSEWW
                 var reward = rewards[i];
                 rewardsPerCat[reward.category].Add(reward);
             }
+            // Manage strategies
+            allOtherStrategies = DefDatabase<RaidStrategyDef>.AllDefsListForReading.ToList();
+            allOtherStrategies.RemoveAll(s => normalStrategies.Contains(s));
         }
     }
 }

@@ -196,7 +196,7 @@ namespace VSEWW
                     settings.excludedStrategyDefs = new List<string>();
 
                 foreach (var item in DefDatabase<RaidStrategyDef>.AllDefsListForReading.FindAll(f => f.arrivalTextEnemy != null
-                                                                                                     && !MapComponent_Winston.normalStrategies.Contains(f)
+                                                                                                     && !Startup.normalStrategies.Contains(f)
                                                                                                      && !settings.excludedStrategyDefs.Contains(f.defName)))
                 {
                     floatMenuOptions.Add(new FloatMenuOption($"{item.defName}", () => settings.excludedStrategyDefs.Add(item.defName)));
@@ -246,9 +246,6 @@ namespace VSEWW
             gameSettingsLst.Gap(5);
 
             gameSettingsLst.CheckboxLabeled("VESWW.ShowDraggable".Translate(), ref settings.hideToggleDraggable, "VESWW.ShowDraggableTip".Translate());
-            gameSettingsLst.Gap(5);
-
-            gameSettingsLst.CheckboxLabeled("VESWW.UseRimworldTime".Translate(), ref settings.useRimworldTime, "VESWW.UseRimworldTimeTip".Translate());
             gameSettingsLst.Gap(5);
 
             if (gameSettingsLst.ButtonText("VESWW.ResetCounterPos".Translate()))
