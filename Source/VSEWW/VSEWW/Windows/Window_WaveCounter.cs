@@ -117,7 +117,7 @@ namespace VSEWW
 
             Rect wRect = new Rect(rect)
             {
-                x = rect.xMax - (i * ModifierSize) - ((i - 1) * 5) - 10,
+                x = rect.xMax - (i * ModifierSize) - ((i - 1) * 5),
                 width = ModifierSize,
             };
             GUI.DrawTexture(wRect, Startup.WaveBGTex);
