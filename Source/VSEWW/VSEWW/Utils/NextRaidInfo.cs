@@ -31,7 +31,6 @@ namespace VSEWW
         public string cacheKindList;
 
         public int modifierCount;
-        public int reinforcementSeed = -1;
         public bool reinforcementSent = false;
         public bool reinforcementPlanned = false;
         public bool modifiersPreventFlee = false;
@@ -460,7 +459,6 @@ namespace VSEWW
             Scribe_Values.Look(ref totalPawnsLeft, "totalPawnsLeft");
             Scribe_Values.Look(ref totalPawnsBefore, "totalPawnsBefore");
             Scribe_Values.Look(ref reinforcementPlanned, "reinforcementPlanned");
-            Scribe_Values.Look(ref reinforcementSeed, "reinforcementSeed", -1);
             Scribe_Values.Look(ref anyPawnSpawned, "anyPawnSpawned");
 
             Scribe_Deep.Look(ref parms, "incidentParms");
@@ -528,8 +526,6 @@ namespace VSEWW
                 parms.points = Math.Max(100f, this.parms.points * 0.5f);
                 parms.pawnGroupMakerSeed = Rand.RangeInclusive(1, 10000);
                 parms.customLetterLabel = "VESWW.Reinforcement".Translate();
-                // Set seed
-                reinforcementSeed = parms.pawnGroupMakerSeed.Value;
                 // Execute
                 IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
             }
