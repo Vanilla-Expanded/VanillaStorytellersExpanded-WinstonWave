@@ -143,10 +143,10 @@ namespace VSEWW
             string rewardChance = "";
 
             var c = RewardCommonalities.GetCommonalities(mcw.nextRaidInfo.waveNumber);
-            int total = c.Sum(v => v.Value);
+            float total = c.Sum(v => v.Value);
             foreach (var item in c)
             {
-                rewardChance += $"{item.Key} - {((float)(item.Value > 0 ? item.Value / (float)total : 0)).ToStringPercent()}\n";
+                rewardChance += $"{item.Key} - {(item.Value > 0 ? item.Value / total : 0).ToStringPercent()}\n";
             }
 
             waveTip = $"<b>{title}</b>\n\n{pointUsed}\n\n{"VESWW.RewardChance".Translate()}\n{rewardChance}".TrimEndNewlines();

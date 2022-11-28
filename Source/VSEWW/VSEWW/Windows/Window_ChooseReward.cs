@@ -13,7 +13,7 @@ namespace VSEWW
         private readonly int margin = 10;
         private readonly Map map;
 
-        private readonly Dictionary<RewardCategory, int> commonalities;
+        private readonly Dictionary<RewardCategory, float> commonalities;
         private readonly List<RewardDef> rewardPool;
         private readonly float fourthRewardChance;
 

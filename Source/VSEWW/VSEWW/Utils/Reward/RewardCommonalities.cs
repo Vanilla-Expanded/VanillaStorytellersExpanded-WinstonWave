@@ -1,102 +1,84 @@
 ﻿using System.Collections.Generic;
+using Verse;
 
 namespace VSEWW
 {
     public static class RewardCommonalities
     {
-        public static Dictionary<RewardCategory, int> GetCommonalities(int waveN)
+        public static SimpleCurve Poor = new SimpleCurve(new List<CurvePoint>
         {
-            var com = new Dictionary<RewardCategory, int>()
+            new CurvePoint(0, 90),
+            new CurvePoint(6, 80),
+            new CurvePoint(16, 50),
+            new CurvePoint(21, 20),
+            new CurvePoint(26, 10),
+            new CurvePoint(31, 5),
+            new CurvePoint(41, 5),
+            new CurvePoint(51, 0),
+        });
+        public static SimpleCurve Normal = new SimpleCurve(new List<CurvePoint>
+        {
+            new CurvePoint(0, 8),
+            new CurvePoint(6, 12),
+            new CurvePoint(16, 35),
+            new CurvePoint(21, 50),
+            new CurvePoint(26, 20),
+            new CurvePoint(31, 30),
+            new CurvePoint(41, 20),
+            new CurvePoint(51, 20),
+            new CurvePoint(61, 15),
+            new CurvePoint(66, 0),
+        });
+        public static SimpleCurve Good = new SimpleCurve(new List<CurvePoint>
+        {
+            new CurvePoint(0, 2),
+            new CurvePoint(6, 4),
+            new CurvePoint(16, 10),
+            new CurvePoint(21, 20),
+            new CurvePoint(26, 30),
+            new CurvePoint(31, 50),
+            new CurvePoint(41, 50),
+            new CurvePoint(51, 40),
+            new CurvePoint(61, 25),
+            new CurvePoint(66, 25),
+        });
+        public static SimpleCurve Excellent = new SimpleCurve(new List<CurvePoint>
+        {
+            new CurvePoint(0, 0),
+            new CurvePoint(6, 3),
+            new CurvePoint(16, 3),
+            new CurvePoint(21, 7),
+            new CurvePoint(26, 6),
+            new CurvePoint(31, 10),
+            new CurvePoint(41, 20),
+            new CurvePoint(51, 30),
+            new CurvePoint(61, 45),
+            new CurvePoint(66, 50),
+        });
+        public static SimpleCurve Legendary = new SimpleCurve(new List<CurvePoint>
+        {
+            new CurvePoint(0, 0),
+            new CurvePoint(6, 1),
+            new CurvePoint(16, 2),
+            new CurvePoint(21, 3),
+            new CurvePoint(26, 4),
+            new CurvePoint(31, 5),
+            new CurvePoint(41, 5),
+            new CurvePoint(51, 10),
+            new CurvePoint(61, 15),
+            new CurvePoint(66, 20),
+        });
+
+        public static Dictionary<RewardCategory, float> GetCommonalities(int waveN)
+        {
+            return new Dictionary<RewardCategory, float>()
             {
-                {RewardCategory.Poor, 0},
-                {RewardCategory.Normal, 0},
-                {RewardCategory.Good, 0},
-                {RewardCategory.Excellent, 0},
-                {RewardCategory.Legendary, 0},
+                {RewardCategory.Poor, Poor.Evaluate(waveN)},
+                {RewardCategory.Normal, Normal.Evaluate(waveN)},
+                {RewardCategory.Good, Good.Evaluate(waveN)},
+                {RewardCategory.Excellent, Excellent.Evaluate(waveN)},
+                {RewardCategory.Legendary, Legendary.Evaluate(waveN)},
             };
-
-            if (waveN <= 5)
-            {
-                com[RewardCategory.Poor] = 90;
-                com[RewardCategory.Normal] = 8;
-                com[RewardCategory.Good] = 2;
-                return com;
-            }
-            if (waveN <= 10)
-            {
-                com[RewardCategory.Poor] = 80;
-                com[RewardCategory.Normal] = 12;
-                com[RewardCategory.Good] = 4;
-                com[RewardCategory.Excellent] = 3;
-                com[RewardCategory.Legendary] = 1;
-                return com;
-            }
-            if (waveN <= 15)
-            {
-                com[RewardCategory.Poor] = 50;
-                com[RewardCategory.Normal] = 35;
-                com[RewardCategory.Good] = 10;
-                com[RewardCategory.Excellent] = 3;
-                com[RewardCategory.Legendary] = 2;
-                return com;
-            }
-            if (waveN <= 20)
-            {
-                com[RewardCategory.Poor] = 20;
-                com[RewardCategory.Normal] = 50;
-                com[RewardCategory.Good] = 20;
-                com[RewardCategory.Excellent] = 7;
-                com[RewardCategory.Legendary] = 3;
-                return com;
-            }
-            if (waveN <= 25)
-            {
-                com[RewardCategory.Poor] = 10;
-                com[RewardCategory.Normal] = 20;
-                com[RewardCategory.Good] = 30;
-                com[RewardCategory.Excellent] = 6;
-                com[RewardCategory.Legendary] = 4;
-                return com;
-            }
-            if (waveN <= 30)
-            {
-                com[RewardCategory.Poor] = 5;
-                com[RewardCategory.Normal] = 30;
-                com[RewardCategory.Good] = 50;
-                com[RewardCategory.Excellent] = 10;
-                com[RewardCategory.Legendary] = 5;
-                return com;
-            }
-            if (waveN <= 40)
-            {
-                com[RewardCategory.Poor] = 5;
-                com[RewardCategory.Normal] = 20;
-                com[RewardCategory.Good] = 50;
-                com[RewardCategory.Excellent] = 20;
-                com[RewardCategory.Legendary] = 5;
-                return com;
-            }
-            if (waveN <= 50)
-            {
-                com[RewardCategory.Normal] = 20;
-                com[RewardCategory.Good] = 30;
-                com[RewardCategory.Excellent] = 40;
-                com[RewardCategory.Legendary] = 10;
-                return com;
-            }
-            if (waveN <= 60)
-            {
-                com[RewardCategory.Normal] = 15;
-                com[RewardCategory.Good] = 25;
-                com[RewardCategory.Excellent] = 45;
-                com[RewardCategory.Legendary] = 15;
-                return com;
-            }
-
-            com[RewardCategory.Good] = 25;
-            com[RewardCategory.Excellent] = 50;
-            com[RewardCategory.Legendary] = 25;
-            return com;
         }
     }
 }
