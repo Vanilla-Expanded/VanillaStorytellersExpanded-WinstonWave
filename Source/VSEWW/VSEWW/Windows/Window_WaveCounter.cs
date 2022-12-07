@@ -246,16 +246,8 @@ namespace VSEWW
                 height = 25
             };
 
-            if (mcw.nextRaidInfo.anyPawnSpawned)
-            {
-                int pKill = mcw.nextRaidInfo.totalPawnsBefore - mcw.nextRaidInfo.totalPawnsLeft;
-                DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawnsBefore}", (float)pKill / mcw.nextRaidInfo.totalPawnsBefore);
-            }
-            else
-            {
-                Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(barRect, "VESWW.PawnsArriving".Translate());
-            }
+            int pKill = mcw.nextRaidInfo.totalPawnsBefore - mcw.nextRaidInfo.totalPawnsLeft;
+            DrawFillableBar(barRect, $"{pKill}/{mcw.nextRaidInfo.totalPawnsBefore}", (float)pKill / mcw.nextRaidInfo.totalPawnsBefore);
             // Faction
             Rect factionIconRect = new Rect(rect)
             {

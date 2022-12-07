@@ -17,9 +17,9 @@ namespace VSEWW
         public int sentAt = 0;
 
         public List<Pawn> raidPawns;
+        public HashSet<Pawn> outPawns;
         public int totalPawnsBefore;
         public int totalPawnsLeft;
-        public bool anyPawnSpawned = false;
 
         public IncidentParms parms;
 
@@ -147,6 +147,7 @@ namespace VSEWW
         /// </summary>
         internal void SetPawnsInfo()
         {
+            outPawns = new HashSet<Pawn>();
             if (raidPawns.NullOrEmpty())
             {
                 // Generate pawns group maker
@@ -459,7 +460,6 @@ namespace VSEWW
             Scribe_Values.Look(ref totalPawnsLeft, "totalPawnsLeft");
             Scribe_Values.Look(ref totalPawnsBefore, "totalPawnsBefore");
             Scribe_Values.Look(ref reinforcementPlanned, "reinforcementPlanned");
-            Scribe_Values.Look(ref anyPawnSpawned, "anyPawnSpawned");
 
             Scribe_Deep.Look(ref parms, "incidentParms");
 
@@ -467,6 +467,7 @@ namespace VSEWW
             Scribe_Collections.Look(ref mysteryModifiers, "mysteryModifier", LookMode.Def);
             // If raid sent, lord(s) is up, pawns are saved in it, we only need ref
             Scribe_Collections.Look(ref raidPawns, "raidPawns", sent ? LookMode.Reference : LookMode.Deep);
+            Scribe_Collections.Look(ref outPawns, "outPawns", LookMode.Reference);
         }
 
         /// <summary>
@@ -484,13 +485,15 @@ namespace VSEWW
             for (int i = 0; i < raidPawns.Count; i++)
             {
                 var pawn = raidPawns[i];
-                var spawned = pawn.Spawned;
 
-                if (!anyPawnSpawned)
-                    anyPawnSpawned = spawned;
                 // Pawn is out
-                if (pawn.Dead || pawn.Downed || !spawned)
+                if (outPawns.Contains(pawn))
                 {
+                    pawnOutCount++;
+                }
+                else if (pawn.Dead || pawn.Downed || pawn.InMentalState)
+                {
+                    outPawns.Add(pawn);
                     pawnOutCount++;
                 }
                 // Populate defeat dic
@@ -519,7 +522,6 @@ namespace VSEWW
             if (Reinforcements && totalPawnsLeft <= (int)(totalPawnsLeft * 0.8f))
             {
                 reinforcementSent = true;
-                ++Find.StoryWatcher.statsRecord.numRaidsEnemy;
                 // Create parms
                 var parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, this.parms.target);
                 parms.faction = this.parms.faction;
@@ -529,11 +531,8 @@ namespace VSEWW
                 // Execute
                 IncidentDefOf.RaidEnemy.Worker.TryExecute(parms);
             }
-            // If no pawn spawned -> not over
-            if (!anyPawnSpawned)
-                return false;
 
-            return totalPawnsBefore - pawnOutCount == 0;
+            return totalPawnsLeft == 0;
         }
 
         /// <summary>
