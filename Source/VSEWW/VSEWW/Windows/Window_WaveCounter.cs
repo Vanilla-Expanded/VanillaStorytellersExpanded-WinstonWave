@@ -58,7 +58,7 @@ namespace VSEWW
         {
             // Manage height
             if (mcw.nextRaidInfo.sent)
-                windowRect.height = 125f + (mcw.nextRaidInfo.kindListLines * 16f);
+                windowRect.height = 135f + (mcw.nextRaidInfo.kindListLines * 16f);
             else
                 windowRect.height = 160f;
 
