@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using RimWorld;
-using RimWorld.Planet;
 using UnityEngine;
 using Verse;
 
@@ -23,14 +22,11 @@ namespace VSEWW
 
         public IntVec3 dropSpot = IntVec3.Invalid;
 
-        private bool sosSpace;
-
         private int tickUntilStatCheck = 0;
         private List<Pawn> statPawns = new List<Pawn>();
         private static readonly int checkEachXTicks = 2000;
 
-        private Faction mapFaction;
-        private MapParent mapParent;
+        private bool canReceiveWave = false;
 
         private bool preNewVersion = true;
 
@@ -77,15 +73,14 @@ namespace VSEWW
 
         public override void FinalizeInit()
         {
-            sosSpace = map.Biome.defName == "OuterSpaceBiome";
-            mapFaction = map.ParentFaction;
-            mapParent = map.Parent;
+            var mapParent = map.Parent;
+            canReceiveWave = map.Biome.defName != "OuterSpaceBiome" && (mapParent == null || mapParent.def.canBePlayerHome) && map.ParentFaction == Faction.OfPlayer;
         }
 
         public override void MapComponentTick()
         {
-            // No waves in space, other faction maps, if there is a window
-            if (sosSpace || (mapParent != null && !mapParent.def.canBePlayerHome) || mapFaction != Faction.OfPlayer || Find.WindowStack.AnyWindowAbsorbingAllInput)
+            // Cannot receive waves or if there is a window absorbing inputs
+            if (!canReceiveWave || Find.WindowStack.AnyWindowAbsorbingAllInput)
                 return;
 
             var storyteller = Find.Storyteller;

@@ -449,7 +449,7 @@ namespace VSEWW
         /// </summary>
         public void ExposeData()
         {
-            Scribe_Values.Look(ref sent, "sent");
+            Scribe_Values.Look(ref sent, "sent", false);
             Scribe_Values.Look(ref atTick, "atTick");
             Scribe_Values.Look(ref sentAt, "sentAt");
             Scribe_Values.Look(ref reinforcementSent, "reinforcementSent", false);
@@ -475,8 +475,8 @@ namespace VSEWW
         /// </summary>
         public bool RaidOver()
         {
-            // If not sent or map null or no colonist(s) spawned -> not over
-            if (!sent || map == null || map.mapPawns == null || !map.mapPawns.AnyColonistSpawned)
+            // If not sent it's not over
+            if (!sent)
                 return false;
 
             var pawnOutCount = 0;
@@ -707,5 +707,10 @@ namespace VSEWW
         /// Get time before this raid (IRL or rimworld)
         /// </summary>
         public string TimeBeforeWave() => (atTick - Find.TickManager.TicksGame).ToStringTicksToPeriod();
+
+        public override string ToString()
+        {
+            return $"sent:{sent} atTick:{atTick} parms:{parms}";
+        }
     }
 }
