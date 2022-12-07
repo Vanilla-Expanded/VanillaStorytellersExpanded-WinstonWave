@@ -5,6 +5,7 @@ namespace VSEWW
 {
     public class WinstonSettings : ModSettings
     {
+        public bool enableMaxPoint = true;
         public int maxPoints = 25000;
         public float timeBeforeFirstWave = 5f;
         public float timeBetweenWaves = 1.2f;
@@ -26,6 +27,7 @@ namespace VSEWW
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look(ref enableMaxPoint, "enableMaxPoint", true);
             Scribe_Values.Look(ref maxPoints, "maxPoints", 25000);
             Scribe_Values.Look(ref timeBeforeFirstWave, "timeBeforeFirstWave", 5f);
             Scribe_Values.Look(ref timeBetweenWaves, "timeBetweenWaves", 1.2f);

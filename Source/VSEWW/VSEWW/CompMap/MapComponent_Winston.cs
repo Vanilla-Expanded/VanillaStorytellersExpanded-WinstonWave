@@ -201,23 +201,15 @@ namespace VSEWW
         /// </summary>
         internal float GetNextWavePoint()
         {
-            if (currentPoints < WinstonMod.settings.maxPoints)
-            {
-                if (currentPoints <= 0)
-                    currentPoints = 100f;
-                else if (currentWave <= 20)
-                    currentPoints *= WinstonMod.settings.pointMultiplierBefore;
-                else
-                    currentPoints *= WinstonMod.settings.pointMultiplierAfter;
-            }
-
-            if (currentPoints < 100)
+            if (currentPoints <= 0 || currentPoints < 100)
                 currentPoints = 100;
-
-            float point = currentPoints * nextRaidMultiplyPoints;
+            // Apply wave multiplier
+            currentPoints *= currentWave <= 20 ? WinstonMod.settings.pointMultiplierBefore : WinstonMod.settings.pointMultiplierAfter;
+            // Get point for this wave
+            var point = currentPoints * nextRaidMultiplyPoints;
             nextRaidMultiplyPoints = 1f;
 
-            return Mathf.Min(point, WinstonMod.settings.maxPoints);
+            return WinstonMod.settings.enableMaxPoint ? Mathf.Min(point, WinstonMod.settings.maxPoints) : point;
         }
 
         /// <summary>

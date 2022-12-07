@@ -15,7 +15,7 @@ namespace VSEWW
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
 
-        private const float _fullHeight = 590;
+        private const float _fullHeight = 610;
 
         private Vector2 _scrollPosition;
 
@@ -139,9 +139,15 @@ namespace VSEWW
             waveSettingsLst.GapLine(12);
 
             waveSettingsLst.Gap(12);
-            waveSettingsLst.Label("VESWW.MaxPoints".Translate(), tooltip: "VESWW.MaxPointsTip".Translate());
-            waveSettingsLst.IntEntry(ref settings.maxPoints, ref _maxPoints, 10);
+            waveSettingsLst.CheckboxLabeled("VESWW.EnableMaxPoints".Translate(), ref settings.enableMaxPoint);
             waveSettingsLst.Gap(5);
+
+            if (settings.enableMaxPoint)
+            {
+                waveSettingsLst.Label("VESWW.MaxPoints".Translate(), tooltip: "VESWW.MaxPointsTip".Translate());
+                waveSettingsLst.IntEntry(ref settings.maxPoints, ref _maxPoints, 10);
+                waveSettingsLst.Gap(5);
+            }
 
             waveSettingsLst.Label("VESWW.PointMultiplierBefore20".Translate(), tooltip: "VESWW.PointMultiplierBefore20Tip".Translate());
             waveSettingsLst.TextFieldNumeric(ref settings.pointMultiplierBefore, ref _pointMultiplierBefore, 1f, 10f);
