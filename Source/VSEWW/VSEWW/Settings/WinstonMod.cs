@@ -269,18 +269,16 @@ namespace VSEWW
 
         public override void WriteSettings()
         {
+            if (Find.CurrentMap is Map map && map.GetComponent<MapComponent_Winston>() is MapComponent_Winston winston)
+            {
+                if (settings.enableStatIncrease)
+                    winston.AddStatHediff();
+                else
+                    winston.RemoveStatHediff();
+
+                winston.waveCounter?.UpdateWindow();
+            }
             base.WriteSettings();
-
-            var mapComp = Find.CurrentMap?.GetComponent<MapComponent_Winston>();
-            if (mapComp == null)
-                return;
-
-            if (settings.enableStatIncrease)
-                mapComp.AddStatHediff();
-            else
-                mapComp.RemoveStatHediff();
-
-            mapComp.waveCounter.UpdateWindow();
         }
     }
 }
