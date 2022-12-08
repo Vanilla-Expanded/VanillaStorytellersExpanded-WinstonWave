@@ -24,7 +24,10 @@ namespace VSEWW
 
         private int tickUntilStatCheck = 0;
         private List<Pawn> statPawns = new List<Pawn>();
-        private static readonly int checkEachXTicks = 2000;
+        const int checkEachXTicks = 2000;
+
+        const int winstonTick = 50;
+        private int nextTick = 100;
 
         private bool canReceiveWave = false;
 
@@ -75,16 +78,19 @@ namespace VSEWW
         {
             var mapParent = map.Parent;
             canReceiveWave = map.Biome.defName != "OuterSpaceBiome" && (mapParent == null || mapParent.def.canBePlayerHome) && map.ParentFaction == Faction.OfPlayer;
+            nextTick = Find.TickManager.TicksGame + winstonTick;
         }
 
         public override void MapComponentTick()
         {
-            // Cannot receive waves or if there is a window absorbing inputs
-            if (!canReceiveWave || Find.WindowStack.AnyWindowAbsorbingAllInput)
+            var ticksGame = Find.TickManager.TicksGame;
+            // Not ticking, cannot receive waves or if there is a window absorbing inputs
+            if (ticksGame < nextTick || !canReceiveWave || Find.WindowStack.AnyWindowAbsorbingAllInput)
                 return;
+            // Increment next tick
+            nextTick += winstonTick;
 
             var storyteller = Find.Storyteller;
-            var ticksGame = Find.TickManager.TicksGame;
             // If winston selected and not peaceful
             if (storyteller.def.defName == "VSE_WinstonWave" && storyteller.difficultyDef != DifficultyDefOf.Peaceful)
             {
