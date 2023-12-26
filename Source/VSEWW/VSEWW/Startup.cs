@@ -40,8 +40,8 @@ namespace VSEWW
             // Cache field info
             weatherDecider_ticksWhenRainAllowedAgain = typeof(WeatherDecider).GetField("ticksWhenRainAllowedAgain", BindingFlags.NonPublic | BindingFlags.Instance);
             // Mod active check
-            CEActive = ModsConfig.IsActive("CETeam.CombatExtended");
-            NoPauseChallengeActive = ModsConfig.IsActive("brrainz.nopausechallenge");
+            CEActive = ModsConfig.IsActive("CETeam.CombatExtended") || ModsConfig.IsActive("CETeam.CombatExtended_steam");
+            NoPauseChallengeActive = ModsConfig.IsActive("brrainz.nopausechallenge") || ModsConfig.IsActive("brrainz.nopausechallenge_steam");
             // Create color
             counterColor = new Color
             {
