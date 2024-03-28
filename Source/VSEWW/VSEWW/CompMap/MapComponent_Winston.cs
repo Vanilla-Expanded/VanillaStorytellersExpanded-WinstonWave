@@ -92,7 +92,7 @@ namespace VSEWW
 
             var storyteller = Find.Storyteller;
             // If winston selected and not peaceful
-            if (storyteller.def.defName == "VSE_WinstonWave" && storyteller.difficultyDef != DifficultyDefOf.Peaceful)
+            if (storyteller.def.defName == "VSE_WinstonWave" && storyteller.difficultyDef != InternalDefOf.Peaceful)
             {
                 // If stats increase enabled
                 if (WinstonMod.settings.enableStatIncrease)

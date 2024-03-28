@@ -13,12 +13,12 @@ namespace VSEWW
             base.Notify_PawnKilled();
         }
 
-        public override void Notify_PawnDied()
+        public override void Notify_PawnDied(DamageInfo? dinfo, Hediff culprit = null)
         {
             if (pawn.Faction != Faction.OfPlayer)
                 GenExplosion.DoExplosion(pawn.Position, pawn.Map, 2.9f, DamageDefOf.Bomb, pawn);
 
-            base.Notify_PawnDied();
+            base.Notify_PawnDied(dinfo, culprit);
         }
     }
 }

@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\1.4\Assemblies\</OutputPath>
+    <OutputPath>..\..\..\1.5\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Comp\CompProperties\CompProperties_RegisterAsRewardDrop.cs" />
     <Compile Include="Comp\CompRegisterAsRewardDrop.cs" />
+    <Compile Include="DefOf\InternalDefOf.cs" />
     <Compile Include="DefOf\ModifierDefOf.cs" />
     <Compile Include="DefOf\WHediffDefOf.cs" />
     <Compile Include="DefOf\WRaidStrategyDefOf.cs" />
@@ -96,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime">
-      <Version>2.2.2</Version>
+      <Version>2.3.2</Version>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>

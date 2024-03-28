@@ -36,7 +36,7 @@ namespace VSEWW
                 if (comp.IntervalsPassed == 204)
                 {
                     IncidentCategoryDef threatCategory = Find.Storyteller.difficulty.allowIntroThreats ? IncidentCategoryDefOf.ThreatSmall : IncidentCategoryDefOf.Misc;
-                    if (DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == threatCategory).TryRandomElementByWeight(comp.IncidentChanceFinal, out IncidentDef result))
+                    if (DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == threatCategory).TryRandomElementByWeight((IncidentDef x) => comp.IncidentChanceFinal(x,target), out IncidentDef result))
                     {
                         yield return new FiringIncident(result, comp)
                         {
@@ -45,7 +45,7 @@ namespace VSEWW
                     }
                 }
 
-                if (comp.IntervalsPassed == 264 && DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == IncidentCategoryDefOf.Misc).TryRandomElementByWeight(comp.IncidentChanceFinal, out IncidentDef incident))
+                if (comp.IntervalsPassed == 264 && DefDatabase<IncidentDef>.AllDefs.Where(def => def.TargetAllowed(target) && def.category == IncidentCategoryDefOf.Misc).TryRandomElementByWeight((IncidentDef x) => comp.IncidentChanceFinal(x, target), out IncidentDef incident))
                 {
                     yield return new FiringIncident(incident, comp)
                     {
