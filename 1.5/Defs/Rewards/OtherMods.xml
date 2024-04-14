@@ -200,21 +200,5 @@
     </items>
   </VSEWW.RewardDef>
 
-  <!-- Vanilla Books Expanded -->
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VBooksE">
-    <defName>VSEWW_BooksDrop</defName>
-    <label>Books drop</label>
-    <texPath>UI/Rewards/RewardDefault_Normal</texPath>
-    <description>Cargo pods 3 random books.</description>
-    <category>Normal</category>
-    <randomItems>
-      <li>
-        <thingCategories>
-          <li>VBE_Books</li>
-        </thingCategories>
-        <quality>Normal</quality>
-        <count>3</count>
-      </li>
-    </randomItems>
-  </VSEWW.RewardDef>
+ 
 </Defs>
