@@ -55,7 +55,9 @@ namespace VSEWW
                 target = map,
                 points = points,
                 faction = RandomEnnemyFaction(points),
-                raidStrategy = null
+                raidStrategy = null,
+                canKidnap=false,
+                canSteal=false
             };
             atTick = ticks + (int)(days * GenDate.TicksPerDay);
             generatedAt = ticks;
