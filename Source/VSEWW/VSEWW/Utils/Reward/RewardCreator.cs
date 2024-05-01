@@ -240,13 +240,20 @@ namespace VSEWW
                 if (skipMin && pr.minCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower < pr.minCombatPower);
                 if (pr.maxCombatPower > 0) pawnChoices.RemoveAll(p => p.combatPower > pr.maxCombatPower);
 
+                pawnChoices.RemoveAll(p => p.RaceProps.IsAnomalyEntity || p.defaultFactionType == FactionDefOf.Entities || p.race == InternalDefOf.CreepJoiner);
+
+
                 for (int i = 0; i < pr.count; i++)
                 {
                     Pawn p;
                     PawnKindDef pawnkind = pawnChoices.RandomElement();
                     if (pawnkind.RaceProps.Humanlike)
                     {
-                        p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo));
+                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo);
+                        request.IsCreepJoiner = false;
+                     
+                        p = PawnGenerator.GeneratePawn(request);
+                       
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
                     }
                     else
