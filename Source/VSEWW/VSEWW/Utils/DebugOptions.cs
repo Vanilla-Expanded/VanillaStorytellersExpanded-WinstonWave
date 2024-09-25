@@ -47,15 +47,18 @@ namespace VSEWW
                 {
                     var ticksGame = Find.TickManager.TicksGame;
                     var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-                    for (int w = c.currentWave; w < waveNum; w++)
-                    {
-                        c.currentWave++;
-                        c.GetNextWavePoint();
+                    if(c != null && Find.Storyteller.def.defName== "VSE_WinstonWave") {
+                        for (int w = c.currentWave; w < waveNum; w++)
+                        {
+                            c.currentWave++;
+                            c.GetNextWavePoint();
+                        }
+                        c.nextRaidInfo = new NextRaidInfo();
+                        c.nextRaidInfo.Init(waveNum, c.GetNextWavePoint(), c.map);
+                        c.waveCounter.UpdateWindow();
+                        c.waveCounter.WaveTip();
                     }
-                    c.nextRaidInfo = new NextRaidInfo();
-                    c.nextRaidInfo.Init(waveNum, c.GetNextWavePoint(), c.map);
-                    c.waveCounter.UpdateWindow();
-                    c.waveCounter.WaveTip();
+                    
                 }));
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
@@ -64,7 +67,12 @@ namespace VSEWW
         [DebugAction("VES Winston Wave", "Send wave now", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void SendWaveNow()
         {
-            Find.CurrentMap.GetComponent<MapComponent_Winston>().nextRaidInfo.atTick = Find.TickManager.TicksGame + 20;
+            var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+            if (c != null && Find.Storyteller.def.defName == "VSE_WinstonWave")
+            {
+                c.nextRaidInfo.atTick = Find.TickManager.TicksGame + 20;
+            }
+            
         }
 
         [DebugAction("VES Winston Wave", "Add modifier to wave", false, false, actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -73,26 +81,30 @@ namespace VSEWW
             List<DebugMenuOption> debugMenuOptionList = new List<DebugMenuOption>();
 
             var c = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-            foreach (var m in DefDatabase<ModifierDef>.AllDefsListForReading)
+            if (c != null && Find.Storyteller.def.defName == "VSE_WinstonWave")
             {
-                if (m.defName == "VSEWW_DoubleTrouble")
-                    continue;
-
-                debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
+                foreach (var m in DefDatabase<ModifierDef>.AllDefsListForReading)
                 {
-                    if (c.nextRaidInfo.modifiers.Count < 2 && !c.nextRaidInfo.modifiers.Any(mo => mo.incompatibleWith.Contains(m)))
+                    if (m.defName == "VSEWW_DoubleTrouble")
+                        continue;
+
+                    debugMenuOptionList.Add(new DebugMenuOption(m.label, DebugMenuOptionMode.Action, () =>
                     {
-                        c.nextRaidInfo.modifiers.Add(m);
-                        c.nextRaidInfo.ApplyPrePawnGen();
-                        c.nextRaidInfo.SetPawnsInfo();
-                        c.nextRaidInfo.ApplyPostPawnGen();
-                        c.waveCounter.UpdateWindow();
-                    }
-                    else
-                    {
-                        Messages.Message("Cannot add this modifier to this wave", MessageTypeDefOf.CautionInput);
-                    }
-                }));
+                        if (c.nextRaidInfo.modifiers.Count < 2 && !c.nextRaidInfo.modifiers.Any(mo => mo.incompatibleWith.Contains(m)))
+                        {
+                            c.nextRaidInfo.modifiers.Add(m);
+                            c.nextRaidInfo.ApplyPrePawnGen();
+                            c.nextRaidInfo.SetPawnsInfo();
+                            c.nextRaidInfo.ApplyPostPawnGen();
+                            c.waveCounter.UpdateWindow();
+                        }
+                        else
+                        {
+                            Messages.Message("Cannot add this modifier to this wave", MessageTypeDefOf.CautionInput);
+                        }
+                    }));
+                }
+            
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(debugMenuOptionList));
         }
@@ -101,10 +113,14 @@ namespace VSEWW
         public static void ResetWave()
         {
             var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
-            mapComp.nextRaidInfo.StopIncidentModifiers();
-            mapComp.nextRaidInfo = new NextRaidInfo();
-            mapComp.nextRaidInfo.Init(mapComp.currentWave, mapComp.currentPoints, mapComp.map);
-            mapComp.waveCounter.UpdateWindow();
+            if (mapComp != null && Find.Storyteller.def.defName == "VSE_WinstonWave")
+            {
+                mapComp.nextRaidInfo.StopIncidentModifiers();
+                mapComp.nextRaidInfo = new NextRaidInfo();
+                mapComp.nextRaidInfo.Init(mapComp.currentWave, mapComp.currentPoints, mapComp.map);
+                mapComp.waveCounter.UpdateWindow();
+            }
+            
 
         }
 
@@ -112,14 +128,16 @@ namespace VSEWW
         public static void ResetToWaveOne()
         {
             var mapComp = Find.CurrentMap.GetComponent<MapComponent_Winston>();
+            if (mapComp != null && Find.Storyteller.def.defName == "VSE_WinstonWave")
+            {
+                mapComp.currentWave = 1;
+                mapComp.currentPoints = 1;
 
-            mapComp.currentWave = 1;
-            mapComp.currentPoints = 1;
-
-            mapComp.nextRaidInfo.StopIncidentModifiers();
-            mapComp.nextRaidInfo = new NextRaidInfo();
-            mapComp.nextRaidInfo.Init(mapComp.currentWave, mapComp.GetNextWavePoint(), mapComp.map);
-            mapComp.waveCounter.UpdateWindow();
+                mapComp.nextRaidInfo.StopIncidentModifiers();
+                mapComp.nextRaidInfo = new NextRaidInfo();
+                mapComp.nextRaidInfo.Init(mapComp.currentWave, mapComp.GetNextWavePoint(), mapComp.map);
+                mapComp.waveCounter.UpdateWindow();
+            }
         }
     }
 }

@@ -197,9 +197,20 @@
         <thingCategories>
           <li>Artifacts</li>
         </thingCategories>
-        <count>8</count>
+        <count>4</count>
       </li>
     </randomItems>
+	<items>
+      <li>
+        <thing>Apparel_PsychicShockLance</thing>
+        <count>2</count>
+      </li>
+      <li>
+        <thing>Apparel_PsychicInsanityLance</thing>
+        <count>2</count>
+      </li>
+     
+    </items>
   </VSEWW.RewardDef>
 
   <VSEWW.RewardDef>

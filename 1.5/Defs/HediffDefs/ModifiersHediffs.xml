@@ -9,10 +9,10 @@
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VESWW_NoPain</defName>
     <label>no pain</label>
-    <description>No pain.</description>
+    <description>This person feels no pain. No pain, no gain, or something.</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+       
         <painFactor>0.0</painFactor>
       </li>
     </stages>
@@ -21,10 +21,10 @@
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VSEWW_Sprinter</defName>
     <label>sprinter</label>
-    <description>Sprint fast.</description>
+    <description>This person is faster than usual. Run, Barry, run!</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+     
         <capMods>
           <li>
             <capacity>Moving</capacity>
@@ -42,7 +42,7 @@
     <hediffClass>VSEWW.Hediff_Boom</hediffClass>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+      
       </li>
     </stages>
   </HediffDef>
@@ -50,10 +50,10 @@
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VESWW_Veterans</defName>
     <label>veteran</label>
-    <description>Veteran</description>
+    <description>All stats of this person (Manipulation, sight etc) are offset by 50%</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+       
         <capMods>
           <li>
             <capacity>Moving</capacity>
@@ -103,29 +103,29 @@
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VESWW_Ninja</defName>
     <label>ninja</label>
-    <description>ninja</description>
+    <description>There is no one here, what are you talking about?</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+        
       </li>
     </stages>
     <comps>
       <li Class="HediffCompProperties_Disappears">
         <disappearsAfterTicks>1800~1800</disappearsAfterTicks>
       </li>
-      <li Class="HediffCompProperties">
-        <compClass>HediffComp_Invisibility</compClass>
-      </li>
+     <li Class="HediffCompProperties_Invisibility">
+				<visibleToPlayer>true</visibleToPlayer>
+			</li>
     </comps>
   </HediffDef>
 
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VSEWW_BulletSponge</defName>
     <label>bullet sponge</label>
-    <description>bullet sponge</description>
+    <description>Health of this person is doubled.</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+       
       </li>
     </stages>
   </HediffDef>
@@ -133,10 +133,10 @@
   <HediffDef ParentName="VESWW_ModifierBase">
     <defName>VESWW_BulletProof</defName>
     <label>bullet proof</label>
-    <description>bullet proof</description>
+    <description>This person is resistant to being wounded.</description>
     <stages>
       <li>
-        <becomeVisible>false</becomeVisible>
+       
         <statFactors>
           <IncomingDamageFactor>1.5</IncomingDamageFactor>
         </statFactors>

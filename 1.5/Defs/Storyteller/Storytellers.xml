@@ -2,7 +2,7 @@
 <Defs>
   <StorytellerDef ParentName="BaseStoryteller">
     <defName>VSE_WinstonWave</defName>
-    <label>Winston Wave</label>
+    <label>Winston Waves</label>
     <description>Winston is a battle-hardened combat expert, and he believes that through combat, one can find themselves for who they really are. Every day you will be attacked by enemy waves increasing in size, but you will be rewarded for each victory.</description>
     <portraitLarge>UI/HeroArt/Storytellers/WaveSurvivalStoryteller</portraitLarge>
     <portraitTiny>UI/HeroArt/Storytellers/WaveSurvivalStorytellerTiny</portraitTiny>

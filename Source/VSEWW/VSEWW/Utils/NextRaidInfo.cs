@@ -84,6 +84,8 @@ namespace VSEWW
                 if ((WinstonMod.settings.excludedFactionDefs == null || !WinstonMod.settings.excludedFactionDefs.Contains(f.def.defName))
                     && !f.temporary
                     && !f.defeated
+                    && f.def.defName != "HoraxCult"
+                    && f.def.defName != "VRE_Archons"
                     && f.HostileTo(Faction.OfPlayer)
                     && f.def.pawnGroupMakers != null
                     && f.def.pawnGroupMakers.Any(p => p.kindDef == PawnGroupKindDefOf.Combat && points <= p.maxTotalPoints)
@@ -156,15 +158,22 @@ namespace VSEWW
                 var group = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, parms);
                 if (group == null)
                 {
-                    Log.Error($"[VSEWW] SetPawnsInfo: error generating group for {parms}");
+                    Log.Warning($"[VSEWW] SetPawnsInfo: error generating group for {parms}");
                     return;
                 }
                 // Generate pawns
                 raidPawns = PawnGroupMakerUtility.GeneratePawns(group).ToList();
                 if (raidPawns.NullOrEmpty())
                 {
-                    Log.Error($"[VESWW] SetPawnsInfo: No pawns from parms {parms}");
+                    Log.Warning($"[VESWW] SetPawnsInfo: No pawns from parms {parms}");
                     return;
+                }
+
+                //Swarmling exception
+                for(int i =0; i< raidPawns.Count(); i++) {
+                    if (raidPawns[i].def.defName == "VFEI2_Swarmling") {
+                        raidPawns[i] = PawnGenerator.GeneratePawn(PawnKindDefOf.Megascarab, parms.faction);
+                    }              
                 }
             }
 
@@ -300,29 +309,35 @@ namespace VSEWW
         internal void ApplyPrePawnGen()
         {
             var allModifiers = modifiers;
-            allModifiers.AddRange(mysteryModifiers);
+            allModifiers?.AddRange(mysteryModifiers);
+            if (allModifiers?.Count > 0) {
 
-            for (int i = 0; i < allModifiers.Count; i++)
-            {
-                var modifier = allModifiers[i];
-
-                if (modifier.pointMultiplier > 0)
-                    parms.points *= modifier.pointMultiplier;
-
-                if (!modifier.everRetreat)
-                    parms.canTimeoutOrFlee = false;
-
-                if (!modifier.specificPawnKinds.NullOrEmpty())
+                for (int i = 0; i < allModifiers.Count; i++)
                 {
-                    float point = 0;
-                    while (point < parms.points)
+                    var modifier = allModifiers[i];
+
+                    if (modifier.pointMultiplier > 0)
+                        parms.points *= modifier.pointMultiplier;
+
+                    if (!modifier.everRetreat)
+                        parms.canTimeoutOrFlee = false;
+
+                    if (!modifier.specificPawnKinds.NullOrEmpty())
                     {
-                        var kind = modifier.specificPawnKinds.RandomElement();
-                        raidPawns.Add(PawnGenerator.GeneratePawn(kind, parms.faction));
-                        point += kind.combatPower;
+                        float point = 0;
+                        while (point < parms.points)
+                        {
+                            var kind = modifier.specificPawnKinds.RandomElement();
+                            raidPawns.Add(PawnGenerator.GeneratePawn(kind, parms.faction));
+                            point += kind.combatPower;
+                        }
                     }
+
+
                 }
+
             }
+            
         }
 
         /// <summary>
@@ -487,28 +502,36 @@ namespace VSEWW
             for (int i = 0; i < raidPawns.Count; i++)
             {
                 var pawn = raidPawns[i];
-
-                // Pawn is out
-                if (outPawns.Contains(pawn))
+                if (pawn != null)
                 {
-                    pawnOutCount++;
+                    // Pawn is out
+                    if (outPawns.Contains(pawn))
+                    {
+                        pawnOutCount++;
+                    }
+                    else if (pawn.Dead || pawn.Downed || pawn.InMentalState || pawn.mindState?.duty?.def == DutyDefOf.ExitMapRandom
+                        || pawn.Faction == Faction.OfPlayerSilentFail || pawn.IsPrisonerOfColony || !this.map.mapPawns.AllPawns.Contains(pawn))
+                    {
+                        outPawns.Add(pawn);
+                        pawnOutCount++;
+                    }
+                    // Populate defeat dic
+                    else
+                    {
+                        if (pawnsToDefeat.ContainsKey(pawn.kindDef))
+                            pawnsToDefeat[pawn.kindDef]++;
+                        else
+                            pawnsToDefeat.Add(pawn.kindDef, 1);
+                    }
+                    // Remove transitions to flee toil if any modifier have everRetreat to false
+                    if (modifiersPreventFlee)
+                        pawn?.CurJob?.lord?.Graph?.transitions?.RemoveAll(t => t.target is LordToil_PanicFlee);
                 }
-                else if (pawn.Dead || pawn.Downed || pawn.InMentalState)
-                {
-                    outPawns.Add(pawn);
-                    pawnOutCount++;
-                }
-                // Populate defeat dic
                 else
                 {
-                    if (pawnsToDefeat.ContainsKey(pawn.kindDef))
-                        pawnsToDefeat[pawn.kindDef]++;
-                    else
-                        pawnsToDefeat.Add(pawn.kindDef, 1);
+                    pawnOutCount++;
                 }
-                // Remove transitions to flee toil if any modifier have everRetreat to false
-                if (modifiersPreventFlee)
-                    pawn?.CurJob?.lord?.Graph?.transitions?.RemoveAll(t => t.target is LordToil_PanicFlee);
+                
             }
             // Update pawn left count
             totalPawnsLeft = totalPawnsBefore - pawnOutCount;
@@ -629,6 +652,10 @@ namespace VSEWW
             {
                 Log.Error($"[VESWW] Couldn't reslove raid spawn center. parms=" + parms);
                 return;
+            }
+            if(parms.raidArrivalMode == PawnsArrivalModeDefOf.EmergeFromWater)
+            {
+                parms.raidArrivalMode = PawnsArrivalModeDefOf.EdgeWalkIn;
             }
 
             parms.raidArrivalMode.Worker.Arrive(raidPawns, parms);

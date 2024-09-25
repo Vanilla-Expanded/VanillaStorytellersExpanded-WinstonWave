@@ -230,7 +230,7 @@ namespace VSEWW
             {
                 RPawnReward pr = reward.randomPawns[i1];
                 var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence);
-                if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags != null && !p.race.tradeTags.Contains(pr.tradeTag));
+                if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags?.Contains(pr.tradeTag) != true);
                 if (pr.excludeInsectoid) pawnChoices.RemoveAll(p => p.RaceProps.Insect);
 
                 bool skipMin = false;
