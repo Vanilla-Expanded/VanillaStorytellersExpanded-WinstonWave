@@ -229,9 +229,10 @@ namespace VSEWW
             for (int i1 = 0; i1 < reward.randomPawns.Count; i1++)
             {
                 RPawnReward pr = reward.randomPawns[i1];
-                var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence);
+                var pawnChoices = DefDatabase<PawnKindDef>.AllDefsListForReading.FindAll(p => p.RaceProps.intelligence == pr.intelligence && p.race.tradeTags?.Contains("NonContractable")!=true);
                 if (pr.tradeTag != "") pawnChoices.RemoveAll(p => p.race.tradeTags?.Contains(pr.tradeTag) != true);
                 if (pr.excludeInsectoid) pawnChoices.RemoveAll(p => p.RaceProps.Insect);
+                
 
                 bool skipMin = false;
                 if (pr.minCombatPower > 0 && pr.maxCombatPower > 0)
@@ -249,17 +250,23 @@ namespace VSEWW
                     PawnKindDef pawnkind = pawnChoices.RandomElement();
                     if (pawnkind.RaceProps.Humanlike)
                     {
-                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo);
+                        bool dontGiveWeapon = pr.ghoul;
+
+                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, dontGiveWeapon: dontGiveWeapon);
                         request.IsCreepJoiner = false;
                      
                         p = PawnGenerator.GeneratePawn(request);
-                       
+
+                        if (pr.ghoul) { MutantUtility.SetPawnAsMutantInstantly(p, MutantDefOf.Ghoul); }
+
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
                     }
                     else
                     {
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnkind, Faction.OfPlayer));
                     }
+
+                    if (pr.shambler) { MutantUtility.SetPawnAsMutantInstantly(p, MutantDefOf.Shambler); }
 
                     thingsToSend.Add(p);
                 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>VSEWW_GhoulNormal</defName>
+    <texPath>UI/Rewards/RewardGhoul_Normal</texPath>
+    <label>Ghoul joins</label>
+    <description>A single ghoul joins the colony</description>
+    <category>Poor</category>
+    <randomPawns>
+      <li>
+        <maxCombatPower>50</maxCombatPower>
+        <count>1</count>
+		<ghoul>true</ghoul>
+      </li>
+    </randomPawns>
+  </VSEWW.RewardDef>
+
+ <VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>VSEWW_GhoulExcellent</defName>
+    <texPath>UI/Rewards/RewardGhoul_Excellent</texPath>
+    <label>Ghouls join</label>
+    <description>A group of 5 ghouls joins the colony</description>
+    <category>Excellent</category>
+    <randomPawns>
+      <li>
+        <maxCombatPower>175</maxCombatPower>
+        <count>5</count>
+		<ghoul>true</ghoul>
+      </li>
+    </randomPawns>
+  </VSEWW.RewardDef>
+</Defs>

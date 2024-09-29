@@ -12,6 +12,8 @@ namespace VSEWW
         public int minCombatPower;
         public int count;
         public bool excludeInsectoid = false;
+        public bool ghoul = false;
+        public bool shambler = false;
     }
 
     public class ItemReward

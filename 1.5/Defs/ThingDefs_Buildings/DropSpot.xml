@@ -3,7 +3,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>VESWW_RewardDropSpot</defName>
     <label>reward drop spot</label>
-    <description>Used to mark where rewards should drops</description>
+    <description>Used to mark where rewards from Winston Waves should drop. This will not affect drops from other sources (quest rewards, prefabs, etc).</description>
     <graphicData>
       <texPath>RewardDropOffSpot</texPath>
       <graphicClass>Graphic_Single</graphicClass>
