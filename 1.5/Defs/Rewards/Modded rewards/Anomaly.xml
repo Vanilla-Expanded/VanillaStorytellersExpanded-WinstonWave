@@ -1,32 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-  <VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
-    <defName>VSEWW_GhoulNormal</defName>
-    <texPath>UI/Rewards/RewardGhoul_Normal</texPath>
-    <label>Ghoul joins</label>
-    <description>A single ghoul joins the colony</description>
-    <category>Poor</category>
-    <randomPawns>
-      <li>
-        <maxCombatPower>50</maxCombatPower>
-        <count>1</count>
-		<ghoul>true</ghoul>
-      </li>
-    </randomPawns>
-  </VSEWW.RewardDef>
-
- <VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
-    <defName>VSEWW_GhoulExcellent</defName>
-    <texPath>UI/Rewards/RewardGhoul_Excellent</texPath>
-    <label>Ghouls join</label>
-    <description>A group of 5 ghouls joins the colony</description>
-    <category>Excellent</category>
-    <randomPawns>
-      <li>
-        <maxCombatPower>175</maxCombatPower>
-        <count>5</count>
-		<ghoul>true</ghoul>
-      </li>
-    </randomPawns>
-  </VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>VSEWW_GhoulNormal</defName>
+		<texPath>UI/Rewards/RewardGhoul_Normal</texPath>
+		<label>Ghoul joins</label>
+		<description>A single ghoul joins the colony</description>
+		<category>Normal</category>
+		<randomPawns>
+			<li>
+				<maxCombatPower>50</maxCombatPower>
+				<count>1</count>
+				<ghoul>true</ghoul>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>VSEWW_GhoulExcellent</defName>
+		<texPath>UI/Rewards/RewardGhoul_Excellent</texPath>
+		<label>Ghouls join</label>
+		<description>A group of 5 ghouls joins the colony</description>
+		<category>Excellent</category>
+		<randomPawns>
+			<li>
+				<maxCombatPower>175</maxCombatPower>
+				<count>5</count>
+				<ghoul>true</ghoul>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>VSEWW_ShamblersNormal</defName>
+		<texPath>UI/Rewards/RewardShamblers_Normal</texPath>
+		<label>Shamblers join</label>
+		<description>A horde of 10 shamblers joins the colony</description>
+		<category>Normal</category>
+		<randomPawns>
+			<li>
+				<count>10</count>
+				<shambler>true</shambler>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>VSEWW_ShamblersExcellent</defName>
+		<texPath>UI/Rewards/RewardShamblers_Excellent</texPath>
+		<label>Shamblers join</label>
+		<description>A horde of 30 shamblers joins the colony</description>
+		<category>Excellent</category>
+		<randomPawns>
+			<li>
+				<count>30</count>
+				<shambler>true</shambler>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef>
+		<defName>VSEWW_ShardArtifactsDropGood</defName>
+		<texPath>UI/Rewards/RewardShardArtifacts_Good</texPath>
+		<label>Shard artifacts drop</label>
+		<description>Receive 4 random shard artifact items</description>
+		<category>Good</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ShardAnimalPulser</li>
+					<li>BiomutationPulser</li>
+					<li>Apparel_ShardPsychicShockLance</li>
+					<li>Apparel_ShardPsychicInsanityLance</li>
+					<li>Apparel_BiomutationLance</li>
+				</randomFrom>
+				<count>4</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef>
+		<defName>VSEWW_ShardArtifactsDropExcellent</defName>
+		<texPath>UI/Rewards/RewardShardArtifacts_Excellent</texPath>
+		<label>Shard artifacts drop</label>
+		<description>Receive 7 random shard artifact items</description>
+		<category>Excellent</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ShardAnimalPulser</li>
+					<li>BiomutationPulser</li>
+					<li>Apparel_ShardPsychicShockLance</li>
+					<li>Apparel_ShardPsychicInsanityLance</li>
+					<li>Apparel_BiomutationLance</li>
+				</randomFrom>
+				<count>7</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
 </Defs>

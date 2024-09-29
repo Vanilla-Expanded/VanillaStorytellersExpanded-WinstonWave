@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
+using static System.Collections.Specialized.BitVector32;
 
 namespace VSEWW
 {
@@ -250,9 +251,10 @@ namespace VSEWW
                     PawnKindDef pawnkind = pawnChoices.RandomElement();
                     if (pawnkind.RaceProps.Humanlike)
                     {
-                        bool dontGiveWeapon = pr.ghoul;
+                        bool dontGiveWeapon = pr.ghoul || pr.shambler;
+                        bool forbidAnyTitle = pr.shambler;
 
-                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, dontGiveWeapon: dontGiveWeapon);
+                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, dontGiveWeapon: dontGiveWeapon, forbidAnyTitle: forbidAnyTitle);
                         request.IsCreepJoiner = false;
                      
                         p = PawnGenerator.GeneratePawn(request);
@@ -266,7 +268,10 @@ namespace VSEWW
                         p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnkind, Faction.OfPlayer));
                     }
 
-                    if (pr.shambler) { MutantUtility.SetPawnAsMutantInstantly(p, MutantDefOf.Shambler); }
+                    if (pr.shambler) { 
+                        MutantUtility.SetPawnAsMutantInstantly(p, MutantDefOf.Shambler);
+                        p.SetFaction(Faction.OfPlayer);
+                    }
 
                     thingsToSend.Add(p);
                 }

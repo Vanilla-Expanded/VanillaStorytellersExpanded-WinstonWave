@@ -163,6 +163,22 @@
       </li>
     </randomItems>
   </VSEWW.RewardDef>
+  
+    <VSEWW.RewardDef>
+    <defName>VSEWW_BooksDrop</defName>
+    <texPath>UI/Rewards/RewardBooks_Poor</texPath>
+    <label>Books drop</label>
+    <description>Cargo pods drop 3 random books</description>
+    <category>Poor</category>
+    <randomItems>
+      <li>
+        <thingCategories>
+          <li>Books</li>
+        </thingCategories>
+        <count>3</count>
+      </li>
+    </randomItems>
+  </VSEWW.RewardDef>
 
   <VSEWW.RewardDef>
     <defName>VSEWW_RandomNormalDrop</defName>
