@@ -485,6 +485,8 @@ namespace VSEWW
             // If raid sent, lord(s) is up, pawns are saved in it, we only need ref
             Scribe_Collections.Look(ref raidPawns, "raidPawns", sent ? LookMode.Reference : LookMode.Deep);
             Scribe_Collections.Look(ref outPawns, "outPawns", LookMode.Reference);
+
+            Scribe_References.Look(ref map, "map");
         }
 
         /// <summary>

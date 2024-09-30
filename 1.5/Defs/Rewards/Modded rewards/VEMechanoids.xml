@@ -6,6 +6,7 @@
     <label>Factory starter drop</label>
     <description>Cargo pod drops 150 steel and 5 mechanoid components</description>
     <category>Normal</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Steel</thing>
@@ -24,6 +25,7 @@
     <label>Factory expansion drop</label>
     <description>Cargo pod drops 400 steel and 10 mechanoid components and 20 industrial components</description>
     <category>Excellent</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Steel</thing>

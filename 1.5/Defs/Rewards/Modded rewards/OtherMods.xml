@@ -7,6 +7,7 @@
     <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
     <description>Cargo pod drops 5 super-nanites.</description>
     <category>Excellent</category>
+	<type>Misc</type>
     <items>
       <li>
         <thing>VFEA_SuperNanites</thing>
@@ -21,6 +22,7 @@
     <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
     <description>Cargo pod drop one gene-tailoring lab part.</description>
     <category>Excellent</category>
+	<type>Misc</type>
     <randomItems>
       <li>
         <randomFrom>
@@ -47,6 +49,7 @@
     <texPath>UI/Rewards/RewardDefault_Legendary</texPath>
     <description>Cargo pod drops 3 random gene-tailoring lab parts.</description>
     <category>Legendary</category>
+	<type>Misc</type>
     <randomItems>
       <li>
         <randomFrom>
@@ -77,6 +80,7 @@
     <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drops 3 random laser weapons.</description>
     <category>Good</category>
+	<type>Combat</type>
     <randomItems>
       <li>
         <randomFrom>
@@ -102,6 +106,7 @@
     <texPath>UI/Rewards/RewardDefault_Good</texPath>
     <description>Cargo pod drop one random heavy weapon and one exoskeleton frame.</description>
     <category>Good</category>
+	<type>Combat</type>
     <randomItems>
       <li>
         <randomFrom>

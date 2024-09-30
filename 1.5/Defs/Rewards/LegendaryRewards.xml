@@ -4,6 +4,7 @@
     <defName>VSEWW_MercenaryJoins</defName>
     <texPath>UI/Rewards/RewardPawnJoins_Legendary</texPath>
     <label>Pawns join</label>
+	<type>Combat</type>
     <description>A group of 5 mercenary PawnKindDef pawns join</description>
     <category>Legendary</category>
     <pawns>
@@ -18,6 +19,7 @@
     <defName>VSEWW_LegendaryResourceDrop</defName>
     <texPath>UI/Rewards/RewardResourceDrop_Legendary</texPath>
     <label>Resource drop</label>
+	<type>Resources</type>
     <description>Cargo pods drop 3000 wood, 3000 steel, 100 components, 50 advanced components, 500 plasteel</description>
     <category>Legendary</category>
     <items>
@@ -48,6 +50,7 @@
     <defName>VSEWW_SurvivalMeansDrop</defName>
     <texPath>UI/Rewards/RewardSurvivalMeans_Legendary</texPath>
     <label>Survival means drop</label>
+	<type>Resources</type>
     <description>Cargo pods drop 250 survival meals, 50 glitterworld medicine, 5 Mechanite healer mech serums and 200 medicine</description>
     <category>Legendary</category>
     <items>
@@ -74,6 +77,7 @@
     <defName>VSEWW_LegendaryFuelDrop</defName>
     <texPath>UI/Rewards/RewardFuelDrop_Legendary</texPath>
     <label>Fuel drop</label>
+	<type>Resources</type>
     <description>Cargo pods drop 2000 chemfuel, 2000 wood and 800 uranium</description>
     <category>Legendary</category>
     <items>
@@ -96,6 +100,7 @@
     <defName>VSEWW_LegendaryGearDrop</defName>
     <texPath>UI/Rewards/RewardGear_Legendary</texPath>
     <label>Legendary gear drop</label>
+	<type>Combat</type>
     <description>Cargo pods 5 random weapons and 5 random armors drop, quality is Legendary</description>
     <category>Legendary</category>
     <randomItems>
@@ -125,6 +130,7 @@
     <label>Cash and Riches</label>
     <description>Cargo pods drop 25000 silver, 1000 gold, 1000 Jade</description>
     <category>Legendary</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Silver</thing>
@@ -145,6 +151,7 @@
     <defName>VSEWW_ThrumboDrop</defName>
     <texPath>UI/Rewards/RewardThrumboDrop_Legendary</texPath>
     <label>Thrumbo drop</label>
+	<type>Misc</type>
     <description>Cargo pod drops 3 tamed thrumbos</description>
     <category>Legendary</category>
     <pawns>
@@ -159,6 +166,7 @@
     <defName>VSEWW_LegendarySkillBoost</defName>
     <texPath>UI/Rewards/RewardSkillBoost_Legendary</texPath>
     <label>Skill boost</label>
+	<type>Misc</type>
     <description>Improve every skill of every pawn under your control by 5</description>
     <category>Legendary</category>
     <boostSkillBy>5</boostSkillBy>
@@ -170,6 +178,7 @@
     <label>Archotech prosthetics drop</label>
     <description>Cargo pod drops random 10 archotech body parts</description>
     <category>Legendary</category>
+	<type>Misc</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -185,6 +194,7 @@
     <defName>VSEWW_MassHeal</defName>
     <texPath>UI/Rewards/RewardMassHeal_Legendary</texPath>
     <label>Mass Heal</label>
+	<type>Misc</type>
     <description>Instantly heals all the wounds on all pawns under player control</description>
     <category>Legendary</category>
     <massHeal>True</massHeal>

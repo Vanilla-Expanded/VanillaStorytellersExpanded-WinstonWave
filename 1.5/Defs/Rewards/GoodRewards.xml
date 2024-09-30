@@ -6,6 +6,7 @@
     <label>Pawns join</label>
     <description>A group of 3 pawns worth a minimum 100 and up to 175 Combat points joins the colony</description>
     <category>Good</category>
+	<type>Misc</type>
     <randomPawns>
       <li>
         <minCombatPower>100</minCombatPower>
@@ -21,6 +22,7 @@
     <label>Resource drop</label>
     <description>Cargo pods drop 500 wood, 500 steel, 30 components and 200 plasteel</description>
     <category>Good</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>WoodLog</thing>
@@ -47,6 +49,7 @@
     <label>Components drop</label>
     <description>Cargo pods drop 60 components, 15 advanced components</description>
     <category>Good</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>ComponentIndustrial</thing>
@@ -65,6 +68,7 @@
     <label>Food and medicine drop</label>
     <description>Cargo pods drop 100 survival meals and 100 medicine</description>
     <category>Good</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>MealSurvivalPack</thing>
@@ -83,6 +87,7 @@
     <label>Fuel drop</label>
     <description>Cargo pods drop 800 chemfuel, 800 wood and 250 uranium</description>
     <category>Good</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Chemfuel</thing>
@@ -105,6 +110,7 @@
     <label>Good weapons drop</label>
     <description>Cargo pods 3 random weapons, quality is Good</description>
     <category>Good</category>
+	<type>Combat</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -125,6 +131,7 @@
     <label>Good armor drop</label>
     <description>Cargo pods 3 random pieces of armor, quality is Good</description>
     <category>Good</category>
+	<type>Combat</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -142,6 +149,7 @@
     <label>Cash</label>
     <description>Cargo pods drop 5000 silver, 250 gold</description>
     <category>Good</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Silver</thing>
@@ -158,6 +166,7 @@
     <defName>VSEWW_DelayBy7</defName>
     <texPath>UI/Rewards/RewardDelayWave_Good</texPath>
     <label>Delay next wave</label>
+	<type>Combat</type>
     <description>Next wave is delayed by 7 days</description>
     <category>Good</category>
     <waveModifier>
@@ -169,6 +178,7 @@
     <defName>VSEWW_CombatAnimalDrop</defName>
     <texPath>UI/Rewards/RewardCombatAnimalDrop_Good</texPath>
     <label>Combat Animal drop</label>
+	<type>Combat</type>
     <description>Cargo pod drops 5 random, tamed combat animals</description>
     <category>Good</category>
     <randomPawns>
@@ -187,6 +197,7 @@
     <label>Textile drop</label>
     <description>Cargo pod drops 1000 random pieces of leather or textile</description>
     <category>Good</category>
+	<type>Resources</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -204,6 +215,7 @@
     <label>Skill boost</label>
     <description>Improve every skill of every pawn under your control by 2</description>
     <category>Good</category>
+	<type>Misc</type>
     <boostSkillBy>2</boostSkillBy>
   </VSEWW.RewardDef>
 
@@ -211,6 +223,7 @@
     <defName>VSEWW_GoodReseachBoost</defName>
     <texPath>UI/Rewards/RewardResearchBoost_Good</texPath>
     <label>Research boost</label>
+	<type>Misc</type>
     <description>Instantly research 5 random research projects you meet prerequisites for</description>
     <category>Good</category>
     <unlockXResearch>5</unlockXResearch>
@@ -222,6 +235,7 @@
     <label>Weaken next wave</label>
     <description>Next wave only has 50% Combat points it would normally have</description>
     <category>Good</category>
+	<type>Combat</type>
     <waveModifier>
       <weakenBy>0.5</weakenBy>
     </waveModifier>
@@ -231,6 +245,7 @@
     <defName>VSEWW_Allies</defName>
     <texPath>UI/Rewards/RewardAllies_Good</texPath>
     <label>Allies!</label>
+	<type>Combat</type>
     <description>Next wave also brings allies that are 2x the regular size, to help you</description>
     <category>Good</category>
     <waveModifier>
@@ -242,6 +257,7 @@
     <defName>VSEWW_GoodArchotechArtifactsDrop</defName>
     <texPath>UI/Rewards/RewardArchotechArtifactDrop_Good</texPath>
     <label>Archotech artifacts drop</label>
+	<type>Misc</type>
     <description>Receive 5 random archotech items (can be minified structures)</description>
     <category>Good</category>
     <randomItems>
@@ -269,6 +285,7 @@
     <defName>VSEWW_OrbitalTargeterPowerBeamDrop</defName>
     <texPath>UI/Rewards/RewardOrbitalBeamDrop_Good</texPath>
     <label>Orbital beam targeter</label>
+	<type>Combat</type>
     <description>Receive an orbital beam targeter</description>
     <category>Good</category>
     <items>
@@ -283,6 +300,7 @@
     <defName>VSEWW_OrbitalTargeterBombardmentDrop</defName>
     <texPath>UI/Rewards/RewardOrbitalBombardmentDrop_Good</texPath>
     <label>Orbital bombardment targeter</label>
+	<type>Combat</type>
     <description>Receive an orbital bombardment targeter</description>
     <category>Good</category>
     <items>
@@ -297,6 +315,7 @@
     <defName>VSEWW_TornadoGeneratorDrop</defName>
     <texPath>UI/Rewards/RewardTornadoGeneratorDrop_Good</texPath>
     <label>Tornado generator</label>
+	<type>Combat</type>
     <description>Receive a tornado generator</description>
     <category>Good</category>
     <items>
@@ -311,6 +330,7 @@
     <defName>VSEWW_GoodDrugsDrop</defName>
     <texPath>UI/Rewards/RewardDrugsDrop_Good</texPath>
     <label>Drugs drop</label>
+	<type>Resources</type>
     <description>Receive 10 Ambrosia, 10 psychite tea, 20 beer, 20 smokeleaf joints, 20 flake, 20 yayo, 20 wake-up, 20 go juice</description>
     <category>Good</category>
     <items>
@@ -353,6 +373,7 @@
     <defName>VSEWW_GoodProstheticsDrop</defName>
     <texPath>UI/Rewards/RewardProsthethicsDrop_Good</texPath>
     <label>Prosthetics drop</label>
+	<type>Misc</type>
     <description>Cargo pod drops 5 random low-level prosthetics and 5 bionic prosthetics</description>
     <category>Good</category>
     <randomItems>
@@ -377,6 +398,7 @@
     <defName>VSEWW_RandomExcellentDrop</defName>
     <texPath>UI/Rewards/RewardRandom_Excellent</texPath>
     <label>Random Excellent reward</label>
+	<type>Misc</type>
     <description>Instead of picking up a specific Good-level reward, obtain a completely random Excellent-level reward</description>
     <category>Good</category>
     <sendRewardOf>Excellent</sendRewardOf>
@@ -386,6 +408,7 @@
     <defName>VSEWW_OrbitalTraderArrival</defName>
     <texPath>UI/Rewards/RewardOrbitalTraderArrival_Good</texPath>
     <label>Orbital Trader Arrival</label>
+	<type>Misc</type>
     <description>Send a random orbital trader</description>
     <category>Good</category>
     <incidentDef>OrbitalTraderArrival</incidentDef>

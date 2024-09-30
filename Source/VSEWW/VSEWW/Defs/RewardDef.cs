@@ -10,6 +10,8 @@ namespace VSEWW
         public string texPath;
         public RewardCategory category;
 
+        public RewardType type = RewardType.Resources;
+
         // Send reward of specific category : everything else will be ignored.
         // We never send a random poor reward
         public RewardCategory sendRewardOf = RewardCategory.Poor;

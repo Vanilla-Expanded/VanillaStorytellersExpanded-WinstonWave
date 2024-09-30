@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Deserters">
+		<defName>VSEWW_IntelDrop</defName>
+		<texPath>UI/Rewards/RewardIntelDrop_Normal</texPath>
+		<label>Intel drop</label>
+		<description>Cargo pod drops 15 intel</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>VFED_Intel</thing>
+				<count>15</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Deserters">
+		<defName>VSEWW_IntelDropExcellent</defName>
+		<texPath>UI/Rewards/RewardIntelDrop_Excellent</texPath>
+		<label>Intel drop</label>
+		<description>Cargo pod drops 50 intel and 5 critical intel</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>VFED_Intel</thing>
+				<count>50</count>
+			</li>
+			<li>
+				<thing>VFED_CriticalIntel</thing>
+				<count>5</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+</Defs>

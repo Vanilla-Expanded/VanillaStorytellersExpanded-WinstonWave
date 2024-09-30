@@ -74,6 +74,7 @@
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
     <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="Settings\WinstonMod.cs" />
+    <Compile Include="Utils\Reward\RewardType.cs" />
     <Compile Include="Utils\WinstonRaidLootDistributor.cs" />
     <Compile Include="Utils\Reward\RewardCommonalities.cs" />
     <Compile Include="Hediff\Hediff_Boom.cs" />

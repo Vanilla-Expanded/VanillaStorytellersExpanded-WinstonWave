@@ -183,10 +183,15 @@ namespace VSEWW
             {
                 var item = reward.randomItems[i];
                 var chooseFrom = item.randomFrom.NullOrEmpty() ? DefDatabase<ThingDef>.AllDefsListForReading.FindAll(t =>
-                    item.thingCategories.Any(c => t.IsWithinCategory(c)) && t.tradeability != Tradeability.None && !t.destroyOnDrop && t.BaseMarketValue > 0) : item.randomFrom;
+                    item.thingCategories.Any(c => t.IsWithinCategory(c)) && t.tradeability != Tradeability.None && !t.destroyOnDrop && 
+                    (item.tradeTag.NullOrEmpty() || t.tradeTags?.Contains(item.tradeTag)==true) &&
+                    
+                    t.BaseMarketValue > 0) : item.randomFrom;
 
                 if (!item.excludeThingCategories.NullOrEmpty())
                     chooseFrom.RemoveAll(t => item.excludeThingCategories.Any(c => t.IsWithinCategory(c)));
+
+               
 
                 int countLeft = item.count;
                 while (countLeft > 0)

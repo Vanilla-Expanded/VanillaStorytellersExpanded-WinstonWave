@@ -6,6 +6,7 @@
     <label>Pawn joins</label>
     <description>A single pawn worth up to 50 Combat points joins the colony</description>
     <category>Poor</category>
+	<type>Misc</type>
     <randomPawns>
       <li>
         <maxCombatPower>50</maxCombatPower>
@@ -20,6 +21,7 @@
     <label>Wood drop</label>
     <description>Cargo pods drop 250 wood</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>WoodLog</thing>
@@ -34,6 +36,7 @@
     <label>Steel drop</label>
     <description>Cargo pods drop 250 steel</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Steel</thing>
@@ -48,6 +51,7 @@
     <label>Stone drop</label>
     <description>Cargo pods drop 250 stone blocks</description>
     <category>Poor</category>
+	<type>Resources</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -64,6 +68,7 @@
     <label>Food drop</label>
     <description>Cargo pods drop 30 survival meals</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>MealSurvivalPack</thing>
@@ -78,6 +83,7 @@
     <label>Medicine drop</label>
     <description>Cargo pods drop 30 medicine</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>MedicineIndustrial</thing>
@@ -92,6 +98,7 @@
     <label>Fuel drop</label>
     <description>Cargo pods drop 200 chemfuel</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Chemfuel</thing>
@@ -106,6 +113,7 @@
     <label>Poor weapons drop</label>
     <description>Cargo pods 3 random weapons, maximum quality is poor</description>
     <category>Poor</category>
+	<type>Combat</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -126,6 +134,7 @@
     <label>Cash</label>
     <description>Cargo pods drop 1000 silver</description>
     <category>Poor</category>
+	<type>Resources</type>
     <items>
       <li>
         <thing>Silver</thing>
@@ -140,6 +149,7 @@
     <label>Animal drop</label>
     <description>Cargo pod drops a random, tamed animal</description>
     <category>Poor</category>
+	<type>Misc</type>
     <randomPawns>
       <li>
         <intelligence>Animal</intelligence>
@@ -154,6 +164,7 @@
     <label>Leather drop</label>
     <description>Cargo pod drops 300 random pieces of leather</description>
     <category>Poor</category>
+	<type>Resources</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -170,6 +181,7 @@
     <label>Books drop</label>
     <description>Cargo pods drop 3 random books</description>
     <category>Poor</category>
+	<type>Resources</type>
     <randomItems>
       <li>
         <thingCategories>
@@ -184,6 +196,7 @@
     <defName>VSEWW_RandomNormalDrop</defName>
     <texPath>UI/Rewards/RewardRandom_Normal</texPath>
     <label>Random normal reward</label>
+	<type>Misc</type>
     <description>Instead of picking up a specific Poor-level reward, obtain a completely random Normal-level reward</description>
     <category>Poor</category>
     <sendRewardOf>Normal</sendRewardOf>
