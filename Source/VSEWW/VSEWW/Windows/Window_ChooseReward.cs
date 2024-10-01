@@ -56,6 +56,7 @@ namespace VSEWW
 
         public override void DoWindowContents(Rect inRect)
         {
+         
             if (!rewards.NullOrEmpty())
             {
                 float lastMaxX = 0f;
@@ -69,7 +70,8 @@ namespace VSEWW
             }
             else if (!WinstonMod.settings.randomRewardMod)
             {
-                if (new System.Random().NextDouble() < fourthRewardChance)
+                Log.Message(fourthRewardChance);
+                if (Rand.Chance(fourthRewardChance))
                     rewardNumber++;
 
                 width /= rewardNumber;
@@ -88,7 +90,7 @@ namespace VSEWW
                             randomType = true; break;
                     }
                   
-                    var reward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).Where(r => randomType || r.type == type).RandomElement();
+                    var reward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).Where(r => randomType || r.type == type).RandomElementWithFallback(InternalDefOf.VSEWW_NormalPawnJoins);
                     rewards.Add(reward);
                     rewardPool.Remove(reward);
                 }

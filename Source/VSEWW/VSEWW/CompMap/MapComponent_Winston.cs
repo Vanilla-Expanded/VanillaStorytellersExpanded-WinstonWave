@@ -168,9 +168,11 @@ namespace VSEWW
             float ticksInAdvance = nextRaidInfo.atTick - (now ? Find.TickManager.TicksGame : nextRaidInfo.sentAt);
             float ticksInBetween = nextRaidInfo.atTick - nextRaidInfo.generatedAt;
 
-            if (ticksInAdvance > 0) // Sent early
+            if (ticksInAdvance > 0) { // Sent early
+                
                 return ticksInAdvance / ticksInBetween;
-
+            }
+           
             return 0f;
         }
 
