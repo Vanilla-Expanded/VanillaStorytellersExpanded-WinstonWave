@@ -50,6 +50,10 @@ namespace VSEWW
                 rewardPool.RemoveAll(r => r.waveModifier?.allies == true);
             if (!DefDatabase<ResearchProjectDef>.AllDefsListForReading.FindAll(x => x.CanStartNow).Any())
                 rewardPool.RemoveAll(r => r.unlockXResearch != 0);
+            if (Find.ColonistBar.Entries.Where(x => x.pawn.psychicEntropy !=null).EnumerableNullOrEmpty())
+                rewardPool.RemoveAll(r => r.rechargePsyfocus);
+            if (Faction.OfEmpire == null)
+                rewardPool.RemoveAll(r => r.rewardHonor!=0);
         }
 
         public override Vector2 InitialSize => new Vector2(850f, 500f);

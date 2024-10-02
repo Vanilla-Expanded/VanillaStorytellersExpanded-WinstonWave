@@ -40,6 +40,12 @@ namespace VSEWW
         // Mass heal all colony pawns (colonists, slaves, prisonners, animals)
         public bool massHeal = false;
 
+        // Recharge all psyfocus
+        public bool rechargePsyfocus = false;
+
+        // Reward honor
+        public int rewardHonor = 0;
+
         // Modify waves
         public WaveModifier waveModifier;
 

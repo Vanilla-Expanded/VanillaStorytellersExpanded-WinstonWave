@@ -54,6 +54,19 @@ namespace VSEWW
                 HealAllPawns(map.mapPawns.SlavesAndPrisonersOfColonySpawned);
             }
 
+            if (reward.rechargePsyfocus)
+            {
+               foreach (ColonistBar.Entry entry in Find.ColonistBar.Entries)
+                {
+                    entry.pawn.psychicEntropy?.RechargePsyfocus();
+                }
+            }
+
+            if (reward.rewardHonor!=0)
+            {
+                Find.ColonistBar.Entries.RandomElement().pawn.royalty.GainFavor(Faction.OfEmpire, reward.rewardHonor);
+            }
+
             if (reward.unlockXResearch > 0)
             {
                 for (int i = 0; i < reward.unlockXResearch; i++)

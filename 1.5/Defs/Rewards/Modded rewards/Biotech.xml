@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_GeneticsNormal</defName>
+		<texPath>UI/Rewards/GeneticsDrop_Normal</texPath>
+		<label>Genetics drop</label>
+		<description>Receive 3 random genepacks</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>Genepack</thing>
+				<count>3</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_GeneticsGood</defName>
+		<texPath>UI/Rewards/GeneticsDrop_Good</texPath>
+		<label>Genetics drop</label>
+		<description>Receive 5 random genepacks</description>
+		<category>Good</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>Genepack</thing>
+				<count>5</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_GeneticsExcellent</defName>
+		<texPath>UI/Rewards/GeneticsDrop_Excellent</texPath>
+		<label>Genetics drop</label>
+		<description>Receive 7 random genepacks, an archite capsule and a gene assembler</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>Genepack</thing>
+				<count>7</count>
+			</li>
+			<li>
+				<thing>ArchiteCapsule</thing>
+				<count>1</count>
+			</li>
+			<li>
+				<thing>GeneAssembler</thing>
+				<count>1</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_GeneticsLegendary</defName>
+		<texPath>UI/Rewards/GeneticsDrop_Legendary</texPath>
+		<label>Genetics drop</label>
+		<description>Receive 10 random genepacks, 5 archite capsules and several gene lab machines</description>
+		<category>Legendary</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>Genepack</thing>
+				<count>10</count>
+			</li>
+			<li>
+				<thing>ArchiteCapsule</thing>
+				<count>5</count>
+			</li>
+			<li>
+				<thing>GeneAssembler</thing>
+				<count>1</count>
+			</li>
+			<li>
+				<thing>GeneBank</thing>
+				<count>5</count>
+			</li>
+			<li>
+				<thing>GeneExtractor</thing>
+				<count>1</count>
+			</li>
+			<li>
+				<thing>GeneProcessor</thing>
+				<count>8</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_MechanitorNormal</defName>
+		<texPath>UI/Rewards/MechChipsDrop_Normal</texPath>
+		<label>Mechanitor drop</label>
+		<description>Receive three random subcores and a random mech chip</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>SubcoreBasic</li>
+					<li>SubcoreRegular</li>
+					<li>SubcoreHigh</li>
+					<li MayRequire="vanillaracesexpanded.android">VREA_PersonaSubcore</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+			<li>
+				<randomFrom>
+					<li>SubcoreBasic</li>
+					<li>SubcoreRegular</li>
+					<li>SubcoreHigh</li>
+					<li MayRequire="vanillaracesexpanded.android">VREA_PersonaSubcore</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+			<li>
+				<randomFrom>
+					<li>SubcoreBasic</li>
+					<li>SubcoreRegular</li>
+					<li>SubcoreHigh</li>
+					<li MayRequire="vanillaracesexpanded.android">VREA_PersonaSubcore</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+			<li>
+				<randomFrom>
+					<li>SignalChip</li>
+					<li>PowerfocusChip</li>
+					<li>NanostructuringChip</li>
+					<li MayRequire="sarg.alphamechs">AM_HyperLinkageChip</li>
+					<li MayRequire="sarg.alphamechs">AM_StellarProcessingChip</li>
+					<li MayRequire="sarg.alphamechs">AM_QuantumMatrixChip</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+</Defs>
