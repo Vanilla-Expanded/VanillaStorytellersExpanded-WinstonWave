@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VanillaVehiclesExpanded">
+		<defName>VSEWW_VehiclePartsDrop</defName>
+		<texPath>UI/Rewards/RewardVehicleParts_Good</texPath>
+		<label>Vehicle parts drop</label>
+		<description>Cargo pod drops 10 of each tier 1 vehicle component</description>
+		<category>Good</category>
+		<type>Resources</type>
+		<items>
+			<li>
+				<thing>VVE_EngineBlock</thing>
+				<count>10</count>
+			</li>
+			<li>
+				<thing>VVE_CarAlternator</thing>
+				<count>10</count>
+			</li>
+			<li>
+				<thing>VVE_CarExhaust</thing>
+				<count>10</count>
+			</li>
+			<li>
+				<thing>VVE_CarSuspension</thing>
+				<count>10</count>
+			</li>
+			<li>
+				<thing>VVE_CarWheel</thing>
+				<count>40</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VanillaVehiclesExpanded">
+		<defName>VSEWW_VehiclePartsDropLegendary</defName>
+		<texPath>UI/Rewards/RewardVehicleParts_Legendary</texPath>
+		<label>Vehicle parts drop</label>
+		<description>Cargo pod drops 40 of every vehicle component</description>
+		<category>Legendary</category>
+		<type>Resources</type>
+		<items>
+			<li>
+				<thing>VVE_EngineBlock</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarAlternator</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarExhaust</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarSuspension</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarWheel</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarTransmission</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarRadiator</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarFuelTank</thing>
+				<count>40</count>
+			</li>
+			<li>
+				<thing>VVE_CarWiring</thing>
+				<count>40</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+</Defs>

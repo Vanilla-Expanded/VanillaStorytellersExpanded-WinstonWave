@@ -181,15 +181,16 @@ namespace VSEWW
         /// </summary>
         internal void PrepareNextWave(bool sendReward = true)
         {
+            // Show rewards window
+            if (sendReward)
+                Find.WindowStack.Add(new Window_ChooseReward(currentWave, FourthRewardChance(false), map));
             // Prepare next wave
             currentWave++;
             nextRaidInfo.StopIncidentModifiers();
             nextRaidInfo = GetNextWave();
             waveCounter?.UpdateWindow();
             waveCounter?.WaveTip();
-            // Show rewards window
-            if (sendReward)
-                Find.WindowStack.Add(new Window_ChooseReward(currentWave, FourthRewardChance(false), map));
+            
         }
 
         /// <summary>
