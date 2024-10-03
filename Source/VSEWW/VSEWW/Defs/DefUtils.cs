@@ -14,6 +14,8 @@ namespace VSEWW
         public bool excludeInsectoid = false;
         public bool ghoul = false;
         public bool shambler = false;
+        public List<XenotypeDef> randomXenotypeFrom;
+        
     }
 
     public class ItemReward
@@ -37,6 +39,7 @@ namespace VSEWW
     {
         public PawnKindDef pawnkind;
         public int count;
+        public List<XenotypeDef> randomXenotypeFrom;
     }
 
     public class WaveModifier

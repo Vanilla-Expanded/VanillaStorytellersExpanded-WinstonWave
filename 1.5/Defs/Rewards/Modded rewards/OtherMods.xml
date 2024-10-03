@@ -104,7 +104,7 @@
     <defName>VSEWW_HeavyWeaponDrop</defName>
     <label>Heavy weapon drop</label>
     <texPath>UI/Rewards/RewardDefault_Good</texPath>
-    <description>Cargo pod drop one random heavy weapon and one exoskeleton frame.</description>
+    <description>Cargo pod drops one random heavy weapon and one exoskeleton frame.</description>
     <category>Good</category>
 	<type>Combat</type>
     <randomItems>

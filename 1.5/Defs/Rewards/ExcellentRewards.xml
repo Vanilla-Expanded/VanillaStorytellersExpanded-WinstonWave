@@ -3,8 +3,8 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_ExcellentPawnJoins</defName>
     <texPath>UI/Rewards/RewardPawnJoins_Excellent</texPath>
-    <label>Pawns join</label>
-    <description>A group of 5 pawns worth a minimum of 175 Combat points joins the colony</description>
+    <label>Colonists join</label>
+    <description>A group of 5 colonists worth a minimum of 175 combat points joins the colony</description>
     <category>Excellent</category>
 	<type>Misc</type>
     <randomPawns>
@@ -51,7 +51,7 @@
     <texPath>UI/Rewards/RewardFoodAndMedicineDrop_Excellent</texPath>
     <label>Food and medicine drop</label>
 	<type>Resources</type>
-    <description>Cargo pods drop 120 survival meals, 20 glitterworld medicine and 100 medicine</description>
+    <description>Cargo pods drop 120 packaged survival meals, 20 glitterworld medicine and 100 medicine</description>
     <category>Excellent</category>
     <items>
       <li>
@@ -97,7 +97,7 @@
     <texPath>UI/Rewards/RewardWeaponsDrop_Excellent</texPath>
     <label>Excellent weapons drop</label>
 	<type>Combat</type>
-    <description>Cargo pods 5 random weapons, quality is Excellent</description>
+    <description>Cargo pods drop 5 random weapons, quality is Excellent</description>
     <category>Excellent</category>
     <randomItems>
       <li>
@@ -118,7 +118,7 @@
     <texPath>UI/Rewards/RewardArmorDrop_Excellent</texPath>
     <label>Excellent armor drop</label>
 	<type>Combat</type>
-    <description>Cargo pods 5 random pieces of armor, quality is Excellent</description>
+    <description>Cargo pods drop 5 random pieces of armor, quality is Excellent</description>
     <category>Excellent</category>
     <randomItems>
       <li>
@@ -136,7 +136,7 @@
     <texPath>UI/Rewards/RewardCashDrop_Excellent</texPath>
     <label>Cash</label>
 	<type>Resources</type>
-    <description>Cargo pods drop 10000 silver, 500 gold</description>
+    <description>Cargo pods drop 10000 silver and 500 gold</description>
     <category>Excellent</category>
     <items>
       <li>
@@ -182,7 +182,7 @@
     <texPath>UI/Rewards/RewardSkillBoost_Excellent</texPath>
     <label>Skill boost</label>
 	<type>Misc</type>
-    <description>Improve every skill of every pawn under your control by 3</description>
+    <description>Improve every skill of every colonist under your control by 3</description>
     <category>Excellent</category>
     <boostSkillBy>3</boostSkillBy>
   </VSEWW.RewardDef>
@@ -202,7 +202,7 @@
     <texPath>UI/Rewards/RewardArchotechArtifactDrop_Excellent</texPath>
     <label>Archotech artifacts drop</label>
 	<type>Misc</type>
-    <description>Receive 8 random archotech items (can be minified structures)</description>
+    <description>Receive 8 random archotech items (can be uninstalled structures)</description>
     <category>Excellent</category>
     <randomItems>
       <li>
@@ -253,7 +253,7 @@
     <texPath>UI/Rewards/RewardDrugsDrop_Excellent</texPath>
     <label>Drugs drop</label>
 	<type>Resources</type>
-    <description>Receive 100 Ambrosia, 100 psychite tea, 200 beer, 200 smokeleaf joints, 200 flake, 200 yayo, 200 wake-up, 200 go juice</description>
+    <description>Receive 100 Ambrosia, 100 psychite tea, 200 beer, 200 smokeleaf joints, 200 flake, 200 yayo, 200 wake-up and 200 go juice</description>
     <category>Excellent</category>
     <items>
       <li>
@@ -296,7 +296,7 @@
     <texPath>UI/Rewards/RewardProsthethicsDrop_Excellent</texPath>
     <label>Prosthetics drop</label>
 	<type>Misc</type>
-    <description>Cargo pod drops random 10 bionic prosthetics</description>
+    <description>Cargo pod drops 10 random bionics</description>
     <category>Excellent</category>
     <randomItems>
       <li>
@@ -312,9 +312,9 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_MechSerumHealerDrop</defName>
     <texPath>UI/Rewards/RewardHealerSerumDrop_Excellent</texPath>
-    <label>Healer serum drop</label>
+    <label>Healer mech serum drop</label>
 	<type>Misc</type>
-    <description>Cargo pod drops 5 Mechanoid healer serum</description>
+    <description>Cargo pod drops 5 healer mech serums</description>
     <category>Excellent</category>
     <items>
       <li>

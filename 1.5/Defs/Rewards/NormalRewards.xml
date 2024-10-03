@@ -3,8 +3,8 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_NormalPawnJoins</defName>
     <texPath>UI/Rewards/RewardPawnJoins_Normal</texPath>
-    <label>Pawn joins</label>
-    <description>A single pawn worth minimum 50 and up to 125 Combat points joins the colony</description>
+    <label>Colonist joins</label>
+    <description>A single colonist worth minimum 50 and up to 125 combat points joins the colony</description>
     <category>Normal</category>
 	<type>Misc</type>
     <randomPawns>
@@ -22,7 +22,7 @@
     <category>Normal</category>
     <label>Resource drop</label>
 	<type>Resources</type>
-    <description>Cargo pods drop 250 wood, 250 steel, 10 components</description>
+    <description>Cargo pods drop 250 wood, 250 steel and 10 components</description>
     <items>
       <li>
         <thing>WoodLog</thing>
@@ -44,7 +44,7 @@
     <texPath>UI/Rewards/RewardComponentsDrop_Normal</texPath>
     <label>Component drop</label>
 	<type>Resources</type>
-    <description>Cargo pods drop 20 components, 5 advanced components</description>
+    <description>Cargo pods drop 20 components and 5 advanced components</description>
     <category>Normal</category>
     <items>
       <li>
@@ -63,7 +63,7 @@
     <texPath>UI/Rewards/RewardFoodAndMedicineDrop_Normal</texPath>
     <label>Food and medicine drop</label>
 	<type>Resources</type>
-    <description>Cargo pods drop 30 survival meals and 30 medicine</description>
+    <description>Cargo pods drop 30 packaged survival meals and 30 medicine</description>
     <category>Normal</category>
     <items>
       <li>
@@ -127,7 +127,7 @@
     <texPath>UI/Rewards/RewardWeaponsDrop_Normal</texPath>
     <label>Normal weapons drop</label>
 	<type>Combat</type>
-    <description>Cargo pods 3 random weapons, quality is normal</description>
+    <description>Cargo pods drop 3 random weapons, quality is normal</description>
     <category>Normal</category>
     <randomItems>
       <li>
@@ -218,7 +218,7 @@
     <texPath>UI/Rewards/RewardMiniTurretDrop_Normal</texPath>
     <label>Miniturret drop</label>
 	<type>Combat</type>
-    <description>Cargo pod drops 3 minified mini-turrets</description>
+    <description>Cargo pod drops 3 uninstalled mini-turrets</description>
     <category>Normal</category>
     <items>
       <li>

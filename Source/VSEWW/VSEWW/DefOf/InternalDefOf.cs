@@ -11,6 +11,7 @@ namespace VSEWW
         public static ThingDef CreepJoiner;
         public static RewardDef VSEWW_NormalPawnJoins;
 
+  
         static InternalDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(InternalDefOf));
     }
 }

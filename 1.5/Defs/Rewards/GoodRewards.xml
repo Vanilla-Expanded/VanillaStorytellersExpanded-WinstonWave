@@ -3,8 +3,8 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_GoodPawnJoins</defName>
     <texPath>UI/Rewards/RewardPawnJoins_Good</texPath>
-    <label>Pawns join</label>
-    <description>A group of 3 pawns worth a minimum 100 and up to 175 Combat points joins the colony</description>
+    <label>Colonists join</label>
+    <description>A group of 3 colonists worth a minimum 100 and up to 175 combat points joins the colony</description>
     <category>Good</category>
 	<type>Misc</type>
     <randomPawns>
@@ -47,7 +47,7 @@
     <defName>VSEWW_GoodComponentDrop</defName>
     <texPath>UI/Rewards/RewardComponentsDrop_Good</texPath>
     <label>Components drop</label>
-    <description>Cargo pods drop 60 components, 15 advanced components</description>
+    <description>Cargo pods drop 60 components and 15 advanced components</description>
     <category>Good</category>
 	<type>Resources</type>
     <items>
@@ -66,7 +66,7 @@
     <defName>VSEWW_GoodFoodAndMedicineDrop</defName>
     <texPath>UI/Rewards/RewardFoodAndMedicineDrop_Good</texPath>
     <label>Food and medicine drop</label>
-    <description>Cargo pods drop 100 survival meals and 100 medicine</description>
+    <description>Cargo pods drop 100 packaged survival meals and 100 medicine</description>
     <category>Good</category>
 	<type>Resources</type>
     <items>
@@ -108,7 +108,7 @@
     <defName>VSEWW_GoodWeaponsDrop</defName>
     <texPath>UI/Rewards/RewardWeaponsDrop_Good</texPath>
     <label>Good weapons drop</label>
-    <description>Cargo pods 3 random weapons, quality is Good</description>
+    <description>Cargo pods drop 3 random weapons, quality is Good</description>
     <category>Good</category>
 	<type>Combat</type>
     <randomItems>
@@ -129,7 +129,7 @@
     <defName>VSEWW_GoodArmorDrop</defName>
     <texPath>UI/Rewards/RewardArmorDrop_Good</texPath>
     <label>Good armor drop</label>
-    <description>Cargo pods 3 random pieces of armor, quality is Good</description>
+    <description>Cargo pods drop 3 random pieces of armor, quality is Good</description>
     <category>Good</category>
 	<type>Combat</type>
     <randomItems>
@@ -147,7 +147,7 @@
     <defName>VSEWW_GoodCashDrop</defName>
     <texPath>UI/Rewards/RewardCashDrop_Good</texPath>
     <label>Cash</label>
-    <description>Cargo pods drop 5000 silver, 250 gold</description>
+    <description>Cargo pods drop 5000 silver and 250 gold</description>
     <category>Good</category>
 	<type>Resources</type>
     <items>
@@ -213,7 +213,7 @@
     <defName>VSEWW_GoodSkillBoost</defName>
     <texPath>UI/Rewards/RewardsSkillBoost_Good</texPath>
     <label>Skill boost</label>
-    <description>Improve every skill of every pawn under your control by 2</description>
+    <description>Improve every skill of every colonist under your control by 2</description>
     <category>Good</category>
 	<type>Misc</type>
     <boostSkillBy>2</boostSkillBy>
@@ -233,7 +233,7 @@
     <defName>VSEWW_Weaken50</defName>
     <texPath>UI/Rewards/RewardWeakenNextWave_Good</texPath>
     <label>Weaken next wave</label>
-    <description>Next wave only has 50% Combat points it would normally have</description>
+    <description>Next wave only has 50% combat points it would normally have</description>
     <category>Good</category>
 	<type>Combat</type>
     <waveModifier>
@@ -258,7 +258,7 @@
     <texPath>UI/Rewards/RewardArchotechArtifactDrop_Good</texPath>
     <label>Archotech artifacts drop</label>
 	<type>Misc</type>
-    <description>Receive 5 random archotech items (can be minified structures)</description>
+    <description>Receive 5 random archotech items (can be uninstalled structures)</description>
     <category>Good</category>
     <randomItems>
       <li>
@@ -331,7 +331,7 @@
     <texPath>UI/Rewards/RewardDrugsDrop_Good</texPath>
     <label>Drugs drop</label>
 	<type>Resources</type>
-    <description>Receive 10 Ambrosia, 10 psychite tea, 20 beer, 20 smokeleaf joints, 20 flake, 20 yayo, 20 wake-up, 20 go juice</description>
+    <description>Receive 10 Ambrosia, 10 psychite tea, 20 beer, 20 smokeleaf joints, 20 flake, 20 yayo, 20 wake-up and 20 go juice</description>
     <category>Good</category>
     <items>
       <li>
@@ -374,7 +374,7 @@
     <texPath>UI/Rewards/RewardProsthethicsDrop_Good</texPath>
     <label>Prosthetics drop</label>
 	<type>Misc</type>
-    <description>Cargo pod drops 5 random low-level prosthetics and 5 bionic prosthetics</description>
+    <description>Cargo pod drops 5 random low-level prosthetics and 5 bionics</description>
     <category>Good</category>
     <randomItems>
       <li>

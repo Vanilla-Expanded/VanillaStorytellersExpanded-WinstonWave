@@ -46,6 +46,12 @@ namespace VSEWW
         // Reward honor
         public int rewardHonor = 0;
 
+        // Needs mechanitor in colony
+        public bool needsMechanitor = false;
+
+        // Commonality. Lower numbers will appear less often
+        public float commonality = 1;
+
         // Modify waves
         public WaveModifier waveModifier;
 

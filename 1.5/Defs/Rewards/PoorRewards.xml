@@ -3,8 +3,8 @@
   <VSEWW.RewardDef>
     <defName>VSEWW_PoorPawnJoins</defName>
     <texPath>UI/Rewards/RewardPawnJoins_Poor</texPath>
-    <label>Pawn joins</label>
-    <description>A single pawn worth up to 50 Combat points joins the colony</description>
+    <label>Colonist joins</label>
+    <description>A single colonist worth up to 50 combat points joins the colony</description>
     <category>Poor</category>
 	<type>Misc</type>
     <randomPawns>
@@ -66,7 +66,7 @@
     <defName>VSEWW_FoodDrop</defName>
     <texPath>UI/Rewards/RewardFoodDrop_Poor</texPath>
     <label>Food drop</label>
-    <description>Cargo pods drop 30 survival meals</description>
+    <description>Cargo pods drop 30 packaged survival meals</description>
     <category>Poor</category>
 	<type>Resources</type>
     <items>
@@ -111,7 +111,7 @@
     <defName>VSEWW_PoorWeaponsDrop</defName>
     <texPath>UI/Rewards/RewardWeaponsDrop_Poor</texPath>
     <label>Poor weapons drop</label>
-    <description>Cargo pods 3 random weapons, maximum quality is poor</description>
+    <description>Cargo pods drop 3 random weapons, maximum quality is poor</description>
     <category>Poor</category>
 	<type>Combat</type>
     <randomItems>

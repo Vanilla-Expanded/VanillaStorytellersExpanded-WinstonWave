@@ -174,7 +174,13 @@ namespace VSEWW
                     Pawn p;
                     if (pawn.pawnkind.RaceProps.Humanlike)
                     {
-                        p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawn.pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo));
+                        XenotypeDef forcedXenotype = XenotypeDefOf.Baseliner;
+
+                        if (!pawn.randomXenotypeFrom.NullOrEmpty())
+                        {
+                            forcedXenotype = pawn.randomXenotypeFrom.RandomElement();
+                        }
+                        p = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawn.pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, forcedXenotype: forcedXenotype));
                         p.workSettings.EnableAndInitializeIfNotAlreadyInitialized();
                     }
                     else
@@ -272,7 +278,14 @@ namespace VSEWW
                         bool dontGiveWeapon = pr.ghoul || pr.shambler;
                         bool forbidAnyTitle = pr.shambler;
 
-                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, dontGiveWeapon: dontGiveWeapon, forbidAnyTitle: forbidAnyTitle);
+                        XenotypeDef forcedXenotype = XenotypeDefOf.Baseliner;
+
+                        if (!pr.randomXenotypeFrom.NullOrEmpty())
+                        {
+                            forcedXenotype = pr.randomXenotypeFrom.RandomElement();
+                        }              
+
+                        PawnGenerationRequest request = new PawnGenerationRequest(pawnkind, Faction.OfPlayer, mustBeCapableOfViolence: true, fixedIdeo: Faction.OfPlayer.ideos.PrimaryIdeo, dontGiveWeapon: dontGiveWeapon, forbidAnyTitle: forbidAnyTitle, forcedXenotype: forcedXenotype);
                         request.IsCreepJoiner = false;
                      
                         p = PawnGenerator.GeneratePawn(request);

@@ -54,6 +54,8 @@ namespace VSEWW
                 rewardPool.RemoveAll(r => r.rechargePsyfocus);
             if (Faction.OfEmpire == null)
                 rewardPool.RemoveAll(r => r.rewardHonor!=0);
+            if (!MechanitorUtility.AnyMechanitorInPlayerFaction())
+                rewardPool.RemoveAll(r => r.needsMechanitor);
         }
 
         public override Vector2 InitialSize => new Vector2(850f, 500f);
@@ -94,14 +96,14 @@ namespace VSEWW
                             randomType = true; break;
                     }
                   
-                    var reward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).Where(r => randomType || r.type == type).RandomElementWithFallback(InternalDefOf.VSEWW_NormalPawnJoins);
+                    var reward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).Where(r => randomType || r.type == type).RandomElementByWeightWithFallback(r => r.commonality,InternalDefOf.VSEWW_NormalPawnJoins);
                     rewards.Add(reward);
                     rewardPool.Remove(reward);
                 }
             }
             else
             {
-                choosenReward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).RandomElement();
+                choosenReward = rewardPool.FindAll(r => r.category == commonalities.RandomElementByWeight(k => k.Value).Key).RandomElementByWeight(r => r.commonality);
                 Close();
             }
         }
