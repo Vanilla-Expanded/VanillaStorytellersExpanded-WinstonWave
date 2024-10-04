@@ -2,6 +2,22 @@
 <Defs>
 
 	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_PsylinkNeuroformer</defName>
+		<texPath>UI/Rewards/RewardPsylink_Good</texPath>
+		<label>Psylink neuroformer</label>
+		<description>Cargo pod drops a psylink neuroformer</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<items>
+			<li>
+				<thing>PsychicAmplifier</thing>
+				<count>1</count>
+			</li>
+			
+		</items>
+	</VSEWW.RewardDef>
+
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
 		<defName>VSEWW_RetorePsyfocus</defName>
 		<texPath>UI/Rewards/RestorePsyfocus_Good</texPath>
 		<label>Recharge psyfocus</label>

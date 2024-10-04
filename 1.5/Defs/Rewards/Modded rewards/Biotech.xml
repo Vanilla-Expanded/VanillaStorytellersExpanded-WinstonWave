@@ -689,8 +689,6 @@
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Strigoi</li>
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Ekkimian</li>
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Bruxa</li>
-					
-					
 				</randomXenotypeFrom>
 				<count>1</count>
 			</li>
@@ -712,11 +710,112 @@
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Strigoi</li>
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Ekkimian</li>
 					<li MayRequire="vanillaracesexpanded.sanguophage">VRE_Bruxa</li>
-					
-					
 				</randomXenotypeFrom>
 				<count>3</count>
 			</li>
 		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyMechanoidsPoor</defName>
+		<texPath>UI/Rewards/RewardMechanoids_Poor</texPath>
+		<label>Mechanoids drop</label>
+		<description>Receive a militor</description>
+		<category>Poor</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>Mech_Militor</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyMechanoidsNormal</defName>
+		<texPath>UI/Rewards/RewardMechanoids_Normal</texPath>
+		<label>Mechanoids drop</label>
+		<description>Receive 3 militors</description>
+		<category>Normal</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>Mech_Militor</pawnkind>
+				<count>3</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyMechanoidsGood</defName>
+		<texPath>UI/Rewards/RewardMechanoids_Good</texPath>
+		<label>Mechanoids drop</label>
+		<description>Receive a lancer, a scyther and a scorcher</description>
+		<category>Normal</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>Mech_Scorcher</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Lancer</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Scyther</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyMechanoidsExcellent</defName>
+		<texPath>UI/Rewards/RewardMechanoids_Excellent</texPath>
+		<label>Mechanoids drop</label>
+		<description>Receive a centipede burner, a centipede blaster and a tesseron</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>Mech_CentipedeBlaster</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_CentipedeBurner</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Tesseron</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyMechanoidsLegendary</defName>
+		<texPath>UI/Rewards/RewardMechanoids_Legendary</texPath>
+		<label>Mechanoids drop</label>
+		<description>Receive 2 centipede blasters, 5 militors, a centurion and a diabolus</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>Mech_CentipedeBlaster</pawnkind>
+				<count>2</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Diabolus</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Centurion</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>Mech_Militor</pawnkind>
+				<count>5</count>
+			</li>
+		</pawns>
 	</VSEWW.RewardDef>
 </Defs>
