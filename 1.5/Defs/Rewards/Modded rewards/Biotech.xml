@@ -548,7 +548,7 @@
 			</li>
 		</items>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomXenotypeJoins_Poor</defName>
 		<texPath>UI/Rewards/RewardXenotype_Poor</texPath>
 		<label>Xenohuman joins</label>
@@ -573,7 +573,7 @@
 			</li>
 		</randomPawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomXenotypeJoins_Normal</defName>
 		<texPath>UI/Rewards/RewardXenotype_Normal</texPath>
 		<label>Xenohuman joins</label>
@@ -599,7 +599,7 @@
 			</li>
 		</randomPawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomXenotypeJoins_Good</defName>
 		<texPath>UI/Rewards/RewardXenotype_Good</texPath>
 		<label>Xenohumans join</label>
@@ -625,7 +625,7 @@
 			</li>
 		</randomPawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomXenotypeJoins_Excellent</defName>
 		<texPath>UI/Rewards/RewardXenotype_Excellent</texPath>
 		<label>Xenohumans join</label>
@@ -650,7 +650,7 @@
 			</li>
 		</randomPawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomXenotypeJoins_Legendary</defName>
 		<texPath>UI/Rewards/RewardXenotype_Legendary</texPath>
 		<label>Xenohumans join</label>
@@ -673,7 +673,7 @@
 			</li>
 		</pawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomSanguophage_Excellent</defName>
 		<texPath>UI/Rewards/RewardSanguophage_Excellent</texPath>
 		<label>Sanguophage joins</label>
@@ -694,7 +694,7 @@
 			</li>
 		</randomPawns>
 	</VSEWW.RewardDef>
-	<VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Biotech">
 		<defName>VSEWW_RandomSanguophage_Legendary</defName>
 		<texPath>UI/Rewards/RewardSanguophage_Legendary</texPath>
 		<label>Sanguophages join</label>
