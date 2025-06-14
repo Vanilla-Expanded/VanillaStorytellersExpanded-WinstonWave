@@ -32,7 +32,7 @@
     <defName>VSEWW_Veterans</defName>
     <texPath>UI/Modifiers/Modifier_Veterans</texPath>
     <label>Veterans</label>
-    <description>All stats of the enemies (Manipulation, sight etc) is multiplied by x1.5</description>
+    <description>All stats of the enemies (Manipulation, sight etc) are offset by 50%</description>
     <globalHediffs>
       <li>VESWW_Veterans</li>
     </globalHediffs>

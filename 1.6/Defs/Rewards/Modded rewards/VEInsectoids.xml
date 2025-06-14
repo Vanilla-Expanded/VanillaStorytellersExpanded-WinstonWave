@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid2">
+		<defName>VSEWW_InsectJellyNormal</defName>
+		<texPath>UI/Rewards/RewardJelly_Normal</texPath>
+		<label>Insect jelly drop</label>
+		<description>Cargo pod drops 1200 insect jelly</description>
+		<category>Normal</category>
+		<type>Resources</type>
+		<items>
+			<li>
+				<thing>InsectJelly</thing>
+				<count>1200</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid2">
+		<defName>VSEWW_InsectJellyGood</defName>
+		<texPath>UI/Rewards/RewardJelly_Good</texPath>
+		<label>Insect jelly drop</label>
+		<description>Cargo pod drops 2000 insect jelly and 500 royal jelly</description>
+		<category>Good</category>
+		<type>Resources</type>
+		<items>
+			<li>
+				<thing>InsectJelly</thing>
+				<count>2000</count>
+			</li>
+			<li>
+				<thing>VFEI2_RoyalInsectJelly</thing>
+				<count>500</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid2">
+		<defName>VSEWW_PherocoreNormal</defName>
+		<texPath>UI/Rewards/RewardPherocores_Normal</texPath>
+		<label>Pherocore drop</label>
+		<description>Cargo pod drops a random pherocore</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>ItemsMisc</li>
+				</thingCategories>
+				<tradeTag>VFEI2_Pherocore</tradeTag>
+				<count>1</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid2">
+		<defName>VSEWW_PherocoreExcellent</defName>
+		<texPath>UI/Rewards/RewardPherocores_Excellent</texPath>
+		<label>Pherocore drop</label>
+		<description>Cargo pod drops 5 random pherocores</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>ItemsMisc</li>
+				</thingCategories>
+				<tradeTag>VFEI2_Pherocore</tradeTag>
+				<count>5</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Insectoid2">
+		<defName>VSEWW_PherocoreLegendary</defName>
+		<texPath>UI/Rewards/RewardPherocores_Legendary</texPath>
+		<label>Pherocore drop</label>
+		<description>Cargo pod drops 10 random pherocores</description>
+		<category>Legendary</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>ItemsMisc</li>
+				</thingCategories>
+				<tradeTag>VFEI2_Pherocore</tradeTag>
+				<count>10</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+</Defs>

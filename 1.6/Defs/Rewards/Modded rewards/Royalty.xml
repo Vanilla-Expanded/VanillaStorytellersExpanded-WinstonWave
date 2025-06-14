@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_PsylinkNeuroformer</defName>
+		<texPath>UI/Rewards/RewardPsylink_Good</texPath>
+		<label>Psylink neuroformer</label>
+		<description>Cargo pod drops a psylink neuroformer</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<items>
+			<li>
+				<thing>PsychicAmplifier</thing>
+				<count>1</count>
+			</li>
+			
+		</items>
+	</VSEWW.RewardDef>
+
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_RetorePsyfocus</defName>
+		<texPath>UI/Rewards/RestorePsyfocus_Good</texPath>
+		<label>Recharge psyfocus</label>
+		<description>Fully recharge the psyfocus of all the colony's psycasters</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<rechargePsyfocus>true</rechargePsyfocus>
+	</VSEWW.RewardDef>
+	
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_Honor_Good</defName>
+		<texPath>UI/Rewards/Honor_Good</texPath>
+		<label>Receive honor</label>
+		<description>A random colonist will receive 10 honor with the Empire</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<rewardHonor>10</rewardHonor>
+	</VSEWW.RewardDef>
+	
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_Honor_Excellent</defName>
+		<texPath>UI/Rewards/Honor_Excellent</texPath>
+		<label>Receive honor</label>
+		<description>A random colonist will receive 25 honor with the Empire</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<rewardHonor>25</rewardHonor>
+	</VSEWW.RewardDef>
+	
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Royalty">
+		<defName>VSEWW_Honor_Legendary</defName>
+		<texPath>UI/Rewards/Honor_Legendary</texPath>
+		<label>Receive honor</label>
+		<description>A random colonist will receive 50 honor with the Empire</description>
+		<category>Legendary</category>
+		<type>Combat</type>
+		<rewardHonor>50</rewardHonor>
+	</VSEWW.RewardDef>
+	
+</Defs>

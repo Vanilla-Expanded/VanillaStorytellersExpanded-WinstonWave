@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
+		<defName>AP_NormalPrefabReward</defName>
+		<texPath>UI/Rewards/Reward_Prefab_Normal</texPath>
+		<label>Low value prefab</label>
+		<description>Cargo pod contains one low value prefab</description>
+		<category>Normal</category>
+		<items>
+			<li>
+				<thing>AP_Prefab_LowValue</thing>
+				<count>1</count>
+			</li>
+		</items>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
+		<defName>AP_GoodPrefabReward</defName>
+		<texPath>UI/Rewards/Reward_Prefab_Good</texPath>
+		<label>Medium value prefab</label>
+		<description>Cargo pod contains one medium value prefab</description>
+		<category>Good</category>
+		<items>
+			<li>
+				<thing>AP_Prefab</thing>
+				<count>1</count>
+			</li>
+		</items>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
+		<defName>AP_ExcellentPrefabReward</defName>
+		<texPath>UI/Rewards/Reward_Prefab_Excellent</texPath>
+		<label>High value prefab</label>
+		<description>Cargo pod contains one high value prefab</description>
+		<category>Excellent</category>
+		<items>
+			<li>
+				<thing>AP_Prefab_MediumHighValue</thing>
+				<count>1</count>
+			</li>
+		</items>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
+		<defName>AP_LegendaryPrefabReward</defName>
+		<texPath>UI/Rewards/Reward_Prefab_Legendary</texPath>
+		<label>Legendary value prefab</label>
+		<description>Cargo pod contains one legendary value prefab</description>
+		<category>Legendary</category>
+		<items>
+			<li>
+				<thing>AP_Prefab_HighValue</thing>
+				<count>1</count>
+			</li>
+		</items>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+</Defs>

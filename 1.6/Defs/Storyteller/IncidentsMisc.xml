@@ -23,8 +23,8 @@
     <gameCondition>VESWW_OrbitalBombardement</gameCondition>
     <baseChance>0</baseChance>
     <durationDays>
-      <min>10</min>
-      <max>10</max>
+      <min>1</min>
+      <max>1</max>
     </durationDays>
   </IncidentDef>
   <!-- Flashstorm -->
@@ -50,8 +50,8 @@
     <gameCondition>VESWW_FullMapFlashstorm</gameCondition>
     <baseChance>0</baseChance>
     <durationDays>
-      <min>10</min>
-      <max>10</max>
+      <min>1</min>
+      <max>1</max>
     </durationDays>
   </IncidentDef>
 
@@ -83,8 +83,8 @@
     <gameCondition>VESWW_MeteorStorm</gameCondition>
     <baseChance>0</baseChance>
     <durationDays>
-      <min>10</min>
-      <max>10</max>
+      <min>1</min>
+      <max>1</max>
     </durationDays>
   </IncidentDef>
 </Defs>

@@ -13,7 +13,6 @@
         <statFactors>
           <InjuryHealingFactor>2</InjuryHealingFactor>
           <WorkSpeedGlobal>1.5</WorkSpeedGlobal>
-          <ResearchSpeed>1.5</ResearchSpeed>
         </statFactors>
       </li>
     </stages>

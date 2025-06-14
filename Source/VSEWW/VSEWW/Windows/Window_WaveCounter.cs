@@ -40,7 +40,7 @@ namespace VSEWW
 
         public override void WindowOnGUI()
         {
-            if (!WorldRendererUtility.WorldRenderedNow) base.WindowOnGUI();
+            if (!WorldRendererUtility.WorldRendered) base.WindowOnGUI();
         }
 
         public override void PostClose()

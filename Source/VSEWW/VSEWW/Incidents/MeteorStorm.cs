@@ -40,7 +40,7 @@ namespace VSEWW
         private bool TryFindCell(out IntVec3 cell, Map map)
         {
             int maxMineables = ThingSetMaker_StoneMeteorite.mineablesCountRange.max;
-            return CellFinderLoose.TryFindSkyfallerCell(ThingDefOf.MeteoriteIncoming, map, out cell, 10, default, -1, true, false, false, false, true, true, delegate (IntVec3 x)
+            return CellFinderLoose.TryFindSkyfallerCell(ThingDefOf.MeteoriteIncoming, map,TerrainAffordanceDefOf.Walkable, out cell, 10, default, -1, true, false, false, false, true, true, delegate (IntVec3 x)
             {
                 int num = Mathf.CeilToInt(Mathf.Sqrt(maxMineables)) + 2;
                 CellRect cellRect = CellRect.CenteredOn(x, num, num);

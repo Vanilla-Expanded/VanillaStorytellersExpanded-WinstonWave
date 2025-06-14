@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	
+  <VSEWW.RewardDef MayRequire="WindChime.GiverTheColonyHelper">
+    <defName>VSEWW_GiverDrop</defName>
+    <texPath>UI/Rewards/RewardGiver_Normal</texPath>
+    <label>Giver drop</label>
+	<type>Misc</type>
+    <description>Cargo pod drops a Giver to help your colony</description>
+    <category>Normal</category>
+    <pawns>
+      <li>
+        <pawnkind>WB_Giver</pawnkind>
+        <count>1</count>
+      </li>
+    </pawns>
+  </VSEWW.RewardDef>
+</Defs>
