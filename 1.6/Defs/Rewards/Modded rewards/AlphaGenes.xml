@@ -16,4 +16,150 @@
 		</randomItems>
 		<type>Misc</type>
 	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>VSEWW_RandomAlphaXenotypeJoins_Poor</defName>
+		<texPath>UI/Rewards/RewardAlphaXenotype_Poor</texPath>
+		<label>Alpha Xenohuman joins</label>
+		<description>A single alpha xenohuman worth up to 50 combat points joins the colony</description>
+		<category>Poor</category>
+		<type>Misc</type>
+		<commonality>0.75</commonality>
+		<randomPawns>
+			<li>
+				<maxCombatPower>50</maxCombatPower>
+				<randomXenotypeFrom>
+					<li>AG_Fleetkind</li>
+					<li>AG_Helixien</li>
+					<li>AG_Animusen</li>
+					<li>AG_Lapis</li>
+					<li>AG_Wretch</li>
+					<li>AG_Taukai</li>
+					<li>AG_Hiveling</li>
+					<li>AG_MindDevourer</li>
+					<li>AG_Efreet</li>
+					<li>AG_Drakonori</li>
+					<li>AG_Nereid</li>
+					<li>AG_Forsaken</li>
+				</randomXenotypeFrom>
+				<count>1</count>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>VSEWW_RandomAlphaXenotypeJoins_Normal</defName>
+		<texPath>UI/Rewards/RewardAlphaXenotype_Normal</texPath>
+		<label>Alpha Xenohuman joins</label>
+		<description>A single alpha xenohuman worth minimum 50 and up to 125 Combat points joins the colony</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<commonality>0.75</commonality>
+		<randomPawns>
+			<li>
+				<minCombatPower>50</minCombatPower>
+				<maxCombatPower>125</maxCombatPower>
+				<randomXenotypeFrom>
+					<li>AG_Fleetkind</li>
+					<li>AG_Helixien</li>
+					<li>AG_Animusen</li>
+					<li>AG_Lapis</li>
+					<li>AG_Wretch</li>
+					<li>AG_Taukai</li>
+					<li>AG_Hiveling</li>
+					<li>AG_MindDevourer</li>
+					<li>AG_Efreet</li>
+					<li>AG_Drakonori</li>
+					<li>AG_Nereid</li>
+					<li>AG_Forsaken</li>
+				</randomXenotypeFrom>
+				<count>1</count>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>VSEWW_RandomAlphaXenotypeJoins_Good</defName>
+		<texPath>UI/Rewards/RewardAlphaXenotype_Good</texPath>
+		<label>Alpha Xenohumans join</label>
+		<description>A group of 3 alpha xenohumans worth a minimum 100 and up to 175 combat points joins the colony</description>
+		<category>Good</category>
+		<type>Misc</type>
+		<commonality>0.75</commonality>
+		<randomPawns>
+			<li>
+				<minCombatPower>100</minCombatPower>
+				<maxCombatPower>175</maxCombatPower>
+				<randomXenotypeFrom>
+					<li>AG_Fleetkind</li>
+					<li>AG_Helixien</li>
+					<li>AG_Animusen</li>
+					<li>AG_Lapis</li>
+					<li>AG_Wretch</li>
+					<li>AG_Taukai</li>
+					<li>AG_Hiveling</li>
+					<li>AG_MindDevourer</li>
+					<li>AG_Efreet</li>
+					<li>AG_Drakonori</li>
+					<li>AG_Nereid</li>
+					<li>AG_Forsaken</li>
+				</randomXenotypeFrom>
+				<count>3</count>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>VSEWW_RandomAlphaXenotypeJoins_Excellent</defName>
+		<texPath>UI/Rewards/RewardAlphaXenotype_Excellent</texPath>
+		<label>Alpha Xenohumans join</label>
+		<description>A group of 5 alpha xenohumans worth a minimum of 175 combat points joins the colony</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<commonality>0.75</commonality>
+		<randomPawns>
+			<li>
+				<minCombatPower>175</minCombatPower>
+				<randomXenotypeFrom>
+					<li>AG_Fleetkind</li>
+					<li>AG_Helixien</li>
+					<li>AG_Animusen</li>
+					<li>AG_Lapis</li>
+					<li>AG_Wretch</li>
+					<li>AG_Taukai</li>
+					<li>AG_Hiveling</li>
+					<li>AG_MindDevourer</li>
+					<li>AG_Efreet</li>
+					<li>AG_Drakonori</li>
+					<li>AG_Nereid</li>
+					<li>AG_Forsaken</li>
+				</randomXenotypeFrom>
+				<count>5</count>
+			</li>
+		</randomPawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>VSEWW_RandomAlphaXenotypeJoins_Legendary</defName>
+		<texPath>UI/Rewards/RewardAlphaXenotype_Legendary</texPath>
+		<label>Alpha Xenohumans join</label>
+		<type>Combat</type>
+		<description>A group of 5 alpha mercenary xenohuman colonists join</description>
+		<category>Legendary</category>
+		<pawns>
+			<li>
+				<pawnkind>Mercenary_Gunner</pawnkind>
+				<randomXenotypeFrom>
+					<li>AG_Fleetkind</li>
+					<li>AG_Helixien</li>
+					<li>AG_Animusen</li>
+					<li>AG_Lapis</li>
+					<li>AG_Wretch</li>
+					<li>AG_Taukai</li>
+					<li>AG_Hiveling</li>
+					<li>AG_MindDevourer</li>
+					<li>AG_Efreet</li>
+					<li>AG_Drakonori</li>
+					<li>AG_Nereid</li>
+					<li>AG_Forsaken</li>
+				</randomXenotypeFrom>
+				<count>5</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
 </Defs>

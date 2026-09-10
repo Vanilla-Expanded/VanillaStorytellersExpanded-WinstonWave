@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="sarg.alphamechs">
+		<defName>VSEWW_FriendlyAlphaMechanoidsPoor</defName>
+		<texPath>UI/Rewards/RewardAlphaMechs_Poor</texPath>
+		<label>Alpha mechanoids drop</label>
+		<description>Receive a daggersnout</description>
+		<category>Poor</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>AM_Daggersnout</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphamechs">
+		<defName>VSEWW_FriendlyAlphaMechanoidsNormal</defName>
+		<texPath>UI/Rewards/RewardAlphaMechs_Normal</texPath>
+		<label>Alpha mechanoids drop</label>
+		<description>Receive 3 daggersnout</description>
+		<category>Normal</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>AM_Daggersnout</pawnkind>
+				<count>3</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphamechs">
+		<defName>VSEWW_FriendlyAlphaMechanoidsGood</defName>
+		<texPath>UI/Rewards/RewardAlphaMechs_Good</texPath>
+		<label>Alpha mechanoids drop</label>
+		<description>Receive an aura, a fireworm and a goliath</description>
+		<category>Normal</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>AM_Aura</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>AM_Fireworm</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>AM_Goliath</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphamechs">
+		<defName>VSEWW_FriendlyAlphaMechanoidsExcellent</defName>
+		<texPath>UI/Rewards/RewardAlphaMechs_Excellent</texPath>
+		<label>Alpha mechanoids drop</label>
+		<description>Receive a goliath, a phalanx and a two siegebreakers</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>AM_Goliath</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>AM_Phalanx</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>AM_Siegebreaker</pawnkind>
+				<count>2</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphamechs,Ludeon.RimWorld.Biotech">
+		<defName>VSEWW_FriendlyAlphaMechanoidsLegendary</defName>
+		<texPath>UI/Rewards/RewardAlphaMechs_Legendary</texPath>
+		<label>Alpha mechanoids drop</label>
+		<description>Receive 2 siegemelters, a legate, 3 auras and a starfire</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<needsMechanitor>true</needsMechanitor>
+		<pawns>
+			<li>
+				<pawnkind>AM_Siegemelter</pawnkind>
+				<count>2</count>
+			</li>
+			<li>
+				<pawnkind>AM_Mech_Legate</pawnkind>
+				<count>1</count>
+			</li>
+			<li>
+				<pawnkind>AM_Aura</pawnkind>
+				<count>3</count>
+			</li>
+			<li>
+				<pawnkind>AM_Starfire</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+	</VSEWW.RewardDef>
+</Defs>
