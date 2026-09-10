@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="sarg.alphagenes">
+		<defName>AG_GeneTools</defName>
+		<texPath>UI/Rewards/Reward_GeneTools_Good</texPath>
+		<label>Gene tools drop</label>
+		<description>Cargo pod drops 5 random gene tools</description>
+		<category>Good</category>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>AG_GeneTools</li>
+				</thingCategories>
+				<count>5</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+</Defs>

@@ -46,7 +46,7 @@
   <VESWW.Legendary>Legendary</VESWW.Legendary>
   <VESWW.PawnsArriving>Raid pawns arriving...</VESWW.PawnsArriving>
   <!-- Settings -->
-  <VESWW.ModName>Winston Wave</VESWW.ModName>
+  <VESWW.ModName>Winston Waves</VESWW.ModName>
   <VESWW.TimeBeforeFirstWave>Time before first wave:</VESWW.TimeBeforeFirstWave>
   <VESWW.TimeBetweenWaves>Time between waves:</VESWW.TimeBetweenWaves>
   <VESWW.TimeToDefeatWave>Maximum days to deafeat a wave:</VESWW.TimeToDefeatWave>
@@ -68,6 +68,7 @@
   <VESWW.ExcludedStrategy>Exclude certain strategies from boss waves:</VESWW.ExcludedStrategy>
   <VESWW.AddExcludedStrategy>Exclude raid strategy</VESWW.AddExcludedStrategy>
   <VESWW.RemoveExcludedStrategy>Remove raid strategy from excluded</VESWW.RemoveExcludedStrategy>
+  <VSEWW_Removed>Invalid modifier (this was a modded item from a removed mod)</VSEWW_Removed>
   <VESWW.ShowDraggable>Hide the wave counter "draggable" checkbox:</VESWW.ShowDraggable>
   <VESWW.UseRimworldTime>Timer use rimworld time:</VESWW.UseRimworldTime>
   <VESWW.DontShowPawnList>Show raiders pawns list and faction:</VESWW.DontShowPawnList>

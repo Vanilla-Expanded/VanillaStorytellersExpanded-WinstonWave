@@ -76,7 +76,7 @@ namespace VSEWW
             }
             else if (!WinstonMod.settings.randomRewardMod)
             {
-                Log.Message(fourthRewardChance);
+                //Log.Message(fourthRewardChance);
                 if (Rand.Chance(fourthRewardChance))
                     rewardNumber++;
 

@@ -1,133 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-  <!-- Vanilla Faction Expanded Ancients -->
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
-    <defName>VSEWW_SuperNanitesDrop</defName>
-    <label>Super-nanites drop</label>
-    <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
-    <description>Cargo pod drops 5 super-nanites.</description>
-    <category>Excellent</category>
-	<type>Misc</type>
-    <items>
-      <li>
-        <thing>VFEA_SuperNanites</thing>
-        <count>5</count>
-      </li>
-    </items>
-  </VSEWW.RewardDef>
-
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
-    <defName>VSEWW_RandomLabDrop</defName>
-    <label>Lab part drop</label>
-    <texPath>UI/Rewards/RewardDefault_Excellent</texPath>
-    <description>Cargo pod drop one gene-tailoring lab part.</description>
-    <category>Excellent</category>
-	<type>Misc</type>
-    <randomItems>
-      <li>
-        <randomFrom>
-          <li>VFEA_GeneTailoringPod</li>
-          <li>VFEA_SuperNaniteInjectorPump</li>
-          <li>VFEA_SuperNaniteDialyzer</li>
-          <li>VFEA_SuperNaniteCentrifuge</li>
-          <li>VFEA_SimulationDrive</li>
-          <li>VFEA_GenomeStabilizer</li>
-          <li>VFEA_SuperNaniteContainment</li>
-          <li>VFEA_GenomeMacrothermometer</li>
-          <li>VFEA_StabilisedMucusInducer</li>
-          <li>VFEA_NanotechRetractor</li>
-          <li>VFEA_NaniteSampler</li>
-        </randomFrom>
-        <count>1</count>
-      </li>
-    </randomItems>
-  </VSEWW.RewardDef>
-
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VFEA">
-    <defName>VSEWW_LegendaryRandomLabDrop</defName>
-    <label>Lab parts drop</label>
-    <texPath>UI/Rewards/RewardDefault_Legendary</texPath>
-    <description>Cargo pod drops 3 random gene-tailoring lab parts.</description>
-    <category>Legendary</category>
-	<type>Misc</type>
-    <randomItems>
-      <li>
-        <randomFrom>
-          <li>VFEA_GeneTailoringPod</li>
-          <li>VFEA_SuperNaniteInjectorPump</li>
-          <li>VFEA_SuperNaniteDialyzer</li>
-          <li>VFEA_SuperNaniteCentrifuge</li>
-          <li>VFEA_SimulationDrive</li>
-          <li>VFEA_GenomeStabilizer</li>
-          <li>VFEA_SuperNaniteContainment</li>
-          <li>VFEA_GenomeMacrothermometer</li>
-          <li>VFEA_StabilisedMucusInducer</li>
-          <li>VFEA_NanotechRetractor</li>
-          <li>VFEA_NaniteSampler</li>
-        </randomFrom>
-        <count>3</count>
-      </li>
-    </randomItems>
-  </VSEWW.RewardDef>
-
-
-
-
-  <!-- Vanilla Weapons Expanded Laser -->
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VWEL">
-    <defName>VSEWW_LaserWeaponsDrop</defName>
-    <label>Laser weapons drop</label>
-    <texPath>UI/Rewards/RewardDefault_Good</texPath>
-    <description>Cargo pod drops 3 random laser weapons.</description>
-    <category>Good</category>
-	<type>Combat</type>
-    <randomItems>
-      <li>
-        <randomFrom>
-          <li>VWEL_LaserSword</li>
-          <li>VWEL_Gun_LaserPistol</li>
-          <li>VWEL_Gun_LaserSMG</li>
-          <li>VWEL_Gun_LaserRifle</li>
-          <li>VWEL_Gun_LaserShotgun</li>
-          <li>VWEL_Gun_LaserSniperRifle</li>
-          <li>VWEL_Gun_LaserMinigun</li>
-          <li>VWEL_Gun_TeslaGun</li>
-        </randomFrom>
-        <quality>Good</quality>
-        <count>3</count>
-      </li>
-    </randomItems>
-  </VSEWW.RewardDef>
-
-  <!-- Vanilla Weapons Expanded Heavy -->
-  <VSEWW.RewardDef MayRequire="VanillaExpanded.VWEHW">
-    <defName>VSEWW_HeavyWeaponDrop</defName>
-    <label>Heavy weapon drop</label>
-    <texPath>UI/Rewards/RewardDefault_Good</texPath>
-    <description>Cargo pod drops one random heavy weapon and one exoskeleton frame.</description>
-    <category>Good</category>
-	<type>Combat</type>
-    <randomItems>
-      <li>
-        <randomFrom>
-          <li>VWE_Gun_Autocannon</li>
-          <li>VWE_Gun_HandheldMortar</li>
-          <li>VWE_Gun_HeavyFlamer</li>
-          <li>VWE_Gun_SwarmMissileLauncher</li>
-          <li>VWE_Gun_UraniumSlugRifle</li>
-        </randomFrom>
-        <quality>Good</quality>
-        <count>1</count>
-      </li>
-    </randomItems>
-    <items>
-      <li>
-        <thing>VWE_Apparel_Exoframe</thing>
-        <quality>Good</quality>
-        <count>1</count>
-      </li>
-    </items>
-  </VSEWW.RewardDef>
-
- 
+	<!-- Vanilla Quests Expanded Ancients -->
+	<VSEWW.RewardDef MayRequire="vanillaquestsexpanded.ancients">
+		<defName>VSEWW_NormalRandomLabDrop</defName>
+		<label>Lab part drop</label>
+		<texPath>UI/Rewards/RewardLab_Normal</texPath>
+		<description>Cargo pod drop one gene-tailoring lab part.</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>VQEA_ArchogenInjector</li>
+					<li>VQEA_NeurostabilizerArray</li>
+					<li>VQEA_CognitiveRecoveryArray</li>
+					<li>VQEA_RapidInfusionPump</li>
+					<li>VQEA_ArchiteRecycler</li>
+					<li>VQEA_GenomicAttenuator</li>
+					<li>VQEA_RejectionBufferCoil</li>
+					<li>VQEA_SpliceframeUplink</li>
+					<li>VQEA_MutagenInhibitorCore</li>
+					<li>VQEA_TraitSelectionPrism</li>
+					<li>VQEA_AberrationRedirector</li>
+					<li>VQEA_ComplexityHarmonizer</li>
+					<li>VQEA_ArchitePathingArray</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="vanillaquestsexpanded.ancients">
+		<defName>VSEWW_RandomLabDrop</defName>
+		<label>Lab part drop</label>
+		<texPath>UI/Rewards/RewardLab_Excellent</texPath>
+		<description>Cargo pod drop 3 gene-tailoring lab parts.</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>VQEA_ArchogenInjector</li>
+					<li>VQEA_NeurostabilizerArray</li>
+					<li>VQEA_CognitiveRecoveryArray</li>
+					<li>VQEA_RapidInfusionPump</li>
+					<li>VQEA_ArchiteRecycler</li>
+					<li>VQEA_GenomicAttenuator</li>
+					<li>VQEA_RejectionBufferCoil</li>
+					<li>VQEA_SpliceframeUplink</li>
+					<li>VQEA_MutagenInhibitorCore</li>
+					<li>VQEA_TraitSelectionPrism</li>
+					<li>VQEA_AberrationRedirector</li>
+					<li>VQEA_ComplexityHarmonizer</li>
+					<li>VQEA_ArchitePathingArray</li>
+				</randomFrom>
+				<count>3</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="vanillaquestsexpanded.ancients">
+		<defName>VSEWW_LegendaryRandomLabDrop</defName>
+		<label>Lab parts drop</label>
+		<texPath>UI/Rewards/RewardLab_Legendary</texPath>
+		<description>Cargo pod drops 5 random gene-tailoring lab parts.</description>
+		<category>Legendary</category>
+		<type>Misc</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>VQEA_ArchogenInjector</li>
+					<li>VQEA_NeurostabilizerArray</li>
+					<li>VQEA_CognitiveRecoveryArray</li>
+					<li>VQEA_RapidInfusionPump</li>
+					<li>VQEA_ArchiteRecycler</li>
+					<li>VQEA_GenomicAttenuator</li>
+					<li>VQEA_RejectionBufferCoil</li>
+					<li>VQEA_SpliceframeUplink</li>
+					<li>VQEA_MutagenInhibitorCore</li>
+					<li>VQEA_TraitSelectionPrism</li>
+					<li>VQEA_AberrationRedirector</li>
+					<li>VQEA_ComplexityHarmonizer</li>
+					<li>VQEA_ArchitePathingArray</li>
+				</randomFrom>
+				<count>5</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<!-- Vanilla Weapons Expanded Laser -->
+	<VSEWW.RewardDef MayRequire="VanillaExpanded.VWEL">
+		<defName>VSEWW_LaserWeaponsDrop</defName>
+		<label>Laser weapons drop</label>
+		<texPath>UI/Rewards/RewardLaser_Good</texPath>
+		<description>Cargo pod drops 3 random laser weapons.</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>VWEL_LaserSword</li>
+					<li>VWEL_Gun_LaserPistol</li>
+					<li>VWEL_Gun_LaserSMG</li>
+					<li>VWEL_Gun_LaserRifle</li>
+					<li>VWEL_Gun_LaserShotgun</li>
+					<li>VWEL_Gun_LaserSniperRifle</li>
+					<li>VWEL_Gun_LaserMinigun</li>
+					<li>VWEL_Gun_TeslaGun</li>
+				</randomFrom>
+				<quality>Good</quality>
+				<count>3</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<!-- Vanilla Weapons Expanded Heavy -->
+	<VSEWW.RewardDef MayRequire="VanillaExpanded.VWEHW">
+		<defName>VSEWW_HeavyWeaponDrop</defName>
+		<label>Heavy weapon drop</label>
+		<texPath>UI/Rewards/RewardHeavy_Good</texPath>
+		<description>Cargo pod drops one random heavy weapon and one exoskeleton frame.</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>VWE_Gun_Autocannon</li>
+					<li>VWE_Gun_HandheldMortar</li>
+					<li>VWE_Gun_HeavyFlamer</li>
+					<li>VWE_Gun_SwarmMissileLauncher</li>
+					<li>VWE_Gun_UraniumSlugRifle</li>
+				</randomFrom>
+				<quality>Good</quality>
+				<count>1</count>
+			</li>
+		</randomItems>
+		<items>
+			<li>
+				<thing>VWE_Apparel_Exoframe</thing>
+				<quality>Good</quality>
+				<count>1</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
 </Defs>

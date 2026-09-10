@@ -1,146 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <HediffDef Name="VESWW_ModifierBase" Abstract="True">
-    <initialSeverity>1</initialSeverity>
-    <everCurableByItem>false</everCurableByItem>
-    <hediffClass>HediffWithComps</hediffClass>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VESWW_NoPain</defName>
-    <label>no pain</label>
-    <description>This person feels no pain. No pain, no gain, or something.</description>
-    <stages>
-      <li>
-       
-        <painFactor>0.0</painFactor>
-      </li>
-    </stages>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VSEWW_Sprinter</defName>
-    <label>sprinter</label>
-    <description>This person is faster than usual. Run, Barry, run!</description>
-    <stages>
-      <li>
-     
-        <capMods>
-          <li>
-            <capacity>Moving</capacity>
-            <offset>1.0</offset>
-          </li>
-        </capMods>
-      </li>
-    </stages>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VSEWW_Boom</defName>
-    <label>boom</label>
-    <description>Boom!</description>
-    <hediffClass>VSEWW.Hediff_Boom</hediffClass>
-    <stages>
-      <li>
-      
-      </li>
-    </stages>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VESWW_Veterans</defName>
-    <label>veteran</label>
-    <description>All stats of this person (Manipulation, sight etc) are offset by 50%</description>
-    <stages>
-      <li>
-       
-        <capMods>
-          <li>
-            <capacity>Moving</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Manipulation</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Talking</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Eating</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Hearing</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Breathing</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>BloodFiltration</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>BloodPumping</capacity>
-            <offset>0.5</offset>
-          </li>
-          <li>
-            <capacity>Metabolism</capacity>
-            <offset>0.5</offset>
-          </li>
-        </capMods>
-      </li>
-    </stages>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VESWW_Ninja</defName>
-    <label>ninja</label>
-    <description>There is no one here, what are you talking about?</description>
-    <stages>
-      <li>
-        
-      </li>
-    </stages>
-    <comps>
-      <li Class="HediffCompProperties_Disappears">
-        <disappearsAfterTicks>1800~1800</disappearsAfterTicks>
-      </li>
-     <li Class="HediffCompProperties_Invisibility">
+	<HediffDef Name="VESWW_ModifierBase" Abstract="True">
+		<initialSeverity>1</initialSeverity>
+		<everCurableByItem>false</everCurableByItem>
+		<hediffClass>HediffWithComps</hediffClass>
+		<allowMothballIfLowPriorityWorldPawn>true</allowMothballIfLowPriorityWorldPawn>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VESWW_NoPain</defName>
+		<label>no pain</label>
+		<description>This person feels no pain. No pain, no gain, or something.</description>
+		<stages>
+			<li>
+				<painFactor>0.0</painFactor>
+			</li>
+		</stages>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_AdrenalineRush</defName>
+		<label>adrenaline rush</label>
+		<description>This person will become much more dangerous when below 75% health.</description>
+		<comps>
+			<li Class="VEF.AnimalBehaviours.HediffCompProperties_StageByHealth">
+				<healthThreshold>0.75</healthThreshold>
+			</li>
+			
+		</comps>
+		<stages>
+			<li>
+				<minSeverity>0.1</minSeverity>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.5</offset>
+					</li>
+				</capMods>
+				<statFactors>
+					<MeleeDodgeChance>1.1</MeleeDodgeChance>
+					<IncomingDamageFactor>0.8</IncomingDamageFactor>
+				</statFactors>
+			</li>
+			<li>
+				<minSeverity>1</minSeverity>
+				
+			</li>
+		</stages>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_Regenerator</defName>
+		<label>regenerator</label>
+		<description>This person regenerates their health at an increased rate.</description>
+		<comps>
+			<li Class="VEF.AnimalBehaviours.HediffCompProperties_Regeneration">
+				<rateInTicks>10</rateInTicks>
+			</li>
+			
+		</comps>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_Sprinter</defName>
+		<label>sprinter</label>
+		<description>This person is faster than usual. Run, Barry, run!</description>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>1.0</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_Boom</defName>
+		<label>boom</label>
+		<description>Boom!</description>
+		<hediffClass>VSEWW.Hediff_Boom</hediffClass>
+		
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VESWW_Veterans</defName>
+		<label>veteran</label>
+		<description>All stats of this person (Manipulation, sight etc) are offset by 50%</description>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Eating</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Breathing</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>BloodFiltration</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>BloodPumping</capacity>
+						<offset>0.5</offset>
+					</li>
+					<li>
+						<capacity>Metabolism</capacity>
+						<offset>0.5</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VESWW_Ninja</defName>
+		<label>ninja</label>
+		<description>There is no one here, what are you talking about?</description>
+		
+		<comps>
+			<li Class="HediffCompProperties_Disappears">
+				<disappearsAfterTicks>1800~1800</disappearsAfterTicks>
+			</li>
+			<li Class="HediffCompProperties_Invisibility">
 				<visibleToPlayer>true</visibleToPlayer>
 			</li>
-    </comps>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VSEWW_BulletSponge</defName>
-    <label>bullet sponge</label>
-    <description>Health of this person is doubled.</description>
-    <stages>
-      <li>
-       
-      </li>
-    </stages>
-  </HediffDef>
-
-  <HediffDef ParentName="VESWW_ModifierBase">
-    <defName>VESWW_BulletProof</defName>
-    <label>bullet proof</label>
-    <description>This person is resistant to being wounded.</description>
-    <stages>
-      <li>
-       
-        <statFactors>
-          <IncomingDamageFactor>0.5</IncomingDamageFactor>
-        </statFactors>
-      </li>
-    </stages>
-  </HediffDef>
+		</comps>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_BulletSponge</defName>
+		<label>bullet sponge</label>
+		<description>Health of this person is doubled.</description>
+		
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VESWW_BulletProof</defName>
+		<label>bullet proof</label>
+		<description>This person is resistant to being wounded.</description>
+		<stages>
+			<li>
+				<statFactors>
+					<IncomingDamageFactor>0.5</IncomingDamageFactor>
+				</statFactors>
+			</li>
+		</stages>
+	</HediffDef>
+	<HediffDef ParentName="VESWW_ModifierBase">
+		<defName>VSEWW_GlassCannons</defName>
+		<label>glass cannon</label>
+		<description>This person deals greatly increased damage but also takes much higher damage.</description>
+		<stages>
+			<li>
+				<statFactors>
+					<IncomingDamageFactor>1.5</IncomingDamageFactor>
+					<MeleeDamageFactor>1.5</MeleeDamageFactor>
+					<RangedCooldownFactor>0.8</RangedCooldownFactor>
+					<ShootingAccuracyPawn>1.2</ShootingAccuracyPawn>
+				</statFactors>
+			</li>
+		</stages>
+	</HediffDef>
 </Defs>

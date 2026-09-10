@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using KTrie;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace VSEWW
@@ -16,7 +18,7 @@ namespace VSEWW
         public bool sent = false;
         public int sentAt = 0;
 
-        public List<Pawn> raidPawns;
+        public List<Pawn> raidPawns = new List<Pawn>();
         public HashSet<Pawn> outPawns;
         public int totalPawnsBefore;
         public int totalPawnsLeft;
@@ -270,6 +272,7 @@ namespace VSEWW
                     || !m.techHediffs.NullOrEmpty()
                     || !m.globalHediffs.NullOrEmpty()
                     || !m.specificPawnKinds.NullOrEmpty()
+                    || m.randomCombatAnimals
                     || !m.everRetreat))
                 {
                     continue;
@@ -318,6 +321,17 @@ namespace VSEWW
                 for (int i = 0; i < allModifiers.Count; i++)
                 {
                     var modifier = allModifiers[i];
+                    if (modifier == null)
+                    {
+                        Log.Error($"Winston Waves: null modifier at index {i}");
+                        continue;
+                    }
+
+                    if (parms == null)
+                    {
+                        Log.Error("Winston Waves: parms is null");
+                        return;
+                    }
 
                     if (modifier.pointMultiplier > 0)
                         parms.points *= modifier.pointMultiplier;
@@ -326,13 +340,41 @@ namespace VSEWW
                         parms.canTimeoutOrFlee = false;
 
                     if (!modifier.specificPawnKinds.NullOrEmpty())
-                    {
+                    {                      
                         float point = 0;
                         while (point < parms.points)
                         {
                             var kind = modifier.specificPawnKinds.RandomElement();
                             raidPawns.Add(PawnGenerator.GeneratePawn(kind, parms.faction));
                             point += kind.combatPower;
+                        }
+                    }
+                    if (modifier.randomCombatAnimals)
+                    {
+                        var group = IncidentParmsUtility.GetDefaultPawnGroupMakerParms(
+                            PawnGroupKindDefOf.Combat, parms);
+
+                        if (group == null)
+                        {
+                            Log.Warning($"[VSEWW] SetPawnsInfo: error generating group for {parms}");
+                            return;
+                        }
+
+                        raidPawns = PawnGroupMakerUtility.GeneratePawns(group).ToList();
+
+                        int animalCount = Mathf.CeilToInt(raidPawns.Count * 0.3f);
+
+                        for (int j = 0; j < animalCount; j++)
+                        {
+                            int pawnIndex = Rand.Range(0, raidPawns.Count);
+
+                            var animalKind = DefDatabase<PawnKindDef>.AllDefsListForReading
+                            .Where(k => k.race.tradeTags?.Contains("AnimalFighter")== true&&k.race.tradeTags?.Contains("AnimalAlpha") == false)                              
+                                .RandomElement();
+
+                            raidPawns[pawnIndex] = PawnGenerator.GeneratePawn(
+                                animalKind,
+                                parms.faction);
                         }
                     }
 
@@ -732,7 +774,11 @@ namespace VSEWW
                 {
                     var condition = conditions[c];
                     if (incident.gameCondition == condition.def)
+                    {
                         condition.End();
+                       // Log.Message("Ending condition "+ condition.def);
+                    }
+                        
                 }
             }
         }

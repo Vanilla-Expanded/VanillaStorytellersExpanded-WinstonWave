@@ -87,4 +87,30 @@
       <max>1</max>
     </durationDays>
   </IncidentDef>
+    <!-- Toxic Fallout -->
+  <GameConditionDef>
+    <defName>VESWW_ToxicFallout</defName> 
+    <label>toxic fallout</label>
+    <description>Toxic fallout targeting your colony map.</description>
+    <endMessage>The toxic fallout is ending.</endMessage>
+    <letterText>Toxic fallout</letterText>
+    <letterDef>NegativeEvent</letterDef>
+    <canBePermanent>false</canBePermanent>
+  </GameConditionDef>
+
+  <IncidentDef>
+    <defName>VESWW_ToxicFallout</defName>
+    <label>toxic fallout</label>
+    <workerClass>VSEWW.IncidentWorker_MakeGameConditionNoLetter</workerClass>
+    <category>Misc</category>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <gameCondition>VESWW_ToxicFallout</gameCondition>
+    <baseChance>0</baseChance>
+    <durationDays>
+      <min>1</min>
+      <max>1</max>
+    </durationDays>
+  </IncidentDef>
 </Defs>

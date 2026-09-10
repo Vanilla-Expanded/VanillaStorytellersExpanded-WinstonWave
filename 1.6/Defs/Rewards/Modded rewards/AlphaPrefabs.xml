@@ -31,10 +31,14 @@
 	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
 		<defName>AP_ExcellentPrefabReward</defName>
 		<texPath>UI/Rewards/Reward_Prefab_Excellent</texPath>
-		<label>High value prefab</label>
-		<description>Cargo pod contains one high value prefab</description>
+		<label>High value prefabs</label>
+		<description>Cargo pod contains two high value prefabs</description>
 		<category>Excellent</category>
 		<items>
+			<li>
+				<thing>AP_Prefab_MediumHighValue</thing>
+				<count>1</count>
+			</li>
 			<li>
 				<thing>AP_Prefab_MediumHighValue</thing>
 				<count>1</count>
@@ -45,10 +49,18 @@
 	<VSEWW.RewardDef MayRequire="Sarg.AlphaPrefabs">
 		<defName>AP_LegendaryPrefabReward</defName>
 		<texPath>UI/Rewards/Reward_Prefab_Legendary</texPath>
-		<label>Legendary value prefab</label>
-		<description>Cargo pod contains one legendary value prefab</description>
+		<label>Legendary value prefabs</label>
+		<description>Cargo pod contains 3 legendary value prefabs</description>
 		<category>Legendary</category>
 		<items>
+			<li>
+				<thing>AP_Prefab_HighValue</thing>
+				<count>1</count>
+			</li>
+			<li>
+				<thing>AP_Prefab_HighValue</thing>
+				<count>1</count>
+			</li>
 			<li>
 				<thing>AP_Prefab_HighValue</thing>
 				<count>1</count>

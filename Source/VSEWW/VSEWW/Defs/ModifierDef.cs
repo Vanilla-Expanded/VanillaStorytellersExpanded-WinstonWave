@@ -18,6 +18,9 @@ namespace VSEWW
         // Hediff applied to specific part
         public List<ThingDef> techHediffs;
 
+        // Random combat animals
+        public bool randomCombatAnimals = false;
+
         // Retreat ?
         public bool everRetreat = true;
 

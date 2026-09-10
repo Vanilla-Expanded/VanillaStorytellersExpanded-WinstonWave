@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="sarg.alphaimplants">
+		<defName>AI_AnimaProsthetics</defName>
+		<texPath>UI/Rewards/RewardAnimalProsthethicsDrop_Good</texPath>
+		<label>Animal prosthetics drop</label>
+		<description>Cargo pod drops 3 random animal implants</description>
+		<category>Good</category>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>AI_ImplantCategory</li>
+				</thingCategories>
+				<count>3</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaimplants">
+		<defName>AI_AnimaProsthetics_Excellent</defName>
+		<texPath>UI/Rewards/RewardAnimalProsthethicsDrop_Excellent</texPath>
+		<label>Animal prosthetics drop</label>
+		<description>Cargo pod drops 5 random animal implants</description>
+		<category>Excellent</category>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>AI_ImplantCategory</li>
+				</thingCategories>
+				<count>5</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaimplants">
+		<defName>AI_AnimaProsthetics_Legendary</defName>
+		<texPath>UI/Rewards/RewardAnimalProsthethicsDrop_Legendary</texPath>
+		<label>Animal prosthetics drop</label>
+		<description>Cargo pod drops 10 random animal implants</description>
+		<category>Legendary</category>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>AI_ImplantCategory</li>
+				</thingCategories>
+				<count>10</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+</Defs>

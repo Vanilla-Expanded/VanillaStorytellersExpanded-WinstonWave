@@ -105,7 +105,7 @@ namespace VSEWW
                 {
                     foreach (var item in settings.modifierDefs)
                     {
-                        floatMenuOptions.Add(new FloatMenuOption(item, () => settings.modifierDefs.Remove(item)));
+                        floatMenuOptions.Add(new FloatMenuOption(DefDatabase<ModifierDef>.GetNamedSilentFail(item)!=null ? DefDatabase<ModifierDef>.GetNamedSilentFail(item).label : "VSEWW_Removed".Translate().ToString(), () => settings.modifierDefs.Remove(item)));
                     }
                 }
 

@@ -10,7 +10,7 @@ namespace VSEWW
     {
         private readonly List<Pawn> allPawns;
         private readonly List<Thing> loot;
-        private readonly List<Pawn> unusedPawns;
+        private readonly List<Pawn> unusedPawns = new List<Pawn>();
         private Pawn recipient;
         private float recipientMassGiven;
 
@@ -18,19 +18,25 @@ namespace VSEWW
         {
             this.allPawns = allPawns;
             this.loot = loot;
-            unusedPawns = new List<Pawn>(allPawns.Where(x => !x.RaceProps.Animal));
+            List<Pawn> nonAnimalPawns = allPawns.Where(x => !x.RaceProps.Animal).ToList();
+            if (nonAnimalPawns.Count > 0) { unusedPawns = new List<Pawn>(allPawns.Where(x => !x.RaceProps.Animal)); }
+          
         }
 
         public void DistributeLoot()
         {
-            recipient = unusedPawns.MaxBy(p => p.kindDef.combatPower);
-            recipientMassGiven = 0.0f;
-            foreach (var things in loot.GroupBy(t => t.def))
+            if (unusedPawns.Count > 0)
             {
-                foreach (Thing thing in things)
-                    DistributeItem(thing);
-                NextRecipient();
+                recipient = unusedPawns.MaxBy(p => p.kindDef.combatPower);
+                recipientMassGiven = 0.0f;
+                foreach (var things in loot.GroupBy(t => t.def))
+                {
+                    foreach (Thing thing in things)
+                        DistributeItem(thing);
+                    NextRecipient();
+                }
             }
+            
         }
 
         private void DistributeItem(Thing item)

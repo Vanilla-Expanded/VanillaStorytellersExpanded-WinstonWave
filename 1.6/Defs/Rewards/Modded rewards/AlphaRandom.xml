@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="sarg.alpharandom">
+		<defName>AP_PoorAlphaRandomReward</defName>
+		<texPath>UI/Rewards/RewardAlphaRandom_Poor</texPath>
+		<label>Low value loot box</label>
+		<description>Cargo pod contains one low value loot box</description>
+		<category>Poor</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ARandom_TribalLootBox</li>
+					<li>ARandom_ApparelLootBox</li>
+					<li>ARandom_WeaponsBox</li>
+					<li>ARandom_DrinksBox</li>
+					<li>ARandom_BooksBox</li>
+					<li>ARandom_MealsBox</li>
+					<li>ARandom_ProduceBox</li>
+					<li>ARandom_DrugsLootBox</li>
+					<li>ARandom_TextilesLootBox</li>
+					<li>ARandom_MedicineLootBox</li>
+					<li>ARandom_MaterialsLootBox</li>
+				</randomFrom>
+				<count>1</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alpharandom">
+		<defName>AP_NormalAlphaRandomReward</defName>
+		<texPath>UI/Rewards/RewardAlphaRandom_Normal</texPath>
+		<label>Low value loot boxes</label>
+		<description>Cargo pod contains two low value loot boxes</description>
+		<category>Normal</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ARandom_TribalLootBox</li>
+					<li>ARandom_ApparelLootBox</li>
+					<li>ARandom_WeaponsBox</li>
+					<li>ARandom_DrinksBox</li>
+					<li>ARandom_BooksBox</li>
+					<li>ARandom_MealsBox</li>
+					<li>ARandom_ProduceBox</li>
+					<li>ARandom_DrugsLootBox</li>
+					<li>ARandom_TextilesLootBox</li>
+					<li>ARandom_MedicineLootBox</li>
+					<li>ARandom_MaterialsLootBox</li>
+					<li>ARandom_LootBox</li>
+				</randomFrom>
+				<count>2</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alpharandom">
+		<defName>AP_GoodAlphaRandomReward</defName>
+		<texPath>UI/Rewards/RewardAlphaRandom_Good</texPath>
+		<label>High value loot box</label>
+		<description>Cargo pod contains one high value loot box</description>
+		<category>Good</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ARandom_ValuablesLootBox</li>
+					<li>ARandom_LootBox_High</li>
+					
+				</randomFrom>
+				<count>1</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alpharandom">
+		<defName>AP_ExcellentAlphaRandomReward</defName>
+		<texPath>UI/Rewards/RewardAlphaRandom_Excellent</texPath>
+		<label>High value loot boxes</label>
+		<description>Cargo pod contains three high value loot boxes</description>
+		<category>Excellent</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ARandom_ValuablesLootBox</li>
+					<li>ARandom_LootBox_High</li>
+					
+				</randomFrom>
+				<count>3</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alpharandom">
+		<defName>AP_LegendaryAlphaRandomReward</defName>
+		<texPath>UI/Rewards/RewardAlphaRandom_Legendary</texPath>
+		<label>Legendary value loot boxes</label>
+		<description>Cargo pod contains five very high value loot boxes</description>
+		<category>Legendary</category>
+		<randomItems>
+			<li>
+				<randomFrom>
+					<li>ARandom_LootBox_SuperHigh</li>
+					
+				</randomFrom>
+				<count>5</count>
+			</li>
+		</randomItems>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+</Defs>
