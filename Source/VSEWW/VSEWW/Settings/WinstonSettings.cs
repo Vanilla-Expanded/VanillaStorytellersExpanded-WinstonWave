@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace VSEWW
@@ -25,6 +26,26 @@ namespace VSEWW
         public List<string> excludedFactionDefs = new List<string>();
         public List<string> excludedStrategyDefs = new List<string>();
 
+        public Dictionary<string, float> factionWeightMultipliers = new Dictionary<string, float>();
+        public Dictionary<string, float> factionPointsMultipliers = new Dictionary<string, float>();
+
+        public bool ignoreBaseRaidCommonality = false;
+
+
+        public float GetFactionWeightMultiplier(string defName)
+        {
+            if (factionWeightMultipliers != null && factionWeightMultipliers.TryGetValue(defName, out float v))
+                return Mathf.Clamp(v, 0f, 10f);
+            return 1f;
+        }
+
+        public float GetFactionPointsMultiplier(string defName)
+        {
+            if (factionPointsMultipliers != null && factionPointsMultipliers.TryGetValue(defName, out float v))
+                return Mathf.Clamp(v, 0f, 10f);
+            return 1f;
+        }
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -46,6 +67,12 @@ namespace VSEWW
             Scribe_Collections.Look(ref modifierDefs, "modifierDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedFactionDefs, "excludedFactionDefs", LookMode.Value, new List<string>());
             Scribe_Collections.Look(ref excludedStrategyDefs, "excludedStrategyDefs", LookMode.Value, new List<string>());
+            Scribe_Collections.Look(ref factionWeightMultipliers, "factionWeightMultipliers", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref factionPointsMultipliers, "factionPointsMultipliers", LookMode.Value, LookMode.Value);
+            Scribe_Values.Look(ref ignoreBaseRaidCommonality, "ignoreBaseRaidCommonality", false);
+
+            if (factionWeightMultipliers == null) factionWeightMultipliers = new Dictionary<string, float>();
+            if (factionPointsMultipliers == null) factionPointsMultipliers = new Dictionary<string, float>();
         }
     }
 }

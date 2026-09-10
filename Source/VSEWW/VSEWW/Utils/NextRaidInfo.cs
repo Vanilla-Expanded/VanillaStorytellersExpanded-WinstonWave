@@ -59,6 +59,8 @@ namespace VSEWW
                 canKidnap=false,
                 canSteal=false
             };
+            if (parms.faction != null)
+                parms.points *= WinstonMod.settings.GetFactionPointsMultiplier(parms.faction.def.defName);
             atTick = ticks + (int)(days * GenDate.TicksPerDay);
             generatedAt = ticks;
             waveNumber = wave;
@@ -106,10 +108,11 @@ namespace VSEWW
             {
                 float num = 1f;
                 if (map.StoryState != null && map.StoryState.lastRaidFaction != null && f == map.StoryState.lastRaidFaction)
-                {
                     num = 0.4f;
-                }
-                return f.def.RaidCommonalityFromPoints(points) * num;
+
+                float baseCommonality = WinstonMod.settings.ignoreBaseRaidCommonality ? 1f : f.def.RaidCommonalityFromPoints(points);
+
+                return baseCommonality * num * WinstonMod.settings.GetFactionWeightMultiplier(f.def.defName);
             }, out Faction faction);
 
             return faction;

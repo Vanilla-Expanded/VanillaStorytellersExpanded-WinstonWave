@@ -92,4 +92,17 @@
   <VESWW.ShowDraggableTip>If disabled, you won't be able to change the counter draggabality until you reactivate this.</VESWW.ShowDraggableTip>
   <VESWW.UseRimworldTimeTip>If this is enabled the timer use rimworld time instead of real life time.</VESWW.UseRimworldTimeTip>
   <VESWW.AllowSpaceRaidsTip>Allows raids to occur in Odyssey space biomes. Requires map reload to take effect.</VESWW.AllowSpaceRaidsTip>
+  <!-- Fraction prob settings -->
+  <VESWW.FactionMultipliers>Faction weight and strength multipliers</VESWW.FactionMultipliers>
+  <VESWW.WeightMultiplier>Weight multiplier</VESWW.WeightMultiplier>
+  <VESWW.StrengthMultiplier>Strength multiplier</VESWW.StrengthMultiplier>
+  <VESWW.WeightMultiplierTip>Multiplier (0 to 10) applied to the chance of this faction being picked for a raid.</VESWW.WeightMultiplierTip>
+  <VESWW.StrengthMultiplierTip>Multiplier (0 to 10) applied to raid points if this faction is picked.</VESWW.StrengthMultiplierTip>
+  <VESWW.OpenFactionMultipliers>Configure faction weight and strength multipliers</VESWW.OpenFactionMultipliers>
+  <VESWW.Hostile>hostile</VESWW.Hostile>
+  <VESWW.Allied>allied</VESWW.Allied>
+  <VESWW.Neutral>neutral</VESWW.Neutral>
+  <VESWW.Unknown>unknown</VESWW.Unknown>
+  <VESWW.IgnoreBaseCommonality>Ignore base raid commonality curve</VESWW.IgnoreBaseCommonality>
+  <VESWW.IgnoreBaseCommonalityTip>When enabled, the faction's built-in RaidCommonalityFromPoints curve is ignored entirely, and only your weight multiplier decides the chance of that faction raiding.</VESWW.IgnoreBaseCommonalityTip>
 </LanguageData>

@@ -32,8 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,6 +74,7 @@
     <Compile Include="Hediff\HediffCompProperties_DissolveAllOnDeath.cs" />
     <Compile Include="Incidents\MeteorStorm.cs" />
     <Compile Include="Settings\WinstonMod.cs" />
+    <Compile Include="Utils\Dialog_FactionMultipliers.cs" />
     <Compile Include="Utils\Reward\RewardType.cs" />
     <Compile Include="Utils\WinstonRaidLootDistributor.cs" />
     <Compile Include="Utils\Reward\RewardCommonalities.cs" />

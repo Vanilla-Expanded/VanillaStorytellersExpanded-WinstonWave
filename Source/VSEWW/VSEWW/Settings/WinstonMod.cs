@@ -15,7 +15,7 @@ namespace VSEWW
         private string _pointMultiplierBefore;
         private string _pointMultiplierAfter;
 
-        private const float _fullHeight = 610;
+        private const float _fullHeight = 770;
 
         private Vector2 _scrollPosition;
 
@@ -227,6 +227,18 @@ namespace VSEWW
                 if (floatMenuOptions.Count == 0) floatMenuOptions.Add(new FloatMenuOption("Nothing to remove", null));
                 Find.WindowStack.Add(new FloatMenu(floatMenuOptions));
             }
+
+            waveSettingsLst.GapLine(12);
+            waveSettingsLst.Gap(12);
+
+            waveSettingsLst.CheckboxLabeled("VESWW.IgnoreBaseCommonality".Translate(), ref settings.ignoreBaseRaidCommonality, "VESWW.IgnoreBaseCommonalityTip".Translate());
+            waveSettingsLst.Gap(5);
+
+            if (waveSettingsLst.ButtonText("VESWW.OpenFactionMultipliers".Translate()))
+            {
+                Find.WindowStack.Add(new Dialog_FactionMultipliers());
+            }
+
             waveSettingsLst.End();
             Widgets.EndScrollView();
         }

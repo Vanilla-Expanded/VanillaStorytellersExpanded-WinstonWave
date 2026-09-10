@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Vanilla Storytellers Expanded - Winston Waves</name>
-  <author>Oskar Potocki, Kikohi</author>
+  <author>Oskar Potocki, Kikohi, NeCobra</author>
   <modIconPath IgnoreIfNoMatchingField="True">UI/VELogo</modIconPath>
   <description>Vanilla Storytellers Expanded - Winston Waves is a unique type of storyteller that introduces a brand new game mode called Wave Survival. Unlike Igor, and other raid-spawning storytellers, Winston Waves has a complex system of threat and reward that scales the more waves the player has survived.
 
