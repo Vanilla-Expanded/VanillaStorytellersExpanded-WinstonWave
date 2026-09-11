@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_GravlitePanelsNormal</defName>
+		<texPath>UI/Rewards/GravlitePanelsDrop_Normal</texPath>
+		<label>Gravlite panels drop</label>
+		<description>Receive 50 gravlite panels</description>
+		<category>Normal</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>GravlitePanel</thing>
+				<count>50</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_GravlitePanelsGood</defName>
+		<texPath>UI/Rewards/GravlitePanelsDrop_Good</texPath>
+		<label>Gravlite panels drop</label>
+		<description>Receive 150 gravlite panels</description>
+		<category>Good</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>GravlitePanel</thing>
+				<count>150</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_GravlitePanelsExcellent</defName>
+		<texPath>UI/Rewards/GravlitePanelsDrop_Excellent</texPath>
+		<label>Gravlite panels drop</label>
+		<description>Receive 300 gravlite panels</description>
+		<category>Excellent</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>GravlitePanel</thing>
+				<count>300</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_GravlitePanelsLegendary</defName>
+		<texPath>UI/Rewards/GravlitePanelsDrop_Legendary</texPath>
+		<label>Gravlite panels drop</label>
+		<description>Receive 750 gravlite panels</description>
+		<category>Legendary</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>GravlitePanel</thing>
+				<count>750</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_GravCoreGood</defName>
+		<texPath>UI/Rewards/GravCoreDrop_Good</texPath>
+		<label>Gravcore drop</label>
+		<description>Receive a gravcore</description>
+		<category>Good</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>Gravcore</thing>
+				<count>1</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="Ludeon.RimWorld.Odyssey">
+		<defName>VSEWW_ShuttleEngineGood</defName>
+		<texPath>UI/Rewards/ShuttleEngineDrop_Good</texPath>
+		<label>Shuttle engine drop</label>
+		<description>Receive a shuttle engine</description>
+		<category>Good</category>
+		<type>Misc</type>
+		<items>
+			<li>
+				<thing>ShuttleEngine</thing>
+				<count>1</count>
+			</li>
+		</items>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef>
+		<defName>VSEWW_UniqueWeaponsDrop</defName>
+		<texPath>UI/Rewards/RewardUniqueWeapons_Good</texPath>
+		<label>Unique weapon drop</label>
+		<description>Cargo pod drops 1 unique weapon</description>
+		<category>Good</category>
+		<type>Combat</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>WeaponsUnique</li>
+				</thingCategories>
+				<count>1</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef>
+		<defName>VSEWW_UniqueWeaponsDrop_Excellent</defName>
+		<texPath>UI/Rewards/RewardUniqueWeapons_Excellent</texPath>
+		<label>Unique weapons drop</label>
+		<description>Cargo pods drop 3 unique weapons</description>
+		<category>Excellent</category>
+		<type>Combat</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>WeaponsUnique</li>
+				</thingCategories>
+				<count>3</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef>
+		<defName>VSEWW_UniqueWeaponsDrop_Legendary</defName>
+		<texPath>UI/Rewards/RewardUniqueWeapons_Legendary</texPath>
+		<label>Unique weapons drop</label>
+		<description>Cargo pods drop 5 unique weapons</description>
+		<category>Legendary</category>
+		<type>Combat</type>
+		<randomItems>
+			<li>
+				<thingCategories>
+					<li>WeaponsUnique</li>
+				</thingCategories>
+				<count>5</count>
+			</li>
+		</randomItems>
+	</VSEWW.RewardDef>
+</Defs>
