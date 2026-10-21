@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_NormalFleetDrop</defName>
+		<label>Call fleet support</label>
+		<texPath>UI/Rewards/Reward_TheFleet_Normal</texPath>
+		<description>Cargo pod summons 5 tamed Aerofleet</description>
+		<category>Normal</category>
+		<pawns>
+			<li>
+				<pawnkind>AA_Aerofleet</pawnkind>
+				<count>5</count>
+			</li>
+		</pawns>
+		<commonality>0.75</commonality>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_NormalLiskSquad</defName>
+		<texPath>UI/Rewards/Reward_LiskSquad_Normal</texPath>
+		<label>Call lisk squad</label>
+		<description>Cargo pod summons 2 tamed 'lisks</description>
+		<category>Normal</category>
+		<randomPawns>
+			<li>
+				<tradeTag>AA_AlphaAnimalsLisk</tradeTag>
+				<intelligence>Animal</intelligence>
+				<count>2</count>
+			</li>
+		</randomPawns>
+		<type>Combat</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_GoodFleetDrop</defName>
+		<texPath>UI/Rewards/Reward_TheFleet_Good</texPath>
+		<label>Call fleet support</label>
+		<description>Cargo pod summons 10 tamed Aerofleet</description>
+		<category>Good</category>
+		<commonality>0.75</commonality>
+		<pawns>
+			<li>
+				<pawnkind>AA_Aerofleet</pawnkind>
+				<count>10</count>
+			</li>
+		</pawns>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_GoodLiskSquad</defName>
+		<texPath>UI/Rewards/Reward_LiskSquad_Good</texPath>
+		<label>Call lisk squad</label>
+		<description>Cargo pod summons 5 tamed 'lisks</description>
+		<category>Good</category>
+		<randomPawns>
+			<li>
+				<tradeTag>AA_AlphaAnimalsLisk</tradeTag>
+				<intelligence>Animal</intelligence>
+				<count>5</count>
+			</li>
+		</randomPawns>
+		<type>Combat</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_ExcellentFleetDrop</defName>
+		<texPath>UI/Rewards/Reward_TheFleet_Excellent</texPath>
+		<label>Call fleet support</label>
+		<description>Cargo pod summons 10 tamed Aerofleet and 5 colossal Aerofleet</description>
+		<category>Excellent</category>
+		<commonality>0.75</commonality>
+		<pawns>
+			<li>
+				<pawnkind>AA_Aerofleet</pawnkind>
+				<count>10</count>
+			</li>
+			<li>
+				<pawnkind>AA_ColossalAerofleet</pawnkind>
+				<count>5</count>
+			</li>
+		</pawns>
+		<type>Misc</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_ExcellentLiskSquad</defName>
+		<texPath>UI/Rewards/Reward_LiskSquad_Excellent</texPath>
+		<label>Call lisk squad</label>
+		<description>Cargo pod summons 8 tamed 'lisks</description>
+		<category>Excellent</category>
+		<randomPawns>
+			<li>
+				<tradeTag>AA_AlphaAnimalsLisk</tradeTag>
+				<intelligence>Animal</intelligence>
+				<count>8</count>
+			</li>
+		</randomPawns>
+		<type>Combat</type>
+	</VSEWW.RewardDef>
+	<VSEWW.RewardDef MayRequire="sarg.alphaanimals">
+		<defName>AA_GallatrossDrop</defName>
+		<texPath>UI/Rewards/RewardGallatrossDrop_Legendary</texPath>
+		<label>Gallatross drop</label>
+		<description>Cargo pod drops 1 tamed gallatross</description>
+		<category>Legendary</category>
+		<pawns>
+			<li>
+				<pawnkind>AA_Gallatross</pawnkind>
+				<count>1</count>
+			</li>
+		</pawns>
+		<type>Combat</type>
+	</VSEWW.RewardDef>
+</Defs>

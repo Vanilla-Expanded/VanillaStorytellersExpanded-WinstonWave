@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Pirates">
+    <defName>VSEWW_Warcasket_Excellent</defName>
+    <texPath>UI/Rewards/RewardWarcasket_Excellent</texPath>
+    <label>Warcasket joins</label>
+    <description>A colonist in a warcasket joins the colony</description>
+    <category>Excellent</category>
+	<type>Combat</type>
+    <pawns>
+      <li>
+        <pawnkind>VFEP_Footsoldier</pawnkind>
+        <count>1</count>
+      </li>
+    </pawns>
+  </VSEWW.RewardDef>
+  
+  <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Pirates">
+    <defName>VSEWW_Warcasket_Legendary</defName>
+    <texPath>UI/Rewards/RewardWarcasket_Legendary</texPath>
+    <label>Warcasket joins</label>
+    <description>A colonist in a heavy warcasket joins the colony</description>
+    <category>Legendary</category>
+	<type>Combat</type>
+	<commonality>0.75</commonality>
+    <pawns>
+      <li>
+        <pawnkind>VFEP_HeavyWeaponsPlatform</pawnkind>
+        <count>1</count>
+      </li>
+    </pawns>
+  </VSEWW.RewardDef>
+  
+  <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Pirates">
+    <defName>VSEWW_Warcasket_Legendary_Pyro</defName>
+    <texPath>UI/Rewards/RewardWarcasket_Legendary</texPath>
+    <label>Warcasket joins</label>
+    <description>A colonist in a pyro warcasket joins the colony</description>
+    <category>Legendary</category>
+	<type>Combat</type>
+	<commonality>0.75</commonality>
+    <pawns>
+      <li>
+        <pawnkind>VFEP_Pyro</pawnkind>
+        <count>1</count>
+      </li>
+    </pawns>
+  </VSEWW.RewardDef>
+  
+    <VSEWW.RewardDef MayRequire="OskarPotocki.VFE.Pirates">
+    <defName>VSEWW_Warcasket_Legendary_Artillery</defName>
+    <texPath>UI/Rewards/RewardWarcasket_Legendary</texPath>
+    <label>Warcasket joins</label>
+    <description>A colonist in an artillery warcasket joins the colony</description>
+    <category>Legendary</category>
+	<type>Combat</type>
+	<commonality>0.75</commonality>
+    <pawns>
+      <li>
+        <pawnkind>VFEP_Artillery</pawnkind>
+        <count>1</count>
+      </li>
+    </pawns>
+  </VSEWW.RewardDef>
+
+</Defs>

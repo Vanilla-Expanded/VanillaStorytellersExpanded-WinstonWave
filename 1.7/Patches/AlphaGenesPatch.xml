@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Alpha Genes</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/VSEWW.RewardDef[defName="VSEWW_RandomSanguophage_Excellent"]/randomPawns/li/randomXenotypeFrom</xpath>
+					<value>
+						<li MayRequire="vanillaracesexpanded.sanguophage">AG_Malachai</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/VSEWW.RewardDef[defName="VSEWW_RandomSanguophage_Legendary"]/randomPawns/li/randomXenotypeFrom</xpath>
+					<value>
+						<li MayRequire="vanillaracesexpanded.sanguophage">AG_Malachai</li>
+					</value>
+				</li>
+				
+			</operations>
+		</match>
+	</Operation>
+</Patch>
+

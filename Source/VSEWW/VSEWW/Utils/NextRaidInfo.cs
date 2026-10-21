@@ -557,7 +557,7 @@ namespace VSEWW
                         pawnOutCount++;
                     }
                     else if (pawn.Dead || pawn.Downed || pawn.InMentalState || pawn.mindState?.duty?.def == DutyDefOf.ExitMapRandom
-                        || pawn.Faction == Faction.OfPlayerSilentFail || pawn.IsPrisonerOfColony || !this.map.mapPawns.AllPawns.Contains(pawn))
+                        || pawn.Faction == Faction.OfPlayerSilentFail || pawn.IsPrisonerOfColony ||  pawn.Map is null || pawn.Map != this.map)
                     {
                         outPawns.Add(pawn);
                         pawnOutCount++;
